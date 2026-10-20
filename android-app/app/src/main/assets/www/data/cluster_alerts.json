@@ -1,0 +1,21 @@
+﻿{
+    "alert_type":  "COMMITTEE_CONFLICT",
+    "ticker":  "RPM",
+    "company_name":  "RPM International Inc. Common Stock",
+    "conviction_score":  92,
+    "title_de":  "⚠️ AUSSCHUSS-KONFLIKT",
+    "title_en":  "⚠️ COMMITTEE CONFLICT",
+    "summary_de":  "Ausschuss-Konflikt: Mitglied im House Committee on Transportation and Infrastructure handelt regulierte Branche (Industrial Chemicals and Coatings)",
+    "summary_en":  "Committee conflict: Member of House Committee on Transportation and Infrastructure trading regulated sector: Industrial Chemicals and Coatings",
+    "politician_names":  "David J. Taylor",
+    "politician_party":  "R",
+    "politician_amount":  "$1,001 - $15,000",
+    "insider_names":  "",
+    "insider_roles":  "",
+    "insider_value":  "",
+    "timeframe_start":  "2026-10-09",
+    "timeframe_end":  "2026-10-15",
+    "trade_count":  1,
+    "is_pushed":  false,
+    "created_at":  "2026-10-20T17:43:50Z"
+}

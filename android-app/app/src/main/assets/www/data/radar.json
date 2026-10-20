@@ -1,0 +1,50 @@
+﻿{
+    "updated_at":  "2026-10-20T16:30:47Z",
+    "whale_sentiment_index":  43.9,
+    "whale_mood":  "BÄRISCH (Whales im Short-Modus)",
+    "report_week":  "2026 Report Week 41",
+    "total_congress_analyzed":  5000,
+    "whale_long_contracts":  58001,
+    "report_date":  "2026-10-13T00:00:00.000",
+    "whale_sub_de":  "Großspekulanten halten aktuell 43.9% Long- und 56.1% Short-Positionen (Stichtag: 2026-10-13T00:00:00.000). Trend: BÄRISCH.",
+    "whale_mood_de":  "BÄRISCH (Whales im Short-Modus)",
+    "whale_sub_en":  "Institutional large traders hold 43.9% Long and 56.1% Short positions (As of 2026-10-13T00:00:00.000). Trend: BEARISH.",
+    "badge_en":  "BEARISH",
+    "sec_alerts_count":  100,
+    "whale_mood_en":  "BEARISH (Whales net Short)",
+    "whale_mood_color":  "#f87171",
+    "whale_short_contracts":  73991,
+    "whale_long_formatted":  "58.001",
+    "whale_short_pct":  56.1,
+    "congress_top_buys":  [
+                              {
+                                  "count":  5,
+                                  "ticker":  "MSFT"
+                              },
+                              {
+                                  "count":  3,
+                                  "ticker":  "NXPI"
+                              },
+                              {
+                                  "count":  3,
+                                  "ticker":  "NVDA"
+                              },
+                              {
+                                  "count":  3,
+                                  "ticker":  "ZTS"
+                              },
+                              {
+                                  "count":  2,
+                                  "ticker":  "IBRX"
+                              },
+                              {
+                                  "count":  2,
+                                  "ticker":  "SYY"
+                              }
+                          ],
+    "badge_de":  "BÄRISCH",
+    "status":  "ONLINE",
+    "whale_long_pct":  43.9,
+    "sentiment_key":  "BEARISH",
+    "whale_short_formatted":  "73.991"
+}

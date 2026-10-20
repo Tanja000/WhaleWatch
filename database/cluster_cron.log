@@ -1,0 +1,5 @@
+﻿[2026-10-20 19:43:50] === Starte 15-Minuten Cluster-Analyse (Lookback: 14 Tage) ===
+[2026-10-20 19:43:50] Geladen: 100 Congress Trades, 100 SEC Filings.
+[2026-10-20 19:43:50] Erkannte Alarme: 1
+[2026-10-20 19:43:50] Cluster Alerts erfolgreich exportiert nach: C:\Users\tanja\.gemini\antigravity\projects\WhaleWatch\wwwroot\data\cluster_alerts.json
+[2026-10-20 19:43:50] Cronjob Lauf beendet. Nächster Durchlauf in 15 Minuten.

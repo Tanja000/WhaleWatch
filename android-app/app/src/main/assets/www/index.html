@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>WhaleWatch Pro - Smart Money & Insider Radar</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="theme-color" content="#080b11">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="WhaleWatch">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body class="theme-oled">
+
+  <!-- Mobile Device Simulation Wrapper (Supports Android & iPhone) -->
+  <div class="device-wrapper">
+    <div class="device-chassis device-android" id="device-chassis">
+      
+      <!-- Android Punch Hole Camera Notch (visible in Android mode) -->
+      <div class="camera-notch android-only"></div>
+
+      <!-- iPhone Dynamic Island (visible in iPhone mode) -->
+      <div class="dynamic-island ios-only">
+        <div class="island-camera"></div>
+        <div class="island-sensor"></div>
+      </div>
+
+      <!-- Device Status Bar (Android & iOS layout) -->
+      <div class="device-status-bar" id="device-status-bar">
+        <div class="status-left">
+          <span id="android-clock" class="status-clock">12:30</span>
+          <span class="status-icon-dot android-only"></span>
+        </div>
+        <div class="status-right">
+          <span class="status-tag android-only">5G</span>
+          <div class="ios-signal-bars ios-only">
+            <span></span><span></span><span></span><span></span>
+          </div>
+          <svg class="status-svg" viewBox="0 0 24 24" width="14" height="14">
+            <path fill="currentColor" d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/>
+          </svg>
+          <div class="ios-battery ios-only">
+            <div class="ios-battery-pill"></div>
+            <div class="ios-battery-nipple"></div>
+          </div>
+          <svg class="status-svg android-only" viewBox="0 0 24 24" width="16" height="16">
+            <path fill="currentColor" d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/>
+          </svg>
+          <span class="status-battery android-only">98%</span>
+        </div>
+      </div>
+
+      <!-- App Header Bar -->
+      <header class="app-header">
+        <div class="header-branding">
+          <div class="app-logo">
+            <img src="icon-192.png" alt="WhaleWatch Logo">
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">WHALE<span class="accent-cyan">WATCH</span> <span class="badge-pro">PRO</span></div>
+            <div class="brand-subtitle">
+              <span class="pulse-indicator"></span>
+              <span id="header-status-text">CFTC · KONGRESS · SEC LIVE</span>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button id="btn-refresh" class="icon-btn refresh-btn" title="Daten aktualisieren">
+            <span class="btn-icon">🔄</span>
+          </button>
+          <button id="btn-theme-toggle" class="icon-btn theme-toggle-btn" title="Dunkel- / Hell-Modus">
+            <span id="theme-btn-icon">🌙</span>
+          </button>
+          <button id="btn-lang-toggle" class="flag-btn" title="English (🇬🇧) / Deutsch (🇩🇪)">
+            <span id="lang-flag-icon">🇬🇧</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Viewport Scroll Container -->
+      <main class="app-content" id="app-viewport">
+
+        <!-- ================= TAB 1: RADAR (NUR COT WHALE GRAFIK) ================= -->
+        <section id="screen-radar" class="screen active">
+          
+          <!-- Hero Whale Mood Card: Die exklusive COT Whale Grafik -->
+          <div class="card hero-radar-card radar-standalone">
+            <div class="hero-header">
+              <div class="hero-label" data-i18n="hero_radar_title">CFTC COT WHALE RADAR</div>
+              <div class="hero-badge" id="radar-sentiment-badge">BÄRISCH</div>
+            </div>
+            
+            <div class="hero-meter-container">
+              <div class="meter-dial" id="meter-dial-ring">
+                <div class="dial-value" id="radar-gauge-val">44%</div>
+                <div class="dial-sub" id="radar-gauge-sub" data-i18n="dial_long">LONG</div>
+              </div>
+              <div class="meter-info">
+                <h3 id="radar-whale-mood">BÄRISCH (Whales im Short-Modus)</h3>
+                <p id="radar-whale-sub">Großspekulanten halten 43.9% Long- und 56.1% Short-Positionen.</p>
+              </div>
+            </div>
+
+            <!-- Dynamic Long & Short Dual Ratio Bar (Determined from newest COT report) -->
+            <div class="radar-ratio-container">
+              <div class="radar-ratio-labels">
+                <span class="ratio-long"><span class="dot-green"></span> <strong id="ratio-long-label">Long: 43.9%</strong> <span class="contracts-sub" id="ratio-long-contracts">(58.001)</span></span>
+                <span class="ratio-short"><strong id="ratio-short-label">Short: 56.1%</strong> <span class="contracts-sub" id="ratio-short-contracts">(73.991)</span> <span class="dot-red"></span></span>
+              </div>
+              <div class="radar-dual-bar">
+                <div id="radar-bar-long" class="radar-bar-long" style="width: 44%;"></div>
+                <div id="radar-bar-short" class="radar-bar-short" style="width: 56%;"></div>
+              </div>
+              <div class="cftc-meta-pill">
+                <span><span data-i18n="cftc_source">CFTC Stichtag:</span> <strong id="radar-report-date">13.10.2026</strong></span>
+                <span class="cftc-meta-tag" id="radar-report-week">Woche 41, 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Super-Signale: CEO + Politiker (Whale Confluence) -->
+          <div class="super-signals-section">
+            <div class="super-signals-title">
+              <span>🔥 KOMBI-SIGNAL: CEO + POLITIKER</span>
+              <span class="badge-pro">HIGH CONVICTION</span>
+            </div>
+            <div id="radar-super-signals-list" class="cards-stack">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ================= TAB 2: COT WALE (CFTC) ================= -->
+        <section id="screen-cot" class="screen">
+          <div class="screen-intro">
+            <h2>Wo stehen die Wale?</h2>
+            <p data-i18n="cot_desc">Commitments of Traders (COT) der US-Aufsichtsbehörde CFTC. Zeigt die echten Netto-Positionen institutioneller Hedge-Fonds vs. Kleinanleger.</p>
+          </div>
+
+          <!-- Category Filter Tabs -->
+          <div class="filter-pills" id="cot-category-filters">
+            <button class="pill active" data-cat="all">Alle Märkte</button>
+            <button class="pill" data-cat="indices">📈 US-Indizes</button>
+            <button class="pill" data-cat="commodities">🛢️ Rohstoffe</button>
+            <button class="pill" data-cat="rates">💵 Zinsen & Anleihen</button>
+            <button class="pill" data-cat="crypto">₿ Krypto</button>
+          </div>
+
+          <!-- COT Report Meta Info -->
+          <div class="meta-info-card">
+            <div><strong>CFTC Report:</strong> <span id="cot-report-week">Lade...</span></div>
+            <div><strong>Stichtag:</strong> <span id="cot-report-date">-</span></div>
+          </div>
+
+          <!-- COT Markets List -->
+          <div id="cot-markets-container" class="cards-stack">
+            <div class="loading-spinner-row"><div class="spinner"></div> Lade CFTC COT-Daten...</div>
+          </div>
+        </section>
+
+        <!-- ================= TAB 3: KONGRESS (STOCK ACT) ================= -->
+        <section id="screen-congress" class="screen">
+          <div class="screen-intro">
+            <h2>US-Kongress Trades</h2>
+            <p>Offenlegungen nach dem US STOCK Act. Wann kaufen oder verkaufen Senatoren und Abgeordnete Aktien?</p>
+          </div>
+
+          <!-- Search & Filter Controls -->
+          <div class="congress-filters-box">
+            <!-- Intelligence Mode Selector -->
+            <div class="filter-pills" id="congress-mode-selector" style="margin-bottom: 10px;">
+              <button class="pill active" data-mode="all">Alle Trades</button>
+              <button class="pill" data-mode="conflicts">⚠️ Ausschuss-Konflikte</button>
+              <button class="pill" data-mode="bipartisan">🤝 Überparteilich</button>
+              <button class="pill" data-mode="sentiment">⚖️ Partei-Sentiment</button>
+            </div>
+
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="congress-search-input" placeholder="Politiker oder Ticker suchen (z.B. Pelosi, NVDA)...">
+            </div>
+
+            <div class="filter-pills-wrap">
+              <div class="filter-pills" id="congress-type-filters">
+                <button class="pill active" data-type="all">Alle</button>
+                <button class="pill" data-type="buy">🟢 Käufe (Buys)</button>
+                <button class="pill" data-type="sale">🔴 Verkäufe (Sales)</button>
+              </div>
+              <div class="filter-pills mt-1" id="congress-party-filters">
+                <button class="pill active" data-party="all">Alle Parteien</button>
+                <button class="pill" data-party="D">🔵 Demokraten</button>
+                <button class="pill" data-party="R">🔴 Republikaner</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Summary stats strip -->
+          <div class="congress-stats-strip">
+            <div class="stat-item">
+              <div class="stat-num" id="cg-stat-total">78.6k</div>
+              <div class="stat-lbl">Trades in DB</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num" id="cg-stat-filers">452</div>
+              <div class="stat-lbl">Politiker</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num val-amber" id="cg-stat-late">27%</div>
+              <div class="stat-lbl">Verspätet (>45T)</div>
+            </div>
+          </div>
+
+          <!-- Trades List -->
+          <div id="congress-trades-container" class="cards-stack">
+            <div class="loading-spinner-row"><div class="spinner"></div> Lade Kongress-Trades...</div>
+          </div>
+        </section>
+
+        <!-- ================= TAB 4: SEC INSIDERS (FORM 4) ================= -->
+        <section id="screen-sec" class="screen">
+          <div class="screen-intro">
+            <h2>SEC Form 4 Insider-Radar</h2>
+            <p>Echtzeit-Meldungen von CEOs, CFOs und Großaktionären (10%+). Cluster-Käufe mehrerer Vorstände signalisieren höchste Überzeugung.</p>
+          </div>
+
+          <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="sec-search-input" placeholder="Unternehmen oder Insider suchen...">
+          </div>
+
+          <!-- Interactive SEC Filter Badges / Buttons (Clickable) -->
+          <div class="sec-stats-strip">
+            <button class="sec-stat-badge-btn active" id="sec-filter-all-btn" title="Alle Filings anzeigen">
+              <span class="live-dot-green"></span>
+              <span id="sec-alerts-count">0</span> <span data-i18n="sec_all_filings_btn">Neue Filings</span>
+            </button>
+            <button class="sec-stat-badge-btn amber" id="sec-filter-cluster-btn" title="Nur Cluster-Alarme anzeigen">
+              <span>🔥</span> <span id="sec-cluster-count">0</span> <span data-i18n="sec_cluster_btn">Cluster-Alarme</span>
+            </button>
+          </div>
+
+          <!-- Aktionärs-Wissen: SEC Form 4 Guide -->
+          <div class="sec-guide-card" id="sec-guide-card">
+            <div class="sec-guide-header" id="sec-guide-toggle">
+              <div class="sec-guide-title">
+                <span class="sec-guide-icon">💡</span>
+                <span data-i18n="sec_guide_title">Aktionärs-Kompass: Was bedeuten die Codes?</span>
+              </div>
+              <span class="sec-guide-chevron" id="sec-guide-chevron">▼</span>
+            </div>
+            <div class="sec-guide-content" id="sec-guide-content" style="display:none;">
+              <div class="sec-guide-grid">
+                <div class="sec-guide-item buy">
+                  <div class="sec-guide-badge">CODE P · KAUF</div>
+                  <div class="sec-guide-desc"><strong>Open Market Kauf:</strong> Vorstand investiert eigenes privates Geld. Historisch das stärkste Kurssignal für Unterbewertung!</div>
+                </div>
+                <div class="sec-guide-item cluster">
+                  <div class="sec-guide-badge">🔥 CLUSTER</div>
+                  <div class="sec-guide-desc"><strong>Häufungs-Alarm:</strong> Mehrere Vorstände/Direktoren kaufen zeitgleich. Höchste Überzeugung der Unternehmensspitze!</div>
+                </div>
+                <div class="sec-guide-item sale">
+                  <div class="sec-guide-badge">CODE S · VERKAUF</div>
+                  <div class="sec-guide-desc"><strong>Open Market Verkauf:</strong> Oft Steuern oder Portfolio-Diversifikation. Erst bei mehreren Verkäufen gleichzeitig bärisch.</div>
+                </div>
+                <div class="sec-guide-item grant">
+                  <div class="sec-guide-badge">CODE A · ZUTEILUNG</div>
+                  <div class="sec-guide-desc"><strong>Award / Aktienbonus:</strong> Reguläre Vergütung lt. Vertrag. Kein eigenes Kapital geflossen, kursneutral.</div>
+                </div>
+              </div>
+              <div class="sec-guide-footer">
+                <span>👔 <strong>Vorstands-Hierarchie:</strong> Käufe von <strong>CEO / CFO</strong> haben statistisch 3x höhere Vorhersagekraft als von einfachen Aufsichtsräten.</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="sec-filings-container" class="cards-stack">
+            <div class="loading-spinner-row"><div class="spinner"></div> Lade SEC Form 4 Alerts...</div>
+          </div>
+        </section>
+
+        <!-- ================= TAB 5: WATCHLIST ================= -->
+        <section id="screen-watchlist" class="screen">
+          <div class="screen-intro">
+            <h2>Persönliche Watchlist</h2>
+            <p>Beobachte deine Aktien auf Smart Money Aktivitäten: Wurde kürzlich von Politikern gekauft? Gibt es neue Form 4 Filings?</p>
+          </div>
+
+          <!-- Add Ticker Input Bar -->
+          <div class="add-ticker-bar">
+            <input type="text" id="add-ticker-input" placeholder="Ticker hinzufügen (z.B. AAPL, NVDA, TSLA)..." maxlength="8">
+            <button id="btn-add-ticker" class="btn-primary">+ Hinzufügen</button>
+          </div>
+
+          <!-- Quick Suggestion Chips -->
+          <div class="popular-chips-row">
+            <span class="chips-label">Beliebt:</span>
+            <button class="chip-add" data-ticker="NVDA">NVDA</button>
+            <button class="chip-add" data-ticker="MSFT">MSFT</button>
+            <button class="chip-add" data-ticker="AAPL">AAPL</button>
+            <button class="chip-add" data-ticker="TSLA">TSLA</button>
+            <button class="chip-add" data-ticker="PLTR">PLTR</button>
+            <button class="chip-add" data-ticker="AMZN">AMZN</button>
+          </div>
+
+          <!-- Watchlist Items -->
+          <div id="watchlist-container" class="cards-stack">
+            <!-- Injected Watchlist Cards -->
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Bottom Gesture Bar & Navigation Bar (5 Tabs) -->
+      <nav class="android-nav-bar">
+        <button class="nav-item active" data-screen="radar">
+          <span class="nav-icon">📡</span>
+          <span class="nav-label" data-i18n="nav_radar">Radar</span>
+        </button>
+        <button class="nav-item" data-screen="cot">
+          <span class="nav-icon">🐋</span>
+          <span class="nav-label" data-i18n="nav_cot">COT Wale</span>
+        </button>
+        <button class="nav-item" data-screen="congress">
+          <span class="nav-icon">🏛️</span>
+          <span class="nav-label" data-i18n="nav_congress">Kongress</span>
+        </button>
+        <button class="nav-item" data-screen="sec">
+          <span class="nav-icon">🏢</span>
+          <span class="nav-label" data-i18n="nav_sec">SEC Insider</span>
+        </button>
+        <button class="nav-item" data-screen="watchlist">
+          <span class="nav-icon">⭐</span>
+          <span class="nav-label" data-i18n="nav_watchlist">Watchlist</span>
+        </button>
+      </nav>
+
+      <!-- Android Home Bar Pill -->
+      <div class="android-gesture-pill android-only"></div>
+
+      <!-- iOS Home Indicator -->
+      <div class="ios-home-bar ios-only"></div>
+
+    </div>
+  </div>
+
+  <!-- Detail Dialog / Modal -->
+  <div id="modal-detail" class="modal-backdrop" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-ticker-title">TICKER DETAILS</div>
+        <button id="modal-close-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-content">
+        <!-- Content injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SEC Insider Event Detail Modal -->
+  <div id="modal-sec-event" class="modal-backdrop" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title" id="modal-sec-event-title">SEC FORM 4 FILING DETAILS</div>
+        <button id="modal-sec-event-close-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-sec-event-content">
+        <!-- Content injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script src="data/data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
