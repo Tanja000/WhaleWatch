@@ -24,6 +24,8 @@ import com.example.whalewatch.ui.screens.*
 fun WhaleWatchApp(
     viewModel: WhaleViewModel = viewModel()
 ) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+
     val activeTab by viewModel.activeTab.collectAsState()
     val isDarkTheme by viewModel.isDarkTheme.collectAsState()
     val language by viewModel.language.collectAsState()
@@ -100,7 +102,14 @@ fun WhaleWatchApp(
                     },
                     actions = {
                         // 🔄 Refresh Button
-                        IconButton(onClick = { viewModel.refresh() }) {
+                        IconButton(onClick = {
+                            viewModel.refresh()
+                            android.widget.Toast.makeText(
+                                context,
+                                if (isEn) "Data refreshed successfully" else "Daten erfolgreich aktualisiert",
+                                android.widget.Toast.LENGTH_SHORT
+                            ).show()
+                        }) {
                             Text("🔄", fontSize = 16.sp)
                         }
 

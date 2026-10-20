@@ -823,6 +823,9 @@ try {
         $res.AddHeader("Access-Control-Allow-Origin", "*")
         $res.AddHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
         $res.AddHeader("Access-Control-Allow-Headers", "Content-Type")
+        $res.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+        $res.AddHeader("Pragma", "no-cache")
+        $res.AddHeader("Expires", "0")
 
         if ($req.HttpMethod -eq "OPTIONS") {
             $res.StatusCode = 204

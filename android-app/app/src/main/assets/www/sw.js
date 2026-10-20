@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'whalewatch-v1';
+const CACHE_NAME = 'whalewatch-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -7,14 +7,15 @@ const ASSETS = [
   './manifest.json',
   './favicon.ico',
   './icon-192.png',
-  './icon-512.png'
+  './icon-512.png',
+  './data/data.js'
 ];
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
-  );
   self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)).catch(() => {})
+  );
 });
 
 self.addEventListener('activate', (e) => {
@@ -23,21 +24,19 @@ self.addEventListener('activate', (e) => {
       return Promise.all(
         keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
       );
-    })
+    }).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
+// Network-first strategy: always fetch fresh code and data, fall back to offline cache only if network fails
 self.addEventListener('fetch', (e) => {
-  if (e.request.url.includes('/api/')) {
-    // Network first for live APIs
-    e.respondWith(
-      fetch(e.request).catch(() => caches.match(e.request))
-    );
-  } else {
-    // Cache first for UI assets
-    e.respondWith(
-      caches.match(e.request).then((res) => res || fetch(e.request))
-    );
-  }
+  e.respondWith(
+    fetch(e.request).then((res) => {
+      if (res && res.status === 200 && e.request.method === 'GET') {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy)).catch(() => {});
+      }
+      return res;
+    }).catch(() => caches.match(e.request))
+  );
 });

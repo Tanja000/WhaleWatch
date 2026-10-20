@@ -13,6 +13,10 @@ if %ERRORLEVEL% NEQ 0 (
     ping 127.0.0.1 -n 3 >nul
 )
 
+:: Purge stale browser service worker cache to ensure instant fresh code & data
+if exist "%LOCALAPPDATA%\WhaleWatchAndroidProfile\Default\Service Worker" rmdir /s /q "%LOCALAPPDATA%\WhaleWatchAndroidProfile\Default\Service Worker" >nul 2>&1
+if exist "%LOCALAPPDATA%\WhaleWatchIosProfile\Default\Service Worker" rmdir /s /q "%LOCALAPPDATA%\WhaleWatchIosProfile\Default\Service Worker" >nul 2>&1
+
 :: Launch Chrome in standalone device simulation window
 set CHROME="C:\Program Files\Google\Chrome\Application\chrome.exe"
 if exist %CHROME% (
