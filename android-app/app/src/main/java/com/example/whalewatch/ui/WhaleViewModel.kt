@@ -45,6 +45,11 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     private val _secQuery = MutableStateFlow("")
     val secQuery: StateFlow<String> = _secQuery.asStateFlow()
 
+    private val _lastUpdatedTime = MutableStateFlow(
+        java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+    )
+    val lastUpdatedTime: StateFlow<String> = _lastUpdatedTime.asStateFlow()
+
     private val _selectedAnalysisTicker = MutableStateFlow<String?>(null)
     val selectedAnalysisTicker: StateFlow<String?> = _selectedAnalysisTicker.asStateFlow()
 
@@ -99,7 +104,7 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
-    // Filtered SEC Alerts
+    // Filtered SEC Alerts (Single Filings only, no clusters, no duplicates)
     val filteredSecAlerts: StateFlow<List<SecAlert>> = combine(
         repository.secAlerts,
         _secQuery
@@ -108,6 +113,18 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
             it.ticker.contains(q, ignoreCase = true) ||
             it.issuer.contains(q, ignoreCase = true) ||
             it.reportingOwner.contains(q, ignoreCase = true)
+        }
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
+    // Filtered SEC Clusters (Grouped by company, 1 card per company, sorted descending by cluster count)
+    val filteredSecClusters: StateFlow<List<SecCluster>> = combine(
+        repository.secClusters,
+        _secQuery
+    ) { clusters, q ->
+        if (q.isEmpty()) clusters else clusters.filter { c ->
+            c.ticker.contains(q, ignoreCase = true) ||
+            c.issuer.contains(q, ignoreCase = true) ||
+            c.filings.any { f -> f.reportingOwner.contains(q, ignoreCase = true) }
         }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
@@ -172,6 +189,8 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun refresh() {
+        val now = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+        _lastUpdatedTime.value = now
         viewModelScope.launch {
             repository.loadData()
         }

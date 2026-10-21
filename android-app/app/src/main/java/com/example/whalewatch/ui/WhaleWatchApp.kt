@@ -45,11 +45,18 @@ fun WhaleWatchApp(
     val congressMode by viewModel.congressMode.collectAsState()
 
     val secAlerts by viewModel.filteredSecAlerts.collectAsState()
+    val secClusters by viewModel.filteredSecClusters.collectAsState()
     val secQuery by viewModel.secQuery.collectAsState()
+    val lastUpdatedTime by viewModel.lastUpdatedTime.collectAsState()
 
     val watchlist by viewModel.watchlist.collectAsState()
     val analysisTicker by viewModel.selectedAnalysisTicker.collectAsState()
     var selectedSecAlert by remember { mutableStateOf<com.example.whalewatch.data.model.SecAlert?>(null) }
+    var selectedSecCluster by remember { mutableStateOf<com.example.whalewatch.data.model.SecCluster?>(null) }
+    var selectedCotMarket by remember { mutableStateOf<com.example.whalewatch.data.model.CotMarket?>(null) }
+    var selectedCongressTrade by remember { mutableStateOf<com.example.whalewatch.data.model.CongressTrade?>(null) }
+    var selectedBipartisanStock by remember { mutableStateOf<com.example.whalewatch.data.model.BipartisanStock?>(null) }
+    var selectedPartyStock by remember { mutableStateOf<com.example.whalewatch.data.model.TopPartyStock?>(null) }
 
     WhaleWatchTheme(darkTheme = isDarkTheme) {
         Scaffold(
@@ -92,7 +99,7 @@ fun WhaleWatchApp(
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Text(
-                                        text = if (isEn) "STOCK ACT & SEC EDGAR LIVE" else "STOCK ACT & SEC EDGAR LIVE",
+                                        text = if (isEn) "Updated: $lastUpdatedTime" else "Aktualisiert: $lastUpdatedTime",
                                         fontSize = 9.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -101,12 +108,13 @@ fun WhaleWatchApp(
                         }
                     },
                     actions = {
-                        // 🔄 Refresh Button
+                        // 🔄 Refresh Button with date & time toast
                         IconButton(onClick = {
                             viewModel.refresh()
+                            val timeStr = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
                             android.widget.Toast.makeText(
                                 context,
-                                if (isEn) "Data refreshed successfully" else "Daten erfolgreich aktualisiert",
+                                if (isEn) "Updated: $timeStr" else "Aktualisiert: $timeStr",
                                 android.widget.Toast.LENGTH_SHORT
                             ).show()
                         }) {
@@ -160,6 +168,8 @@ fun WhaleWatchApp(
                         TabScreen.RADAR -> RadarScreen(
                             radar = radarData,
                             superSignals = superSignals,
+                            watchlist = watchlist,
+                            onToggleWatchlist = { viewModel.toggleWatchlist(it) },
                             onOpenAnalysis = { viewModel.openAnalysis(it) },
                             isEn = isEn
                         )
@@ -167,6 +177,7 @@ fun WhaleWatchApp(
                             markets = cotMarkets,
                             selectedCategory = selectedCotCat,
                             onSelectCategory = { viewModel.setCotCategory(it) },
+                            onMarketClick = { selectedCotMarket = it },
                             isEn = isEn
                         )
                         TabScreen.CONGRESS -> CongressScreen(
@@ -180,14 +191,19 @@ fun WhaleWatchApp(
                             congressMode = congressMode,
                             onSelectMode = { viewModel.setCongressMode(it) },
                             partySentiment = partySentiment,
+                            onTradeClick = { selectedCongressTrade = it },
+                            onBipartisanClick = { selectedBipartisanStock = it },
+                            onPartyStockClick = { selectedPartyStock = it },
                             onOpenAnalysis = { viewModel.openAnalysis(it) },
                             isEn = isEn
                         )
                         TabScreen.SEC -> SecScreen(
                             alerts = secAlerts,
+                            clusters = secClusters,
                             searchQuery = secQuery,
                             onSearchChange = { viewModel.setSecQuery(it) },
                             onAlertClick = { selectedSecAlert = it },
+                            onClusterClick = { selectedSecCluster = it },
                             onOpenAnalysis = { viewModel.openAnalysis(it) },
                             isEn = isEn
                         )
@@ -201,7 +217,7 @@ fun WhaleWatchApp(
                     }
                 }
 
-                // Modal SEC Insider Event Detail Dialog
+                // Modal SEC Single Alert Detail Dialog
                 selectedSecAlert?.let { alert ->
                     val isOnWatchlist = alert.ticker.isNotBlank() && watchlist.contains(alert.ticker)
                     SecDetailDialog(
@@ -213,6 +229,78 @@ fun WhaleWatchApp(
                             viewModel.openAnalysis(ticker)
                         },
                         onDismiss = { selectedSecAlert = null },
+                        isEn = isEn
+                    )
+                }
+
+                // Modal SEC Cluster Detail Dialog (All Contributors Listed)
+                selectedSecCluster?.let { cluster ->
+                    val isOnWatchlist = cluster.ticker.isNotBlank() && watchlist.contains(cluster.ticker)
+                    SecClusterDetailDialog(
+                        cluster = cluster,
+                        isOnWatchlist = isOnWatchlist,
+                        onToggleWatchlist = { if (cluster.ticker.isNotBlank()) viewModel.toggleWatchlist(cluster.ticker) },
+                        onOpenAnalysis = { ticker ->
+                            selectedSecCluster = null
+                            viewModel.openAnalysis(ticker)
+                        },
+                        onDismiss = { selectedSecCluster = null },
+                        isEn = isEn
+                    )
+                }
+
+                // Modal COT Market Detail Dialog
+                selectedCotMarket?.let { market ->
+                    CotDetailDialog(
+                        market = market,
+                        onDismiss = { selectedCotMarket = null },
+                        isEn = isEn
+                    )
+                }
+
+                // Modal Congress Trade Detail Dialog
+                selectedCongressTrade?.let { trade ->
+                    val isOnWatchlist = trade.ticker.isNotBlank() && watchlist.contains(trade.ticker)
+                    CongressDetailDialog(
+                        trade = trade,
+                        isOnWatchlist = isOnWatchlist,
+                        onToggleWatchlist = { if (trade.ticker.isNotBlank()) viewModel.toggleWatchlist(trade.ticker) },
+                        onDismiss = { selectedCongressTrade = null },
+                        isEn = isEn
+                    )
+                }
+
+                // Modal Bipartisan Buy Detail Dialog
+                selectedBipartisanStock?.let { stock ->
+                    val isOnWatchlist = stock.ticker.isNotBlank() && watchlist.contains(stock.ticker)
+                    BipartisanDetailDialog(
+                        stock = stock,
+                        trades = congressTrades,
+                        isOnWatchlist = isOnWatchlist,
+                        onToggleWatchlist = { if (stock.ticker.isNotBlank()) viewModel.toggleWatchlist(stock.ticker) },
+                        onTradeClick = { trade ->
+                            selectedBipartisanStock = null
+                            selectedCongressTrade = trade
+                        },
+                        onDismiss = { selectedBipartisanStock = null },
+                        isEn = isEn
+                    )
+                }
+
+                // Modal Party Sentiment Detail Dialog
+                selectedPartyStock?.let { stock ->
+                    val isOnWatchlist = stock.ticker.isNotBlank() && watchlist.contains(stock.ticker)
+                    PartySentimentDetailDialog(
+                        stock = stock,
+                        partySentiment = partySentiment,
+                        trades = congressTrades,
+                        isOnWatchlist = isOnWatchlist,
+                        onToggleWatchlist = { if (stock.ticker.isNotBlank()) viewModel.toggleWatchlist(stock.ticker) },
+                        onTradeClick = { trade ->
+                            selectedPartyStock = null
+                            selectedCongressTrade = trade
+                        },
+                        onDismiss = { selectedPartyStock = null },
                         isEn = isEn
                     )
                 }

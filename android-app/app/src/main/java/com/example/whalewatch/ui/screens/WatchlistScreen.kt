@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccent
 import com.example.whalewatch.theme.RedSell
 
@@ -198,9 +199,54 @@ fun WatchlistCard(
                 }
             }
 
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Multi-Source Tracking Indicators
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Surface(
+                    color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                    shape = RoundedCornerShape(6.dp)
+                ) {
+                    Text(
+                        text = "🐋 COT",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    )
+                }
+                Surface(
+                    color = CyanAccent.copy(alpha = 0.15f),
+                    shape = RoundedCornerShape(6.dp)
+                ) {
+                    Text(
+                        text = "🏛️ Kongress",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = CyanAccent,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    )
+                }
+                Surface(
+                    color = AmberWhale.copy(alpha = 0.15f),
+                    shape = RoundedCornerShape(6.dp)
+                ) {
+                    Text(
+                        text = "🏢 SEC Insider",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = AmberWhale,
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(10.dp))
 
-            // Open Full Analysis Button
+            // Details Button (Einheitlich "Details" wie in allen anderen Tabs)
             Button(
                 onClick = onOpenAnalysis,
                 modifier = Modifier.fillMaxWidth(),
@@ -212,8 +258,8 @@ fun WatchlistCard(
                 border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f))
             ) {
                 Text(
-                    text = if (isEn) "📊 Open Full Analysis" else "📊 Vollanalyse öffnen",
-                    fontSize = 13.sp,
+                    text = if (isEn) "Details" else "Details",
+                    fontSize = 12.sp,
                     fontWeight = FontWeight.Bold
                 )
             }

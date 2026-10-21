@@ -36,7 +36,22 @@ data class CotMarket(
     val signalColor: String,
     val whaleBullishPct: Double,
     val retailBullishPct: Double,
-    val openInterest: Long = 0
+    val openInterest: Long = 0,
+    val reportDate: String = "2026-10-13",
+    val publicationDate: String = "2026-10-16",
+    val reportWeek: String = "Woche 41, 2026",
+    val whaleLong: Long = 0,
+    val whaleShort: Long = 0,
+    val whaleNet: Long = 0,
+    val whaleChangeNet: Long = 0,
+    val retailLong: Long = 0,
+    val retailShort: Long = 0,
+    val retailNet: Long = 0,
+    val commercialLong: Long = 0,
+    val commercialShort: Long = 0,
+    val commercialNet: Long = 0,
+    val marketRaw: String = "",
+    val cftcUrl: String = "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
 )
 
 data class CongressTrade(
@@ -81,14 +96,31 @@ data class SecAlert(
     val accessionNumber: String = "",
     val filingUrl: String = "",
     val securityTitle: String = "Common Stock",
-    val filingTime: String = ""
+    val filingTime: String = "",
+    val securityBeneficials: Long = 0,
+    val securityBeneficialsFormatted: String = "",
+    val ownershipNature: String = "D",
+    val investorExplanationDe: String = "",
+    val price: Double = 0.0,
+    val shares: Long = 0
+)
+
+data class SecCluster(
+    val id: String,
+    val issuer: String,
+    val ticker: String,
+    val clusterCount: Int,
+    val filingDate: String,
+    val filingTime: String,
+    val isBuy: Boolean,
+    val filings: List<SecAlert> = emptyList()
 )
 
 data class SuperSignal(
     val ticker: String,
     val companyName: String,
-    val signalTitleDe: String = "🔥 SUPER-SIGNAL: CEO + KONGRESS",
-    val signalTitleEn: String = "🔥 SUPER-SIGNAL: CEO + CONGRESS",
+    val signalTitleDe: String = "🔥 KOMBI-SIGNAL: COT + KONGRESS + SEC",
+    val signalTitleEn: String = "🔥 SUPER-SIGNAL: COT + CONGRESS + SEC",
     val convictionScore: Int = 96,
     val politicianName: String,
     val politicianParty: String,
@@ -99,6 +131,10 @@ data class SuperSignal(
     val insiderShares: String,
     val insiderValue: String,
     val insiderDate: String,
+    val cotMarket: String = "Nasdaq-100 / QQQ",
+    val cotWhaleSentiment: String = "70.0% Whale Long",
+    val cotWhaleFlow: String = "+8.000 Zukauf",
+    val cotTimeframe: String = "Stichtag Di, 13.10. / Bericht Fr, 16.10.",
     val sector: String,
     val descriptionDe: String,
     val descriptionEn: String
@@ -140,6 +176,11 @@ data class StockAnalysis(
     val congressSales: Int,
     val secAlertsCount: Int,
     val cotContext: String,
+    val cotMarketName: String = "US-Equity Benchmark / QQQ",
+    val cotWhaleLongPct: Double = 70.0,
+    val cotWhaleShortPct: Double = 30.0,
+    val cotWhaleFlow: String = "+8.000 Kontrakte Zufluss",
+    val cotTimeframe: String = "Stichtag: Di, 13.10. · Veröffentlichung: Fr, 16.10.2026 (CFTC)",
     val superSignal: SuperSignal? = null,
     val recentTrades: List<CongressTrade> = emptyList(),
     val recentSec: List<SecAlert> = emptyList()

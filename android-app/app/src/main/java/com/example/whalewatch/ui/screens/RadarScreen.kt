@@ -1,5 +1,6 @@
 package com.example.whalewatch.ui.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,6 +8,9 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +37,9 @@ fun RadarScreen(
     superSignals: List<SuperSignal>,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    watchlist: Set<String> = emptySet(),
+    onToggleWatchlist: ((String) -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -42,14 +48,14 @@ fun RadarScreen(
             .padding(14.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Hero Whale Card (COT Whale Grafik)
+        // ================= HERO WHALE CARD =================
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface
             ),
-            border = androidx.compose.foundation.BorderStroke(
+            border = BorderStroke(
                 1.dp,
                 MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)
             ),
@@ -74,9 +80,11 @@ fun RadarScreen(
                         letterSpacing = 0.8.sp
                     )
 
+                    val isBullish = radar.whaleLongPct >= 50.0
+                    val badgeColor = if (isBullish) GreenBuy else RedSell
                     val badgeText = if (isEn) radar.badgeEn else radar.badgeDe
                     Surface(
-                        color = RedSell,
+                        color = badgeColor,
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
@@ -106,8 +114,8 @@ fun RadarScreen(
                             val arcSize = size.width - strokeWidth
                             val topLeft = Offset(strokeWidth / 2, strokeWidth / 2)
 
-                            val longSweep = (radar.whaleLongPct / 100.0 * 360.0).toFloat()
-                            val shortSweep = (360f - longSweep)
+                            val longSweep = (radar.whaleLongPct / 100.0 * 360.0).toFloat().coerceIn(0f, 360f)
+                            val shortSweep = (360f - longSweep).coerceIn(0f, 360f)
 
                             // 1. Long Arc (GREEN)
                             drawArc(
@@ -132,11 +140,11 @@ fun RadarScreen(
                             )
                         }
 
-                        // Center percentage text in Green
+                        // Center percentage text
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
                                 text = "${radar.whaleLongPct.toInt()}%",
-                                color = GreenBuy,
+                                color = if (radar.whaleLongPct >= 50.0) GreenBuy else RedSell,
                                 fontSize = 21.sp,
                                 fontWeight = FontWeight.ExtraBold
                             )
@@ -157,7 +165,7 @@ fun RadarScreen(
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Spacer(modifier = Modifier.height(3.dp))
+                        Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = if (isEn) radar.whaleSubEn else radar.whaleSubDe,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -180,11 +188,11 @@ fun RadarScreen(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(
                             modifier = Modifier
-                                .size(7.dp)
+                                .size(8.dp)
                                 .clip(CircleShape)
                                 .background(GreenBuy)
                         )
-                        Spacer(modifier = Modifier.width(5.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "Long: ${radar.whaleLongPct}% ",
                             color = GreenBuy,
@@ -210,10 +218,10 @@ fun RadarScreen(
                             fontSize = 11.5.sp,
                             fontWeight = FontWeight.Bold
                         )
-                        Spacer(modifier = Modifier.width(5.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Box(
                             modifier = Modifier
-                                .size(7.dp)
+                                .size(8.dp)
                                 .clip(CircleShape)
                                 .background(RedSell)
                         )
@@ -232,20 +240,20 @@ fun RadarScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .weight(radar.whaleLongPct.toFloat())
+                            .weight(radar.whaleLongPct.toFloat().coerceAtLeast(1f))
                             .background(GreenBuy)
                     )
                     Box(
                         modifier = Modifier
                             .fillMaxHeight()
-                            .weight(radar.whaleShortPct.toFloat())
+                            .weight(radar.whaleShortPct.toFloat().coerceAtLeast(1f))
                             .background(RedSell)
                     )
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                // CFTC Meta Pill
+                // Stichtag Pill
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
                     shape = RoundedCornerShape(8.dp),
@@ -275,9 +283,100 @@ fun RadarScreen(
             }
         }
 
+        Spacer(modifier = Modifier.height(12.dp))
+
+        // ================= NEU: ZEITSPANNEN & BERICHTS-ZYKLUS INFO CARD =================
+        Card(
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(14.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f)
+            ),
+            border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.35f))
+        ) {
+            Column(modifier = Modifier.padding(14.dp)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("⏱️", fontSize = 14.sp)
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text(
+                        text = if (isEn) "CFTC COT TIMEFRAMES & RELEASE CYCLE" else "CFTC COT ZEITSPANNEN & BERICHTSZYKLUS",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = CyanAccent,
+                        letterSpacing = 0.5.sp
+                    )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Stichtag Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = if (isEn) "📅 Cut-off Date (Data Freeze):" else "📅 Stichtag (Datenerhebung):",
+                        fontSize = 11.5.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = if (isEn) "Every Tuesday (15:30 EST)" else "Jeden Dienstag (Börsenschluss)",
+                        fontSize = 11.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Veröffentlichung Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = if (isEn) "📢 Release Day (CFTC Portal):" else "📢 Offizielle Veröffentlichung:",
+                        fontSize = 11.5.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = if (isEn) "Every Friday (21:30 CET)" else "Jeden Freitag (21:30 Uhr MEZ)",
+                        fontSize = 11.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = GreenBuy
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+
+                // Gültigkeit Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = if (isEn) "⏳ Validity Period:" else "⏳ Gültigkeitszeitspanne:",
+                        fontSize = 11.5.sp,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                    Text(
+                        text = if (isEn) "1 Week (until next Friday report)" else "1 Woche (bis zum nächsten Report)",
+                        fontSize = 11.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = AmberWhale
+                    )
+                }
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = if (isEn) "CFTC data shows institutional positioning with a 3-day reporting lag. Whales position for multi-week macroeconomic trends."
+                           else "CFTC-Daten zeigen reale Großpositionen mit 3 Tagen Meldeverzögerung. Institutionelle Wale positionieren sich auf mehrwöchige Trends.",
+                    fontSize = 10.5.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 14.sp
+                )
+            }
+        }
+
         Spacer(modifier = Modifier.height(18.dp))
 
-        // ================= FEATURE 3: KOMBI-SIGNAL CEO + POLITIKER =================
+        // ================= KOMBI-SIGNALE AUS ALLEN 3 QUELLEN: COT + KONGRESS + SEC =================
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -288,15 +387,15 @@ fun RadarScreen(
                     Text("🔥", fontSize = 16.sp)
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = if (isEn) "SUPER-SIGNALS: CEO + CONGRESS" else "KOMBI-SIGNALE: CEO + POLITIKER",
+                        text = if (isEn) "SUPER-SIGNALS: COT + CONGRESS + SEC" else "KOMBI-SIGNALE: COT + KONGRESS + SEC",
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 14.sp,
                         color = AmberWhale
                     )
                 }
                 Text(
-                    text = if (isEn) "Highest conviction: Corporate Insider & Politician bought simultaneously!"
-                           else "Höchste Überzeugung: Vorstand & Politiker stiegen zeitgleich ein!",
+                    text = if (isEn) "Highest conviction: Macro Whales, Congress & Corporate Insiders aligned!"
+                           else "Höchste Überzeugung: Makro-Whales, Kongress & C-Level Vorstände synchron!",
                     fontSize = 11.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -307,119 +406,232 @@ fun RadarScreen(
 
         // Cards of SuperSignals
         superSignals.forEach { sig ->
+            val isOnWatchlist = watchlist.contains(sig.ticker)
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 5.dp),
+                    .padding(vertical = 6.dp),
                 shape = RoundedCornerShape(14.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                border = androidx.compose.foundation.BorderStroke(1.5.dp, AmberWhale.copy(alpha = 0.6f))
+                border = BorderStroke(1.5.dp, AmberWhale.copy(alpha = 0.5f))
             ) {
                 Column(modifier = Modifier.padding(14.dp)) {
+                    // Header: Ticker, Name, Watchlist-Button, Score Badge
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.weight(1f)
+                        ) {
                             Surface(
                                 color = AmberWhale.copy(alpha = 0.15f),
                                 shape = RoundedCornerShape(6.dp)
                             ) {
                                 Text(
-                                    text = sig.ticker,
+                                    text = "$${sig.ticker}",
                                     fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 15.sp,
+                                    fontSize = 16.sp,
                                     color = AmberWhale,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
                                 )
                             }
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = sig.companyName,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface,
-                                maxLines = 1
-                            )
+                            Column {
+                                Text(
+                                    text = sig.companyName,
+                                    fontSize = 13.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    maxLines = 1
+                                )
+                                Text(
+                                    text = sig.sector,
+                                    fontSize = 10.5.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    maxLines = 1
+                                )
+                            }
                         }
 
-                        Surface(
-                            color = GreenBuy,
-                            shape = RoundedCornerShape(8.dp)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
+                            // Watchlist Icon Button direkt auf der Karte
+                            if (onToggleWatchlist != null) {
+                                IconButton(
+                                    onClick = { onToggleWatchlist(sig.ticker) },
+                                    modifier = Modifier.size(32.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = if (isOnWatchlist) Icons.Filled.Star else Icons.Outlined.Star,
+                                        contentDescription = "Watchlist",
+                                        tint = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
+                                    )
+                                }
+                            }
+
+                            // Score Badge
+                            Surface(
+                                color = GreenBuy,
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Text(
+                                    text = "${sig.convictionScore}/100",
+                                    color = Color.Black,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    // ================= 1. QUELLE: COT MAKRO-SENTIMENT =================
+                    Surface(
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
+                    ) {
+                        Column(modifier = Modifier.padding(9.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "🐋 COT MAKRO-SENTIMENT",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = sig.cotWhaleSentiment,
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = GreenBuy
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "${sig.convictionScore}/100",
-                                color = Color.Black,
-                                fontSize = 10.5.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                text = "${sig.cotMarket} · ${sig.cotWhaleFlow}",
+                                fontSize = 11.sp,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "⏱️ ${sig.cotTimeframe}",
+                                fontSize = 10.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
                         }
                     }
 
                     Spacer(modifier = Modifier.height(6.dp))
-                    Text(
-                        text = sig.sector,
-                        fontSize = 11.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
 
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Politician Row
-                    Row(
+                    // ================= 2. QUELLE: KONGRESS STOCK ACT =================
+                    Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
                     ) {
-                        Text(
-                            text = "🏛️ ${sig.politicianName} (${sig.politicianParty})",
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = sig.politicianAmount,
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = GreenBuy
-                        )
+                        Column(modifier = Modifier.padding(9.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "🏛️ KONGRESS STOCK ACT",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = CyanAccent
+                                )
+                                Text(
+                                    text = sig.politicianAmount,
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = GreenBuy
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "${sig.politicianName} (${sig.politicianParty})",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "📅 ${sig.politicianDate}",
+                                fontSize = 10.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
 
-                    // Insider Row
-                    Row(
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    // ================= 3. QUELLE: SEC FORM 4 INSIDER =================
+                    Surface(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        shape = RoundedCornerShape(8.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
                     ) {
-                        Text(
-                            text = "🏢 ${sig.insiderName} (${sig.insiderRole})",
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = sig.insiderValue,
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = GreenBuy
-                        )
+                        Column(modifier = Modifier.padding(9.dp)) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "🏢 SEC FORM 4 INSIDER",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = AmberWhale
+                                )
+                                Text(
+                                    text = sig.insiderValue,
+                                    fontSize = 10.5.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = GreenBuy
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = "${sig.insiderName} (${sig.insiderRole})",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Text(
+                                text = "📝 ${sig.insiderShares} · ${sig.insiderDate}",
+                                fontSize = 10.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
                     }
 
                     Spacer(modifier = Modifier.height(10.dp))
 
+                    // Details Button (Einheitlich wie in den anderen Tabs)
                     Button(
                         onClick = { onOpenAnalysis(sig.ticker) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = AmberWhale.copy(alpha = 0.15f),
-                            contentColor = AmberWhale
+                            containerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                            contentColor = MaterialTheme.colorScheme.primary
                         ),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, AmberWhale.copy(alpha = 0.4f))
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.4f))
                     ) {
                         Text(
-                            text = if (isEn) "🔥 View Combined Confluence Analysis" else "🔥 Vollanalyse & Confluence-Details öffnen",
-                            fontSize = 11.5.sp,
+                            text = if (isEn) "Details" else "Details",
+                            fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }

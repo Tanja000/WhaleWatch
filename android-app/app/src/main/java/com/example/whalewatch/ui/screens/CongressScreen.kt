@@ -1,6 +1,7 @@
 package com.example.whalewatch.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.example.whalewatch.data.model.BipartisanStock
 import com.example.whalewatch.data.model.CongressTrade
 import com.example.whalewatch.data.model.PartySentimentData
+import com.example.whalewatch.data.model.TopPartyStock
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.GreenBuy
 import com.example.whalewatch.theme.RedSell
@@ -38,6 +40,9 @@ fun CongressScreen(
     congressMode: String, // "all", "conflicts", "bipartisan", "sentiment"
     onSelectMode: (String) -> Unit,
     partySentiment: PartySentimentData,
+    onTradeClick: (CongressTrade) -> Unit,
+    onBipartisanClick: (BipartisanStock) -> Unit,
+    onPartyStockClick: (TopPartyStock) -> Unit,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean,
     modifier: Modifier = Modifier
@@ -80,15 +85,15 @@ fun CongressScreen(
                 .horizontalScroll(rememberScrollState()),
             horizontalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            modes.forEach { (m, label) ->
-                val isSelected = congressMode == m
+            modes.forEach { (mId, label) ->
+                val isSelected = congressMode == mId
                 FilterChip(
                     selected = isSelected,
-                    onClick = { onSelectMode(m) },
+                    onClick = { onSelectMode(mId) },
                     label = { Text(label, fontSize = 11.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
                     colors = FilterChipDefaults.filterChipColors(
-                        selectedContainerColor = if (m == "conflicts") AmberWhale else MaterialTheme.colorScheme.primary,
-                        selectedLabelColor = if (m == "conflicts") Color.Black else Color.White
+                        selectedContainerColor = if (mId == "conflicts") AmberWhale else MaterialTheme.colorScheme.primary,
+                        selectedLabelColor = Color.Black
                     )
                 )
             }
@@ -98,35 +103,35 @@ fun CongressScreen(
 
         when (congressMode) {
             "bipartisan" -> {
-                // Bipartisan Confluence View
                 BipartisanConfluenceView(
                     bipartisanStocks = partySentiment.bipartisanBuys,
+                    onBipartisanClick = onBipartisanClick,
                     onOpenAnalysis = onOpenAnalysis,
                     isEn = isEn
                 )
             }
             "sentiment" -> {
-                // Party Sentiment Drift View
                 PartySentimentView(
                     partySentiment = partySentiment,
+                    onPartyStockClick = onPartyStockClick,
                     onOpenAnalysis = onOpenAnalysis,
                     isEn = isEn
                 )
             }
             else -> {
-                // Trades View (All or Filtered by Conflicts)
-                // Search Input
+                // "all" or "conflicts"
+                // Search Field
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = onSearchChange,
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text(if (isEn) "Search politician, ticker, committee..." else "Politiker, Ticker, Ausschuss suchen...", fontSize = 12.sp) },
-                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search", tint = MaterialTheme.colorScheme.primary) },
+                    placeholder = { Text(if (isEn) "Search politician or ticker (e.g. Pelosi, NVDA)..." else "Politiker oder Ticker suchen (z. B. Pelosi, NVDA)...", fontSize = 11.5.sp) },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = "Search", modifier = Modifier.size(18.dp)) },
                     singleLine = true,
-                    shape = RoundedCornerShape(12.dp),
+                    shape = RoundedCornerShape(10.dp),
                     colors = OutlinedTextFieldDefaults.colors(
-                        focusedContainerColor = MaterialTheme.colorScheme.surface,
-                        unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
                     )
                 )
 
@@ -177,7 +182,7 @@ fun CongressScreen(
                     items(trades, key = { it.id }) { trade ->
                         CongressTradeCard(
                             trade = trade,
-                            onOpenAnalysis = { onOpenAnalysis(trade.ticker) },
+                            onClick = { onTradeClick(trade) },
                             isEn = isEn
                         )
                     }
@@ -190,11 +195,13 @@ fun CongressScreen(
 @Composable
 fun CongressTradeCard(
     trade: CongressTrade,
-    onOpenAnalysis: () -> Unit,
+    onClick: () -> Unit,
     isEn: Boolean
 ) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() },
         shape = RoundedCornerShape(14.dp),
         colors = CardDefaults.cardColors(
             containerColor = if (trade.hasCommitteeConflict) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f) else MaterialTheme.colorScheme.surface
@@ -264,12 +271,14 @@ fun CongressTradeCard(
                     )
                 }
 
+                val chamberLabel = if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
+                val partyLabel = if (trade.party.uppercase() == "D") "Demokrat" else if (trade.party.uppercase() == "R") "Republikaner" else trade.party
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = RoundedCornerShape(6.dp)
                 ) {
                     Text(
-                        text = "${trade.chamber.uppercase()} · ${trade.party}",
+                        text = "$chamberLabel · $partyLabel",
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
@@ -311,13 +320,11 @@ fun CongressTradeCard(
                     )
                 }
 
-                if (trade.ticker.isNotEmpty()) {
-                    TextButton(
-                        onClick = onOpenAnalysis,
-                        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
-                    ) {
-                        Text("📊 Analyse", fontSize = 11.sp, color = MaterialTheme.colorScheme.primary)
-                    }
+                TextButton(
+                    onClick = onClick,
+                    contentPadding = PaddingValues(horizontal = 4.dp, vertical = 0.dp)
+                ) {
+                    Text("Details", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                 }
             }
 
@@ -379,6 +386,7 @@ fun CongressTradeCard(
 @Composable
 fun BipartisanConfluenceView(
     bipartisanStocks: List<BipartisanStock>,
+    onBipartisanClick: (BipartisanStock) -> Unit,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean
 ) {
@@ -401,22 +409,26 @@ fun BipartisanConfluenceView(
                         fontSize = 13.sp,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    Spacer(modifier = Modifier.height(3.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = if (isEn) "Stocks that BOTH Democrats and Republicans are accumulating. Highest political conviction."
-                               else "Aktien, bei denen sowohl Demokraten als auch Republikaner zeitgleich als Käufer auftreten.",
+                        text = if (isEn) "Stocks where BOTH Democrats and Republicans are heavily accumulating. One of the strongest predictive signals."
+                               else "Aktien, bei denen SOWOHL Demokraten als auch Republikaner zeitgleich kaufen. Extrem starkes Signal für bevorstehende parteiübergreifende Gesetze oder Budgets.",
                         fontSize = 11.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        lineHeight = 15.sp
                     )
                 }
             }
         }
 
-        items(bipartisanStocks, key = { it.ticker }) { stock ->
+        items(bipartisanStocks) { stock ->
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onBipartisanClick(stock) },
                 shape = RoundedCornerShape(12.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
             ) {
                 Column(modifier = Modifier.padding(14.dp)) {
                     Row(
@@ -424,29 +436,41 @@ fun BipartisanConfluenceView(
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = stock.ticker,
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = MaterialTheme.colorScheme.primary
-                        )
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Surface(
+                                color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
+                                shape = RoundedCornerShape(6.dp)
+                            ) {
+                                Text(
+                                    text = stock.ticker,
+                                    color = MaterialTheme.colorScheme.primary,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = stock.sector,
+                                fontSize = 11.5.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
 
                         Surface(
                             color = GreenBuy.copy(alpha = 0.15f),
                             shape = RoundedCornerShape(6.dp)
                         ) {
                             Text(
-                                text = "${stock.totalBuys} Käufe gesamt",
+                                text = "${stock.totalBuys} KÄUFE",
                                 color = GreenBuy,
-                                fontSize = 11.sp,
+                                fontSize = 10.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
+                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                             )
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(stock.sector, fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Spacer(modifier = Modifier.height(8.dp))
 
                     Row(
@@ -469,7 +493,7 @@ fun BipartisanConfluenceView(
 
                     Spacer(modifier = Modifier.height(10.dp))
                     Button(
-                        onClick = { onOpenAnalysis(stock.ticker) },
+                        onClick = { onBipartisanClick(stock) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -477,7 +501,7 @@ fun BipartisanConfluenceView(
                             contentColor = MaterialTheme.colorScheme.primary
                         )
                     ) {
-                        Text("📊 Vollanalyse & Trades ansehen", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                        Text("Details", fontSize = 12.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -488,6 +512,7 @@ fun BipartisanConfluenceView(
 @Composable
 fun PartySentimentView(
     partySentiment: PartySentimentData,
+    onPartyStockClick: (TopPartyStock) -> Unit,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean
 ) {
@@ -513,7 +538,7 @@ fun PartySentimentView(
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = if (isEn) partySentiment.sentimentDriftEn else partySentiment.sentimentDriftDe,
-                        fontSize = 11.sp,
+                        fontSize = 11.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 15.sp
                     )
@@ -522,7 +547,6 @@ fun PartySentimentView(
         }
 
         item {
-            // Dem vs Rep Top Buys Columns
             Text(
                 text = "🔵 Top 10 Käufe der Demokraten",
                 fontWeight = FontWeight.Bold,
@@ -533,7 +557,9 @@ fun PartySentimentView(
 
         items(partySentiment.demTopBuys) { stock ->
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onPartyStockClick(stock) },
                 shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
@@ -549,12 +575,12 @@ fun PartySentimentView(
                         Text(stock.category, fontSize = 10.5.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Button(
-                        onClick = { onOpenAnalysis(stock.ticker) },
+                        onClick = { onPartyStockClick(stock) },
                         shape = RoundedCornerShape(6.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B82F6).copy(alpha = 0.15f), contentColor = Color(0xFF3B82F6)),
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                     ) {
-                        Text("${stock.count} Käufe · Analyse", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -572,7 +598,9 @@ fun PartySentimentView(
 
         items(partySentiment.repTopBuys) { stock ->
             Card(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onPartyStockClick(stock) },
                 shape = RoundedCornerShape(10.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
             ) {
@@ -588,12 +616,12 @@ fun PartySentimentView(
                         Text(stock.category, fontSize = 10.5.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                     }
                     Button(
-                        onClick = { onOpenAnalysis(stock.ticker) },
+                        onClick = { onPartyStockClick(stock) },
                         shape = RoundedCornerShape(6.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444).copy(alpha = 0.15f), contentColor = Color(0xFFEF4444)),
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                     ) {
-                        Text("${stock.count} Käufe · Analyse", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text("${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
