@@ -25,7 +25,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.whalewatch.data.model.BipartisanStock
 import com.example.whalewatch.data.model.CongressTrade
-import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy

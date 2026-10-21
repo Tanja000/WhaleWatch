@@ -592,6 +592,19 @@ fun CotMarketCard(
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
             // Header: Name & Signal
+            val localizedName = if (isEn) {
+                market.name
+                    .replace("Silber", "Silver")
+                    .replace("WTI Rohöl", "WTI Crude Oil")
+            } else market.name
+            val localizedAssetClass = if (isEn) {
+                market.assetClass
+                    .replace("Edelmetall / Safe Haven", "Precious Metal / Safe Haven")
+                    .replace("Edelmetall / Industrie", "Precious Metal / Industrial")
+                    .replace("Energie & Rohstoffe", "Energy & Commodities")
+                    .replace("US Staatsanleihen", "US Treasury Bonds")
+                    .replace("Krypto / Risk-On", "Crypto / Risk-On")
+            } else market.assetClass
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -599,13 +612,13 @@ fun CotMarketCard(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = market.name,
+                        text = localizedName,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = market.assetClass,
+                        text = localizedAssetClass,
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -656,6 +669,11 @@ fun CotMarketCard(
                 }
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    val localizedFlowDesc = if (isEn) {
+                        market.whaleChangeDesc
+                            .replace("Akkumulation", "Accumulation")
+                            .replace("Abbau", "Reduction")
+                    } else market.whaleChangeDesc
                     Text(
                         text = if (isEn) "WEEKLY FLOW" else "WOCHEN-FLUSS",
                         fontSize = 10.sp,
@@ -663,7 +681,7 @@ fun CotMarketCard(
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = market.whaleChangeDesc,
+                        text = localizedFlowDesc,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface

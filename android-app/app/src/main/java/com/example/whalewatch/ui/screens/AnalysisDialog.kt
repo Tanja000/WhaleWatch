@@ -153,11 +153,22 @@ fun AnalysisDialog(
 
                             Spacer(modifier = Modifier.height(8.dp))
 
+                            val cotFlowDisplay = if (isEn) {
+                                analysis.cotWhaleFlow.replace("Akkumulation", "Accumulation").replace("Abbau", "Reduction")
+                            } else analysis.cotWhaleFlow
+
+                            val cotTimeframeDisplay = if (isEn) {
+                                analysis.cotTimeframe
+                                    .replace("Stichtag: Di,", "Cutoff: Tue,")
+                                    .replace("Veröffentlichung: Fr,", "Release: Fri,")
+                                    .replace("Bericht: Fr,", "Release: Fri,")
+                            } else analysis.cotTimeframe
+
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text(text = "Markt & Sektor:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(text = if (isEn) "Market & Sector:" else "Markt & Sektor:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                 Text(text = analysis.cotMarketName, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                             }
                             Spacer(modifier = Modifier.height(4.dp))
@@ -166,8 +177,8 @@ fun AnalysisDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text(text = "Wochen-Fluss (Flow):", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(text = analysis.cotWhaleFlow, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = GreenBuy)
+                                Text(text = if (isEn) "Weekly Flow:" else "Wochen-Fluss (Flow):", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(text = cotFlowDisplay, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = GreenBuy)
                             }
                             Spacer(modifier = Modifier.height(4.dp))
 
@@ -175,8 +186,8 @@ fun AnalysisDialog(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Text(text = "Zeitspanne & Stichtag:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(text = analysis.cotTimeframe, fontSize = 10.5.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(text = if (isEn) "Period & Cutoff:" else "Zeitspanne & Stichtag:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Text(text = cotTimeframeDisplay, fontSize = 10.5.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
                             }
                         }
                     }
@@ -300,10 +311,17 @@ fun AnalysisDialog(
                             } else {
                                 analysis.recentTrades.forEach { trade ->
                                     val isBuy = trade.transactionType.lowercase().contains("purchase") || trade.transactionType.lowercase().contains("kauf")
-                                    val chamberClean = if (trade.chamber.lowercase().contains("senat")) "Senat" else "Repräsentantenhaus"
-                                    val partyLabel = if (trade.party == "D") "DEM" else if (trade.party == "R") "REP" else trade.party
-                                    val partyBg = if (trade.party == "D") CyanAccent.copy(alpha = 0.18f) else if (trade.party == "R") RedSell.copy(alpha = 0.18f) else MaterialTheme.colorScheme.surfaceVariant
-                                    val partyColor = if (trade.party == "D") CyanAccent else if (trade.party == "R") RedSell else MaterialTheme.colorScheme.onSurface
+                                    val isSen = trade.chamber.lowercase().contains("senat")
+                                    val chamberClean = if (isEn) (if (isSen) "Senate" else "House") else (if (isSen) "Senat" else "Repräsentantenhaus")
+                                    val isDem = trade.party == "D" || trade.party.contains("Dem", ignoreCase = true)
+                                    val isRep = trade.party == "R" || trade.party.contains("Rep", ignoreCase = true)
+                                    val partyLabel = when {
+                                        isDem -> if (isEn) "Democrat" else "Demokrat"
+                                        isRep -> if (isEn) "Republican" else "Republikaner"
+                                        else -> trade.party
+                                    }
+                                    val partyBg = if (isDem) CyanAccent.copy(alpha = 0.18f) else if (isRep) RedSell.copy(alpha = 0.18f) else MaterialTheme.colorScheme.surfaceVariant
+                                    val partyColor = if (isDem) CyanAccent else if (isRep) RedSell else MaterialTheme.colorScheme.onSurface
 
                                     Surface(
                                         modifier = Modifier
@@ -521,12 +539,7 @@ fun AnalysisDialog(
                                                     )
                                                     Spacer(modifier = Modifier.height(2.dp))
                                                     Text(
-                                                        text = if (isEn) {
-                                                            sec.role.replace("Vorstand und Aufsichtsrat", "Officer & Director")
-                                                                .replace("Vorstand / Aufsichtsrat", "Officer & Director")
-                                                                .replace("Vorstand", "Executive Officer")
-                                                                .replace("Aufsichtsrat", "Director")
-                                                        } else sec.role,
+                                                        text = sec.role,
                                                         fontSize = 10.sp,
                                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                                         maxLines = 2,
@@ -551,14 +564,14 @@ fun AnalysisDialog(
                                             Spacer(modifier = Modifier.height(4.dp))
 
                                             // Row 2: Shares, Total Value & Date
+                                            val sharesDisplay = if (isEn) sec.sharesFormatted.replace("Aktien", "Shares") else sec.sharesFormatted
                                             Row(
                                                 modifier = Modifier.fillMaxWidth(),
                                                 horizontalArrangement = Arrangement.SpaceBetween,
                                                 verticalAlignment = Alignment.CenterVertically
                                             ) {
                                                 Text(
-                                                    text = if (isEn) "${sec.sharesFormatted.replace("Aktien", "Shares")} · ${sec.totalValueFormatted}"
-                                                           else "${sec.sharesFormatted} · ${sec.totalValueFormatted}",
+                                                    text = "$sharesDisplay · ${sec.totalValueFormatted}",
                                                     fontSize = 11.5.sp,
                                                     fontWeight = FontWeight.ExtraBold,
                                                     color = GreenBuy

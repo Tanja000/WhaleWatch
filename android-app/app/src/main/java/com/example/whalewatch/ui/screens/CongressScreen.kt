@@ -271,16 +271,8 @@ fun CongressTradeCard(
                     )
                 }
 
-                val chamberLabel = if (isEn) {
-                    if (trade.chamber.lowercase() == "senate") "Senate" else "House"
-                } else {
-                    if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
-                }
-                val partyLabel = if (isEn) {
-                    if (trade.party.uppercase() == "D") "Democrat" else if (trade.party.uppercase() == "R") "Republican" else trade.party
-                } else {
-                    if (trade.party.uppercase() == "D") "Demokrat" else if (trade.party.uppercase() == "R") "Republikaner" else trade.party
-                }
+                val chamberLabel = if (trade.chamber.lowercase() == "senate") (if (isEn) "Senate" else "Senat") else (if (isEn) "House" else "Repräsentantenhaus")
+                val partyLabel = if (trade.party.uppercase() == "D") (if (isEn) "Democrat" else "Demokrat") else if (trade.party.uppercase() == "R") (if (isEn) "Republican" else "Republikaner") else trade.party
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = RoundedCornerShape(6.dp)

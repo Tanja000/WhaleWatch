@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.whalewatch.data.model.TabScreen
-import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.GreenBuy
 import com.example.whalewatch.theme.WhaleWatchTheme
 import com.example.whalewatch.ui.screens.*
@@ -222,11 +221,11 @@ fun WhaleWatchApp(
 
                 // Modal SEC Single Alert Detail Dialog
                 selectedSecAlert?.let { alert ->
-                    val isOnWatchlist = isValidStockTicker(alert.ticker) && watchlist.contains(alert.ticker)
+                    val isOnWatchlist = alert.ticker.isNotBlank() && watchlist.contains(alert.ticker)
                     SecDetailDialog(
                         alert = alert,
                         isOnWatchlist = isOnWatchlist,
-                        onToggleWatchlist = { if (isValidStockTicker(alert.ticker)) viewModel.toggleWatchlist(alert.ticker) },
+                        onToggleWatchlist = { if (alert.ticker.isNotBlank()) viewModel.toggleWatchlist(alert.ticker) },
                         onOpenAnalysis = { ticker ->
                             selectedSecAlert = null
                             viewModel.openAnalysis(ticker)
@@ -238,11 +237,11 @@ fun WhaleWatchApp(
 
                 // Modal SEC Cluster Detail Dialog (All Contributors Listed)
                 selectedSecCluster?.let { cluster ->
-                    val isOnWatchlist = isValidStockTicker(cluster.ticker) && watchlist.contains(cluster.ticker)
+                    val isOnWatchlist = cluster.ticker.isNotBlank() && watchlist.contains(cluster.ticker)
                     SecClusterDetailDialog(
                         cluster = cluster,
                         isOnWatchlist = isOnWatchlist,
-                        onToggleWatchlist = { if (isValidStockTicker(cluster.ticker)) viewModel.toggleWatchlist(cluster.ticker) },
+                        onToggleWatchlist = { if (cluster.ticker.isNotBlank()) viewModel.toggleWatchlist(cluster.ticker) },
                         onOpenAnalysis = { ticker ->
                             selectedSecCluster = null
                             viewModel.openAnalysis(ticker)
@@ -292,13 +291,13 @@ fun WhaleWatchApp(
 
                 // Modal Party Sentiment Detail Dialog
                 selectedPartyStock?.let { stock ->
-                    val isOnWatchlist = isValidStockTicker(stock.ticker) && watchlist.contains(stock.ticker)
+                    val isOnWatchlist = stock.ticker.isNotBlank() && watchlist.contains(stock.ticker)
                     PartySentimentDetailDialog(
                         stock = stock,
                         partySentiment = partySentiment,
                         trades = congressTrades,
                         isOnWatchlist = isOnWatchlist,
-                        onToggleWatchlist = { if (isValidStockTicker(stock.ticker)) viewModel.toggleWatchlist(stock.ticker) },
+                        onToggleWatchlist = { if (stock.ticker.isNotBlank()) viewModel.toggleWatchlist(stock.ticker) },
                         onTradeClick = { trade ->
                             selectedPartyStock = null
                             selectedCongressTrade = trade

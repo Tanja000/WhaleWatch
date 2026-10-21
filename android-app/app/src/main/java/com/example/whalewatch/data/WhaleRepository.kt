@@ -47,19 +47,36 @@ class WhaleRepository(private val context: Context) {
         loadData()
     }
 
+    fun isValidStockTicker(ticker: String, issuer: String = ""): Boolean {
+        val clean = ticker.trim().uppercase()
+        if (clean.isEmpty() || clean == "NULL" || clean == "US-TBILL" || clean == "NXG" || clean == "BANK") return false
+        val invalidNames = setOf(
+            "ZHANG", "CUNNINGHAM", "LI", "SUN", "DANNY", "ARNE", "AMIR", "JOHN",
+            "EREZ", "KUN", "ABEL", "SIMON", "DANIEL", "ANDREW", "JAE", "BONIFAS",
+            "MONIA", "VENA", "MERRILL", "NONE", "N/A", "UNKNOWN"
+        )
+        if (clean in invalidNames) return false
+        if (issuer.contains("(Holding/Affiliate)", ignoreCase = true) || issuer.contains("Income Fund", ignoreCase = true)) return false
+        return clean.matches(Regex("^[A-Z]{1,5}(\\.[A-Z])?$"))
+    }
+
     private fun loadSavedWatchlist(): Set<String> {
         val saved = prefs.getStringSet("watchlist", null)
-        val initial = saved ?: setOf("NVDA", "AAPL", "MSFT", "PLTR")
-        return initial.filter { isValidStockTicker(it) }.toSet()
+        if (saved == null) return setOf("NVDA", "AAPL", "MSFT", "PLTR")
+        val cleaned = saved.map { it.trim().uppercase() }.filter { isValidStockTicker(it) }.toSet()
+        if (cleaned.size != saved.size || cleaned != saved) {
+            prefs.edit().putStringSet("watchlist", cleaned).apply()
+        }
+        return if (cleaned.isEmpty()) setOf("NVDA", "AAPL", "MSFT", "PLTR") else cleaned
     }
 
     fun toggleWatchlist(ticker: String) {
         val clean = ticker.trim().uppercase()
-        if (!isValidStockTicker(clean)) return
         val current = _watchlist.value.toMutableSet()
-        if (current.contains(clean)) {
+        if (current.contains(clean) || current.contains(ticker)) {
             current.remove(clean)
-        } else {
+            current.remove(ticker)
+        } else if (isValidStockTicker(clean)) {
             current.add(clean)
         }
         _watchlist.value = current
@@ -68,7 +85,7 @@ class WhaleRepository(private val context: Context) {
 
     fun addWatchlistTicker(ticker: String) {
         val clean = ticker.trim().uppercase()
-        if (clean.isNotEmpty() && isValidStockTicker(clean)) {
+        if (isValidStockTicker(clean)) {
             val current = _watchlist.value.toMutableSet()
             current.add(clean)
             _watchlist.value = current
@@ -79,6 +96,7 @@ class WhaleRepository(private val context: Context) {
     fun removeWatchlistTicker(ticker: String) {
         val current = _watchlist.value.toMutableSet()
         current.remove(ticker)
+        current.remove(ticker.trim().uppercase())
         _watchlist.value = current
         prefs.edit().putStringSet("watchlist", current).apply()
     }
@@ -179,6 +197,8 @@ class WhaleRepository(private val context: Context) {
 
                 for (i in 0 until arr.length()) {
                     val t = arr.getJSONObject(i)
+                    val rawTicker = if (t.isNull("ticker")) "" else t.optString("ticker", "").trim().uppercase()
+                    if (!isValidStockTicker(rawTicker)) continue
                     val days = t.optInt("days_to_file", 0)
                     val isLateVal = if (t.has("is_late")) {
                         t.optBoolean("is_late", false) || (t.optInt("is_late", 0) == 1)
@@ -191,7 +211,7 @@ class WhaleRepository(private val context: Context) {
                             filerName = t.optString("filer_name", "Senator / Representative"),
                             party = t.optString("party", "D"),
                             chamber = t.optString("chamber", "house"),
-                            ticker = t.optString("ticker", ""),
+                            ticker = rawTicker,
                             assetName = t.optString("asset_name", ""),
                             transactionType = t.optString("transaction_type", "Purchase"),
                             amountRangeLabel = t.optString("amount_range_label", "$1,001 - $15,000"),
@@ -231,6 +251,9 @@ class WhaleRepository(private val context: Context) {
                 val list = mutableListOf<SecAlert>()
                 for (i in 0 until arr.length()) {
                     val a = arr.getJSONObject(i)
+                    val rawTicker = if (a.isNull("ticker")) "" else a.optString("ticker", "").trim().uppercase()
+                    val rawIssuer = a.optString("issuer", "").trim()
+                    if (!isValidStockTicker(rawTicker, rawIssuer)) continue
                     val fTime = a.optString("filing_time", "")
                     val fDate = a.optString("filing_date", if (fTime.isNotEmpty()) fTime.take(10) else "")
                     val isBuyVal = if (a.has("is_buy")) a.optBoolean("is_buy", true) else (a.optString("code") != "S")
@@ -247,23 +270,18 @@ class WhaleRepository(private val context: Context) {
                     val cleanPrice = if (priceVal <= 0.0 || rawPrice == "$0" || rawPrice == "$0,00") "-" else rawPrice
 
                     var ownerName = a.optString("reporting_owner", "")
-                    if (ownerName == "Vorstand / Aufsichtsrat" || ownerName == "Vorstand") {
-                        ownerName = "Vorstand / Aufsichtsrat"
+                    if (ownerName == "Vorstand / Aufsichtsrat" || ownerName == "Vorstand" || ownerName == "Vorstand und Aufsichtsrat") {
+                        ownerName = "Vorstand & Aufsichtsrat"
                     }
                     var roleName = a.optString("role", "Vorstandsmitglied")
                     roleName = roleName.replace("Vorstand / Aufsichtsrat", "Vorstand & Aufsichtsrat")
-                        .replace("Vorstand", "Vorstand")
                         .replace("C-Suit", "Vorstand")
-
-                    var tSym = a.optString("ticker", "").trim().uppercase()
-                    if (tSym == "ZHANG") tSym = "NIU"
-                    if (tSym == "CO") tSym = "ELP"
 
                     list.add(
                         SecAlert(
-                            id = a.optString("accession_number", tSym + "_" + i),
-                            ticker = tSym,
-                            issuer = a.optString("issuer", ""),
+                            id = a.optString("accession_number", rawTicker + "_" + i),
+                            ticker = rawTicker,
+                            issuer = rawIssuer,
                             reportingOwner = ownerName,
                             role = roleName,
                             alertType = a.optString("alert_type", "FORM 4 FILING"),
@@ -714,6 +732,8 @@ class WhaleRepository(private val context: Context) {
         if (!matchCong.isNullOrBlank()) return matchCong
         val matchSec = _secAlerts.value.firstOrNull { it.ticker.equals(upper, true) }?.issuer
         if (!matchSec.isNullOrBlank()) return matchSec
+        val matchSecCluster = _secClusters.value.firstOrNull { it.ticker.equals(upper, true) }?.issuer
+        if (!matchSecCluster.isNullOrBlank()) return matchSecCluster
         val matchSig = _superSignals.value.firstOrNull { it.ticker.equals(upper, true) }?.companyName
         if (!matchSig.isNullOrBlank()) return matchSig
 
@@ -737,6 +757,19 @@ class WhaleRepository(private val context: Context) {
             "IONS" -> "Ionis Pharmaceuticals, Inc."
             "ACN" -> "Accenture plc"
             "RMCF" -> "Rocky Mountain Chocolate Factory, Inc."
+            "GEHC" -> "GE HealthCare Technologies Inc."
+            "COO" -> "The Cooper Companies, Inc."
+            "WFC" -> "Wells Fargo & Company"
+            "HUBB" -> "Hubbell Incorporated"
+            "WMT" -> "Walmart Inc."
+            "APP" -> "AppLovin Corporation"
+            "VZ" -> "Verizon Communications Inc."
+            "IBM" -> "International Business Machines Corp."
+            "AVGO" -> "Broadcom Inc."
+            "BRK.B" -> "Berkshire Hathaway Inc."
+            "CVX" -> "Chevron Corporation"
+            "PYPL" -> "PayPal Holdings, Inc."
+            "PEP" -> "PepsiCo, Inc."
             else -> "$upper Corporation"
         }
     }
@@ -821,6 +854,17 @@ class WhaleRepository(private val context: Context) {
             if (secArr != null && secArr.length() > 0) {
                 for (i in 0 until secArr.length()) {
                     val f = secArr.getJSONObject(i)
+                    val isBuyVal = f.optBoolean("is_buy", true)
+                    val txDe = f.optString("transaction_type", if (isBuyVal) "Offener Marktkauf" else "Offener Marktverkauf")
+                    val txEn = when {
+                        txDe.contains("Marktverkauf", true) || txDe.contains("Verkauf", true) -> "Open Market Sale"
+                        txDe.contains("Marktkauf", true) || txDe.contains("Zukauf", true) -> "Open Market Purchase"
+                        txDe.contains("Optionsausübung", true) -> "Option Exercise"
+                        txDe.contains("Zuteilung", true) || txDe.contains("Award", true) || txDe.contains("Vesting", true) -> "Stock Grant / Vesting"
+                        txDe.contains("Halteposition", true) -> "Holding Position"
+                        isBuyVal -> "Open Market Purchase"
+                        else -> "Open Market Sale"
+                    }
                     secList.add(
                         SecAlert(
                             id = "dsec_$upper$i",
@@ -830,13 +874,13 @@ class WhaleRepository(private val context: Context) {
                             role = f.optString("role", "-"),
                             alertType = if (dossier.getJSONObject("sec").optBoolean("is_cluster")) "CLUSTER-ALERT" else "FORM 4 FILING",
                             isCluster = dossier.getJSONObject("sec").optBoolean("is_cluster"),
-                            isBuy = f.optBoolean("is_buy", true),
-                            txTypeDe = f.optString("transaction_type", "Kauf"),
-                            txTypeEn = "Purchase",
+                            isBuy = isBuyVal,
+                            txTypeDe = txDe,
+                            txTypeEn = txEn,
                             sharesFormatted = f.optString("shares_formatted", "-"),
                             totalValueFormatted = f.optString("total_value_formatted", "-"),
                             filingDate = f.optString("filing_date", "-"),
-                            badgeColor = if (f.optBoolean("is_buy", true)) "#10b981" else "#ef4444",
+                            badgeColor = if (isBuyVal) "#10b981" else "#ef4444",
                             priceFormatted = f.optString("price_formatted", "-"),
                             filingUrl = f.optString("sec_form_url", "https://www.sec.gov"),
                             filingTime = f.optString("filing_time", "")
@@ -847,6 +891,12 @@ class WhaleRepository(private val context: Context) {
         }
         if (secList.isEmpty()) {
             secList.addAll(secMatches.take(10))
+            if (secList.isEmpty()) {
+                val clusterMatch = _secClusters.value.firstOrNull { it.ticker.equals(upper, ignoreCase = true) }
+                if (clusterMatch != null) {
+                    secList.addAll(clusterMatch.filings.take(10))
+                }
+            }
         }
 
         val secCount = if (dossier != null && dossier.has("sec")) dossier.getJSONObject("sec").optInt("filings_count", secMatches.size) else secMatches.size

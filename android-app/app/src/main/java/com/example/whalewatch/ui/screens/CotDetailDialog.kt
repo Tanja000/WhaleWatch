@@ -60,24 +60,44 @@ fun CotDetailDialog(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    val localizedName = if (isEn) {
+                        market.name
+                            .replace("Silber", "Silver")
+                            .replace("WTI Rohöl", "WTI Crude Oil")
+                    } else market.name
+                    val localizedAssetClass = if (isEn) {
+                        market.assetClass
+                            .replace("Edelmetall / Safe Haven", "Precious Metal / Safe Haven")
+                            .replace("Edelmetall / Industrie", "Precious Metal / Industrial")
+                            .replace("Energie & Rohstoffe", "Energy & Commodities")
+                            .replace("US Staatsanleihen", "US Treasury Bonds")
+                            .replace("Krypto / Risk-On", "Crypto / Risk-On")
+                    } else market.assetClass
+
                     Column(modifier = Modifier.weight(1f)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = market.name,
+                                text = localizedName,
                                 fontSize = 17.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Text(
-                            text = "${market.assetClass} · ${market.category.uppercase()}",
+                            text = "$localizedAssetClass · ${market.category.uppercase()}",
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
-                    val isBullish = market.signal.contains("BULLISCH", ignoreCase = true)
+                    val isBullish = market.signal.contains("BULLISCH", ignoreCase = true) || market.signal.contains("BULLISH", ignoreCase = true)
                     val signalColor = if (isBullish) GreenBuy else RedSell
+                    val localizedSignal = if (isEn) {
+                        market.signal
+                            .replace("STARK BULLISCH", "STRONGLY BULLISH")
+                            .replace("BULLISCH", "BULLISH")
+                            .replace("BÄRISCH", "BEARISH")
+                    } else market.signal
                     Surface(
                         color = signalColor.copy(alpha = 0.15f),
                         shape = RoundedCornerShape(8.dp),
@@ -85,7 +105,7 @@ fun CotDetailDialog(
                         modifier = Modifier.padding(end = 8.dp)
                     ) {
                         Text(
-                            text = market.signal,
+                            text = localizedSignal,
                             color = signalColor,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -217,7 +237,7 @@ fun CotDetailDialog(
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = market.reportWeek,
+                                    text = if (isEn) market.reportWeek.replace("Woche", "Week") else market.reportWeek,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
@@ -252,7 +272,7 @@ fun CotDetailDialog(
                                         fontSize = 12.sp
                                     )
                                     Text(
-                                        text = if (isEn) "Wale Netto (Whale Net):" else "Wale Netto:",
+                                        text = if (isEn) "Whale Net:" else "Wale Netto:",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = GreenBuy
@@ -280,20 +300,25 @@ fun CotDetailDialog(
 
                             // Wochen-Fluss Erklärung
                             Column(modifier = Modifier.padding(bottom = 8.dp)) {
+                                val localizedFlowDesc = if (isEn) {
+                                    market.whaleChangeDesc
+                                        .replace("Akkumulation", "Accumulation")
+                                        .replace("Abbau", "Reduction")
+                                } else market.whaleChangeDesc
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         text = "🌊 ",
                                         fontSize = 12.sp
                                     )
                                     Text(
-                                        text = if (isEn) "Wochen-Fluss (Weekly Flow):" else "Wochen-Fluss:",
+                                        text = if (isEn) "Weekly Flow:" else "Wochen-Fluss:",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.primary
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = "${if (market.whaleChangeNet >= 0) "+" else ""}${numFormat.format(market.whaleChangeNet)} (${market.whaleChangeDesc})",
+                                        text = "${if (market.whaleChangeNet >= 0) "+" else ""}${numFormat.format(market.whaleChangeNet)} ($localizedFlowDesc)",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface

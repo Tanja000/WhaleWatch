@@ -57,8 +57,8 @@ fun RadarScreen(
                     Text("🎯", fontSize = 18.sp)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = if (isEn) "CONFLUENCE RADAR (COT + CONGRESS + SEC)" else "KOMBI-SIGNALE (COT + KONGRESS + SEC)",
-                        fontSize = 13.5.sp,
+                        text = if (isEn) "CONFLUENCE RADAR (3-SOURCE SIGNALS)" else "KOMBI-SIGNALE (3-QUELLEN-RADAR)",
+                        fontSize = 14.5.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = AmberWhale
                     )
@@ -68,7 +68,7 @@ fun RadarScreen(
 
                 Text(
                     text = if (isEn)
-                        "A Kombi-Signal is triggered when three completely independent institutional and regulatory disclosure streams align simultaneously for a single stock:"
+                        "A Confluence Signal is triggered when three completely independent institutional and regulatory disclosure streams align simultaneously for a single stock:"
                     else
                         "Ein Kombi-Signal entsteht, wenn drei voneinander völlig unabhängige Markt- und behördliche Melderegister zeitgleich dieselbe Aktie positiv bewerten:",
                     fontSize = 11.5.sp,
@@ -83,9 +83,9 @@ fun RadarScreen(
                     Text("1️⃣ ", fontSize = 12.sp)
                     Text(
                         text = if (isEn)
-                            "CFTC COT Macro-Sentiment: Institutional hedge funds and large speculators build decisive net-long exposure in the broader sector or index."
+                            "CFTC COT Macro-Sentiment: Institutional hedge funds and large speculators build decisive net-long exposure in the broader sector or index (Cutoff: every Tuesday · Release: every Friday at 15:30 EST)."
                         else
-                            "CFTC COT Makro-Sentiment: Institutionelle Großanleger und Hedgefonds bauen im übergeordneten Sektor oder Index eindeutige Netto-Long-Positionen auf.",
+                            "CFTC COT Makro-Sentiment: Institutionelle Großanleger und Hedgefonds bauen im übergeordneten Sektor oder Index eindeutige Netto-Long-Positionen auf (Stichtag: jeden Dienstag · Veröffentlichung: jeden Freitag 15:30 EST / 21:30 MEZ).",
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 15.sp
@@ -97,9 +97,9 @@ fun RadarScreen(
                     Text("2️⃣ ", fontSize = 12.sp)
                     Text(
                         text = if (isEn)
-                            "US Congress (STOCK Act): US Senators or House Representatives purchase shares with mandatory statutory disclosure."
+                            "US Congress (STOCK Act): US Senators or House Representatives purchase shares with mandatory statutory disclosure (Continuous daily releases Mon–Fri · Statutory filing deadline: max. 45 days after trade)."
                         else
-                            "US-Kongress (STOCK Act): US-Senatoren oder Abgeordnete des Repräsentantenhauses kaufen Aktien dieses Unternehmens mit gesetzlicher Offenlegungspflicht.",
+                            "US-Kongress (STOCK Act): US-Senatoren oder Abgeordnete des Repräsentantenhauses kaufen Aktien dieses Unternehmens mit gesetzlicher Offenlegungspflicht (Tägliche Meldungen Mo–Fr · Gesetzliche Meldefrist: max. 45 Tage nach Handel).",
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 15.sp
@@ -111,74 +111,42 @@ fun RadarScreen(
                     Text("3️⃣ ", fontSize = 12.sp)
                     Text(
                         text = if (isEn)
-                            "SEC Form 4 Insiders: Corporate executives (such as Chief Executive Officers, Chief Financial Officers) and Board Directors invest their own private capital directly on the open market."
+                            "SEC Form 4 Insiders: Corporate executives (such as Chief Executive Officers, Chief Financial Officers) and Board Directors invest their own private capital directly on the open market (Real-time releases Mon–Fri · Mandatory filing within 2 business days / T+2)."
                         else
-                            "SEC Form 4 Insider: Vorstände (wie Vorstandsvorsitzende, Finanzvorstände) und Aufsichtsräte investieren eigenes privates Kapital direkt über die Börse in das eigene Unternehmen.",
+                            "SEC Form 4 Insider: Vorstände (wie Vorstandsvorsitzende, Finanzvorstände) und Aufsichtsräte investieren eigenes privates Kapital direkt über die Börse in das eigene Unternehmen (Börsentäglich in Echtzeit Mo–Fr · Pflicht-Meldung binnen 2 Werktagen / T+2).",
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 15.sp
                     )
                 }
 
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 10.dp),
-                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f)
-                )
+                Spacer(modifier = Modifier.height(10.dp))
 
-                // Update-Zeiten & Bekanntgabe (Di, Fr ...)
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("⏱️", fontSize = 13.sp)
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Text(
-                        text = if (isEn) "REPORTING SCHEDULE & ANNOUNCEMENT DAYS:" else "UPDATE-ZEITEN & BEKANNTGABE-TAGE:",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = CyanAccentGlow
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                // Schedule details: CFTC COT
-                Row(modifier = Modifier.padding(vertical = 2.dp)) {
-                    Text("• ", fontSize = 11.sp, color = AmberWhale)
-                    Text(
-                        text = if (isEn)
-                            "CFTC COT Whales: Position cutoff every Tuesday after market close. Official publication every Friday at 3:30 PM EST (21:30 CET) by the CFTC regulator."
-                        else
-                            "CFTC COT Wale: Stichtag / Datenerfassung jeden Dienstag nach US-Börsenschluss. Offizielle Veröffentlichung jeden Freitag um 15:30 EST (21:30 MEZ) durch die US-Aufsichtsbehörde CFTC.",
-                        fontSize = 10.5.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        lineHeight = 14.5.sp
-                    )
-                }
-
-                // Schedule details: Congress
-                Row(modifier = Modifier.padding(vertical = 2.dp)) {
-                    Text("• ", fontSize = 11.sp, color = AmberWhale)
-                    Text(
-                        text = if (isEn)
-                            "US Congress (STOCK Act): Statutory reporting window between 30 and 45 days after trade. Updated continuously on trading days upon filing of new Periodic Transaction Reports (PTR)."
-                        else
-                            "US-Kongress (STOCK Act): Gesetzliche Offenlegungsfrist von 30 bis maximal 45 Tagen nach dem Handelstag. Laufende Aktualisierung an jedem Börsentag, sobald Abgeordnete PTR-Protokolle einreichen.",
-                        fontSize = 10.5.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        lineHeight = 14.5.sp
-                    )
-                }
-
-                // Schedule details: SEC Form 4
-                Row(modifier = Modifier.padding(vertical = 2.dp)) {
-                    Text("• ", fontSize = 11.sp, color = AmberWhale)
-                    Text(
-                        text = if (isEn)
-                            "SEC Form 4 Insiders: Strict 2-business-day statutory deadline following execution. Continuously updated in real-time via the SEC EDGAR system during and after market hours."
-                        else
-                            "SEC Form 4 Insider: Strenge Frist von maximal 2 Bankarbeitstagen nach Ausführung. Kontinuierlich live über das SEC EDGAR-System während und nach den Handelszeiten der Wall Street.",
-                        fontSize = 10.5.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        lineHeight = 14.5.sp
-                    )
+                // Update & Disclosure Schedule Box
+                Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                    border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.3f))
+                ) {
+                    Column(modifier = Modifier.padding(10.dp)) {
+                        Text(
+                            text = if (isEn) "📅 DATA UPDATE & DISCLOSURE SCHEDULE" else "📅 UPDATE- & BEKANNTGABE-ZEITPLAN",
+                            fontSize = 10.5.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = CyanAccent
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = if (isEn)
+                                "• Tue & Fri (CFTC COT): Positions recorded every Tuesday (market close), published every Friday at 15:30 EST.\n• Mon–Fri (SEC Form 4): Continuous real-time EDGAR disclosures within 2 business days (T+2) after trade.\n• Mon–Fri (US Congress): Daily House & Senate disclosures within the 45-day STOCK Act deadline."
+                            else
+                                "• Di & Fr (CFTC COT): Positions-Stichtag jeden Dienstag (Börsenschluss), Bekanntgabe jeden Freitag um 15:30 EST (21:30 MEZ).\n• Mo–Fr (SEC Form 4): Börsentägliche Echtzeit-Veröffentlichung binnen max. 2 Werktagen (T+2) nach Kauf/Verkauf.\n• Mo–Fr (US-Kongress): Laufende tägliche Bekanntgabe eingereichter Transaktionen (45-Tage-Frist nach STOCK Act).",
+                            fontSize = 10.5.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            lineHeight = 15.sp
+                        )
+                    }
                 }
             }
         }
@@ -223,6 +191,31 @@ fun RadarScreen(
                 "R", "REP" -> if (isEn) "Republican" else "Republikaner"
                 else -> sig.politicianParty
             }
+
+            val cotSentimentDisplay = if (isEn) {
+                sig.cotWhaleSentiment.replace("Kontrakte", "Contracts")
+            } else sig.cotWhaleSentiment
+
+            val cotFlowDisplay = if (isEn) {
+                sig.cotWhaleFlow.replace("Akkumulation", "Accumulation").replace("Abbau", "Reduction")
+            } else sig.cotWhaleFlow
+
+            val cotTimeframeDisplay = if (isEn) {
+                sig.cotTimeframe
+                    .replace("Stichtag: Di,", "Cutoff: Tue,")
+                    .replace("Bericht: Fr,", "Release: Fri,")
+                    .replace("Veröffentlichung: Fr,", "Release: Fri,")
+            } else sig.cotTimeframe
+
+            val polDateDisplay = if (isEn) {
+                sig.politicianDate
+                    .replace("Handel:", "Trade:")
+                    .replace("Meldung:", "Filed:")
+            } else sig.politicianDate
+
+            val insiderSharesDisplay = if (isEn) {
+                sig.insiderShares.replace("Aktien", "Shares")
+            } else sig.insiderShares
 
             Card(
                 modifier = Modifier
@@ -311,7 +304,7 @@ fun RadarScreen(
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = sig.cotWhaleSentiment,
+                                    text = cotSentimentDisplay,
                                     fontSize = 10.5.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = GreenBuy,
@@ -331,7 +324,7 @@ fun RadarScreen(
                                     modifier = Modifier.weight(1f)
                                 )
                                 Text(
-                                    text = sig.cotWhaleFlow,
+                                    text = cotFlowDisplay,
                                     fontSize = 10.5.sp,
                                     fontWeight = FontWeight.Medium,
                                     color = MaterialTheme.colorScheme.onSurface,
@@ -344,7 +337,7 @@ fun RadarScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = "⏱️ ${sig.cotTimeframe}",
+                                    text = "⏱️ $cotTimeframeDisplay",
                                     fontSize = 10.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.End
@@ -410,7 +403,7 @@ fun RadarScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = "📅 ${sig.politicianDate}",
+                                    text = "📅 $polDateDisplay",
                                     fontSize = 10.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.End
@@ -475,7 +468,7 @@ fun RadarScreen(
                                 horizontalArrangement = Arrangement.End
                             ) {
                                 Text(
-                                    text = "📝 ${sig.insiderShares} · ${sig.insiderDate}",
+                                    text = "📝 $insiderSharesDisplay · ${sig.insiderDate}",
                                     fontSize = 10.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     textAlign = TextAlign.End

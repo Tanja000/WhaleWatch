@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccent
 import com.example.whalewatch.theme.RedSell
@@ -78,8 +77,8 @@ fun WatchlistScreen(
 
             Button(
                 onClick = {
-                    if (isValidStockTicker(newTickerInput)) {
-                        onAddTicker(newTickerInput.trim().uppercase())
+                    if (newTickerInput.isNotBlank()) {
+                        onAddTicker(newTickerInput)
                         newTickerInput = ""
                     }
                 },
@@ -233,7 +232,7 @@ fun WatchlistCard(
                     shape = RoundedCornerShape(6.dp)
                 ) {
                     Text(
-                        text = "🏛️ Kongress",
+                        text = if (isEn) "🏛️ Congress" else "🏛️ Kongress",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = CyanAccent,

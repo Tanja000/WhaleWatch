@@ -185,14 +185,3 @@ data class StockAnalysis(
     val recentTrades: List<CongressTrade> = emptyList(),
     val recentSec: List<SecAlert> = emptyList()
 )
-
-fun isValidStockTicker(ticker: String?): Boolean {
-    if (ticker.isNullOrBlank()) return false
-    val trimmed = ticker.trim().uppercase()
-    if (!trimmed.matches(Regex("^[A-Z]{1,5}([\\.\\-][A-Z]{1,2})?$"))) return false
-    val invalidNames = setOf(
-        "ZHANG", "DANNY", "DAVID", "CORP", "INC", "LTD", "HOLD", 
-        "LLC", "USA", "THE", "AND", "NEW", "GROUP", "STOCK", "SALE", "BUY", "AMIR", "ARNE", "CHENG"
-    )
-    return !invalidNames.contains(trimmed)
-}

@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.whalewatch.data.model.CongressTrade
-import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy
@@ -38,24 +37,24 @@ fun CongressDetailDialog(
     isEn: Boolean = false
 ) {
     val uriHandler = LocalUriHandler.current
-    val isDem = trade.party.uppercase() == "D"
-    val isRep = trade.party.uppercase() == "R"
+    val isDem = trade.party.uppercase() == "D" || trade.party.contains("Dem", ignoreCase = true)
+    val isRep = trade.party.uppercase() == "R" || trade.party.contains("Rep", ignoreCase = true)
     val partyColor = if (isDem) Color(0xFF3B82F6) else if (isRep) Color(0xFFEF4444) else Color(0xFF94A3B8)
     val partyName = if (isEn) {
-        if (isDem) "Democratic Party (D)" else if (isRep) "Republican Party (R)" else "Independent"
+        if (isDem) "Democratic Party (Democrat)" else if (isRep) "Republican Party (Republican)" else "Independent"
     } else {
-        if (isDem) "Demokratische Partei (D)" else if (isRep) "Republikanische Partei (R)" else "Unabhängig"
+        if (isDem) "Demokratische Partei (Demokrat)" else if (isRep) "Republikanische Partei (Republikaner)" else "Unabhängig"
     }
 
-    val isSenate = trade.chamber.lowercase() == "senate"
+    val isSenate = trade.chamber.lowercase().contains("senate") || trade.chamber.lowercase().contains("senat")
     val chamberName = if (isEn) {
         if (isSenate) "US Senate" else "US House of Representatives"
     } else {
         if (isSenate) "US-Senat" else "US-Repräsentantenhaus (House of Representatives)"
     }
-    val isPurchase = trade.transactionType.lowercase().contains("purchase")
+    val isPurchase = trade.transactionType.lowercase().let { it.contains("purchase") || it.contains("kauf") }
     val typeColor = if (isPurchase) GreenBuy else RedSell
-    val typeLabel = if (isPurchase) (if (isEn) "🟢 BUY" else "🟢 KAUF (Purchase)") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF (Sale)")
+    val typeLabel = if (isPurchase) (if (isEn) "🟢 BUY (Purchase)" else "🟢 KAUF (Purchase)") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF (Sale)")
 
     // Official verified disclosure URL
     val officialDisclosureUrl = if (isSenate) {
@@ -157,7 +156,7 @@ fun CongressDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "📈 TRADED SECURITY & AMOUNT" else "📈 GEHANDELTE AKTIE & BETRAG",
+                                text = if (isEn) "📈 TRADED STOCK & AMOUNT" else "📈 GEHANDELTE AKTIE & BETRAG",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
@@ -208,7 +207,7 @@ fun CongressDetailDialog(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
-                                            text = if (isEn) "💰 STATUTORY VALUE RANGE:" else "💰 GESETZLICHE WERTE-SPANNE:",
+                                            text = if (isEn) "💰 STATUTORY AMOUNT RANGE:" else "💰 GESETZLICHE WERTE-SPANNE:",
                                             fontSize = 10.5.sp,
                                             fontWeight = FontWeight.ExtraBold,
                                             color = GreenBuy
@@ -218,7 +217,7 @@ fun CongressDetailDialog(
                                             shape = RoundedCornerShape(4.dp)
                                         ) {
                                             Text(
-                                                text = if (isEn) "STOCK Act Requirement" else "STOCK Act Pflichtangabe",
+                                                text = if (isEn) "STOCK Act Mandatory" else "STOCK Act Pflichtangabe",
                                                 fontSize = 9.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 color = GreenBuy,
@@ -239,8 +238,10 @@ fun CongressDetailDialog(
 
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = if (isEn) "Note: US lawmakers are legally required to report transactions in value ranges rather than exact shares/amounts."
-                                               else "Hinweis: US-Politiker sind gesetzlich verpflichtet, Transaktionen in Wertspannen statt exakter Stückzahlen/Beträge offenzulegen.",
+                                        text = if (isEn)
+                                            "Note: US lawmakers are required by law to disclose transactions in statutory value ranges rather than exact share counts or dollar amounts."
+                                        else
+                                            "Hinweis: US-Politiker sind gesetzlich verpflichtet, Transaktionen in Wertspannen statt exakter Stückzahlen/Beträge offenzulegen.",
                                         fontSize = 10.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         lineHeight = 13.5.sp
@@ -261,7 +262,7 @@ fun CongressDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "📅 TIMELINE & FILING (STOCK ACT SCHEDULE)" else "📅 STICHTAG & MELDUNG (STOCK ACT ZEITPLAN)",
+                                text = if (isEn) "📅 TRADE & DISCLOSURE DATES (STOCK ACT SCHEDULE)" else "📅 STICHTAG & MELDUNG (STOCK ACT ZEITPLAN)",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
@@ -511,7 +512,7 @@ fun CongressDetailDialog(
                     }
 
                     // Watchlist Button
-                    if (isValidStockTicker(trade.ticker)) {
+                    if (trade.ticker.isNotBlank()) {
                         OutlinedButton(
                             onClick = onToggleWatchlist,
                             modifier = Modifier.fillMaxWidth(),

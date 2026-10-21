@@ -460,7 +460,8 @@ fun SecClusterCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "⏱️ Zeitraum: 14-Tage-Clusterfenster (bis ${cluster.filingDate.ifBlank { "-" }})",
+                    text = if (isEn) "⏱️ Period: 14-day cluster window (until ${cluster.filingDate.ifBlank { "-" }})"
+                           else "⏱️ Zeitraum: 14-Tage-Clusterfenster (bis ${cluster.filingDate.ifBlank { "-" }})",
                     fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
@@ -476,7 +477,8 @@ fun SecClusterCard(
                 border = androidx.compose.foundation.BorderStroke(1.dp, CyanAccentGlow.copy(alpha = 0.25f))
             ) {
                 Text(
-                    text = if (isEn) "👥 ${cluster.clusterCount} Directors & Insiders Involved" else "👥 ${cluster.clusterCount} Vorstände & Insider beteiligt",
+                    text = if (isEn) "👥 ${cluster.clusterCount} Executives & Insiders Participating"
+                           else "👥 ${cluster.clusterCount} Vorstände & Insider beteiligt",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = CyanAccentGlow,
@@ -638,6 +640,12 @@ fun SecAlertCard(
             Spacer(modifier = Modifier.height(6.dp))
 
             // Owner & Role Pill
+            val roleDisplay = if (isEn) {
+                alert.role
+                    .replace(" / Aufsichtsrat", "")
+                    .replace("Vorstand & Aufsichtsrat", "Executive & Board")
+                    .replace("Vorstand / Aufsichtsrat", "Executive & Board")
+            } else alert.role
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = alert.reportingOwner,
@@ -651,7 +659,7 @@ fun SecAlertCard(
                     color = if (isCeo) GreenBuy.copy(alpha = 0.15f) else if (isCfo) CyanAccentGlow.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surfaceVariant
                 ) {
                     Text(
-                        text = "${if (isCeo) "👔" else if (isCfo) "💼" else "🏛️"} ${alert.role}",
+                        text = "${if (isCeo) "👔" else if (isCfo) "💼" else "🏛️"} $roleDisplay",
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = if (isCeo) GreenBuy else if (isCfo) CyanAccentGlow else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -663,9 +671,8 @@ fun SecAlertCard(
             Spacer(modifier = Modifier.height(6.dp))
 
             // Shares pill: If known, display sharesFormatted, else '-'
-            val sharesDisplay = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "0" && alert.sharesFormatted != "0 Aktien" && alert.sharesFormatted != "-") {
-                if (isEn) alert.sharesFormatted.replace("Aktien", "Shares") else alert.sharesFormatted
-            } else "-"
+            val rawSharesDisplay = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "0" && alert.sharesFormatted != "0 Aktien" && alert.sharesFormatted != "-") alert.sharesFormatted else "-"
+            val sharesDisplay = if (isEn) rawSharesDisplay.replace("Aktien", "Shares") else rawSharesDisplay
             Surface(
                 shape = RoundedCornerShape(6.dp),
                 color = CyanAccentGlow.copy(alpha = 0.1f),
