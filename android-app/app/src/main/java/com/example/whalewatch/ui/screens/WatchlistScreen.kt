@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccent
 import com.example.whalewatch.theme.RedSell
@@ -27,7 +28,8 @@ fun WatchlistScreen(
     onRemoveTicker: (String) -> Unit,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    getCompanyName: (String) -> String = { it }
 ) {
     var newTickerInput by remember { mutableStateOf("") }
 
@@ -46,8 +48,8 @@ fun WatchlistScreen(
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
-            text = if (isEn) "Monitor your stocks for smart money flows: Congress buys, SEC Form 4 filings, and sentiment."
-                   else "Beobachte deine Aktien auf Smart Money Aktivitäten: Wurde von Politikern gekauft? Neue Form 4 Filings?",
+            text = if (isEn) "Monitor your stocks for Congress buys and SEC Form 4 insider filings."
+                   else "Beobachte deine Aktien auf Käufe von Politikern und neue SEC Form 4 Filings.",
             fontSize = 12.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             lineHeight = 16.sp
@@ -76,8 +78,8 @@ fun WatchlistScreen(
 
             Button(
                 onClick = {
-                    if (newTickerInput.isNotBlank()) {
-                        onAddTicker(newTickerInput)
+                    if (isValidStockTicker(newTickerInput)) {
+                        onAddTicker(newTickerInput.trim().uppercase())
                         newTickerInput = ""
                     }
                 },
@@ -140,9 +142,11 @@ fun WatchlistScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 contentPadding = PaddingValues(bottom = 24.dp)
             ) {
-                items(watchlist.toList(), key = { it }) { ticker ->
+                // Alphabetische Sortierung der Watchlist A-Z
+                items(watchlist.toList().sorted(), key = { it }) { ticker ->
                     WatchlistCard(
                         ticker = ticker,
+                        companyName = getCompanyName(ticker),
                         onRemove = { onRemoveTicker(ticker) },
                         onOpenAnalysis = { onOpenAnalysis(ticker) },
                         isEn = isEn
@@ -156,6 +160,7 @@ fun WatchlistScreen(
 @Composable
 fun WatchlistCard(
     ticker: String,
+    companyName: String,
     onRemove: () -> Unit,
     onOpenAnalysis: () -> Unit,
     isEn: Boolean
@@ -169,24 +174,29 @@ fun WatchlistCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
-            // Ticker & Delete Button
+            // Ticker & Vollständiger Unternehmensname & Delete Button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
+                Row(
+                    modifier = Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        text = ticker,
-                        fontSize = 18.sp,
+                        text = "$$ticker",
+                        fontSize = 17.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = MaterialTheme.colorScheme.primary
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(10.dp))
                     Text(
-                        text = "Aktie · Smart Money Radar",
-                        fontSize = 12.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        text = companyName,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1
                     )
                 }
 

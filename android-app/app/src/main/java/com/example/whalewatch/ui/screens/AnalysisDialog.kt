@@ -17,10 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.example.whalewatch.data.model.CongressTrade
+import com.example.whalewatch.data.model.SecAlert
 import com.example.whalewatch.data.model.StockAnalysis
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccent
@@ -42,7 +45,7 @@ fun AnalysisDialog(
         Card(
             modifier = Modifier
                 .fillMaxWidth(0.94f)
-                .fillMaxHeight(0.90f),
+                .fillMaxHeight(0.92f),
             shape = RoundedCornerShape(20.dp),
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface
@@ -68,7 +71,7 @@ fun AnalysisDialog(
                             ) {
                                 Text(
                                     text = "$${analysis.ticker}",
-                                    fontSize = 17.sp,
+                                    fontSize = 18.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = MaterialTheme.colorScheme.primary,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
@@ -76,16 +79,17 @@ fun AnalysisDialog(
                             }
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = if (isEn) "MULTI-SOURCE DETAILS" else "DETAILS & ANALYSE",
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold,
+                                text = "DETAILS",
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = analysis.companyName,
-                            fontSize = 11.5.sp,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1
                         )
@@ -108,79 +112,15 @@ fun AnalysisDialog(
                         .weight(1f)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    // Smart Money Score Box
-                    Surface(
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
-                    ) {
-                        Column(modifier = Modifier.padding(14.dp)) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = if (isEn) "Smart Money Confluence Score" else "Smart Money Confluence Score",
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
-
-                                val sentimentColor = if (analysis.score >= 60) GreenBuy else RedSell
-                                Surface(
-                                    color = sentimentColor,
-                                    shape = RoundedCornerShape(6.dp)
-                                ) {
-                                    Text(
-                                        text = if (isEn) analysis.sentimentEn else analysis.sentimentDe,
-                                        color = Color.White,
-                                        fontSize = 10.5.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(10.dp))
-
-                            // Score Progress Bar
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(8.dp)
-                                    .clip(RoundedCornerShape(4.dp))
-                                    .background(MaterialTheme.colorScheme.surfaceVariant)
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .fillMaxHeight()
-                                        .fillMaxWidth(analysis.score / 100f)
-                                        .background(if (analysis.score >= 60) GreenBuy else RedSell)
-                                )
-                            }
-
-                            Spacer(modifier = Modifier.height(8.dp))
-                            Text(
-                                text = "${analysis.score} / 100 Punkte",
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = if (analysis.score >= 60) GreenBuy else RedSell
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(14.dp))
-
                     // ================= 1. SÄULE: 🐋 COT MAKRO- & WAL-SENTIMENT =================
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.25f),
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f))
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
+                            // Header with high-contrast Pill Badge
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -188,18 +128,30 @@ fun AnalysisDialog(
                             ) {
                                 Text(
                                     text = if (isEn) "🐋 1. CFTC COT WHALE SENTIMENT" else "🐋 1. CFTC COT MAKRO- & WAL-SENTIMENT",
-                                    fontSize = 11.sp,
+                                    fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = MaterialTheme.colorScheme.primary
                                 )
-                                Text(
-                                    text = "${analysis.cotWhaleLongPct.toInt()}% Long",
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = GreenBuy
-                                )
+
+                                val isLong = analysis.cotWhaleLongPct >= 50.0
+                                val cotColor = if (isLong) GreenBuy else RedSell
+                                val cotLabel = if (isLong) "${analysis.cotWhaleLongPct.toInt()}% LONG" else "${(100 - analysis.cotWhaleLongPct).toInt()}% SHORT"
+                                Surface(
+                                    color = cotColor.copy(alpha = 0.18f),
+                                    shape = RoundedCornerShape(6.dp),
+                                    border = BorderStroke(1.dp, cotColor.copy(alpha = 0.5f))
+                                ) {
+                                    Text(
+                                        text = cotLabel,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = cotColor,
+                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
+                                    )
+                                }
                             }
-                            Spacer(modifier = Modifier.height(6.dp))
+
+                            Spacer(modifier = Modifier.height(8.dp))
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -229,34 +181,114 @@ fun AnalysisDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(14.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // ================= 2. SÄULE: 🏛️ KONGRESS STOCK ACT =================
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.25f),
-                        border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.3f))
+                        border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
+                            // Header with separate, crisp Buy/Sale Pills
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    text = if (isEn) "🏛️ 2. CONGRESS STOCK ACT ACTIVITY" else "🏛️ 2. KONGRESS STOCK ACT AKTIVITÄT",
-                                    fontSize = 11.sp,
+                                    text = if (isEn) "🏛️ 2. CONGRESS STOCK ACT" else "🏛️ 2. KONGRESS STOCK ACT",
+                                    fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = CyanAccent
                                 )
-                                Text(
-                                    text = "${analysis.congressBuys}x Käufe / ${analysis.congressSales}x Verkäufe",
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = if (analysis.congressBuys >= analysis.congressSales) GreenBuy else RedSell
-                                )
+
+                                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                                    if (analysis.congressBuys > 0) {
+                                        Surface(
+                                            color = GreenBuy.copy(alpha = 0.18f),
+                                            shape = RoundedCornerShape(6.dp),
+                                            border = BorderStroke(1.dp, GreenBuy.copy(alpha = 0.5f))
+                                        ) {
+                                            Text(
+                                                text = if (isEn) "${analysis.congressBuys}x BUY" else "${analysis.congressBuys}x KAUF",
+                                                fontSize = 10.5.sp,
+                                                fontWeight = FontWeight.ExtraBold,
+                                                color = GreenBuy,
+                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                    }
+                                    if (analysis.congressSales > 0) {
+                                        Surface(
+                                            color = RedSell.copy(alpha = 0.18f),
+                                            shape = RoundedCornerShape(6.dp),
+                                            border = BorderStroke(1.dp, RedSell.copy(alpha = 0.5f))
+                                        ) {
+                                            Text(
+                                                text = if (isEn) "${analysis.congressSales}x SALE" else "${analysis.congressSales}x VERKAUF",
+                                                fontSize = 10.5.sp,
+                                                fontWeight = FontWeight.ExtraBold,
+                                                color = RedSell,
+                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                    }
+                                    if (analysis.congressBuys == 0 && analysis.congressSales == 0) {
+                                        Surface(
+                                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
+                                            shape = RoundedCornerShape(6.dp)
+                                        ) {
+                                            Text(
+                                                text = "0 TRADES",
+                                                fontSize = 10.5.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                            )
+                                        }
+                                    }
+                                }
                             }
+
+                            // Gesamt-Spanne banner when more than 1 trade
+                            if (analysis.recentTrades.size > 1) {
+                                val totalRange = calculateCongressTotalRange(analysis.recentTrades)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = CyanAccent.copy(alpha = 0.12f),
+                                    border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.4f))
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text("📊", fontSize = 12.sp)
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                text = if (isEn) "Total Range (${analysis.recentTrades.size} traders):" else "Gesamt-Spanne (${analysis.recentTrades.size} Käufer/Verkäufer):",
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
+                                        }
+                                        Text(
+                                            text = totalRange,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            color = CyanAccent
+                                        )
+                                    }
+                                }
+                            }
+
                             Spacer(modifier = Modifier.height(8.dp))
 
                             if (analysis.recentTrades.isEmpty()) {
@@ -267,66 +299,105 @@ fun AnalysisDialog(
                                 )
                             } else {
                                 analysis.recentTrades.forEach { trade ->
-                                    val isBuy = trade.transactionType.lowercase().contains("purchase")
+                                    val isBuy = trade.transactionType.lowercase().contains("purchase") || trade.transactionType.lowercase().contains("kauf")
                                     val chamberClean = if (trade.chamber.lowercase().contains("senat")) "Senat" else "Repräsentantenhaus"
-                                    val partyClean = if (trade.party == "D") "Demokrat" else if (trade.party == "R") "Republikaner" else trade.party
+                                    val partyLabel = if (trade.party == "D") "DEM" else if (trade.party == "R") "REP" else trade.party
+                                    val partyBg = if (trade.party == "D") CyanAccent.copy(alpha = 0.18f) else if (trade.party == "R") RedSell.copy(alpha = 0.18f) else MaterialTheme.colorScheme.surfaceVariant
+                                    val partyColor = if (trade.party == "D") CyanAccent else if (trade.party == "R") RedSell else MaterialTheme.colorScheme.onSurface
 
                                     Surface(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(vertical = 4.dp),
-                                        shape = RoundedCornerShape(8.dp),
-                                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
+                                            .padding(vertical = 3.5.dp),
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.25f))
                                     ) {
-                                        Column(modifier = Modifier.padding(8.dp)) {
+                                        Column(modifier = Modifier.padding(10.dp)) {
+                                            // Row 1: Name + Party/Chamber Badge + Action Pill
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.Top
+                                            ) {
+                                                Column(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .padding(end = 8.dp)
+                                                ) {
+                                                    Text(
+                                                        text = trade.filerName,
+                                                        fontSize = 12.5.sp,
+                                                        fontWeight = FontWeight.ExtraBold,
+                                                        color = MaterialTheme.colorScheme.onSurface,
+                                                        maxLines = 2,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                    Spacer(modifier = Modifier.height(3.dp))
+                                                    Surface(
+                                                        color = partyBg,
+                                                        shape = RoundedCornerShape(4.dp)
+                                                    ) {
+                                                        Text(
+                                                            text = "$partyLabel · $chamberClean",
+                                                            fontSize = 9.5.sp,
+                                                            fontWeight = FontWeight.Bold,
+                                                            color = partyColor,
+                                                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                        )
+                                                    }
+                                                }
+                                                Surface(
+                                                    color = if (isBuy) GreenBuy.copy(alpha = 0.18f) else RedSell.copy(alpha = 0.18f),
+                                                    shape = RoundedCornerShape(5.dp),
+                                                    border = BorderStroke(1.dp, if (isBuy) GreenBuy.copy(alpha = 0.5f) else RedSell.copy(alpha = 0.5f))
+                                                ) {
+                                                    Text(
+                                                        text = if (isBuy) (if (isEn) "🟢 BUY" else "🟢 KAUF") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF"),
+                                                        fontSize = 10.sp,
+                                                        fontWeight = FontWeight.ExtraBold,
+                                                        color = if (isBuy) GreenBuy else RedSell,
+                                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                    )
+                                                }
+                                            }
+
+                                            Spacer(modifier = Modifier.height(4.dp))
+
+                                            // Row 2: Spanne + Daten
                                             Row(
                                                 modifier = Modifier.fillMaxWidth(),
                                                 horizontalArrangement = Arrangement.SpaceBetween,
                                                 verticalAlignment = Alignment.CenterVertically
                                             ) {
                                                 Text(
-                                                    text = "${trade.filerName} ($chamberClean · $partyClean)",
-                                                    fontSize = 12.sp,
-                                                    fontWeight = FontWeight.Bold,
-                                                    color = MaterialTheme.colorScheme.onSurface
-                                                )
-                                                Surface(
-                                                    color = if (isBuy) GreenBuy.copy(alpha = 0.2f) else RedSell.copy(alpha = 0.2f),
-                                                    shape = RoundedCornerShape(4.dp)
-                                                ) {
-                                                    Text(
-                                                        text = if (isBuy) "KAUF" else "VERKAUF",
-                                                        fontSize = 10.sp,
-                                                        fontWeight = FontWeight.Bold,
-                                                        color = if (isBuy) GreenBuy else RedSell,
-                                                        modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                                                    )
-                                                }
-                                            }
-                                            Spacer(modifier = Modifier.height(3.dp))
-                                            Row(
-                                                modifier = Modifier.fillMaxWidth(),
-                                                horizontalArrangement = Arrangement.SpaceBetween
-                                            ) {
-                                                Text(
-                                                    text = "Spanne: ${trade.amountRangeLabel}",
-                                                    fontSize = 11.sp,
-                                                    fontWeight = FontWeight.Bold,
-                                                    color = MaterialTheme.colorScheme.primary
+                                                    text = if (isEn) "Range: ${trade.amountRangeLabel}" else "Spanne: ${trade.amountRangeLabel}",
+                                                    fontSize = 11.5.sp,
+                                                    fontWeight = FontWeight.ExtraBold,
+                                                    color = CyanAccent
                                                 )
                                                 Text(
-                                                    text = "Handel: ${trade.transactionDate} · Meldung: ${trade.filingDate}",
+                                                    text = if (isEn) "Trade: ${trade.transactionDate} · Filed: ${trade.filingDate}" else "Handel: ${trade.transactionDate} · Meldung: ${trade.filingDate}",
                                                     fontSize = 10.sp,
                                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
                                             }
+
                                             if (trade.hasCommitteeConflict) {
-                                                Spacer(modifier = Modifier.height(2.dp))
-                                                Text(
-                                                    text = "⚠️ Ausschuss-Konflikt: ${trade.conflictCommittee}",
-                                                    fontSize = 10.sp,
-                                                    color = AmberWhale
-                                                )
+                                                Spacer(modifier = Modifier.height(4.dp))
+                                                Surface(
+                                                    color = AmberWhale.copy(alpha = 0.12f),
+                                                    shape = RoundedCornerShape(6.dp),
+                                                    border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.35f))
+                                                ) {
+                                                    Text(
+                                                        text = if (isEn) "⚠️ Committee Conflict: ${trade.conflictCommittee}" else "⚠️ Ausschuss-Konflikt: ${trade.conflictCommittee}",
+                                                        fontSize = 10.sp,
+                                                        fontWeight = FontWeight.SemiBold,
+                                                        color = AmberWhale,
+                                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                                                    )
+                                                }
                                             }
                                         }
                                     }
@@ -335,16 +406,17 @@ fun AnalysisDialog(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(14.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     // ================= 3. SÄULE: 🏢 SEC FORM 4 INSIDER =================
                     Surface(
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.25f),
-                        border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.3f))
+                        border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
+                            // Header with crisp Filing Count Pill
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -352,17 +424,62 @@ fun AnalysisDialog(
                             ) {
                                 Text(
                                     text = if (isEn) "🏢 3. SEC FORM 4 INSIDER ALERTS" else "🏢 3. SEC FORM 4 INSIDER-ALARME",
-                                    fontSize = 11.sp,
+                                    fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = AmberWhale
                                 )
-                                Text(
-                                    text = "${analysis.secAlertsCount} Filings",
-                                    fontSize = 11.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSurface
-                                )
+                                Surface(
+                                    color = AmberWhale.copy(alpha = 0.18f),
+                                    shape = RoundedCornerShape(6.dp),
+                                    border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.5f))
+                                ) {
+                                    Text(
+                                        text = "${analysis.secAlertsCount} FILINGS",
+                                        fontSize = 10.5.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        color = AmberWhale,
+                                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                    )
+                                }
                             }
+
+                            // Gesamt-Spanne / Volumen banner when more than 1 SEC filing
+                            if (analysis.recentSec.size > 1) {
+                                val totalSecFormatted = calculateSecTotalValue(analysis.recentSec)
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Surface(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = AmberWhale.copy(alpha = 0.12f),
+                                    border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.4f))
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(horizontal = 10.dp, vertical = 6.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Text("📊", fontSize = 12.sp)
+                                            Spacer(modifier = Modifier.width(6.dp))
+                                            Text(
+                                                text = if (isEn) "Total Volume (${analysis.recentSec.size} Insiders):" else "Gesamt-Volumen (${analysis.recentSec.size} Insider):",
+                                                fontSize = 11.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
+                                        }
+                                        Text(
+                                            text = totalSecFormatted,
+                                            fontSize = 12.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            color = AmberWhale
+                                        )
+                                    }
+                                }
+                            }
+
                             Spacer(modifier = Modifier.height(8.dp))
 
                             if (analysis.recentSec.isEmpty()) {
@@ -373,48 +490,77 @@ fun AnalysisDialog(
                                 )
                             } else {
                                 analysis.recentSec.forEach { sec ->
-                                    val dateStr = if (sec.filingTime.isNotBlank()) sec.filingTime.take(16).replace('T', ' ') + " Uhr" else sec.filingDate
+                                    val dateStr = if (sec.filingTime.isNotBlank()) sec.filingTime.take(16).replace('T', ' ') + (if (isEn) " EST" else " Uhr") else sec.filingDate
                                     Surface(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(vertical = 4.dp),
-                                        shape = RoundedCornerShape(8.dp),
-                                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.6f)
+                                            .padding(vertical = 3.5.dp),
+                                        shape = RoundedCornerShape(10.dp),
+                                        color = MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+                                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.25f))
                                     ) {
-                                        Column(modifier = Modifier.padding(8.dp)) {
+                                        Column(modifier = Modifier.padding(10.dp)) {
+                                            // Row 1: Name + Role + Buy/Sell Pill
+                                            Row(
+                                                modifier = Modifier.fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.SpaceBetween,
+                                                verticalAlignment = Alignment.Top
+                                            ) {
+                                                Column(
+                                                    modifier = Modifier
+                                                        .weight(1f)
+                                                        .padding(end = 8.dp)
+                                                ) {
+                                                    Text(
+                                                        text = sec.reportingOwner,
+                                                        fontSize = 12.5.sp,
+                                                        fontWeight = FontWeight.ExtraBold,
+                                                        color = MaterialTheme.colorScheme.onSurface,
+                                                        maxLines = 2,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                    Spacer(modifier = Modifier.height(2.dp))
+                                                    Text(
+                                                        text = if (isEn) {
+                                                            sec.role.replace("Vorstand und Aufsichtsrat", "Officer & Director")
+                                                                .replace("Vorstand / Aufsichtsrat", "Officer & Director")
+                                                                .replace("Vorstand", "Executive Officer")
+                                                                .replace("Aufsichtsrat", "Director")
+                                                        } else sec.role,
+                                                        fontSize = 10.sp,
+                                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                                        maxLines = 2,
+                                                        overflow = TextOverflow.Ellipsis
+                                                    )
+                                                }
+                                                Surface(
+                                                    color = if (sec.isBuy) GreenBuy.copy(alpha = 0.18f) else RedSell.copy(alpha = 0.18f),
+                                                    shape = RoundedCornerShape(5.dp),
+                                                    border = BorderStroke(1.dp, if (sec.isBuy) GreenBuy.copy(alpha = 0.5f) else RedSell.copy(alpha = 0.5f))
+                                                ) {
+                                                    Text(
+                                                        text = if (sec.isBuy) (if (isEn) "🟢 BUY" else "🟢 KAUF") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF"),
+                                                        fontSize = 10.sp,
+                                                        fontWeight = FontWeight.ExtraBold,
+                                                        color = if (sec.isBuy) GreenBuy else RedSell,
+                                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                    )
+                                                }
+                                            }
+
+                                            Spacer(modifier = Modifier.height(4.dp))
+
+                                            // Row 2: Shares, Total Value & Date
                                             Row(
                                                 modifier = Modifier.fillMaxWidth(),
                                                 horizontalArrangement = Arrangement.SpaceBetween,
                                                 verticalAlignment = Alignment.CenterVertically
                                             ) {
                                                 Text(
-                                                    text = "${sec.reportingOwner} (${sec.role})",
-                                                    fontSize = 12.sp,
-                                                    fontWeight = FontWeight.Bold,
-                                                    color = MaterialTheme.colorScheme.onSurface
-                                                )
-                                                Surface(
-                                                    color = if (sec.isBuy) GreenBuy.copy(alpha = 0.2f) else RedSell.copy(alpha = 0.2f),
-                                                    shape = RoundedCornerShape(4.dp)
-                                                ) {
-                                                    Text(
-                                                        text = if (sec.isBuy) "🟢 Kauf" else "🔴 Verkauf",
-                                                        fontSize = 10.sp,
-                                                        fontWeight = FontWeight.Bold,
-                                                        color = if (sec.isBuy) GreenBuy else RedSell,
-                                                        modifier = Modifier.padding(horizontal = 5.dp, vertical = 2.dp)
-                                                    )
-                                                }
-                                            }
-                                            Spacer(modifier = Modifier.height(3.dp))
-                                            Row(
-                                                modifier = Modifier.fillMaxWidth(),
-                                                horizontalArrangement = Arrangement.SpaceBetween
-                                            ) {
-                                                Text(
-                                                    text = "${sec.sharesFormatted} · ${sec.totalValueFormatted}",
-                                                    fontSize = 11.sp,
-                                                    fontWeight = FontWeight.Bold,
+                                                    text = if (isEn) "${sec.sharesFormatted.replace("Aktien", "Shares")} · ${sec.totalValueFormatted}"
+                                                           else "${sec.sharesFormatted} · ${sec.totalValueFormatted}",
+                                                    fontSize = 11.5.sp,
+                                                    fontWeight = FontWeight.ExtraBold,
                                                     color = GreenBuy
                                                 )
                                                 Text(
@@ -431,7 +577,7 @@ fun AnalysisDialog(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // ================= WATCHLIST ACTION BUTTON =================
                 Button(
@@ -463,4 +609,42 @@ fun AnalysisDialog(
             }
         }
     }
+}
+
+fun calculateCongressTotalRange(trades: List<CongressTrade>): String {
+    if (trades.isEmpty()) return "-"
+    var minSum = 0L
+    var maxSum = 0L
+    var parsedCount = 0
+
+    for (t in trades) {
+        val raw = t.amountRangeLabel.replace("$", "").replace(",", "").trim()
+        val parts = raw.split("-").map { it.trim() }
+        if (parts.size == 2) {
+            val min = parts[0].toLongOrNull() ?: 0L
+            val max = parts[1].toLongOrNull() ?: 0L
+            if (max > 0) {
+                minSum += min
+                maxSum += max
+                parsedCount++
+            }
+        }
+    }
+
+    if (parsedCount > 1 && maxSum > 0) {
+        val format = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US)
+        format.maximumFractionDigits = 0
+        return "${format.format(minSum)} - ${format.format(maxSum)}"
+    }
+    return trades.firstOrNull()?.amountRangeLabel ?: "-"
+}
+
+fun calculateSecTotalValue(alerts: List<SecAlert>): String {
+    val total = alerts.sumOf { it.totalValue }
+    if (total > 0L) {
+        val format = java.text.NumberFormat.getCurrencyInstance(java.util.Locale.US)
+        format.maximumFractionDigits = 0
+        return format.format(total)
+    }
+    return alerts.firstOrNull()?.totalValueFormatted ?: "-"
 }

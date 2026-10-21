@@ -176,6 +176,10 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAnalysis(ticker)
     }
 
+    fun getCompanyName(ticker: String): String {
+        return repository.getCompanyName(ticker)
+    }
+
     fun addWatchlistTicker(ticker: String) {
         repository.addWatchlistTicker(ticker)
     }

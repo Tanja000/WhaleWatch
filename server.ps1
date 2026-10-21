@@ -888,6 +888,14 @@ try {
                 $res.OutputStream.Write($b, 0, $b.Length)
                 $res.Close()
             }
+            elseif ($path -eq "/api/stock-details") {
+                $file = Join-Path $wwwroot "data\stock_details.json"
+                $json = if (Test-Path $file) { [System.IO.File]::ReadAllText($file, [System.Text.Encoding]::UTF8) } else { "{}" }
+                $b = [System.Text.Encoding]::UTF8.GetBytes($json)
+                $res.ContentType = "application/json; charset=utf-8"
+                $res.OutputStream.Write($b, 0, $b.Length)
+                $res.Close()
+            }
             elseif ($path -eq "/api/party-sentiment") {
                 $file = Join-Path $wwwroot "data\party_sentiment.json"
                 $json = if (Test-Path $file) { [System.IO.File]::ReadAllText($file, [System.Text.Encoding]::UTF8) } else { "{}" }

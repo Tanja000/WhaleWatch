@@ -61,7 +61,7 @@ const I18N = {
     sec_price_lbl: 'Kurs',
     sec_volume_lbl: 'Gesamtwert',
     wl_title: 'Persönliche Watchlist',
-    wl_desc: 'Beobachte deine Aktien auf Smart Money Aktivitäten: Wurde kürzlich von Politikern gekauft? Gibt es neue Form 4 Filings?',
+    wl_desc: 'Beobachte deine Aktien auf Käufe von Politikern und neue Form 4 Filings.',
     wl_add_placeholder: 'Ticker hinzufügen (z.B. AAPL, NVDA, TSLA)...',
     wl_btn_add: '+ Hinzufügen',
     wl_popular: 'Beliebt:',
@@ -144,7 +144,7 @@ const I18N = {
     sec_price_lbl: 'Price',
     sec_volume_lbl: 'Total Value',
     wl_title: 'Personal Watchlist',
-    wl_desc: 'Monitor your portfolio for smart money activity: Recent politician buys or fresh Form 4 insider filings.',
+    wl_desc: 'Monitor your portfolio for recent politician buys and fresh Form 4 insider filings.',
     wl_add_placeholder: 'Add ticker (e.g. AAPL, NVDA, TSLA)...',
     wl_btn_add: '+ Add Ticker',
     wl_popular: 'Popular:',
@@ -504,6 +504,7 @@ async function loadAllData() {
     if (!STATE.sec && window.BUNDLED_DATA.sec) STATE.sec = normalizeSec(window.BUNDLED_DATA.sec);
     if (window.BUNDLED_DATA.super_signals) STATE.superSignals = window.BUNDLED_DATA.super_signals;
     if (window.BUNDLED_DATA.party_sentiment) STATE.partySentiment = window.BUNDLED_DATA.party_sentiment;
+    if (window.BUNDLED_DATA.stock_details) STATE.stockDetails = window.BUNDLED_DATA.stock_details;
 
     renderRadar();
     renderCot();
@@ -521,10 +522,11 @@ async function loadAllData() {
         fetch('/api/congress?limit=100').then((r) => r.json()),
         fetch('/api/sec').then((r) => r.json()),
         fetch('/api/super-signals').then((r) => r.json()),
-        fetch('/api/party-sentiment').then((r) => r.json())
+        fetch('/api/party-sentiment').then((r) => r.json()),
+        fetch('/api/stock-details').then((r) => r.json())
       ]);
 
-      const [radarRes, cotRes, congressRes, secRes, superRes, partyRes] = results;
+      const [radarRes, cotRes, congressRes, secRes, superRes, partyRes, stockDetailsRes] = results;
 
       if (radarRes.status === 'fulfilled' && radarRes.value && !radarRes.value.error) {
         STATE.radar = radarRes.value;
@@ -549,6 +551,9 @@ async function loadAllData() {
       }
       if (partyRes.status === 'fulfilled' && partyRes.value && !partyRes.value.error) {
         STATE.partySentiment = partyRes.value;
+      }
+      if (stockDetailsRes && stockDetailsRes.status === 'fulfilled' && stockDetailsRes.value && !stockDetailsRes.value.error) {
+        STATE.stockDetails = stockDetailsRes.value;
       }
 
       renderRadar();
@@ -625,14 +630,24 @@ function renderRadar() {
     badgeEl.style.backgroundColor = moodColor;
   }
 
-  // Dial Value and Ring Color Conic Gradient (Grün für Long-Anteil, Rot für Short-Anteil)
+  // Dial Value and Ring Color Conic Gradient: Zeige die Position mit dem meisten Gewicht
+  const isLongDominant = longPct >= shortPct;
+  const dominantPct = isLongDominant ? longPct : shortPct;
+  const dominantLabel = isLongDominant ? 'LONG' : 'SHORT';
+  const dominantColor = isLongDominant ? '#10b981' : '#ef4444';
+
   if (dialEl) {
-    dialEl.textContent = `${longPct.toFixed(1)}%`;
-    dialEl.style.color = longPct >= 50 ? '#10b981' : '#ef4444';
+    dialEl.textContent = `${dominantPct.toFixed(1)}%`;
+    dialEl.style.color = dominantColor;
+  }
+  const dialSubEl = document.getElementById('radar-gauge-sub');
+  if (dialSubEl) {
+    dialSubEl.textContent = dominantLabel;
+    dialSubEl.style.color = dominantColor;
   }
   if (dialRing) {
     dialRing.style.background = `conic-gradient(#10b981 0% ${longPct}%, #ef4444 ${longPct}% 100%)`;
-    dialRing.style.boxShadow = `0 0 22px rgba(16, 185, 129, 0.4)`;
+    dialRing.style.boxShadow = `0 0 22px ${dominantColor}55`;
   }
 
   // Dynamic Mood Header & Detailed Subtext from newest data
@@ -789,46 +804,48 @@ function renderSuperSignals() {
             <button onclick="event.stopPropagation(); toggleWatchlistTicker('${s.ticker}'); renderSuperSignals();" class="icon-btn" style="background:${isOnWl ? 'rgba(245,158,11,0.25)' : 'rgba(30,41,59,0.7)'}; border:1px solid ${isOnWl ? '#f59e0b' : '#334155'}; font-size:14px; padding:4px 8px; border-radius:6px; cursor:pointer;" title="${isOnWl ? 'Von Watchlist entfernen' : 'Zur Watchlist hinzufügen'}">
               ${isOnWl ? '⭐' : '☆'}
             </button>
-            <span class="pill" style="font-size:11px; font-weight:800; background:#10b981; color:#000; padding:4px 8px; border-radius:6px;">
-              ${s.conviction_score}/100
-            </span>
           </div>
         </div>
 
         <!-- 1. Quelle: COT Makro-Sentiment -->
         <div style="background:rgba(30,41,59,0.6); border:1px solid rgba(56,189,248,0.3); border-radius:8px; padding:8px 10px; margin-bottom:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
             <span style="font-size:10px; font-weight:800; color:#38bdf8;">🐋 COT MAKRO-SENTIMENT</span>
-            <span style="font-size:11px; font-weight:700; color:#10b981;">${escapeHtml(s.cot_sentiment || 'Whales Net Long')}</span>
+            <span style="font-size:11px; font-weight:700; color:#10b981; text-align:right;">${escapeHtml(s.cot_sentiment || 'Whales Net Long')}</span>
           </div>
-          <div style="font-size:11px; color:#e2e8f0;">${escapeHtml(s.cot_market || 'Macro Market')} · ${escapeHtml(s.cot_flow || '')}</div>
-          <div style="font-size:10px; color:#94a3b8;">⏱️ ${escapeHtml(s.cot_timeframe || 'Stichtag Di / Bericht Fr')}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+            <span style="color:#e2e8f0;">${escapeHtml(s.cot_market || 'Macro Market')}</span>
+            <span style="color:#10b981; font-weight:700; text-align:right;">${escapeHtml(s.cot_flow || '')}</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:#94a3b8; margin-top:2px;">
+            <span>⏱️ Zeitspanne</span>
+            <span style="text-align:right;">${escapeHtml(s.cot_timeframe || 'Stichtag Di / Bericht Fr')}</span>
+          </div>
         </div>
 
         <!-- 2. Quelle: Kongress STOCK Act -->
         <div style="background:rgba(30,41,59,0.6); border:1px solid rgba(6,182,212,0.3); border-radius:8px; padding:8px 10px; margin-bottom:6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
             <span style="font-size:10px; font-weight:800; color:#06b6d4;">🏛️ KONGRESS STOCK ACT</span>
-            <span style="font-size:11px; font-weight:700; color:#10b981;">${escapeHtml(s.politician_amount || '')}</span>
+            <span style="font-size:11px; font-weight:700; color:#10b981; text-align:right;">${escapeHtml(s.politician_amount || '')}</span>
           </div>
-          <div style="font-size:11px; font-weight:700; color:#e2e8f0;">${escapeHtml(s.politician_name || '')} (${s.politician_party || ''})</div>
-          <div style="font-size:10px; color:#94a3b8;">📅 ${escapeHtml(s.politician_date || '')}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+            <span style="font-weight:700; color:#e2e8f0;">${escapeHtml(s.politician_name || '')} (${s.politician_party || ''})</span>
+            <span style="font-size:10px; color:#94a3b8; text-align:right;">📅 ${escapeHtml(s.politician_date || '')}</span>
+          </div>
         </div>
 
         <!-- 3. Quelle: SEC Form 4 Insider -->
         <div style="background:rgba(30,41,59,0.6); border:1px solid rgba(245,158,11,0.3); border-radius:8px; padding:8px 10px; margin-bottom:10px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:2px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
             <span style="font-size:10px; font-weight:800; color:#f59e0b;">🏢 SEC FORM 4 INSIDER</span>
-            <span style="font-size:11px; font-weight:700; color:#10b981;">${escapeHtml(s.insider_value || '')}</span>
+            <span style="font-size:11px; font-weight:700; color:#10b981; text-align:right;">${escapeHtml(s.insider_value || '')}</span>
           </div>
-          <div style="font-size:11px; font-weight:700; color:#e2e8f0;">${escapeHtml(s.insider_name || '')} (${escapeHtml(s.insider_role || '')})</div>
-          <div style="font-size:10px; color:#94a3b8;">📝 ${escapeHtml(s.insider_shares || '')} · ${escapeHtml(s.insider_date || '')}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+            <span style="font-weight:700; color:#e2e8f0;">${escapeHtml(s.insider_name || '')} (${escapeHtml(s.insider_role || '')})</span>
+            <span style="font-size:10px; color:#94a3b8; text-align:right;">📝 ${escapeHtml(s.insider_shares || '')} · ${escapeHtml(s.insider_date || '')}</span>
+          </div>
         </div>
-
-        <!-- Details Button (Einheitlich "Details") -->
-        <button class="pill" style="width:100%; padding:9px; font-size:12px; font-weight:700; background:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.35); border-radius:8px; cursor:pointer;" onclick="openTickerModal('${s.ticker}')">
-          Details
-        </button>
       </div>
     `;
   }).join('');
@@ -1556,7 +1573,37 @@ function renderWatchlist() {
   const cong = congData ? congData.trades : [];
   const sec = secData ? secData.alerts : [];
 
-  container.innerHTML = STATE.watchlist.map((ticker) => {
+  const getWlCompanyName = (sym) => {
+    if (STATE.stockDetails && STATE.stockDetails[sym] && STATE.stockDetails[sym].company_name) {
+      return STATE.stockDetails[sym].company_name;
+    }
+    const sig = (STATE.superSignals || []).find((s) => s.ticker === sym);
+    if (sig && sig.company_name) return sig.company_name;
+    const names = {
+      'NVDA': 'NVIDIA Corporation',
+      'MSFT': 'Microsoft Corporation',
+      'AAPL': 'Apple Inc.',
+      'PLTR': 'Palantir Technologies Inc.',
+      'TSLA': 'Tesla, Inc.',
+      'AMZN': 'Amazon.com, Inc.',
+      'GOOGL': 'Alphabet Inc.',
+      'META': 'Meta Platforms, Inc.',
+      'NXPI': 'NXP Semiconductors N.V.',
+      'PG': 'The Procter & Gamble Company',
+      'RPM': 'RPM International Inc.',
+      'FITB': 'Fifth Third Bancorp',
+      'T': 'AT&T Inc.',
+      'IONS': 'Ionis Pharmaceuticals, Inc.',
+      'ACN': 'Accenture plc',
+      'RMCF': 'Rocky Mountain Chocolate Factory, Inc.'
+    };
+    return names[sym] || `${sym} Corporation`;
+  };
+
+  // Alphabetische Sortierung A-Z
+  const sortedWatchlist = [...STATE.watchlist].sort();
+
+  container.innerHTML = sortedWatchlist.map((ticker) => {
     const cgMatches = cong.filter((t) => (t.ticker || '').toUpperCase() === ticker);
     const secMatches = sec.filter((a) => (a.ticker || '').toUpperCase() === ticker || (a.issuer || '').toUpperCase().includes(ticker));
 
@@ -1577,16 +1624,16 @@ function renderWatchlist() {
     return `
       <div class="watchlist-card">
         <div class="wl-top">
-          <div style="cursor:pointer;" onclick="openTickerModal('${ticker}')">
+          <div style="cursor:pointer; display:flex; align-items:center; gap:8px;" onclick="openTickerModal('${ticker}')">
             <span class="wl-ticker">$${ticker}</span>
-            <span class="badge-sub" style="margin-left:6px;">Smart Radar</span>
+            <span style="font-size:12.5px; font-weight:700; color:#e2e8f0;">${escapeHtml(getWlCompanyName(ticker))}</span>
             ${secBadge}
           </div>
           <button class="wl-del-btn" onclick="removeWatchlistTicker('${ticker}')" title="${isEn ? 'Remove' : 'Entfernen'}">✕</button>
         </div>
         <div class="wl-activity">${activityText}</div>
         <div style="margin-top:8px; display:flex; gap:6px;">
-          <button class="pill" style="font-size:11px; padding:4px 10px; background:rgba(6,182,212,0.15); color:#06b6d4; border:1px solid rgba(6,182,212,0.3);" onclick="openTickerModal('${ticker}')">${dict.wl_full_analysis}</button>
+          <button class="pill" style="font-size:11px; padding:4px 10px; background:rgba(6,182,212,0.15); color:#06b6d4; border:1px solid rgba(6,182,212,0.3); border-radius:6px; cursor:pointer;" onclick="openTickerModal('${ticker}')">Details</button>
         </div>
       </div>
     `;
@@ -2739,17 +2786,21 @@ window.openTickerModal = async function(ticker) {
   const contentEl = document.getElementById('modal-content');
   if (!modal || !contentEl) return;
 
-  if (titleEl) titleEl.textContent = `$${ticker} ${dict.modal_title_suffix}`;
+  if (titleEl) titleEl.textContent = `DETAILS: $${ticker}`;
   
   // Initial loading state
   contentEl.innerHTML = `
     <div class="loading-spinner-row">
-      <div class="spinner"></div> Lade Smart Money Vollanalyse für $${ticker}...
+      <div class="spinner"></div> Lade Details für $${ticker}...
     </div>
   `;
   modal.style.display = 'flex';
 
   try {
+    if (STATE.stockDetails && STATE.stockDetails[ticker]) {
+      renderVollanalyseContent(STATE.stockDetails[ticker], ticker);
+      return;
+    }
     const res = await fetch(`/api/analysis?ticker=${ticker}`).then((r) => r.json());
     renderVollanalyseContent(res, ticker);
   } catch (err) {
@@ -2759,6 +2810,30 @@ window.openTickerModal = async function(ticker) {
   }
 };
 
+function calculateJsCongressTotalRange(trades) {
+  if (!trades || trades.length === 0) return '-';
+  let minSum = 0;
+  let maxSum = 0;
+  let count = 0;
+  trades.forEach((t) => {
+    const raw = (t.amount_range_label || '').replace(/\$/g, '').replace(/,/g, '').trim();
+    const parts = raw.split('-');
+    if (parts.length === 2) {
+      const min = parseInt(parts[0].trim(), 10) || 0;
+      const max = parseInt(parts[1].trim(), 10) || 0;
+      if (max > 0) {
+        minSum += min;
+        maxSum += max;
+        count++;
+      }
+    }
+  });
+  if (count > 1 && maxSum > 0) {
+    return `$${minSum.toLocaleString('en-US')} - $${maxSum.toLocaleString('en-US')}`;
+  }
+  return trades[0].amount_range_label || '-';
+}
+
 function renderVollanalyseContent(data, ticker) {
   const isEn = STATE.lang === 'en';
   const dict = I18N[STATE.lang] || I18N.de;
@@ -2766,40 +2841,55 @@ function renderVollanalyseContent(data, ticker) {
   if (!contentEl) return;
 
   const isOnWatchlist = STATE.watchlist.includes(ticker);
-  const score = data.score || 65;
-  const sentimentLabel = isEn ? (data.sentiment_label_en || 'BULLISH') : (data.sentiment_label_de || 'BULLISCH');
-  const sentimentColor = data.sentiment_color || '#10b981';
-  const companyName = data.company_name || `${ticker} Corporation`;
+  let companyName = data.company_name || `${ticker} Corporation`;
 
   // Watchlist action button text & style
   const wlBtnClass = isOnWatchlist ? 'is-active' : 'is-not-active';
   const wlBtnText = isOnWatchlist ? (isEn ? '⭐ Remove from Watchlist' : '⭐ Von Watchlist entfernen') : (isEn ? '☆ Add to Watchlist' : '☆ Zur Watchlist hinzufügen');
 
   // Recent congress trades and SEC alerts
-  const cgTrades = data.recent_congress_trades || [];
-  const secAlerts = data.recent_sec_alerts || [];
+  let cgTrades = data.recent_congress_trades || [];
+  let secAlerts = data.recent_sec_alerts || [];
 
   // COT Macro Context
   const cot = STATE.cot || (window.BUNDLED_DATA ? window.BUNDLED_DATA.cot : null);
   const isTech = ['NVDA', 'MSFT', 'AAPL', 'PLTR', 'NXPI', 'AMZN', 'GOOGL', 'META'].includes(ticker);
   const cotMarket = (cot && cot.markets) ? (cot.markets.find(m => isTech ? m.id === 'QQQ' : m.id === 'SPY') || cot.markets[0]) : null;
-  const cotLongPct = cotMarket ? Math.round(cotMarket.whale_bullish_pct || 50) : 50;
-  const cotShortPct = 100 - cotLongPct;
-  const cotMarketName = cotMarket ? cotMarket.name : (isTech ? 'Nasdaq-100 / QQQ (Tech)' : 'S&P 500 / SPY (Large Caps)');
-  const cotFlowDesc = cotMarket ? (cotMarket.whale_change_desc || '+8.000 Akkumulation') : '+8.000 Akkumulation';
+  let cotLongPct = cotMarket ? Math.round(cotMarket.whale_bullish_pct || 50) : 50;
+  let cotShortPct = 100 - cotLongPct;
+  let cotMarketName = cotMarket ? cotMarket.name : (isTech ? 'Nasdaq-100 / QQQ (Tech)' : 'S&P 500 / SPY (Large Caps)');
+  let cotFlowDesc = cotMarket ? (cotMarket.whale_change_desc || '+8.000 Akkumulation') : '+8.000 Akkumulation';
+
+  // Use unified stock dossier if available
+  const dossier = (STATE.stockDetails && STATE.stockDetails[ticker]) ? STATE.stockDetails[ticker] : (data.cot ? data : null);
+  if (dossier) {
+    if (dossier.company_name) companyName = dossier.company_name;
+    if (dossier.cot) {
+      if (dossier.cot.market) cotMarketName = dossier.cot.market;
+      if (dossier.cot.whale_long_pct) cotLongPct = dossier.cot.whale_long_pct;
+      if (dossier.cot.whale_short_pct) cotShortPct = dossier.cot.whale_short_pct;
+      if (dossier.cot.flow) cotFlowDesc = dossier.cot.flow;
+    }
+    if (dossier.congress && dossier.congress.trades) {
+      cgTrades = dossier.congress.trades;
+    }
+    if (dossier.sec && dossier.sec.filings) {
+      secAlerts = dossier.sec.filings;
+    }
+  }
 
   // SuperSignal check
   const superSig = (STATE.superSignals || []).find((s) => s.ticker === ticker);
 
   contentEl.innerHTML = `
-    <!-- Top Header: Ticker, Company Name & Sentiment Score -->
+    <!-- Top Header: Ticker & Company Name -->
     <div class="analysis-card-top" style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
       <div>
         <div style="font-size:24px; font-weight:800; color:#38bdf8; line-height:1.1;">$${ticker}</div>
-        <div style="font-size:12px; color:#cbd5e1; margin-top:2px;">${escapeHtml(companyName)}</div>
+        <div style="font-size:12.5px; color:#cbd5e1; margin-top:2px;">${escapeHtml(companyName)}</div>
       </div>
-      <div class="analysis-score-badge" style="background-color:${sentimentColor}22; color:${sentimentColor}; border:1px solid ${sentimentColor}44; font-weight:800; padding:4px 10px; border-radius:6px; font-size:11px;">
-        ${sentimentLabel}
+      <div class="analysis-score-badge" style="background-color:rgba(56,189,248,0.15); color:#38bdf8; border:1px solid rgba(56,189,248,0.3); font-weight:800; padding:4px 10px; border-radius:6px; font-size:11px;">
+        DETAILS
       </div>
     </div>
 
@@ -2815,25 +2905,13 @@ function renderVollanalyseContent(data, ticker) {
       </div>
     ` : ''}
 
-    <!-- Confluence Score Box -->
-    <div style="background:rgba(30,41,59,0.7); border:1px solid #334155; border-radius:10px; padding:12px; margin-bottom:12px;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-        <span style="color:#94a3b8; font-size:12px; font-weight:700;">Smart Money Confluence Score</span>
-        <span style="color:${sentimentColor}; font-weight:800; font-size:14px;">${score} / 100</span>
-      </div>
-      <div style="height:8px; border-radius:4px; background:#0f172a; overflow:hidden; margin-bottom:6px;">
-        <div style="width:${score}%; height:100%; background:${sentimentColor};"></div>
-      </div>
-      <div style="font-size:10.5px; color:#94a3b8;">
-        Synthese aus 3 Säulen: CFTC Makro-Wal-Positionierung, Kongress STOCK Act Käufe und SEC Form 4 Insider-Flow.
-      </div>
-    </div>
-
     <!-- ================= 1. SÄULE: 🐋 COT MAKRO-SENTIMENT ================= -->
-    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(56,189,248,0.3); border-radius:10px; padding:12px; margin-bottom:12px; font-size:11.5px;">
+    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(56,189,248,0.35); border-radius:12px; padding:12px; margin-bottom:12px; font-size:11.5px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="color:#38bdf8; font-weight:800; font-size:11px;">🐋 1. CFTC COT MAKRO- & WAL-SENTIMENT</span>
-        <span style="color:#10b981; font-weight:700;">${cotLongPct}% Whale Long</span>
+        <span style="font-size:11px; font-weight:800; background:${cotLongPct >= 50 ? 'rgba(16,185,129,0.18)' : 'rgba(239,68,68,0.18)'}; color:${cotLongPct >= 50 ? '#10b981' : '#ef4444'}; border:1px solid ${cotLongPct >= 50 ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)'}; padding:2.5px 8px; border-radius:6px;">
+          ${cotLongPct >= 50 ? `${cotLongPct}% LONG` : `${cotShortPct}% SHORT`}
+        </span>
       </div>
       <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
         <span style="color:#94a3b8;">Markt & Sektor:</span>
@@ -2850,34 +2928,55 @@ function renderVollanalyseContent(data, ticker) {
     </div>
 
     <!-- ================= 2. SÄULE: 🏛️ KONGRESS STOCK ACT ================= -->
-    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(6,182,212,0.3); border-radius:10px; padding:12px; margin-bottom:12px; font-size:11.5px;">
+    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(6,182,212,0.35); border-radius:12px; padding:12px; margin-bottom:12px; font-size:11.5px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-        <span style="color:#06b6d4; font-weight:800; font-size:11px;">🏛️ 2. KONGRESS STOCK ACT AKTIVITÄT</span>
-        <span style="color:${data.congress_buys >= data.congress_sales ? '#10b981' : '#ef4444'}; font-weight:700;">
-          ${data.congress_buys || 0}x Käufe / ${data.congress_sales || 0}x Verkäufe
-        </span>
+        <span style="color:#06b6d4; font-weight:800; font-size:11px;">🏛️ 2. KONGRESS STOCK ACT</span>
+        <div style="display:flex; gap:6px;">
+          ${(data.congress_buys || 0) > 0 ? `<span style="font-size:10.5px; font-weight:800; background:rgba(16,185,129,0.18); color:#10b981; border:1px solid rgba(16,185,129,0.5); padding:2px 7px; border-radius:5px;">${data.congress_buys}x KAUF</span>` : ''}
+          ${(data.congress_sales || 0) > 0 ? `<span style="font-size:10.5px; font-weight:800; background:rgba(239,68,68,0.18); color:#ef4444; border:1px solid rgba(239,68,68,0.5); padding:2px 7px; border-radius:5px;">${data.congress_sales}x VERKAUF</span>` : ''}
+          ${((data.congress_buys || 0) === 0 && (data.congress_sales || 0) === 0) ? `<span style="font-size:10.5px; font-weight:700; background:rgba(148,163,184,0.18); color:#94a3b8; padding:2px 6px; border-radius:5px;">0 TRADES</span>` : ''}
+        </div>
       </div>
 
-      ${cgTrades.length > 0 ? cgTrades.slice(0, 4).map((t) => {
-        const isBuy = (t.transaction_type || '').toLowerCase().includes('purchase');
+      ${cgTrades.length > 1 ? `
+        <div style="background:rgba(6,182,212,0.12); border:1px solid rgba(6,182,212,0.4); border-radius:8px; padding:6px 10px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:11px; font-weight:700; color:#e2e8f0;">📊 Gesamt-Spanne (${cgTrades.length} Käufer/Verkäufer):</span>
+          <span style="font-size:12px; font-weight:800; color:#38bdf8;">${calculateJsCongressTotalRange(cgTrades)}</span>
+        </div>
+      ` : ''}
+
+      ${cgTrades.length > 0 ? cgTrades.slice(0, 6).map((t) => {
+        const isBuy = (t.transaction_type || '').toLowerCase().includes('purchase') || (t.transaction_type || '').toLowerCase().includes('kauf');
         const isSen = (t.chamber || '').toLowerCase().includes('senat');
         const chamberLabel = isSen ? 'Senat' : 'Repräsentantenhaus';
-        const partyLabel = t.party === 'D' ? 'Demokrat' : (t.party === 'R' ? 'Republikaner' : (t.party || '-'));
+        const partyLabel = t.party === 'D' ? 'DEM' : (t.party === 'R' ? 'REP' : (t.party || '-'));
+        const partyBg = t.party === 'D' ? 'rgba(56,189,248,0.18)' : (t.party === 'R' ? 'rgba(239,68,68,0.18)' : 'rgba(148,163,184,0.18)');
+        const partyColor = t.party === 'D' ? '#38bdf8' : (t.party === 'R' ? '#ef4444' : '#cbd5e1');
+
         return `
-          <div style="background:rgba(15,23,42,0.7); border:1px solid #334155; border-radius:8px; padding:8px 10px; margin-bottom:6px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <strong style="color:#fff;">${escapeHtml(t.filer_name)} (${chamberLabel} · ${partyLabel})</strong>
-              <span class="pill" style="font-size:10px; font-weight:700; background:${isBuy ? '#10b98122' : '#ef444422'}; color:${isBuy ? '#10b981' : '#ef4444'}; padding:2px 6px; border-radius:4px;">
-                ${isBuy ? 'KAUF' : 'VERKAUF'}
+          <div style="background:rgba(15,23,42,0.75); border:1px solid rgba(51,65,85,0.7); border-radius:10px; padding:10px 12px; margin-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; gap:8px;">
+              <div style="flex:1; min-width:0;">
+                <div style="color:#fff; font-size:12.5px; font-weight:800; line-height:1.3; word-break:break-word;">
+                  ${escapeHtml(t.filer_name)}
+                </div>
+                <div style="margin-top:3px;">
+                  <span style="font-size:9.5px; font-weight:700; background:${partyBg}; color:${partyColor}; padding:2px 6px; border-radius:4px; display:inline-block; border:1px solid ${partyColor}44;">
+                    ${partyLabel} · ${chamberLabel}
+                  </span>
+                </div>
+              </div>
+              <span class="pill" style="white-space:nowrap; flex-shrink:0; font-size:10px; font-weight:800; background:${isBuy ? 'rgba(16,185,129,0.18)' : 'rgba(239,68,68,0.18)'}; color:${isBuy ? '#10b981' : '#ef4444'}; border:1px solid ${isBuy ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)'}; padding:2px 6px; border-radius:4px;">
+                ${isBuy ? '🟢 KAUF' : '🔴 VERKAUF'}
               </span>
             </div>
             <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:11px;">
               <span>Spanne: <strong style="color:#38bdf8;">${escapeHtml(t.amount_range_label || '-')}</strong></span>
-              <span>Handel: ${t.transaction_date || '-'} · Meldung: ${t.filing_date || '-'}</span>
+              <span style="text-align:right;">Handel: ${t.transaction_date || '-'} · Meldung: ${t.filing_date || '-'}</span>
             </div>
-            ${t.has_committee_conflict ? `
-              <div style="font-size:10px; color:#f59e0b; margin-top:3px;">
-                ⚠️ Ausschuss-Konflikt: ${escapeHtml(t.conflict_desc_de || t.conflict_committee || 'Interessenkonflikt')}
+            ${(t.has_committee_conflict || t.conflict_committee) ? `
+              <div style="font-size:10px; color:#f59e0b; margin-top:4px; background:rgba(245,158,11,0.12); padding:3px 6px; border-radius:4px; border:1px solid rgba(245,158,11,0.3);">
+                ⚠️ Ausschuss-Konflikt: ${escapeHtml(t.conflict_desc_de || t.conflict_desc || t.conflict_committee || 'Interessenkonflikt')}
               </div>
             ` : ''}
           </div>
@@ -2886,26 +2985,41 @@ function renderVollanalyseContent(data, ticker) {
     </div>
 
     <!-- ================= 3. SÄULE: 🏢 SEC FORM 4 INSIDER ================= -->
-    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(245,158,11,0.3); border-radius:10px; padding:12px; margin-bottom:12px; font-size:11.5px;">
+    <div style="background:rgba(30,41,59,0.5); border:1px solid rgba(245,158,11,0.35); border-radius:12px; padding:12px; margin-bottom:12px; font-size:11.5px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
         <span style="color:#f59e0b; font-weight:800; font-size:11px;">🏢 3. SEC FORM 4 INSIDER-FILINGS</span>
-        <span style="color:#cbd5e1; font-weight:700;">${secAlerts.length} Filings</span>
+        <span style="font-size:10.5px; font-weight:800; background:rgba(245,158,11,0.18); color:#f59e0b; border:1px solid rgba(245,158,11,0.5); padding:2px 7px; border-radius:5px;">
+          ${secAlerts.length} FILINGS
+        </span>
       </div>
 
-      ${secAlerts.length > 0 ? secAlerts.slice(0, 4).map((a) => {
+      ${secAlerts.length > 0 ? secAlerts.slice(0, 6).map((a) => {
         const isBuy = a.is_buy !== undefined ? a.is_buy : (a.code === 'P' || !a.code);
         const dateStr = a.filing_time ? a.filing_time.slice(0, 16).replace('T', ' ') + ' Uhr' : (a.filing_date || '-');
+        const formUrl = a.sec_form_url || a.filing_url;
         return `
-          <div style="background:rgba(15,23,42,0.7); border:1px solid #334155; border-radius:8px; padding:8px 10px; margin-bottom:6px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <strong style="color:#fff;">${escapeHtml(a.reporting_owner || 'Insider')} (${escapeHtml(a.role || 'Officer')})</strong>
-              <span class="pill" style="font-size:10px; font-weight:700; background:${isBuy ? '#10b98122' : '#ef444422'}; color:${isBuy ? '#10b981' : '#ef4444'}; padding:2px 6px; border-radius:4px;">
-                ${isBuy ? '🟢 Kauf' : '🔴 Verkauf'}
+          <div style="background:rgba(15,23,42,0.75); border:1px solid rgba(51,65,85,0.7); border-radius:10px; padding:10px 12px; margin-bottom:6px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:5px; gap:8px;">
+              <div style="flex:1; min-width:0;">
+                <div style="color:#fff; font-size:12.5px; font-weight:800; line-height:1.3; word-break:break-word;">
+                  ${escapeHtml(a.reporting_owner || 'Insider')}
+                </div>
+                <div style="margin-top:2px;">
+                  <span style="font-size:10px; font-weight:600; color:#f59e0b; background:rgba(245,158,11,0.12); padding:1.5px 6px; border-radius:4px; display:inline-block; border:1px solid rgba(245,158,11,0.25);">
+                    ${escapeHtml(a.role || 'Officer')}
+                  </span>
+                </div>
+              </div>
+              <span class="pill" style="white-space:nowrap; flex-shrink:0; font-size:10px; font-weight:800; background:${isBuy ? 'rgba(16,185,129,0.18)' : 'rgba(239,68,68,0.18)'}; color:${isBuy ? '#10b981' : '#ef4444'}; border:1px solid ${isBuy ? 'rgba(16,185,129,0.5)' : 'rgba(239,68,68,0.5)'}; padding:2px 6px; border-radius:4px;">
+                ${isBuy ? '🟢 KAUF' : '🔴 VERKAUF'}
               </span>
             </div>
-            <div style="display:flex; justify-content:space-between; color:#94a3b8; font-size:11px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; color:#94a3b8; font-size:11px; margin-top:4px;">
               <span style="color:#10b981; font-weight:700;">${escapeHtml(a.shares_formatted || '')} ${a.total_value_formatted ? `· ${a.total_value_formatted}` : ''}</span>
-              <span>Filing: ${dateStr}</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span style="text-align:right;">Filing: ${dateStr}</span>
+                ${formUrl ? `<a href="${formUrl}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:none; font-size:10px; font-weight:700; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.3); padding:1px 5px; border-radius:4px;">Form 4 ↗</a>` : ''}
+              </div>
             </div>
           </div>
         `;

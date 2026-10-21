@@ -18,12 +18,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.whalewatch.data.model.BipartisanStock
 import com.example.whalewatch.data.model.CongressTrade
+import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy
@@ -95,7 +97,7 @@ fun BipartisanDetailDialog(
                         modifier = Modifier.padding(end = 8.dp)
                     ) {
                         Text(
-                            text = "${stock.totalBuys} KÄUFE",
+                            text = if (isEn) "${stock.totalBuys} BUYS" else "${stock.totalBuys} KÄUFE",
                             color = MaterialTheme.colorScheme.primary,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
@@ -135,14 +137,17 @@ fun BipartisanDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "⚡ ÜBERPARTEILICHE KAUF-CONFLUENCE",
+                                text = if (isEn) "⚡ BIPARTISAN ACCUMULATION CONFLUENCE" else "⚡ ÜBERPARTEILICHE KAUF-CONFLUENCE",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
                                 modifier = Modifier.padding(bottom = 6.dp)
                             )
                             Text(
-                                text = "Wenn Politiker beider rivalisierender US-Parteien zeitgleich dieselbe Aktie kaufen, gilt dies als eines der verlässlichsten Signale an den US-Börsen. Es eliminiert parteipolitische Spekulationen und deutet regelmäßig auf bevorstehende überparteiliche Gesetzesinitiativen, Budgetfreigaben oder Förderungen hin.",
+                                text = if (isEn)
+                                    "When politicians from both rival US political parties buy the same stock at the same time, it is considered one of the most reliable signals in financial markets. It eliminates partisan bias and often points to upcoming bipartisan legislative initiatives, appropriations, or subsidies."
+                                else
+                                    "Wenn Politiker beider rivalisierender US-Parteien zeitgleich dieselbe Aktie kaufen, gilt dies als eines der verlässlichsten Signale an den US-Börsen. Es eliminiert parteipolitische Spekulationen und deutet regelmäßig auf bevorstehende überparteiliche Gesetzesinitiativen, Budgetfreigaben oder Förderungen hin.",
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 lineHeight = 15.sp
@@ -161,7 +166,7 @@ fun BipartisanDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "⚖️ PARTEI-AUFTEILUNG DER KÄUFE",
+                                text = if (isEn) "⚖️ PARTY BREAKDOWN OF PURCHASES" else "⚖️ PARTEI-AUFTEILUNG DER KÄUFE",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.primary,
@@ -173,13 +178,13 @@ fun BipartisanDetailDialog(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = "🔵 Demokraten: ${stock.demBuys} ($demPct%)",
+                                    text = if (isEn) "🔵 Democrats: ${stock.demBuys} ($demPct%)" else "🔵 Demokraten: ${stock.demBuys} ($demPct%)",
                                     color = Color(0xFF3B82F6),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 12.sp
                                 )
                                 Text(
-                                    text = "🔴 Republikaner: ${stock.repBuys} ($repPct%)",
+                                    text = if (isEn) "🔴 Republicans: ${stock.repBuys} ($repPct%)" else "🔴 Republikaner: ${stock.repBuys} ($repPct%)",
                                     color = Color(0xFFEF4444),
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 12.sp
@@ -215,7 +220,7 @@ fun BipartisanDetailDialog(
 
                     // 3. Related Trades List (MIT ALLEN VERFÜGBAREN DATEN)
                     Text(
-                        text = "📋 Alle erfassten Käufe für $${stock.ticker} (${distinctTrades.size})",
+                        text = if (isEn) "📋 All recorded purchases for $${stock.ticker} (${distinctTrades.size})" else "📋 Alle erfassten Käufe für $${stock.ticker} (${distinctTrades.size})",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -224,7 +229,7 @@ fun BipartisanDetailDialog(
 
                     if (distinctTrades.isEmpty()) {
                         Text(
-                            text = "Keine Einzeltrades im aktuellen Filterzeitraum gefunden.",
+                            text = if (isEn) "No individual trades found in the current period." else "Keine Einzeltrades im aktuellen Filterzeitraum gefunden.",
                             fontSize = 11.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -233,8 +238,8 @@ fun BipartisanDetailDialog(
                             distinctTrades.forEach { trade ->
                                 val isTradeDem = trade.party.uppercase() == "D"
                                 val tColor = if (isTradeDem) Color(0xFF3B82F6) else Color(0xFFEF4444)
-                                val partyNameText = if (isTradeDem) "Demokrat" else "Republikaner"
-                                val chamberText = if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
+                                val partyNameText = if (isTradeDem) (if (isEn) "Democrat" else "Demokrat") else (if (isEn) "Republican" else "Republikaner")
+                                val chamberText = if (trade.chamber.lowercase() == "senate") (if (isEn) "Senate" else "Senat") else (if (isEn) "House" else "Repräsentantenhaus")
 
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
@@ -250,9 +255,14 @@ fun BipartisanDetailDialog(
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.SpaceBetween,
-                                            verticalAlignment = Alignment.CenterVertically
+                                            verticalAlignment = Alignment.Top
                                         ) {
-                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                            Row(
+                                                verticalAlignment = Alignment.CenterVertically,
+                                                modifier = Modifier
+                                                    .weight(1f)
+                                                    .padding(end = 8.dp)
+                                            ) {
                                                 Box(
                                                     modifier = Modifier
                                                         .size(8.dp)
@@ -264,7 +274,9 @@ fun BipartisanDetailDialog(
                                                     text = trade.filerName,
                                                     fontWeight = FontWeight.Bold,
                                                     fontSize = 13.sp,
-                                                    color = MaterialTheme.colorScheme.onSurface
+                                                    color = MaterialTheme.colorScheme.onSurface,
+                                                    maxLines = 2,
+                                                    overflow = TextOverflow.Ellipsis
                                                 )
                                             }
 
@@ -292,7 +304,7 @@ fun BipartisanDetailDialog(
                                         ) {
                                             Column {
                                                 Text(
-                                                    text = "Gesetzliche Spanne:",
+                                                    text = if (isEn) "Statutory Range:" else "Gesetzliche Spanne:",
                                                     fontSize = 9.5.sp,
                                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
@@ -306,12 +318,13 @@ fun BipartisanDetailDialog(
 
                                             Column(horizontalAlignment = Alignment.End) {
                                                 Text(
-                                                    text = "Handel: ${trade.transactionDate} · Meldung: ${trade.filingDate}",
+                                                    text = if (isEn) "Trade: ${trade.transactionDate} · Filed: ${trade.filingDate}" else "Handel: ${trade.transactionDate} · Meldung: ${trade.filingDate}",
                                                     fontSize = 10.sp,
                                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
                                                 Text(
-                                                    text = "${trade.daysToFile} Tage Frist (${if (trade.isLate) "⚠️ Verspätet" else "✅ Fristgerecht"})",
+                                                    text = if (isEn) "${trade.daysToFile}d filing window (${if (trade.isLate) "⚠️ Late" else "✅ On-time"})"
+                                                           else "${trade.daysToFile} Tage Frist (${if (trade.isLate) "⚠️ Verspätet" else "✅ Fristgerecht"})",
                                                     fontSize = 9.5.sp,
                                                     color = if (trade.isLate) AmberWhale else GreenBuy
                                                 )
@@ -326,7 +339,7 @@ fun BipartisanDetailDialog(
                                                 shape = RoundedCornerShape(4.dp)
                                             ) {
                                                 Text(
-                                                    text = "⚠️ Ausschuss-Konflikt: ${trade.conflictCommittee} (${trade.conflictSector})",
+                                                    text = if (isEn) "⚠️ Committee Conflict: ${trade.conflictCommittee} (${trade.conflictSector})" else "⚠️ Ausschuss-Konflikt: ${trade.conflictCommittee} (${trade.conflictSector})",
                                                     color = AmberWhale,
                                                     fontSize = 9.5.sp,
                                                     fontWeight = FontWeight.Bold,
@@ -346,7 +359,7 @@ fun BipartisanDetailDialog(
                                                 onClick = { onTradeClick(trade) },
                                                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 0.dp)
                                             ) {
-                                                Text("Details zu diesem Trade ↗", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+                                                Text(if (isEn) "Details for this trade ↗" else "Details zu diesem Trade ↗", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                             }
                                         }
                                     }
@@ -375,7 +388,7 @@ fun BipartisanDetailDialog(
                         )
                     ) {
                         Text(
-                            text = "🏛️ Offizielle Offenlegungsdaten (House & Senate Disclosures) ↗",
+                            text = if (isEn) "🏛️ Official Disclosure Data (House & Senate Disclosures) ↗" else "🏛️ Offizielle Offenlegungsdaten (House & Senate Disclosures) ↗",
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.5.sp,
                             color = Color.Black
@@ -400,7 +413,11 @@ fun BipartisanDetailDialog(
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
-                            text = if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${stock.ticker} zur Watchlist hinzufügen",
+                            text = if (isEn) {
+                                if (isOnWatchlist) "⭐ On Watchlist (Tap to remove)" else "⭐ Add $${stock.ticker} to Watchlist"
+                            } else {
+                                if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${stock.ticker} zur Watchlist hinzufügen"
+                            },
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )

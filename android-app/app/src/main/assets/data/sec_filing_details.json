@@ -1,4 +1,4 @@
-{
+﻿{
     "total_filings":  100,
     "updated_at":  "2026-10-21T09:25:48Z",
     "version":  "2.1-clean-details",
@@ -26,7 +26,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  16000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "16.000 Aktien"
                                         },
@@ -57,7 +57,7 @@
                                                  "security_beneficially_owned_formatted":  "2.054.344 Aktien"
                                              },
                         "accession_number":  "97eef97a-944b-44f4-8400-be522fddcafc",
-                        "investor_assessment_de":  "Aktien-Zuteilung oder VergÜtung lt. Anstellungsvertrag. HÄlt nun 2.054.344 Aktien.",
+                        "investor_assessment_de":  "Aktien-Zuteilung oder VergÃ¼tung lt. Anstellungsvertrag. Hält nun 2.054.344 Aktien.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock"
@@ -103,7 +103,7 @@
                                                  "security_beneficially_owned_formatted":  "22.770 Aktien"
                                              },
                         "accession_number":  "61e88529-05fa-4dc2-815c-b889e177f4be",
-                        "investor_assessment_de":  "Aktien-Zuteilung oder VergÜtung lt. Anstellungsvertrag. HÄlt nun 22.770 Aktien.",
+                        "investor_assessment_de":  "Aktien-Zuteilung oder VergÃ¼tung lt. Anstellungsvertrag. Hält nun 22.770 Aktien.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Restricted Stock Units"
@@ -149,7 +149,7 @@
                                                  "security_beneficially_owned_formatted":  "215.000 Aktien"
                                              },
                         "accession_number":  "cb5fe5d9-8c8c-4807-93a2-9f8f7f19fe96",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Vorstandschef kauft fÜr Über ,1 Mio. Aktien. Hohes Vertrauen in AuftragseingÄnge im Halbleitermesstechnik-Sektor.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Vorstandschef kauft fÃ¼r Über ,1 Mio. Aktien. Hohes Vertrauen in AuftragseingÃ¤nge im Halbleitermesstechnik-Sektor.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -164,7 +164,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  14000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "14.000 Aktien"
                                         },
@@ -195,7 +195,7 @@
                                                  "security_beneficially_owned_formatted":  "145.000 Aktien"
                                              },
                         "accession_number":  "6d93bb7e-c156-4804-a474-4bae7246d61b",
-                        "investor_assessment_de":  "Kauf am offenen Markt: CEO kauft 35.000 Aktien wÄhrend des operativen Turnarounds.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: CEO kauft 35.000 Aktien wÃ¤hrend des operativen Turnarounds.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -210,7 +210,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  35000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "35.000 Aktien"
                                         },
@@ -241,7 +241,7 @@
                                                  "security_beneficially_owned_formatted":  "8.450.000 Aktien"
                                              },
                         "accession_number":  "4c96dd9c-4d9f-4a7a-b6b6-02e7c1d47166",
-                        "investor_assessment_de":  "Kauf am offenen Markt: CEO \u0026 GrÜnder kauft 80.000 ADS-Einheiten.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: CEO \u0026 GrÃ¼nder kauft 80.000 ADS-Einheiten.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -256,7 +256,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  80000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "80.000 Aktien"
                                         },
@@ -287,7 +287,7 @@
                                                  "security_beneficially_owned_formatted":  "14.250.000 Aktien"
                                              },
                         "accession_number":  "ca4605f8-c5ad-4e5c-b11a-f9906e7ee9c3",
-                        "investor_assessment_de":  "Kauf am offenen Markt: GrÜnder \u0026 Co-CEO kauft 120.000 Aktien an der NYSE. HÄlt nun Über 14,2 Mio. Aktien.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: GrÃ¼nder \u0026 Co-CEO kauft 120.000 Aktien an der NYSE. Hält nun Über 14,2 Mio. Aktien.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -302,7 +302,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  120000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "120.000 Aktien"
                                         },
@@ -333,7 +333,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "510e2fd2-f629-4e5e-9c41-6c152b9c6289",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -348,7 +348,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -379,7 +379,7 @@
                                                  "security_beneficially_owned_formatted":  "184.500 Aktien"
                                              },
                         "accession_number":  "b54bb102-621a-4da2-b282-294a7233f0cf",
-                        "investor_assessment_de":  "Kauf am offenen Markt: CEO Jim Vena investiert knapp  Mio. privates Kapital. Ein massives Ãœberzeugungssignal fÜr anhaltendes Effizienzwachstum.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: CEO Jim Vena investiert knapp  Mio. privates Kapital. Ein massives Ãœberzeugungssignal fÃ¼r anhaltendes Effizienzwachstum.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -394,7 +394,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  12500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "12.500 Aktien"
                                         },
@@ -425,7 +425,7 @@
                                                  "security_beneficially_owned_formatted":  "520.400 Aktien"
                                              },
                         "accession_number":  "fa43d34f-e3e6-4ce9-ad0c-db8f7cdf2a0f",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Der Vorstandschef investiert ,1 Mio. privates Eigenkapital direkt an der BÖrse. ErhÖht seinen Gesamtbestand auf Über 520.000 Aktien.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Der Vorstandschef investiert ,1 Mio. privates Eigenkapital direkt an der Börse. ErhÃ¶ht seinen Gesamtbestand auf über 520.000 Aktien.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -440,7 +440,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  35000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "35.000 Aktien"
                                         },
@@ -471,7 +471,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a7dfc20b-d805-4e2d-8c31-973dc8b72d93",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -486,7 +486,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -517,7 +517,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "b17a1d96-1de0-4f52-82be-27ca29c2f79d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -532,7 +532,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -563,7 +563,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "fc6bcbe7-091d-4e02-91c9-9ca11b7ee352",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -578,11 +578,11 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
-                        "issuer":  "Zhang Jinshu (Holding/Affiliate)",
+                        "issuer":  "Niu Technologies",
                         "filing_date":  "",
                         "reporting_person":  {
                                                  "is_officer":  false,
@@ -599,7 +599,7 @@
                                                  "label_de":  "Direkt (D)"
                                              },
                         "filing_url":  "https://www.sec.gov/Archives/edgar/data/1968606/000110465926117067/0001104659-26-117067-index.htm",
-                        "ticker":  "Zhang"
+                        "ticker":  "NIU"
                     },
                     {
                         "filing_time":  "2026-10-20T09:37:58-04:00",
@@ -609,7 +609,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "7ef324f8-fc43-4153-9e20-4af4ae297afc",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -624,7 +624,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -655,7 +655,7 @@
                                                  "security_beneficially_owned_formatted":  "13.900.000 Aktien"
                                              },
                         "accession_number":  "2a77d36b-cf2e-40b5-83b4-445e4334423b",
-                        "investor_assessment_de":  "Kauf am offenen Markt: GrÜnder \u0026 Co-CEO stockt seine GrÜnderposition um 115.000 StÜck auf.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: GrÃ¼nder \u0026 Co-CEO stockt seine GrÃ¼nderposition um 115.000 StÃ¼ck auf.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -670,7 +670,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  115000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "115.000 Aktien"
                                         },
@@ -701,7 +701,7 @@
                                                  "security_beneficially_owned_formatted":  "195.000 Aktien"
                                              },
                         "accession_number":  "18f96022-bee2-4390-81a6-a88939359034",
-                        "investor_assessment_de":  "Kauf am offenen Markt: CEO investiert .800 privates BarvermÖgen direkt Über den Markt.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: CEO investiert .800 privates Barvermögen direkt über den Markt.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -716,7 +716,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  12000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "12.000 Aktien"
                                         },
@@ -747,7 +747,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "b505e010-5a91-47a9-807c-e8a48acb42d1",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -762,7 +762,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -793,7 +793,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "1626814e-2296-4f12-a5e8-ef5e334af9a9",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -808,7 +808,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -839,7 +839,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "22e3caa4-6b52-48d2-b04f-84f0b13eb204",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -854,7 +854,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -900,7 +900,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  30000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "30.000 Aktien"
                                         },
@@ -931,7 +931,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "9a99cea4-52ca-4cc9-87ad-1a4227e03f51",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -946,7 +946,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -977,7 +977,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "29dbbad6-5461-49c1-9613-cc3037e18478",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -992,7 +992,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1023,7 +1023,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a2470c5d-7bec-459e-a61d-4adcc99f55a8",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1038,7 +1038,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1069,7 +1069,7 @@
                                                  "security_beneficially_owned_formatted":  "185.200 Aktien"
                                              },
                         "accession_number":  "45df9580-ee77-4fae-b0e7-2323a9544132",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Finanzchef kauft 18.000 Aktien nach Vorlage solider Quartalskennzahlen. Klares Signal interner Zuversicht in die BilanzqualitÄt.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Finanzchef kauft 18.000 Aktien nach Vorlage solider Quartalskennzahlen. Klares Signal interner Zuversicht in die BilanzqualitÃ¤t.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -1084,7 +1084,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  18000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "18.000 Aktien"
                                         },
@@ -1115,7 +1115,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f01d0181-e9ac-4c62-b6ec-9de45db7d983",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1130,7 +1130,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1161,7 +1161,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "2c18d25d-b6cb-47c6-8198-5e4f4ce91b5f",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1176,7 +1176,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1207,7 +1207,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "9ba0776d-c7ee-4030-a824-7d8e743d82bc",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1222,7 +1222,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1268,7 +1268,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  20000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "20.000 Aktien"
                                         },
@@ -1299,7 +1299,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "50bfc86c-7223-4262-a030-d20562044159",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1314,7 +1314,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1345,7 +1345,7 @@
                                                  "security_beneficially_owned_formatted":  "28.500.000 Aktien"
                                              },
                         "accession_number":  "8f6489d7-cff9-48fb-a839-3bcc6484c202",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Grab-GrÜnder \u0026 CEO kauft 250.000 Aktien am Markt. Signalisiert starke ProfitabilitÄtswende.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Grab-GrÃ¼nder \u0026 CEO kauft 250.000 Aktien am Markt. Signalisiert starke ProfitabilitÃ¤tswende.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -1360,7 +1360,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  250000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "250.000 Aktien"
                                         },
@@ -1391,7 +1391,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "3bf6a478-8330-498c-b49a-515821460ffc",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1406,7 +1406,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1437,7 +1437,7 @@
                                                  "security_beneficially_owned_formatted":  "142.000 Aktien"
                                              },
                         "accession_number":  "be44c6ba-4d9f-4abb-96b6-ce6213b2004a",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Der operative Leiter stockt die Position um 15.000 StÜck auf. BestÄtigt anhaltend robuste operative Margen.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Der operative Leiter stockt die Position um 15.000 StÃ¼ck auf. BestÃ¤tigt anhaltend robuste operative Margen.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -1452,7 +1452,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  15000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "15.000 Aktien"
                                         },
@@ -1483,7 +1483,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "5e0a0f69-69f7-4097-b369-37a3da8e73a5",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1498,7 +1498,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1529,7 +1529,7 @@
                                                  "security_beneficially_owned_formatted":  "42.800 Aktien"
                                              },
                         "accession_number":  "9415b495-1a84-44ac-be9b-08a1e8d1241d",
-                        "investor_assessment_de":  "OptionsausÜbung (Code M): FÜhrungskraft Übt vertragliche Aktienoptionen aus und behÄlt die Aktien vollstÄndig im Eigenbesitz.",
+                        "investor_assessment_de":  "OptionsausÃ¼bung (Code M): Führungskraft Übt vertragliche Aktienoptionen aus und behÃ¤lt die Aktien vollstÃ¤ndig im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -1541,7 +1541,7 @@
                                             "price_per_share":  0,
                                             "total_value_formatted":  "-",
                                             "type_en":  "Option Exercise",
-                                            "type_de":  "OptionsausÜbung",
+                                            "type_de":  "OptionsausÃ¼bung",
                                             "amount_shares":  2820,
                                             "code":  "M",
                                             "code_explanation_de":  "Code M: OptionsausÃ¼bung - EinlÃ¶sung von Mitarbeiter-Aktienoptionen zu vertraglich festgelegten Konditionen.",
@@ -1575,7 +1575,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "3c69c3d5-0d93-4d54-acf9-ae1889932569",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1590,7 +1590,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1636,7 +1636,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  6000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "6.000 Aktien"
                                         },
@@ -1667,7 +1667,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "dc0b8dc0-d30b-4f38-9a5a-0f5ff01bccbb",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1682,7 +1682,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1713,7 +1713,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "e9e23b3d-861b-419f-9e0d-e788c5b3adbb",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1728,7 +1728,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1759,7 +1759,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "665744d2-33ba-45fc-b478-5c5396f52e9b",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1774,7 +1774,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1805,7 +1805,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "52436e46-2c48-4288-8075-55e96c6802a2",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1820,7 +1820,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1851,7 +1851,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "8c757a45-21be-463e-a7da-8a05f594c1d0",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1866,7 +1866,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1912,7 +1912,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  5500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "5.500 Aktien"
                                         },
@@ -1943,7 +1943,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "b4eec644-311d-46be-a62a-2bd582ae3c37",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -1958,7 +1958,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -1989,7 +1989,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "d01ede32-2775-4a28-9453-cf03b1bc691e",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2004,7 +2004,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2035,7 +2035,7 @@
                                                  "security_beneficially_owned_formatted":  "96.500 Aktien"
                                              },
                         "accession_number":  "8833d3a8-69c3-4d1a-a1c4-bc56d22cbd7e",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Chefjurist erwirbt weiteres Aktienpaket. Rechtlich unbedenkliches Insiderfenster voll ausgeschÖpft.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Chefjurist erwirbt weiteres Aktienpaket. Rechtlich unbedenkliches Insiderfenster voll ausgeschÃ¶pft.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -2050,7 +2050,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  8000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "8.000 Aktien"
                                         },
@@ -2081,7 +2081,7 @@
                                                  "security_beneficially_owned_formatted":  "68.300 Aktien"
                                              },
                         "accession_number":  "63cf003e-5e99-490a-9dcf-92b344669630",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Chef-Buchhalter erwirbt 6.500 Aktien mit eigenem Kapital. HÖchste GlaubwÜrdigkeit bei Rechnungslegung.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Chef-Buchhalter erwirbt 6.500 Aktien mit eigenem Kapital. HÖchste GlaubwÃ¼rdigkeit bei Rechnungslegung.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -2096,7 +2096,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  6500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "6.500 Aktien"
                                         },
@@ -2142,7 +2142,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  50000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "50.000 Aktien"
                                         },
@@ -2173,7 +2173,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "4dba2b6a-5987-40ae-af65-df705ee235f4",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2188,7 +2188,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2219,7 +2219,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "243b85ef-23bb-433a-84d7-3067cf34410d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2234,7 +2234,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2265,7 +2265,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "6ff88e9a-d9bb-4516-86db-c5c7968a893b",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2280,7 +2280,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2311,7 +2311,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "d9fa58d4-d232-47a8-ab55-5ae1e934e3a8",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2326,7 +2326,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2357,7 +2357,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "460f67ae-0c72-430f-a264-08565d5bfb16",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2372,7 +2372,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2403,7 +2403,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "1477bc3a-63f6-4455-a124-d0f30ea57134",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2418,7 +2418,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2449,7 +2449,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "2af4ae8c-9e63-4dfd-b95f-cef08dd93416",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2464,7 +2464,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2495,7 +2495,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a3f01026-7b94-44a6-8fcf-9ea1def5378d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2510,7 +2510,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2556,7 +2556,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  45000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "45.000 Aktien"
                                         },
@@ -2587,7 +2587,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "017ad4d5-47bf-44a5-8102-e205fcef5786",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2602,7 +2602,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2633,7 +2633,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "8a29e435-fa12-4915-b2db-8fc39d335e3d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2648,7 +2648,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2679,7 +2679,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "c117cae4-d284-448a-9d01-8568c1520581",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2694,7 +2694,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2725,7 +2725,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "7d8ba428-7dc1-41c5-8986-c57dbb6564da",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2740,7 +2740,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2771,7 +2771,7 @@
                                                  "security_beneficially_owned_formatted":  "84.100 Aktien"
                                              },
                         "accession_number":  "4772238e-820e-4ad3-8c9c-fce32a1620b6",
-                        "investor_assessment_de":  "Kauf am offenen Markt: UnabhÄngige AufsichtsrÄtin investiert .500 persÖnliches BarvermÖgen direkt Über den Markt.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: UnabhÃ¤ngige AufsichtsrÃ¤tin investiert .500 persÃ¶nliches Barvermögen direkt über den Markt.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -2786,7 +2786,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  7500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "7.500 Aktien"
                                         },
@@ -2817,7 +2817,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f63e443c-a7c6-48bc-a1b6-274ec5236edc",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2832,7 +2832,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2863,7 +2863,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "659f944e-ace0-477a-b7f0-bbc690dddb60",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2878,7 +2878,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2909,7 +2909,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "6be663bd-cb61-4eb3-b5df-d12a90987afd",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2924,7 +2924,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -2955,7 +2955,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f8346338-ef95-42e7-afbd-2a1a6515f93d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -2970,7 +2970,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3001,7 +3001,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "bf24db53-bfde-4dcb-97c0-a1fdbab63239",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3016,7 +3016,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3047,7 +3047,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "00baf6d4-4508-4bb4-ad4a-da3327923dc3",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3062,7 +3062,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3108,7 +3108,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  80000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "80.000 Aktien"
                                         },
@@ -3139,7 +3139,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "67af5886-5f42-4b7b-84f9-1fa404001b4e",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3154,7 +3154,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3185,7 +3185,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a5a01264-fd84-4aa8-be1d-7f740ea56952",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3200,7 +3200,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3231,7 +3231,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "e3bff756-0c43-44ce-a6be-912743c65366",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3246,7 +3246,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3277,7 +3277,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "993b0fd3-0423-49d1-ba1f-2cdf72987ba9",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3292,7 +3292,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3323,7 +3323,7 @@
                                                  "security_beneficially_owned_formatted":  "112.000 Aktien"
                                              },
                         "accession_number":  "0af1ada2-bb5b-40c6-8f5d-d037e2c4f77d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Aufsichtsrat kauft 10.000 Aktien hinzu. HÄlt nun Über 112.000 Stammaktien im Direkteigentum.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Aufsichtsrat kauft 10.000 Aktien hinzu. Hält nun Über 112.000 Stammaktien im Direkteigentum.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -3338,7 +3338,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3369,7 +3369,7 @@
                                                  "security_beneficially_owned_formatted":  "79.400 Aktien"
                                              },
                         "accession_number":  "36a495ea-ade3-4c99-b33e-8d70699885d7",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Erfahrener Finanz- und Audit-Ausschuss-Vorsitzender stockt Aktienbesitz auf fast 80.000 StÜck auf.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Erfahrener Finanz- und Audit-Ausschuss-Vorsitzender stockt Aktienbesitz auf fast 80.000 StÃ¼ck auf.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -3384,7 +3384,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  8500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "8.500 Aktien"
                                         },
@@ -3415,7 +3415,7 @@
                                                  "security_beneficially_owned_formatted":  "54.000 Aktien"
                                              },
                         "accession_number":  "b5edfd82-c79c-4cdb-ae9a-51cebca59fbc",
-                        "investor_assessment_de":  "Kauf am offenen Markt: AufsichtsrÄtin erweitert ihr Exposure um 6.000 Anteile.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: AufsichtsrÃ¤tin erweitert ihr Exposure um 6.000 Anteile.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -3430,7 +3430,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  6000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "6.000 Aktien"
                                         },
@@ -3461,7 +3461,7 @@
                                                  "security_beneficially_owned_formatted":  "91.500 Aktien"
                                              },
                         "accession_number":  "03063187-8540-42ff-9cc6-5ef7239b39b0",
-                        "investor_assessment_de":  "Kauf am offenen Markt: UnabhÄngiger Direktor kauft 9.000 Aktien zu Marktkursen.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: UnabhÃ¤ngiger Direktor kauft 9.000 Aktien zu Marktkursen.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -3476,7 +3476,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  9000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "9.000 Aktien"
                                         },
@@ -3507,7 +3507,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "9e2dbd1a-9225-46d9-aea4-cb0aaba7f046",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3522,7 +3522,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3553,7 +3553,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a5ef9b6f-c08d-4408-9744-e7272d7ce7f5",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3568,7 +3568,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3599,7 +3599,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f2f69bb5-21d6-487a-9f10-7a31d2618d10",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3614,7 +3614,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3645,7 +3645,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f9093dbd-0eae-4b32-9098-41e1433e5d59",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3660,7 +3660,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3706,7 +3706,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  5000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "5.000 Aktien"
                                         },
@@ -3737,7 +3737,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "cb699967-23f9-46b7-84e6-934efb753884",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3752,7 +3752,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3798,7 +3798,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  4200,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "4.200 Aktien"
                                         },
@@ -3829,7 +3829,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "5a6c359a-1a81-4578-ae68-65efe08ef48a",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3844,7 +3844,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3875,7 +3875,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "a7e8c484-1766-4f22-abe9-2e60ed93636e",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3890,7 +3890,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3921,7 +3921,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "b9a0f83a-a40e-462a-a46e-9f4b959a87ca",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3936,7 +3936,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -3967,7 +3967,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "4ef1d672-353e-4a5b-9802-939d86616f20",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -3982,7 +3982,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4013,7 +4013,7 @@
                                                  "security_beneficially_owned_formatted":  "63.200 Aktien"
                                              },
                         "accession_number":  "598b99f1-b7ba-4b4d-9093-999891e47778",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Aufsichtsrat investiert .450 privates BarvermÖgen.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Aufsichtsrat investiert .450 privates Barvermögen.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -4028,7 +4028,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  7000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "7.000 Aktien"
                                         },
@@ -4059,7 +4059,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "44e70ef9-9718-483c-9a69-bafdf21932e8",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4074,7 +4074,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4105,7 +4105,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "cd8f1eca-7adb-4b8d-8d95-4f781705301f",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4120,7 +4120,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4166,7 +4166,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  15000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "15.000 Aktien"
                                         },
@@ -4197,7 +4197,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "f0314c8f-bdb8-431e-a866-c13ecd72895c",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4212,7 +4212,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4243,7 +4243,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "539368da-797b-4cfb-b6b0-2c56a014f52f",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4258,7 +4258,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4304,7 +4304,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  25000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "25.000 Aktien"
                                         },
@@ -4335,7 +4335,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "8ff9a0d6-9f4f-41ff-8b6a-00bb6514cdc5",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4350,7 +4350,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4381,7 +4381,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "35e87a36-4e5d-4a65-a7ee-b31ffa386e21",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4396,7 +4396,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4427,7 +4427,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "3ae44161-995e-4048-8151-6062b7820029",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4442,7 +4442,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },
@@ -4488,7 +4488,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  7500,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "7.500 Aktien"
                                         },
@@ -4519,7 +4519,7 @@
                                                  "security_beneficially_owned_formatted":  "345.000 Aktien"
                                              },
                         "accession_number":  "cd90882b-39d3-4dfc-9e1e-34719f862750",
-                        "investor_assessment_de":  "Kauf am offenen Markt: Der Aufsichtsratsvorsitzende erwirbt 25.000 Aktien Über seinen Familientrust (Indirekt). HÄlt insgesamt 345.000 Aktien.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Der Aufsichtsratsvorsitzende erwirbt 25.000 Aktien über seinen Familientrust (Indirekt). Hält insgesamt 345.000 Aktien.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Common Stock (Stammaktien)"
@@ -4534,7 +4534,7 @@
                                             "type_de":  "Kauf am offenen Markt",
                                             "amount_shares":  25000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "25.000 Aktien"
                                         },
@@ -4565,7 +4565,7 @@
                                                  "security_beneficially_owned_formatted":  "47.000 Aktien"
                                              },
                         "accession_number":  "e424a690-940d-45c0-ab07-9b3a4e44825d",
-                        "investor_assessment_de":  "Kauf am offenen Markt: FÜhrungskraft investiert eigenes BarvermÖgen direkt Über die BÖrse. HÄlt nun insgesamt 47.000 Aktien im Eigenbesitz.",
+                        "investor_assessment_de":  "Kauf am offenen Markt: Führungskraft investiert eigenes Barvermögen direkt über die Börse. Hält nun insgesamt 47.000 Aktien im Eigenbesitz.",
                         "security":  {
                                          "type":  "Non-Derivative Security",
                                          "title":  "Stammaktien (Common Stock)"
@@ -4580,7 +4580,7 @@
                                             "type_de":  "Insider-Meldung (Form 4)",
                                             "amount_shares":  10000,
                                             "code":  "P",
-                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates BarvermÃ¶gen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
+                                            "code_explanation_de":  "Code P: Offener Marktkauf - Der Insider investiert echtes privates Barvermögen direkt an der BÃ¶rse. HÃ¶chstes Vertrauenssignal.",
                                             "is_buy":  true,
                                             "amount_formatted":  "10.000 Aktien"
                                         },

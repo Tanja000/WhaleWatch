@@ -1,4 +1,4 @@
-﻿package com.example.whalewatch.ui.main
+package com.example.whalewatch.ui.main
 
 import android.content.Intent
 import android.net.Uri
@@ -70,7 +70,7 @@ fun MainScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         Column {
                             Text(
-                                "WhaleWatch",
+                                "InsiderWhales",
                                 color = Color(0xFFF8FAFC),
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 18.sp

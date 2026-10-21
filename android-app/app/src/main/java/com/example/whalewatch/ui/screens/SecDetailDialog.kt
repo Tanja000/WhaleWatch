@@ -22,6 +22,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.whalewatch.data.model.SecAlert
 import com.example.whalewatch.data.model.SecCluster
+import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy
@@ -139,15 +140,15 @@ fun SecDetailDialog(
     val scrollState = rememberScrollState()
 
     val sharesText = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "-") {
-        alert.sharesFormatted
+        if (isEn) alert.sharesFormatted.replace("Aktien", "Shares") else alert.sharesFormatted
     } else if (alert.shares > 0) {
-        "${alert.shares} Aktien"
+        if (isEn) "${alert.shares} Shares" else "${alert.shares} Aktien"
     } else {
         "-"
     }
 
     val priceText = if (alert.price > 0.0) {
-        String.format(java.util.Locale.GERMANY, "$%.2f", alert.price)
+        String.format(if (isEn) java.util.Locale.US else java.util.Locale.GERMANY, "$%.2f", alert.price)
     } else if (alert.priceFormatted.isNotBlank() && alert.priceFormatted != "-") {
         alert.priceFormatted
     } else {
@@ -155,14 +156,19 @@ fun SecDetailDialog(
     }
 
     val benefText = if (alert.securityBeneficialsFormatted.isNotBlank()) {
-        alert.securityBeneficialsFormatted
+        if (isEn) alert.securityBeneficialsFormatted.replace("Aktien", "Shares") else alert.securityBeneficialsFormatted
     } else if (alert.securityBeneficials > 0) {
-        String.format(java.util.Locale.GERMANY, "%,d Aktien", alert.securityBeneficials)
+        if (isEn) "${String.format(java.util.Locale.US, "%,d", alert.securityBeneficials)} Shares"
+        else String.format(java.util.Locale.GERMANY, "%,d Aktien", alert.securityBeneficials)
     } else {
         "-"
     }
 
-    val natureText = if (alert.ownershipNature == "I") "Indirekt (I) · Trust/Holding" else "Direkt (D) · Privatdepot"
+    val natureText = if (isEn) {
+        if (alert.ownershipNature == "I") "Indirect (I) · Trust/Holding" else "Direct (D) · Personal Account"
+    } else {
+        if (alert.ownershipNature == "I") "Indirekt (I) · Trust/Holding" else "Direkt (D) · Privatdepot"
+    }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -274,8 +280,17 @@ fun SecDetailDialog(
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
+                            val roleDisplay = if (isEn) {
+                                alert.role.ifBlank { "Officer / Director" }
+                                    .replace("Vorstand und Aufsichtsrat", "Executive Officer & Director")
+                                    .replace("Vorstand / Aufsichtsrat", "Officer / Director")
+                                    .replace("Vorstand", "Executive Officer")
+                                    .replace("Aufsichtsrat", "Board Director")
+                            } else {
+                                alert.role.ifBlank { "Vorstand / Aufsichtsrat" }
+                            }
                             Text(
-                                text = alert.role.ifBlank { "Vorstand / Aufsichtsrat" },
+                                text = roleDisplay,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = CyanAccentGlow
@@ -301,7 +316,7 @@ fun SecDetailDialog(
                                 }
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "STÜCKZAHL (AMOUNT)",
+                                        text = if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)",
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -320,7 +335,7 @@ fun SecDetailDialog(
                             Row(modifier = Modifier.fillMaxWidth()) {
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "BESTAND DANACH (BENEFICIALS)",
+                                        text = if (isEn) "BENEFICIALLY OWNED FOLLOWING" else "BESTAND DANACH (BENEFICIALS)",
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -334,7 +349,7 @@ fun SecDetailDialog(
                                 }
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "EIGENTUMSART (NATURE)",
+                                        text = if (isEn) "OWNERSHIP NATURE (D/I)" else "EIGENTUMSART (NATURE)",
                                         fontSize = 9.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -360,12 +375,13 @@ fun SecDetailDialog(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = if (alert.investorExplanationDe.isNotBlank()) {
-                                "💡 Vermerk für Aktionäre: ${alert.investorExplanationDe}"
-                            } else if (alert.isBuy) {
-                                "💡 Vermerk für Aktionäre: Kauf aus persönlichem Barvermögen am offenen Markt. Führungskräfte investieren persönliches Kapital direkt an der Börse – ein direktes Signal für operatives Vertrauen."
+                            text = if (isEn) {
+                                if (alert.isBuy) "💡 Shareholder Note: Open-market purchase with personal cash. Executives invest personal capital directly – a direct signal of operational confidence."
+                                else "💡 Shareholder Note: Open-market insider sale. Position reduced (often tax or asset diversification)."
                             } else {
-                                "💡 Vermerk für Aktionäre: Insider-Verkauf am Markt. Position verkleinert (oft Steuer- oder Vermögensdiversifikation)."
+                                if (alert.investorExplanationDe.isNotBlank()) "💡 Vermerk für Aktionäre: ${alert.investorExplanationDe}"
+                                else if (alert.isBuy) "💡 Vermerk für Aktionäre: Kauf aus persönlichem Barvermögen am offenen Markt. Führungskräfte investieren persönliches Kapital direkt an der Börse – ein direktes Signal für operatives Vertrauen."
+                                else "💡 Vermerk für Aktionäre: Insider-Verkauf am Markt. Position verkleinert (oft Steuer- oder Vermögensdiversifikation)."
                             },
                             fontSize = 11.5.sp,
                             color = MaterialTheme.colorScheme.onSurface,
@@ -428,14 +444,18 @@ fun SecDetailDialog(
                         )
                     }
 
-                    if (alert.ticker.isNotBlank()) {
+                    if (isValidStockTicker(alert.ticker)) {
                         OutlinedButton(
                             onClick = onToggleWatchlist,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text(
-                                text = if (isOnWatchlist) "⭐ Watchlist (Entfernen)" else "⭐ + Watchlist",
+                                text = if (isEn) {
+                                    if (isOnWatchlist) "⭐ On Watchlist (Tap to remove)" else "⭐ Add $${alert.ticker} to Watchlist"
+                                } else {
+                                    if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${alert.ticker} zur Watchlist hinzufügen"
+                                },
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
                                 maxLines = 1
@@ -634,12 +654,13 @@ fun SecClusterDetailDialog(
                                 "-"
                             }
 
-                            val natureText = if (filing.ownershipNature == "I") "Indirekt (I)" else "Direkt (D)"
+                            val natureText = if (filing.ownershipNature == "I") (if (isEn) "Indirect (I)" else "Indirekt (I)") else (if (isEn) "Direct (D)" else "Direkt (D)")
                             val dateText = if (filing.filingTime.isNotBlank()) {
-                                filing.filingTime.take(16).replace("T", ", ") + " Uhr"
+                                filing.filingTime.take(16).replace("T", ", ") + (if (isEn) " EST" else " Uhr")
                             } else {
                                 filing.filingDate.ifBlank { "-" }
                             }
+                            val roleText = filing.role.ifBlank { if (isEn) "Officer / Director" else "Vorstand / Aufsichtsrat" }
 
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
@@ -662,7 +683,7 @@ fun SecClusterDetailDialog(
                                                 color = MaterialTheme.colorScheme.onSurface
                                             )
                                             Text(
-                                                text = "${filing.role.ifBlank { "Vorstand / Aufsichtsrat" }} · $dateText",
+                                                text = "$roleText · $dateText",
                                                 fontSize = 11.sp,
                                                 fontWeight = FontWeight.SemiBold,
                                                 color = CyanAccentGlow
@@ -699,18 +720,18 @@ fun SecClusterDetailDialog(
                                                     Text(text = filing.securityTitle.ifBlank { "Common Stock" }, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                                 }
                                                 Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = "STÜCKZAHL (AMOUNT)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                                    Text(text = if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                                     Text(text = if (priceText != "-") "$sharesText à $priceText" else sharesText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = CyanAccentGlow)
                                                 }
                                             }
                                             Spacer(modifier = Modifier.height(4.dp))
                                             Row(modifier = Modifier.fillMaxWidth()) {
                                                 Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = "BESTAND DANACH (BENEFICIALS)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                                    Text(text = if (isEn) "BENEFICIALLY OWNED" else "BESTAND DANACH (BENEFICIALS)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                                     Text(text = benefText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = GreenBuy)
                                                 }
                                                 Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = "EIGENTUMSART (NATURE)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                                    Text(text = if (isEn) "OWNERSHIP NATURE" else "EIGENTUMSART (NATURE)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
                                                     Text(text = natureText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
                                                 }
                                             }
@@ -721,7 +742,7 @@ fun SecClusterDetailDialog(
                                     if (filing.investorExplanationDe.isNotBlank()) {
                                         Spacer(modifier = Modifier.height(6.dp))
                                         Text(
-                                            text = "💡 Vermerk: ${filing.investorExplanationDe}",
+                                            text = if (isEn) "💡 Note: ${filing.investorExplanationDe}" else "💡 Vermerk: ${filing.investorExplanationDe}",
                                             fontSize = 10.5.sp,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             lineHeight = 14.sp
@@ -792,14 +813,18 @@ fun SecClusterDetailDialog(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    if (cluster.ticker.isNotBlank()) {
+                    if (isValidStockTicker(cluster.ticker)) {
                         OutlinedButton(
                             onClick = onToggleWatchlist,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp)
                         ) {
                             Text(
-                                text = if (isOnWatchlist) "⭐ Watchlist (Entfernen)" else "⭐ + Watchlist",
+                                text = if (isEn) {
+                                    if (isOnWatchlist) "⭐ On Watchlist (Tap to remove)" else "⭐ Add $${cluster.ticker} to Watchlist"
+                                } else {
+                                    if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${cluster.ticker} zur Watchlist hinzufügen"
+                                },
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
                                 maxLines = 1

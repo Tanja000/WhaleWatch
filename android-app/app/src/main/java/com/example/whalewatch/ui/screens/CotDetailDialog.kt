@@ -259,7 +259,7 @@ fun CotDetailDialog(
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
-                                        text = "${market.whaleNetFormatted} Kontrakte",
+                                        text = if (isEn) "${market.whaleNetFormatted} Contracts" else "${market.whaleNetFormatted} Kontrakte",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (market.whaleNetFormatted.startsWith("+")) GreenBuy else RedSell

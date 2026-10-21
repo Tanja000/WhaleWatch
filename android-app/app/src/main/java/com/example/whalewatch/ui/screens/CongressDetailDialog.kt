@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.whalewatch.data.model.CongressTrade
+import com.example.whalewatch.data.model.isValidStockTicker
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy
@@ -40,13 +41,21 @@ fun CongressDetailDialog(
     val isDem = trade.party.uppercase() == "D"
     val isRep = trade.party.uppercase() == "R"
     val partyColor = if (isDem) Color(0xFF3B82F6) else if (isRep) Color(0xFFEF4444) else Color(0xFF94A3B8)
-    val partyName = if (isDem) "Demokratische Partei (D)" else if (isRep) "Republikanische Partei (R)" else "Unabhängig"
+    val partyName = if (isEn) {
+        if (isDem) "Democratic Party (D)" else if (isRep) "Republican Party (R)" else "Independent"
+    } else {
+        if (isDem) "Demokratische Partei (D)" else if (isRep) "Republikanische Partei (R)" else "Unabhängig"
+    }
 
     val isSenate = trade.chamber.lowercase() == "senate"
-    val chamberName = if (isSenate) "US-Senat" else "US-Repräsentantenhaus (House of Representatives)"
+    val chamberName = if (isEn) {
+        if (isSenate) "US Senate" else "US House of Representatives"
+    } else {
+        if (isSenate) "US-Senat" else "US-Repräsentantenhaus (House of Representatives)"
+    }
     val isPurchase = trade.transactionType.lowercase().contains("purchase")
     val typeColor = if (isPurchase) GreenBuy else RedSell
-    val typeLabel = if (isPurchase) (if (isEn) "🟢 KAUF (Purchase)" else "🟢 KAUF (Purchase)") else (if (isEn) "🔴 VERKAUF (Sale)" else "🔴 VERKAUF (Sale)")
+    val typeLabel = if (isPurchase) (if (isEn) "🟢 BUY" else "🟢 KAUF (Purchase)") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF (Sale)")
 
     // Official verified disclosure URL
     val officialDisclosureUrl = if (isSenate) {
@@ -148,7 +157,7 @@ fun CongressDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "📈 GEHANDELTE AKTIE & BETRAG",
+                                text = if (isEn) "📈 TRADED SECURITY & AMOUNT" else "📈 GEHANDELTE AKTIE & BETRAG",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
@@ -174,7 +183,7 @@ fun CongressDetailDialog(
                                 }
                                 Spacer(modifier = Modifier.width(10.dp))
                                 Text(
-                                    text = trade.assetName.ifEmpty { "Unbekanntes Wertpapier" },
+                                    text = trade.assetName.ifEmpty { if (isEn) "Unknown Security" else "Unbekanntes Wertpapier" },
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
@@ -199,7 +208,7 @@ fun CongressDetailDialog(
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Text(
-                                            text = "💰 GESETZLICHE WERTE-SPANNE:",
+                                            text = if (isEn) "💰 STATUTORY VALUE RANGE:" else "💰 GESETZLICHE WERTE-SPANNE:",
                                             fontSize = 10.5.sp,
                                             fontWeight = FontWeight.ExtraBold,
                                             color = GreenBuy
@@ -209,7 +218,7 @@ fun CongressDetailDialog(
                                             shape = RoundedCornerShape(4.dp)
                                         ) {
                                             Text(
-                                                text = "STOCK Act Pflichtangabe",
+                                                text = if (isEn) "STOCK Act Requirement" else "STOCK Act Pflichtangabe",
                                                 fontSize = 9.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 color = GreenBuy,
@@ -230,7 +239,8 @@ fun CongressDetailDialog(
 
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = "Hinweis: US-Politiker sind gesetzlich verpflichtet, Transaktionen in Wertspannen statt exakter Stückzahlen/Beträge offenzulegen.",
+                                        text = if (isEn) "Note: US lawmakers are legally required to report transactions in value ranges rather than exact shares/amounts."
+                                               else "Hinweis: US-Politiker sind gesetzlich verpflichtet, Transaktionen in Wertspannen statt exakter Stückzahlen/Beträge offenzulegen.",
                                         fontSize = 10.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         lineHeight = 13.5.sp
@@ -251,7 +261,7 @@ fun CongressDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "📅 STICHTAG & MELDUNG (STOCK ACT ZEITPLAN)",
+                                text = if (isEn) "📅 TIMELINE & FILING (STOCK ACT SCHEDULE)" else "📅 STICHTAG & MELDUNG (STOCK ACT ZEITPLAN)",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
@@ -266,13 +276,13 @@ fun CongressDetailDialog(
                             ) {
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "Handelstag (Börsen-Ausführung):",
+                                        text = if (isEn) "Transaction Date (Execution):" else "Handelstag (Börsen-Ausführung):",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "Der Tag, an dem der Politiker die Aktie real kaufte bzw. verkaufte.",
+                                        text = if (isEn) "The day the politician actually bought or sold the security." else "Der Tag, an dem der Politiker die Aktie real kaufte bzw. verkaufte.",
                                         fontSize = 10.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         lineHeight = 13.sp
@@ -305,13 +315,13 @@ fun CongressDetailDialog(
                             ) {
                                 Column(modifier = Modifier.weight(1f)) {
                                     Text(
-                                        text = "Offizielles Melde- & Eintragungsdatum:",
+                                        text = if (isEn) "Official Disclosure & Filing Date:" else "Offizielles Melde- & Eintragungsdatum:",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = "Wann der Transaktionsbericht (PTR) beim Kongress eingereicht wurde.",
+                                        text = if (isEn) "When the Periodic Transaction Report (PTR) was submitted to Congress." else "Wann der Transaktionsbericht (PTR) beim Kongress eingereicht wurde.",
                                         fontSize = 10.sp,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         lineHeight = 13.sp
@@ -344,14 +354,19 @@ fun CongressDetailDialog(
                             ) {
                                 Column {
                                     Text(
-                                        text = "Meldeverzögerung (45-Tage STOCK Act Frist):",
+                                        text = if (isEn) "Filing Delay (45-Day STOCK Act Deadline):" else "Meldeverzögerung (45-Tage STOCK Act Frist):",
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = MaterialTheme.colorScheme.onSurface
                                     )
                                     Text(
-                                        text = if (trade.isLate) "⚠️ Verspätet: Gesetzliche 45-Tage Frist überschritten!"
-                                               else "✅ Fristgerecht eingereicht (innerhalb der 45 Tage).",
+                                        text = if (isEn) {
+                                            if (trade.isLate) "⚠️ Late: Statutory 45-day deadline exceeded!"
+                                            else "✅ Timely filing (within 45 days)."
+                                        } else {
+                                            if (trade.isLate) "⚠️ Verspätet: Gesetzliche 45-Tage Frist überschritten!"
+                                            else "✅ Fristgerecht eingereicht (innerhalb der 45 Tage)."
+                                        },
                                         fontSize = 10.sp,
                                         color = if (trade.isLate) AmberWhale else GreenBuy
                                     )
@@ -361,7 +376,7 @@ fun CongressDetailDialog(
                                     shape = RoundedCornerShape(6.dp)
                                 ) {
                                     Text(
-                                        text = "${trade.daysToFile} Tage",
+                                        text = if (isEn) "${trade.daysToFile} Days" else "${trade.daysToFile} Tage",
                                         fontSize = 11.5.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = if (trade.isLate) AmberWhale else GreenBuy,
@@ -391,7 +406,7 @@ fun CongressDetailDialog(
                                     fontSize = 13.sp
                                 )
                                 Text(
-                                    text = "AUSSCHUSS-KONFLIKT-RADAR (COMMITTEE WATCH)",
+                                    text = if (isEn) "COMMITTEE CONFLICT RADAR (COMMITTEE WATCH)" else "AUSSCHUSS-KONFLIKT-RADAR (COMMITTEE WATCH)",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     color = if (trade.hasCommitteeConflict) AmberWhale else GreenBuy
@@ -402,13 +417,14 @@ fun CongressDetailDialog(
 
                             if (trade.hasCommitteeConflict) {
                                 Text(
-                                    text = "Ausschuss-Interessenskonflikt ermittelt:",
+                                    text = if (isEn) "Committee Conflict of Interest Detected:" else "Ausschuss-Interessenskonflikt ermittelt:",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 Text(
-                                    text = trade.conflictDescDe.ifEmpty { "Politiker ist Mitglied in einem Ausschuss, der direkt für die Regulierung oder Auftragsvergabe dieses Sektors (${trade.conflictSector}) zuständig ist." },
+                                    text = if (isEn) trade.conflictDescEn.ifEmpty { "Politician serves on a committee directly overseeing or awarding contracts in this sector (${trade.conflictSector})." }
+                                           else trade.conflictDescDe.ifEmpty { "Politiker ist Mitglied in einem Ausschuss, der direkt für die Regulierung oder Auftragsvergabe dieses Sektors (${trade.conflictSector}) zuständig ist." },
                                     fontSize = 10.5.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     lineHeight = 14.sp,
@@ -418,7 +434,7 @@ fun CongressDetailDialog(
                                 if (trade.conflictCommittee.isNotEmpty()) {
                                     Spacer(modifier = Modifier.height(4.dp))
                                     Text(
-                                        text = "Zuständiger Ausschuss: ${trade.conflictCommittee}",
+                                        text = if (isEn) "Assigned Committee: ${trade.conflictCommittee}" else "Zuständiger Ausschuss: ${trade.conflictCommittee}",
                                         fontSize = 10.5.sp,
                                         fontWeight = FontWeight.Bold,
                                         color = AmberWhale
@@ -426,7 +442,7 @@ fun CongressDetailDialog(
                                 }
                             } else {
                                 Text(
-                                    text = "Kein direkter Ausschuss-Konflikt mit dem Sektor dieser Aktie ermittelt.",
+                                    text = if (isEn) "No direct committee conflict detected for this stock's sector." else "Kein direkter Ausschuss-Konflikt mit dem Sektor dieser Aktie ermittelt.",
                                     fontSize = 10.5.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                                     lineHeight = 14.sp
@@ -446,17 +462,19 @@ fun CongressDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = "🏛️ HINTERGRUND: KAMMER & PARTEI",
+                                text = if (isEn) "🏛️ BACKGROUND: CHAMBER & PARTY" else "🏛️ HINTERGRUND: KAMMER & PARTEI",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.padding(bottom = 6.dp)
                             )
                             Text(
-                                text = if (isSenate) {
-                                    "Der US-Senat besteht aus 100 Senatoren (2 je Bundesstaat) mit 6-jähriger Amtszeit. Senatoren ratifizieren internationale Verträge, bestätigen Regierungsposten und beaufsichtigen nationale Gesetzesinitiativen."
+                                text = if (isEn) {
+                                    if (isSenate) "The US Senate consists of 100 Senators (2 per state) serving 6-year terms. Senators ratify treaties, confirm key appointments, and oversee federal legislation."
+                                    else "The US House of Representatives consists of 435 members. They originate all federal appropriations, revenue bills, and tax incentive programs."
                                 } else {
-                                    "Das US-Repräsentantenhaus (House of Representatives) besteht aus 435 Abgeordneten. Sie initiieren alle Bundes-Finanzgesetze, Haushaltsbudgets und steuerlichen Förderprogramme über spezialisierte Fachausschüsse."
+                                    if (isSenate) "Der US-Senat besteht aus 100 Senatoren (2 je Bundesstaat) mit 6-jähriger Amtszeit. Senatoren ratifizieren internationale Verträge, bestätigen Regierungsposten und beaufsichtigen nationale Gesetzesinitiativen."
+                                    else "Das US-Repräsentantenhaus (House of Representatives) besteht aus 435 Abgeordneten. Sie initiieren alle Bundes-Finanzgesetze, Haushaltsbudgets und steuerlichen Förderprogramme über spezialisierte Fachausschüsse."
                                 },
                                 fontSize = 10.5.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
@@ -485,7 +503,7 @@ fun CongressDetailDialog(
                         )
                     ) {
                         Text(
-                            text = "🏛️ Offizielles Offenlegungsprotokoll (Congress.gov / Clerk) ↗",
+                            text = if (isEn) "🏛️ Official Disclosure Protocol (Congress.gov / Clerk) ↗" else "🏛️ Offizielles Offenlegungsprotokoll (Congress.gov / Clerk) ↗",
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.5.sp,
                             color = Color.Black
@@ -493,7 +511,7 @@ fun CongressDetailDialog(
                     }
 
                     // Watchlist Button
-                    if (trade.ticker.isNotBlank()) {
+                    if (isValidStockTicker(trade.ticker)) {
                         OutlinedButton(
                             onClick = onToggleWatchlist,
                             modifier = Modifier.fillMaxWidth(),
@@ -511,7 +529,11 @@ fun CongressDetailDialog(
                             )
                             Spacer(modifier = Modifier.width(8.dp))
                             Text(
-                                text = if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${trade.ticker} zur Watchlist hinzufügen",
+                                text = if (isEn) {
+                                    if (isOnWatchlist) "⭐ On Watchlist (Tap to remove)" else "⭐ Add $${trade.ticker} to Watchlist"
+                                } else {
+                                    if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${trade.ticker} zur Watchlist hinzufügen"
+                                },
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp
                             )

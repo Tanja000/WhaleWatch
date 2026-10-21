@@ -1,4 +1,4 @@
-﻿package com.example.whalewatch.ui.screens
+package com.example.whalewatch.ui.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -217,14 +217,14 @@ fun SecScreen(
                     Column(modifier = Modifier.padding(top = 8.dp)) {
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             GuidePill(
-                                title = "🟢 KAUF",
-                                desc = "Offener Marktkauf mit eigenem Geld. Starkes Indiz für Unterbewertung!",
+                                title = if (isEn) "🟢 BUY" else "🟢 KAUF",
+                                desc = if (isEn) "Open-market purchase with personal cash. Strong sign of undervaluation!" else "Offener Marktkauf mit eigenem Geld. Starkes Indiz für Unterbewertung!",
                                 color = GreenBuy,
                                 modifier = Modifier.weight(1f)
                             )
                             GuidePill(
-                                title = "🔥 CLUSTER",
-                                desc = "Mehrere Vorstände kaufen synchron innerhalb von 14 Tagen. Höchste Trefferquote!",
+                                title = if (isEn) "🔥 CLUSTER" else "🔥 CLUSTER",
+                                desc = if (isEn) "Multiple directors buying in sync within 14 days. Highest predictive accuracy!" else "Mehrere Vorstände kaufen synchron innerhalb von 14 Tagen. Höchste Trefferquote!",
                                 color = AmberWhale,
                                 modifier = Modifier.weight(1f)
                             )
@@ -232,14 +232,14 @@ fun SecScreen(
                         Spacer(modifier = Modifier.height(6.dp))
                         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             GuidePill(
-                                title = "🔴 VERKAUF",
-                                desc = "Marktverkauf. Oft persönliche Liquidität/Steuern – erst als Cluster bärisch.",
+                                title = if (isEn) "🔴 SALE" else "🔴 VERKAUF",
+                                desc = if (isEn) "Market sale. Often personal liquidity/taxes – only bearish if cluster." else "Marktverkauf. Oft persönliche Liquidität/Steuern – erst als Cluster bärisch.",
                                 color = RedSell,
                                 modifier = Modifier.weight(1f)
                             )
                             GuidePill(
-                                title = "⚪ AWARD",
-                                desc = "Zuteilung lt. Gehaltsvertrag. Kein privates Geld investiert (kursneutral).",
+                                title = if (isEn) "⚪ AWARD" else "⚪ ZUTEILUNG",
+                                desc = if (isEn) "Stock grant under compensation contract. No personal money invested (neutral)." else "Zuteilung lt. Gehaltsvertrag. Kein privates Geld investiert (kursneutral).",
                                 color = Color(0xFF94A3B8),
                                 modifier = Modifier.weight(1f)
                             )
@@ -476,7 +476,7 @@ fun SecClusterCard(
                 border = androidx.compose.foundation.BorderStroke(1.dp, CyanAccentGlow.copy(alpha = 0.25f))
             ) {
                 Text(
-                    text = "👥 ${cluster.clusterCount} Vorstände & Insider beteiligt",
+                    text = if (isEn) "👥 ${cluster.clusterCount} Directors & Insiders Involved" else "👥 ${cluster.clusterCount} Vorstände & Insider beteiligt",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = CyanAccentGlow,
@@ -494,7 +494,8 @@ fun SecClusterCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = "🔥 AKTIONÄRS-VORTEIL: ${cluster.clusterCount} Führungskräfte kauften zeitgleich bei ${cluster.issuer}. Höchste statistische Wahrscheinlichkeit für Kurserholungen!",
+                    text = if (isEn) "🔥 SHAREHOLDER EDGE: ${cluster.clusterCount} executives bought shares in ${cluster.issuer}. Highest statistical probability of trend recovery!"
+                           else "🔥 AKTIONÄRS-VORTEIL: ${cluster.clusterCount} Führungskräfte kauften zeitgleich bei ${cluster.issuer}. Höchste statistische Wahrscheinlichkeit für Kurserholungen!",
                     fontSize = 11.sp,
                     color = MaterialTheme.colorScheme.onSurface,
                     lineHeight = 15.sp,
@@ -598,9 +599,9 @@ fun SecAlertCard(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                val badgeText = if (alert.isBuy) (if (isEn) "🟢 KAUF" else "🟢 KAUF")
-                                else if (alert.code == "S" || !alert.isBuy) (if (isEn) "🔴 VERKAUF" else "🔴 VERKAUF")
-                                else "⚪ AWARD"
+                val badgeText = if (alert.isBuy) (if (isEn) "🟢 BUY" else "🟢 KAUF")
+                                else if (alert.code == "S" || !alert.isBuy) (if (isEn) "🔴 SALE" else "🔴 VERKAUF")
+                                else (if (isEn) "⚪ AWARD" else "⚪ ZUTEILUNG")
                 Surface(
                     color = tagColor.copy(alpha = 0.15f),
                     shape = RoundedCornerShape(6.dp),
@@ -661,15 +662,17 @@ fun SecAlertCard(
 
             Spacer(modifier = Modifier.height(6.dp))
 
-            // Shares pill: If known, display sharesFormatted, else '-' (No 3-column Stückzahl/Kurs/Gesamtwert grid!)
-            val sharesDisplay = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "0" && alert.sharesFormatted != "0 Aktien" && alert.sharesFormatted != "-") alert.sharesFormatted else "-"
+            // Shares pill: If known, display sharesFormatted, else '-'
+            val sharesDisplay = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "0" && alert.sharesFormatted != "0 Aktien" && alert.sharesFormatted != "-") {
+                if (isEn) alert.sharesFormatted.replace("Aktien", "Shares") else alert.sharesFormatted
+            } else "-"
             Surface(
                 shape = RoundedCornerShape(6.dp),
                 color = CyanAccentGlow.copy(alpha = 0.1f),
                 border = androidx.compose.foundation.BorderStroke(1.dp, CyanAccentGlow.copy(alpha = 0.2f))
             ) {
                 Text(
-                    text = "📊 Stückzahl: $sharesDisplay",
+                    text = if (isEn) "📊 Shares: $sharesDisplay" else "📊 Stückzahl: $sharesDisplay",
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Bold,
                     color = CyanAccentGlow,
@@ -688,12 +691,14 @@ fun SecAlertCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = if (alert.isBuy) {
-                        "🟢 INSIDER-KAUF: Offener Markterwerb durch ${alert.reportingOwner}. Signal für operatives Vertrauen der Führungsebene."
-                    } else if (alert.code == "S" || !alert.isBuy) {
-                        "🔴 VERKAUF: Teilgewinnmitnahme durch ${alert.reportingOwner}. Oft private Vermögensstreuung oder Steuerfälligkeit."
+                    text = if (isEn) {
+                        if (alert.isBuy) "🟢 INSIDER PURCHASE: Open-market acquisition by ${alert.reportingOwner}. Signal of operational executive confidence."
+                        else if (alert.code == "S" || !alert.isBuy) "🔴 SALE: Profit-taking or personal liquidity/tax diversification by ${alert.reportingOwner}."
+                        else "⚪ AWARD: Share grant according to compensation agreement (market neutral)."
                     } else {
-                        "⚪ VERGÜTUNG: Zuteilung von Aktienanteilen lt. Arbeitsvertrag (kursneutral)."
+                        if (alert.isBuy) "🟢 INSIDER-KAUF: Offener Markterwerb durch ${alert.reportingOwner}. Signal für operatives Vertrauen der Führungsebene."
+                        else if (alert.code == "S" || !alert.isBuy) "🔴 VERKAUF: Teilgewinnmitnahme durch ${alert.reportingOwner}. Oft private Vermögensstreuung oder Steuerfälligkeit."
+                        else "⚪ VERGÜTUNG: Zuteilung von Aktienanteilen lt. Arbeitsvertrag (kursneutral)."
                     },
                     fontSize = 11.sp,
                     color = MaterialTheme.colorScheme.onSurface,

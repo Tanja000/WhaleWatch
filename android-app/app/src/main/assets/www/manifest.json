@@ -1,6 +1,6 @@
-﻿{
-  "name": "WhaleWatch Pro - Smart Money & Insider Radar",
-  "short_name": "WhaleWatch",
+{
+  "name": "InsiderWhales - Smart Money & Insider Radar",
+  "short_name": "InsiderWhales",
   "description": "Smart Money Tracking für Aktionäre: SEC Form 4 Insider Trades, US Congress STOCK Act und CFTC COT Report Wale",
   "start_url": "./index.html",
   "display": "standalone",

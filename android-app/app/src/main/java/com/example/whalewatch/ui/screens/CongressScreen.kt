@@ -271,8 +271,16 @@ fun CongressTradeCard(
                     )
                 }
 
-                val chamberLabel = if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
-                val partyLabel = if (trade.party.uppercase() == "D") "Demokrat" else if (trade.party.uppercase() == "R") "Republikaner" else trade.party
+                val chamberLabel = if (isEn) {
+                    if (trade.chamber.lowercase() == "senate") "Senate" else "House"
+                } else {
+                    if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
+                }
+                val partyLabel = if (isEn) {
+                    if (trade.party.uppercase() == "D") "Democrat" else if (trade.party.uppercase() == "R") "Republican" else trade.party
+                } else {
+                    if (trade.party.uppercase() == "D") "Demokrat" else if (trade.party.uppercase() == "R") "Republikaner" else trade.party
+                }
                 Surface(
                     color = MaterialTheme.colorScheme.surfaceVariant,
                     shape = RoundedCornerShape(6.dp)
@@ -462,7 +470,7 @@ fun BipartisanConfluenceView(
                             shape = RoundedCornerShape(6.dp)
                         ) {
                             Text(
-                                text = "${stock.totalBuys} KÄUFE",
+                                text = if (isEn) "${stock.totalBuys} BUYS" else "${stock.totalBuys} KÄUFE",
                                 color = GreenBuy,
                                 fontSize = 10.5.sp,
                                 fontWeight = FontWeight.Bold,
@@ -478,13 +486,13 @@ fun BipartisanConfluenceView(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "🔵 Demokraten: ${stock.demBuys} Käufe",
+                            text = if (isEn) "🔵 Democrats: ${stock.demBuys} Buys" else "🔵 Demokraten: ${stock.demBuys} Käufe",
                             color = Color(0xFF3B82F6),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = "🔴 Republikaner: ${stock.repBuys} Käufe",
+                            text = if (isEn) "🔴 Republicans: ${stock.repBuys} Buys" else "🔴 Republikaner: ${stock.repBuys} Käufe",
                             color = Color(0xFFEF4444),
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold
@@ -548,7 +556,7 @@ fun PartySentimentView(
 
         item {
             Text(
-                text = "🔵 Top 10 Käufe der Demokraten",
+                text = if (isEn) "🔵 Top 10 Democrat Buys" else "🔵 Top 10 Käufe der Demokraten",
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
                 color = Color(0xFF3B82F6)
@@ -580,7 +588,7 @@ fun PartySentimentView(
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3B82F6).copy(alpha = 0.15f), contentColor = Color(0xFF3B82F6)),
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                     ) {
-                        Text("${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text(if (isEn) "${stock.count} Buys · Details" else "${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }
@@ -589,7 +597,7 @@ fun PartySentimentView(
         item {
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "🔴 Top 10 Käufe der Republikaner",
+                text = if (isEn) "🔴 Top 10 Republican Buys" else "🔴 Top 10 Käufe der Republikaner",
                 fontWeight = FontWeight.Bold,
                 fontSize = 14.sp,
                 color = Color(0xFFEF4444)
@@ -621,7 +629,7 @@ fun PartySentimentView(
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEF4444).copy(alpha = 0.15f), contentColor = Color(0xFFEF4444)),
                         contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp)
                     ) {
-                        Text("${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                        Text(if (isEn) "${stock.count} Buys · Details" else "${stock.count} Käufe · Details", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }

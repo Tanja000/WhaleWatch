@@ -1,4 +1,4 @@
-﻿plugins {
+plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlin.serialization)
@@ -8,15 +8,25 @@ android {
     namespace = "com.example.whalewatch"
     compileSdk = 36
     defaultConfig {
-        applicationId = "com.example.whalewatch"
+        applicationId = "com.insiderwhales.app"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0"
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file("insiderwhales-release.jks")
+            storePassword = "InsiderWhales2026"
+            keyAlias = "insiderwhales"
+            keyPassword = "InsiderWhales2026"
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

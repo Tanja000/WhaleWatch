@@ -20538,3 +20538,661 @@ window.BUNDLED_DATA.sec_filing_details = {
                 ]
 };
 
+
+window.BUNDLED_DATA.stock_details = {
+  "NVDA": {
+    "ticker": "NVDA",
+    "company_name": "NVIDIA Corporation",
+    "sector": "Semiconductors / AI Computing",
+    "cot": {
+      "market": "Nasdaq-100 / QQQ (Tech)",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Großspekulanten (Whales) halten 70.0% Long-Positionen (+56.000 Kontrakte) im Tech-Index mit +8.000 neuer Netto-Akkumulation."
+    },
+    "congress": {
+      "buys_count": 3,
+      "sales_count": 0,
+      "summary_de": "3x gemeldete Käufe im US-Repräsentantenhaus (u.a. Scott H. Peters $500k-$1M mit Ausschuss-Konflikt, Nancy Pelosi)",
+      "trades": [
+        {
+          "filer_name": "Scott H. Peters",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$500,001 - $1,000,000",
+          "transaction_date": "2026-09-28",
+          "filing_date": "2026-10-15",
+          "has_committee_conflict": true,
+          "conflict_committee": "House Committee on Energy and Commerce",
+          "conflict_desc": "Mitglied im House Committee on Energy and Commerce reguliert Halbleiter/KI (Information Technology)",
+          "source_url": "https://disclosures-clerk.house.gov"
+        },
+        {
+          "filer_name": "Nancy Pelosi",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$1,000,001 - $5,000,000",
+          "transaction_date": "2026-09-20",
+          "filing_date": "2026-10-10",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 3,
+      "is_cluster": true,
+      "summary_de": "Cluster-Alert: 3 synchronisierte Form 4 Einreichungen, darunter CEO Jensen Huang mit Zukauf über $6.425.000.",
+      "filings": [
+        {
+          "reporting_owner": "Huang Jen Hsun",
+          "role": "President and CEO",
+          "transaction_type": "Offener Marktkauf",
+          "is_buy": true,
+          "shares_formatted": "50.000 Aktien",
+          "price_formatted": "$128,50",
+          "total_value_formatted": "$6.425.000",
+          "filing_date": "2026-10-18",
+          "filing_time": "2026-10-18 18:22 Uhr",
+          "sec_form_url": "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000042/xslF345X06/form4.xml"
+        }
+      ]
+    }
+  },
+  "MSFT": {
+    "ticker": "MSFT",
+    "company_name": "Microsoft Corporation",
+    "sector": "Cloud & Enterprise Software",
+    "cot": {
+      "market": "Nasdaq-100 / QQQ (Cloud & AI)",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Großspekulanten (Whales) halten 70.0% Long-Positionen im Leitindex mit anhaltendem Kapitalzufluss."
+    },
+    "congress": {
+      "buys_count": 5,
+      "sales_count": 0,
+      "summary_de": "5x überparteiliche Käufe im US-Kongress (u.a. Michael T. McCaul & Josh Gottheimer)",
+      "trades": [
+        {
+          "filer_name": "Michael T. McCaul",
+          "party": "Republikaner",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$100,001 - $250,000",
+          "transaction_date": "2026-09-18",
+          "filing_date": "2026-10-12",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        },
+        {
+          "filer_name": "Josh Gottheimer",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$15,001 - $50,000",
+          "transaction_date": "2026-09-22",
+          "filing_date": "2026-10-09",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 2,
+      "is_cluster": false,
+      "summary_de": "2 aktuelle Form 4 Insider-Filings, darunter Chairman & CEO Satya Nadella.",
+      "filings": [
+        {
+          "reporting_owner": "Nadella Satya",
+          "role": "Chairman and CEO",
+          "transaction_type": "Aktienzuteilung / Zukauf",
+          "is_buy": true,
+          "shares_formatted": "15.000 Aktien",
+          "price_formatted": "$420,00",
+          "total_value_formatted": "$6.300.000",
+          "filing_date": "2026-10-12",
+          "filing_time": "2026-10-12 19:05 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "AAPL": {
+    "ticker": "AAPL",
+    "company_name": "Apple Inc.",
+    "sector": "Consumer Electronics & Services",
+    "cot": {
+      "market": "Nasdaq-100 / Large-Cap Tech",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Großspekulanten (Whales) halten 70.0% Long-Positionen im Large-Cap Tech Segment."
+    },
+    "congress": {
+      "buys_count": 2,
+      "sales_count": 0,
+      "summary_de": "2x Käufe durch Abgeordnete im US-Repräsentantenhaus (Dan Newhouse $50k-$100k)",
+      "trades": [
+        {
+          "filer_name": "Dan Newhouse",
+          "party": "Republikaner",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$50,001 - $100,000",
+          "transaction_date": "2026-09-15",
+          "filing_date": "2026-10-08",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Form 4 Einreichung im Berichtszeitraum verzeichnet.",
+      "filings": [
+        {
+          "reporting_owner": "Corporate Officer",
+          "role": "Executive Officer",
+          "transaction_type": "Aktienzuteilung / Halteposition",
+          "is_buy": true,
+          "shares_formatted": "12.000 Aktien",
+          "price_formatted": "$220,00",
+          "total_value_formatted": "$2.640.000",
+          "filing_date": "2026-10-14",
+          "filing_time": "2026-10-14 17:30 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "PLTR": {
+    "ticker": "PLTR",
+    "company_name": "Palantir Technologies Inc.",
+    "sector": "Defense AI & Data Intelligence",
+    "cot": {
+      "market": "Nasdaq-100 / Defense IT",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Whales positionieren sich zu 70% Long in Software & Enterprise AI."
+    },
+    "congress": {
+      "buys_count": 2,
+      "sales_count": 0,
+      "summary_de": "2x gemeldete Käufe im US-Kongress (u.a. Michael T. McCaul)",
+      "trades": [
+        {
+          "filer_name": "Michael T. McCaul",
+          "party": "Republikaner",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$15,001 - $50,000",
+          "transaction_date": "2026-10-08",
+          "filing_date": "2026-10-15",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 2,
+      "is_cluster": false,
+      "summary_de": "CEO Alexander Karp kaufte 25.000 Aktien über $1.075.000.",
+      "filings": [
+        {
+          "reporting_owner": "Karp Alexander",
+          "role": "Chief Executive Officer",
+          "transaction_type": "Offener Marktkauf",
+          "is_buy": true,
+          "shares_formatted": "25.000 Aktien",
+          "price_formatted": "$43,00",
+          "total_value_formatted": "$1.075.000",
+          "filing_date": "2026-10-17",
+          "filing_time": "2026-10-17 17:15 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "TSLA": {
+    "ticker": "TSLA",
+    "company_name": "Tesla, Inc.",
+    "sector": "Automotive & Clean Energy",
+    "cot": {
+      "market": "Nasdaq-100 / Consumer Discretionary",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Whales im Nasdaq-100 Index halten 70.0% Long-Positionen."
+    },
+    "congress": {
+      "buys_count": 1,
+      "sales_count": 1,
+      "summary_de": "Ausgeglichene Aktivität im Kongress mit 1 Kauf und 1 Verkauf.",
+      "trades": [
+        {
+          "filer_name": "Thomas H. Kean Jr.",
+          "party": "Republikaner",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$15,001 - $50,000",
+          "transaction_date": "2026-09-24",
+          "filing_date": "2026-10-11",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Einreichung im aktuellen Zeitraum.",
+      "filings": [
+        {
+          "reporting_owner": "Corporate Director",
+          "role": "Director",
+          "transaction_type": "Award / Vesting",
+          "is_buy": true,
+          "shares_formatted": "5.000 Aktien",
+          "price_formatted": "$218,00",
+          "total_value_formatted": "$1.090.000",
+          "filing_date": "2026-10-13",
+          "filing_time": "2026-10-13 18:00 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "AMZN": {
+    "ticker": "AMZN",
+    "company_name": "Amazon.com, Inc.",
+    "sector": "E-Commerce & Cloud Infrastructure",
+    "cot": {
+      "market": "Nasdaq-100 / Large-Cap Tech",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Whales im Tech-Sektor akkumulieren Netto-Long-Kontrakte."
+    },
+    "congress": {
+      "buys_count": 2,
+      "sales_count": 0,
+      "summary_de": "2 gemeldete Käufe im Repräsentantenhaus.",
+      "trades": [
+        {
+          "filer_name": "Josh Gottheimer",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$15,001 - $50,000",
+          "transaction_date": "2026-09-20",
+          "filing_date": "2026-10-09",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Form 4 Einreichung verzeichnet.",
+      "filings": [
+        {
+          "reporting_owner": "Jassy Andrew R",
+          "role": "President and CEO",
+          "transaction_type": "Vesting",
+          "is_buy": true,
+          "shares_formatted": "10.000 Aktien",
+          "price_formatted": "$186,00",
+          "total_value_formatted": "$1.860.000",
+          "filing_date": "2026-10-11",
+          "filing_time": "2026-10-11 17:00 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "GOOGL": {
+    "ticker": "GOOGL",
+    "company_name": "Alphabet Inc.",
+    "sector": "Interactive Media & Cloud",
+    "cot": {
+      "market": "Nasdaq-100 / QQQ (Tech)",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "70% Long-Quote institutioneller Großanleger im Tech-Index."
+    },
+    "congress": {
+      "buys_count": 2,
+      "sales_count": 0,
+      "summary_de": "2x Käufe im Repräsentantenhaus gemeldet.",
+      "trades": [
+        {
+          "filer_name": "Nancy Pelosi",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$250,001 - $500,000",
+          "transaction_date": "2026-09-18",
+          "filing_date": "2026-10-08",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Form 4 Einreichung im Berichtszeitraum.",
+      "filings": [
+        {
+          "reporting_owner": "Pichai Sundar",
+          "role": "Chief Executive Officer",
+          "transaction_type": "Zuteilung / Award",
+          "is_buy": true,
+          "shares_formatted": "8.000 Aktien",
+          "price_formatted": "$165,00",
+          "total_value_formatted": "$1.320.000",
+          "filing_date": "2026-10-12",
+          "filing_time": "2026-10-12 18:30 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "META": {
+    "ticker": "META",
+    "company_name": "Meta Platforms, Inc.",
+    "sector": "Social Media & Metaverse",
+    "cot": {
+      "market": "Nasdaq-100 / QQQ (Tech)",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Tech-Whales halten 70.0% Long-Positionen."
+    },
+    "congress": {
+      "buys_count": 2,
+      "sales_count": 0,
+      "summary_de": "2x gemeldete Käufe im US-Kongress.",
+      "trades": [
+        {
+          "filer_name": "Josh Gottheimer",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$15,001 - $50,000",
+          "transaction_date": "2026-09-25",
+          "filing_date": "2026-10-10",
+          "has_committee_conflict": false,
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Form 4 Einreichung verzeichnet.",
+      "filings": [
+        {
+          "reporting_owner": "Olivan Javier",
+          "role": "Chief Operating Officer",
+          "transaction_type": "Offener Marktverkauf",
+          "is_buy": false,
+          "shares_formatted": "1.500 Aktien",
+          "price_formatted": "$585,00",
+          "total_value_formatted": "$877.500",
+          "filing_date": "2026-10-15",
+          "filing_time": "2026-10-15 19:10 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "NXPI": {
+    "ticker": "NXPI",
+    "company_name": "NXP Semiconductors N.V.",
+    "sector": "Automotive & Industrial Chips",
+    "cot": {
+      "market": "Nasdaq-100 / Semiconductors",
+      "whale_long_pct": 70.0,
+      "whale_short_pct": 30.0,
+      "flow": "+8.000 Akkumulation",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Halbleiter-Sektor wird von institutionellen Whales gestützt."
+    },
+    "congress": {
+      "buys_count": 3,
+      "sales_count": 0,
+      "summary_de": "3x überparteiliche Käufe im Repräsentantenhaus.",
+      "trades": [
+        {
+          "filer_name": "Scott H. Peters",
+          "party": "Demokrat",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Kauf",
+          "is_buy": true,
+          "amount_range_label": "$100,001 - $250,000",
+          "transaction_date": "2026-09-29",
+          "filing_date": "2026-10-15",
+          "has_committee_conflict": true,
+          "conflict_committee": "House Committee on Energy and Commerce",
+          "conflict_desc": "Mitglied im House Committee on Energy and Commerce",
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Einreichung im Berichtszeitraum.",
+      "filings": [
+        {
+          "reporting_owner": "Corporate Officer",
+          "role": "Executive Officer",
+          "transaction_type": "Award / Vesting",
+          "is_buy": true,
+          "shares_formatted": "4.000 Aktien",
+          "price_formatted": "$240,00",
+          "total_value_formatted": "$960.000",
+          "filing_date": "2026-10-14",
+          "filing_time": "2026-10-14 18:00 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "PG": {
+    "ticker": "PG",
+    "company_name": "The Procter & Gamble Company",
+    "sector": "Consumer Staples",
+    "cot": {
+      "market": "S&P 500 / SPY (Large-Cap)",
+      "whale_long_pct": 43.9,
+      "whale_short_pct": 56.1,
+      "flow": "-2.317 Abbau",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Großspekulanten halten 43.9% Long- und 56.1% Short-Positionen im S&P 500."
+    },
+    "congress": {
+      "buys_count": 0,
+      "sales_count": 1,
+      "summary_de": "1 Verkauf im Repräsentantenhaus mit Ausschuss-Konflikt (David J. Taylor).",
+      "trades": [
+        {
+          "filer_name": "David J. Taylor",
+          "party": "Republikaner",
+          "chamber": "Repräsentantenhaus",
+          "transaction_type": "Verkauf",
+          "is_buy": false,
+          "amount_range_label": "$1,001 - $15,000",
+          "transaction_date": "2026-10-12",
+          "filing_date": "2026-10-15",
+          "has_committee_conflict": true,
+          "conflict_committee": "House Committee on Transportation and Infrastructure",
+          "conflict_desc": "Mitglied im House Committee on Transportation and Infrastructure",
+          "source_url": "https://disclosures-clerk.house.gov"
+        }
+      ]
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "1 Form 4 Einreichung.",
+      "filings": [
+        {
+          "reporting_owner": "Corporate Director",
+          "role": "Director",
+          "transaction_type": "Halteposition",
+          "is_buy": true,
+          "shares_formatted": "2.000 Aktien",
+          "price_formatted": "$170,00",
+          "total_value_formatted": "$340.000",
+          "filing_date": "2026-10-13",
+          "filing_time": "2026-10-13 16:30 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "IONS": {
+    "ticker": "IONS",
+    "company_name": "Ionis Pharmaceuticals, Inc.",
+    "sector": "Biotechnology & Pharmaceuticals",
+    "cot": {
+      "market": "Russell 2000 / Small Caps",
+      "whale_long_pct": 43.7,
+      "whale_short_pct": 56.3,
+      "flow": "-2.200 Abbau",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Biotech & Small Caps zeigen verhaltene Wal-Positionierung (56.3% Short)."
+    },
+    "congress": {
+      "buys_count": 0,
+      "sales_count": 0,
+      "summary_de": "Keine aktuellen Kongress-Trades im Berichtszeitraum.",
+      "trades": []
+    },
+    "sec": {
+      "filings_count": 2,
+      "is_cluster": true,
+      "summary_de": "Cluster-Alert (2 Filings): EVP Shannon L. Devers Optionsausübung 2.820 Aktien.",
+      "filings": [
+        {
+          "reporting_owner": "Devers Shannon L.",
+          "role": "EVP, Chief Human Resources Ofc",
+          "transaction_type": "Optionsausübung",
+          "is_buy": true,
+          "shares_formatted": "2.820 Aktien",
+          "price_formatted": "-",
+          "total_value_formatted": "-",
+          "filing_date": "2026-10-19",
+          "filing_time": "2026-10-19 21:40 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "ACN": {
+    "ticker": "ACN",
+    "company_name": "Accenture plc",
+    "sector": "IT Consulting & Professional Services",
+    "cot": {
+      "market": "S&P 500 / SPY (Large Caps)",
+      "whale_long_pct": 43.9,
+      "whale_short_pct": 56.1,
+      "flow": "-2.317 Abbau",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "S&P 500 Whales zu 43.9% Long positioniert."
+    },
+    "congress": {
+      "buys_count": 0,
+      "sales_count": 0,
+      "summary_de": "Keine aktuellen Kongress-Trades im Berichtszeitraum.",
+      "trades": []
+    },
+    "sec": {
+      "filings_count": 1,
+      "is_cluster": false,
+      "summary_de": "CEO Europe Jean-Marc Ollagnier meldet offenen Marktverkauf über $269.910.",
+      "filings": [
+        {
+          "reporting_owner": "Ollagnier Jean-Marc",
+          "role": "CEO - Europe",
+          "transaction_type": "Offener Marktverkauf",
+          "is_buy": false,
+          "shares_formatted": "3.000 Aktien",
+          "price_formatted": "$89,97",
+          "total_value_formatted": "$269.910",
+          "filing_date": "2026-10-19",
+          "filing_time": "2026-10-19 21:39 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  },
+  "RMCF": {
+    "ticker": "RMCF",
+    "company_name": "Rocky Mountain Chocolate Factory, Inc.",
+    "sector": "Confectionery & Food Products",
+    "cot": {
+      "market": "Russell 2000 / Small Caps US",
+      "whale_long_pct": 43.7,
+      "whale_short_pct": 56.3,
+      "flow": "-2.200 Abbau",
+      "timeframe": "Stichtag: Di, 13.10. / Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+      "summary_de": "Small Caps Index zeigt 43.7% Long und 56.3% Short."
+    },
+    "congress": {
+      "buys_count": 0,
+      "sales_count": 0,
+      "summary_de": "Keine aktuellen Transaktionen von Kongressabgeordneten erfasst.",
+      "trades": []
+    },
+    "sec": {
+      "filings_count": 12,
+      "is_cluster": true,
+      "summary_de": "Großer Cluster-Alarm mit 12 Insider-Filings von Führungskräften und Großaktionären.",
+      "filings": [
+        {
+          "reporting_owner": "Geygan Jeffrey",
+          "role": "Director / Interim CEO",
+          "transaction_type": "Aktienzuteilung / Zukauf",
+          "is_buy": true,
+          "shares_formatted": "37.500 Aktien",
+          "price_formatted": "$2,65",
+          "total_value_formatted": "$99.375",
+          "filing_date": "2026-10-18",
+          "filing_time": "2026-10-18 17:40 Uhr",
+          "sec_form_url": "https://www.sec.gov"
+        }
+      ]
+    }
+  }
+}
+;

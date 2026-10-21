@@ -1875,6 +1875,17 @@ body.theme-light .sec-takeaway-box.neutral {
 }
 .nav-item.active {
   color: var(--accent-cyan);
+  position: relative;
+}
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 28px;
+  height: 3px;
+  background: var(--accent-cyan);
+  border-radius: 0 0 3px 3px;
+  box-shadow: 0 0 8px var(--accent-cyan);
 }
 .nav-item.active .nav-icon {
   transform: translateY(-1px) scale(1.08);

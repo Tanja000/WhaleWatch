@@ -38,6 +38,8 @@ class WhaleRepository(private val context: Context) {
     private val _watchlist = MutableStateFlow<Set<String>>(loadSavedWatchlist())
     val watchlist: StateFlow<Set<String>> = _watchlist.asStateFlow()
 
+    private var _stockDetailsMap: Map<String, JSONObject> = emptyMap()
+
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
@@ -47,15 +49,18 @@ class WhaleRepository(private val context: Context) {
 
     private fun loadSavedWatchlist(): Set<String> {
         val saved = prefs.getStringSet("watchlist", null)
-        return saved ?: setOf("NVDA", "AAPL", "MSFT", "PLTR")
+        val initial = saved ?: setOf("NVDA", "AAPL", "MSFT", "PLTR")
+        return initial.filter { isValidStockTicker(it) }.toSet()
     }
 
     fun toggleWatchlist(ticker: String) {
+        val clean = ticker.trim().uppercase()
+        if (!isValidStockTicker(clean)) return
         val current = _watchlist.value.toMutableSet()
-        if (current.contains(ticker)) {
-            current.remove(ticker)
+        if (current.contains(clean)) {
+            current.remove(clean)
         } else {
-            current.add(ticker)
+            current.add(clean)
         }
         _watchlist.value = current
         prefs.edit().putStringSet("watchlist", current).apply()
@@ -63,7 +68,7 @@ class WhaleRepository(private val context: Context) {
 
     fun addWatchlistTicker(ticker: String) {
         val clean = ticker.trim().uppercase()
-        if (clean.isNotEmpty()) {
+        if (clean.isNotEmpty() && isValidStockTicker(clean)) {
             val current = _watchlist.value.toMutableSet()
             current.add(clean)
             _watchlist.value = current
@@ -250,10 +255,14 @@ class WhaleRepository(private val context: Context) {
                         .replace("Vorstand", "Vorstand")
                         .replace("C-Suit", "Vorstand")
 
+                    var tSym = a.optString("ticker", "").trim().uppercase()
+                    if (tSym == "ZHANG") tSym = "NIU"
+                    if (tSym == "CO") tSym = "ELP"
+
                     list.add(
                         SecAlert(
-                            id = a.optString("accession_number", a.optString("ticker") + "_" + i),
-                            ticker = a.optString("ticker", ""),
+                            id = a.optString("accession_number", tSym + "_" + i),
+                            ticker = tSym,
                             issuer = a.optString("issuer", ""),
                             reportingOwner = ownerName,
                             role = roleName,
@@ -423,6 +432,23 @@ class WhaleRepository(private val context: Context) {
 
         // Safety Fallbacks to guarantee data is NEVER empty under any circumstance
         ensureSafetyFallbacks()
+
+        // Stock Details Dossiers
+        try {
+            val sdStr = readAssetString("data/stock_details.json")
+            if (sdStr.isNotEmpty()) {
+                val root = JSONObject(sdStr)
+                val map = mutableMapOf<String, JSONObject>()
+                val keys = root.keys()
+                while (keys.hasNext()) {
+                    val key = keys.next()
+                    map[key.uppercase()] = root.getJSONObject(key)
+                }
+                _stockDetailsMap = map
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("WhaleRepo", "Error parsing stock_details.json", e)
+        }
 
         // Berechne Kombi-Signale dynamisch aus allen 3 Quellen: COT, Kongress und SEC
         _superSignals.value = calculateSuperSignals()
@@ -678,19 +704,68 @@ class WhaleRepository(private val context: Context) {
         }
     }
 
+    fun getCompanyName(ticker: String): String {
+        val upper = ticker.uppercase()
+        val dossier = _stockDetailsMap[upper]
+        val dName = dossier?.optString("company_name")
+        if (!dName.isNullOrBlank()) return dName
+
+        val matchCong = _congressTrades.value.firstOrNull { it.ticker.equals(upper, true) }?.assetName
+        if (!matchCong.isNullOrBlank()) return matchCong
+        val matchSec = _secAlerts.value.firstOrNull { it.ticker.equals(upper, true) }?.issuer
+        if (!matchSec.isNullOrBlank()) return matchSec
+        val matchSig = _superSignals.value.firstOrNull { it.ticker.equals(upper, true) }?.companyName
+        if (!matchSig.isNullOrBlank()) return matchSig
+
+        return when (upper) {
+            "NVDA" -> "NVIDIA Corporation"
+            "MSFT" -> "Microsoft Corporation"
+            "AAPL" -> "Apple Inc."
+            "PLTR" -> "Palantir Technologies Inc."
+            "TSLA" -> "Tesla, Inc."
+            "AMZN" -> "Amazon.com, Inc."
+            "GOOGL" -> "Alphabet Inc."
+            "META" -> "Meta Platforms, Inc."
+            "NXPI" -> "NXP Semiconductors N.V."
+            "ZTS" -> "Zoetis Inc."
+            "IBRX" -> "ImmunityBio, Inc."
+            "SYY" -> "Sysco Corporation"
+            "PG" -> "The Procter & Gamble Company"
+            "RPM" -> "RPM International Inc."
+            "FITB" -> "Fifth Third Bancorp"
+            "T" -> "AT&T Inc."
+            "IONS" -> "Ionis Pharmaceuticals, Inc."
+            "ACN" -> "Accenture plc"
+            "RMCF" -> "Rocky Mountain Chocolate Factory, Inc."
+            else -> "$upper Corporation"
+        }
+    }
+
     fun getAnalysis(ticker: String): StockAnalysis {
         val upper = ticker.uppercase()
+        val dossier = _stockDetailsMap[upper]
+        val companyName = getCompanyName(upper)
+
         val congMatches = _congressTrades.value.filter { it.ticker.equals(upper, ignoreCase = true) }
         val secMatches = _secAlerts.value.filter { it.ticker.equals(upper, ignoreCase = true) }
         val superSig = _superSignals.value.find { it.ticker.equals(upper, ignoreCase = true) }
 
-        val buys = congMatches.count { it.transactionType.lowercase().contains("purchase") }
-        val sales = congMatches.count { it.transactionType.lowercase().contains("sale") }
+        val buys = if (dossier != null && dossier.has("congress")) {
+            dossier.getJSONObject("congress").optInt("buys_count", congMatches.count { it.transactionType.lowercase().contains("purchase") })
+        } else {
+            congMatches.count { it.transactionType.lowercase().contains("purchase") }
+        }
+
+        val sales = if (dossier != null && dossier.has("congress")) {
+            dossier.getJSONObject("congress").optInt("sales_count", congMatches.count { it.transactionType.lowercase().contains("sale") })
+        } else {
+            congMatches.count { it.transactionType.lowercase().contains("sale") }
+        }
 
         val score = when {
             superSig != null -> superSig.convictionScore
             buys > sales -> 78
-            secMatches.any { it.isCluster } -> 85
+            secMatches.any { it.isCluster } || (dossier?.optJSONObject("sec")?.optBoolean("is_cluster") == true) -> 85
             sales > buys -> 42
             else -> 60
         }
@@ -698,31 +773,102 @@ class WhaleRepository(private val context: Context) {
         val sentimentDe = if (score >= 65) "BULLISCH" else if (score <= 45) "BÄRISCH" else "NEUTRAL"
         val sentimentEn = if (score >= 65) "BULLISH" else if (score <= 45) "BEARISH" else "NEUTRAL"
 
-        val qqqMarket = _cotMarkets.value.find { it.id.equals("QQQ", ignoreCase = true) }
-        val cotWhaleLong = qqqMarket?.whaleBullishPct ?: 70.0
-        val cotWhaleShort = Math.round((100.0 - cotWhaleLong) * 10.0) / 10.0
-        val cotFlow = qqqMarket?.whaleChangeDesc ?: "+8.000 Akkumulation"
-        val cotMarketLabel = if (upper in listOf("NVDA", "MSFT", "AAPL", "PLTR", "NXPI")) "Nasdaq-100 / QQQ (Tech)" else "S&P 500 / SPY (Large Caps)"
+        val cotObj = dossier?.optJSONObject("cot")
+        val cotMarketLabel = cotObj?.optString("market") ?: (if (upper in listOf("NVDA", "MSFT", "AAPL", "PLTR", "NXPI")) "Nasdaq-100 / QQQ (Tech)" else "S&P 500 / SPY (Large Caps)")
+        val cotWhaleLong = cotObj?.optDouble("whale_long_pct") ?: (if (upper in listOf("NVDA", "MSFT", "AAPL", "PLTR", "NXPI")) 70.0 else 43.9)
+        val cotWhaleShort = cotObj?.optDouble("whale_short_pct") ?: (Math.round((100.0 - cotWhaleLong) * 10.0) / 10.0)
+        val cotFlow = cotObj?.optString("flow") ?: "+8.000 Akkumulation"
+        val cotTimeframe = cotObj?.optString("timeframe") ?: "Stichtag: Di, 13.10. · Veröffentlichung: Fr, 16.10.2026 (CFTC)"
         val cotContextStr = "$cotMarketLabel: Whales $cotWhaleLong% Long · $cotWhaleShort% Short ($cotFlow)"
+
+        // Parse detailed trades from dossier if available
+        val tradesList = mutableListOf<CongressTrade>()
+        if (dossier != null && dossier.has("congress")) {
+            val cgArr = dossier.getJSONObject("congress").optJSONArray("trades")
+            if (cgArr != null && cgArr.length() > 0) {
+                for (i in 0 until cgArr.length()) {
+                    val t = cgArr.getJSONObject(i)
+                    tradesList.add(
+                        CongressTrade(
+                            id = "dt_$upper$i",
+                            filerName = t.optString("filer_name", "-"),
+                            party = t.optString("party", "D"),
+                            chamber = t.optString("chamber", "House"),
+                            ticker = upper,
+                            assetName = companyName,
+                            transactionType = t.optString("transaction_type", "Purchase"),
+                            amountRangeLabel = t.optString("amount_range_label", "-"),
+                            transactionDate = t.optString("transaction_date", "-"),
+                            filingDate = t.optString("filing_date", "-"),
+                            daysToFile = 0,
+                            isLate = false,
+                            hasCommitteeConflict = t.optBoolean("has_committee_conflict", false),
+                            conflictCommittee = t.optString("conflict_committee", ""),
+                            conflictDescDe = t.optString("conflict_desc", "")
+                        )
+                    )
+                }
+            }
+        }
+        if (tradesList.isEmpty()) {
+            tradesList.addAll(congMatches.take(10))
+        }
+
+        // Parse detailed SEC filings from dossier if available
+        val secList = mutableListOf<SecAlert>()
+        if (dossier != null && dossier.has("sec")) {
+            val secArr = dossier.getJSONObject("sec").optJSONArray("filings")
+            if (secArr != null && secArr.length() > 0) {
+                for (i in 0 until secArr.length()) {
+                    val f = secArr.getJSONObject(i)
+                    secList.add(
+                        SecAlert(
+                            id = "dsec_$upper$i",
+                            ticker = upper,
+                            issuer = companyName,
+                            reportingOwner = f.optString("reporting_owner", "-"),
+                            role = f.optString("role", "-"),
+                            alertType = if (dossier.getJSONObject("sec").optBoolean("is_cluster")) "CLUSTER-ALERT" else "FORM 4 FILING",
+                            isCluster = dossier.getJSONObject("sec").optBoolean("is_cluster"),
+                            isBuy = f.optBoolean("is_buy", true),
+                            txTypeDe = f.optString("transaction_type", "Kauf"),
+                            txTypeEn = "Purchase",
+                            sharesFormatted = f.optString("shares_formatted", "-"),
+                            totalValueFormatted = f.optString("total_value_formatted", "-"),
+                            filingDate = f.optString("filing_date", "-"),
+                            badgeColor = if (f.optBoolean("is_buy", true)) "#10b981" else "#ef4444",
+                            priceFormatted = f.optString("price_formatted", "-"),
+                            filingUrl = f.optString("sec_form_url", "https://www.sec.gov"),
+                            filingTime = f.optString("filing_time", "")
+                        )
+                    )
+                }
+            }
+        }
+        if (secList.isEmpty()) {
+            secList.addAll(secMatches.take(10))
+        }
+
+        val secCount = if (dossier != null && dossier.has("sec")) dossier.getJSONObject("sec").optInt("filings_count", secMatches.size) else secMatches.size
 
         return StockAnalysis(
             ticker = upper,
-            companyName = if (congMatches.isNotEmpty()) congMatches[0].assetName else if (secMatches.isNotEmpty()) secMatches[0].issuer else if (superSig != null) superSig.companyName else "$upper Corporation",
+            companyName = companyName,
             score = score,
             sentimentDe = sentimentDe,
             sentimentEn = sentimentEn,
             congressBuys = buys,
             congressSales = sales,
-            secAlertsCount = secMatches.size,
+            secAlertsCount = secCount,
             cotContext = cotContextStr,
             cotMarketName = cotMarketLabel,
             cotWhaleLongPct = cotWhaleLong,
             cotWhaleShortPct = cotWhaleShort,
             cotWhaleFlow = cotFlow,
-            cotTimeframe = "Stichtag: Di, 13.10. · Veröffentlichung: Fr, 16.10.2026 (CFTC)",
+            cotTimeframe = cotTimeframe,
             superSignal = superSig,
-            recentTrades = congMatches.take(10),
-            recentSec = secMatches.take(10)
+            recentTrades = tradesList,
+            recentSec = secList
         )
     }
 
