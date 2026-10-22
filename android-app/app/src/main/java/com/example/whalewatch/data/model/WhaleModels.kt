@@ -50,6 +50,12 @@ data class CotMarket(
     val commercialLong: Long = 0,
     val commercialShort: Long = 0,
     val commercialNet: Long = 0,
+    val cotIndex26w: Double = 50.0,
+    val cotIndex52w: Double = 50.0,
+    val cotIndex3y: Double = 50.0,
+    val zScore3y: Double = 0.0,
+    val cftcCode: String = "",
+    val futuresBenchUrl: String = "https://futuresbench.com/",
     val marketRaw: String = "",
     val cftcUrl: String = "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
 )
@@ -72,6 +78,24 @@ data class CongressTrade(
     val conflictSector: String = "",
     val conflictDescDe: String = "",
     val conflictDescEn: String = ""
+)
+
+data class SecTransactionItem(
+    val code: String = "P",
+    val isBuy: Boolean = true,
+    val txTypeDe: String = "",
+    val txTypeEn: String = "",
+    val securityTitle: String = "Common Stock",
+    val transactionDate: String = "",
+    val shares: Long = 0,
+    val sharesFormatted: String = "-",
+    val price: Double = 0.0,
+    val priceFormatted: String = "-",
+    val totalValue: Long = 0,
+    val totalValueFormatted: String = "-",
+    val securityBeneficials: Long = 0,
+    val securityBeneficialsFormatted: String = "-",
+    val ownershipNature: String = "D"
 )
 
 data class SecAlert(
@@ -102,7 +126,9 @@ data class SecAlert(
     val ownershipNature: String = "D",
     val investorExplanationDe: String = "",
     val price: Double = 0.0,
-    val shares: Long = 0
+    val shares: Long = 0,
+    val is10b51Plan: Boolean = false,
+    val transactions: List<SecTransactionItem> = emptyList()
 )
 
 data class SecCluster(
@@ -110,6 +136,9 @@ data class SecCluster(
     val issuer: String,
     val ticker: String,
     val clusterCount: Int,
+    val uniqueInsidersCount: Int = 2,
+    val buyCount: Int = 0,
+    val sellCount: Int = 0,
     val filingDate: String,
     val filingTime: String,
     val isBuy: Boolean,

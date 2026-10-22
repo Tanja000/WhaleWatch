@@ -120,7 +120,7 @@ fun AnalysisDialog(
                         border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
-                            // Header with high-contrast Pill Badge
+                            // Header with high-contrast Pill Badge (Always wide & horizontal, never vertical!)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -130,7 +130,8 @@ fun AnalysisDialog(
                                     text = if (isEn) "🐋 1. CFTC COT WHALE SENTIMENT" else "🐋 1. CFTC COT MAKRO- & WAL-SENTIMENT",
                                     fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
-                                    color = MaterialTheme.colorScheme.primary
+                                    color = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.weight(1f).padding(end = 8.dp)
                                 )
 
                                 val isLong = analysis.cotWhaleLongPct >= 50.0
@@ -146,7 +147,9 @@ fun AnalysisDialog(
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = cotColor,
-                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
+                                        softWrap = false,
+                                        maxLines = 1,
+                                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 3.dp)
                                     )
                                 }
                             }
@@ -166,28 +169,54 @@ fun AnalysisDialog(
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(text = if (isEn) "Market & Sector:" else "Markt & Sektor:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(text = analysis.cotMarketName, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = analysis.cotMarketName,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.End,
+                                    modifier = Modifier.weight(1f)
+                                )
                             }
                             Spacer(modifier = Modifier.height(4.dp))
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(text = if (isEn) "Weekly Flow:" else "Wochen-Fluss (Flow):", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(text = cotFlowDisplay, fontSize = 11.sp, fontWeight = FontWeight.Bold, color = GreenBuy)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = cotFlowDisplay,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = GreenBuy,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.End,
+                                    modifier = Modifier.weight(1f)
+                                )
                             }
                             Spacer(modifier = Modifier.height(4.dp))
 
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.Top
                             ) {
                                 Text(text = if (isEn) "Period & Cutoff:" else "Zeitspanne & Stichtag:", fontSize = 11.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                Text(text = cotTimeframeDisplay, fontSize = 10.5.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    text = cotTimeframeDisplay,
+                                    fontSize = 10.5.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    textAlign = androidx.compose.ui.text.style.TextAlign.End,
+                                    modifier = Modifier.weight(1f)
+                                )
                             }
                         }
                     }
@@ -202,7 +231,7 @@ fun AnalysisDialog(
                         border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
-                            // Header with separate, crisp Buy/Sale Pills
+                            // Header with separate, crisp Buy/Sale Pills (Always horizontal!)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -212,7 +241,8 @@ fun AnalysisDialog(
                                     text = if (isEn) "🏛️ 2. CONGRESS STOCK ACT" else "🏛️ 2. KONGRESS STOCK ACT",
                                     fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
-                                    color = CyanAccent
+                                    color = CyanAccent,
+                                    modifier = Modifier.weight(1f).padding(end = 8.dp)
                                 )
 
                                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -227,7 +257,9 @@ fun AnalysisDialog(
                                                 fontSize = 10.5.sp,
                                                 fontWeight = FontWeight.ExtraBold,
                                                 color = GreenBuy,
-                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                                softWrap = false,
+                                                maxLines = 1,
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
                                             )
                                         }
                                     }
@@ -242,7 +274,9 @@ fun AnalysisDialog(
                                                 fontSize = 10.5.sp,
                                                 fontWeight = FontWeight.ExtraBold,
                                                 color = RedSell,
-                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                                softWrap = false,
+                                                maxLines = 1,
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
                                             )
                                         }
                                     }
@@ -256,7 +290,9 @@ fun AnalysisDialog(
                                                 fontSize = 10.5.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                                softWrap = false,
+                                                maxLines = 1,
+                                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
                                             )
                                         }
                                     }
@@ -280,7 +316,10 @@ fun AnalysisDialog(
                                         horizontalArrangement = Arrangement.SpaceBetween,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier.weight(1f).padding(end = 8.dp)
+                                        ) {
                                             Text("📊", fontSize = 12.sp)
                                             Spacer(modifier = Modifier.width(6.dp))
                                             Text(
@@ -294,7 +333,9 @@ fun AnalysisDialog(
                                             text = totalRange,
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = CyanAccent
+                                            color = CyanAccent,
+                                            softWrap = false,
+                                            maxLines = 1
                                         )
                                     }
                                 }
@@ -375,7 +416,9 @@ fun AnalysisDialog(
                                                         fontSize = 10.sp,
                                                         fontWeight = FontWeight.ExtraBold,
                                                         color = if (isBuy) GreenBuy else RedSell,
-                                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                        softWrap = false,
+                                                        maxLines = 1,
+                                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
                                                     )
                                                 }
                                             }
@@ -434,7 +477,7 @@ fun AnalysisDialog(
                         border = BorderStroke(1.dp, AmberWhale.copy(alpha = 0.35f))
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
-                            // Header with crisp Filing Count Pill
+                            // Header with crisp Filing Count Pill (Always horizontal!)
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
                                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -444,7 +487,8 @@ fun AnalysisDialog(
                                     text = if (isEn) "🏢 3. SEC FORM 4 INSIDER ALERTS" else "🏢 3. SEC FORM 4 INSIDER-ALARME",
                                     fontSize = 11.5.sp,
                                     fontWeight = FontWeight.ExtraBold,
-                                    color = AmberWhale
+                                    color = AmberWhale,
+                                    modifier = Modifier.weight(1f).padding(end = 8.dp)
                                 )
                                 Surface(
                                     color = AmberWhale.copy(alpha = 0.18f),
@@ -456,7 +500,9 @@ fun AnalysisDialog(
                                         fontSize = 10.5.sp,
                                         fontWeight = FontWeight.ExtraBold,
                                         color = AmberWhale,
-                                        modifier = Modifier.padding(horizontal = 7.dp, vertical = 2.dp)
+                                        softWrap = false,
+                                        maxLines = 1,
+                                        modifier = Modifier.padding(horizontal = 9.dp, vertical = 2.5.dp)
                                     )
                                 }
                             }
@@ -478,7 +524,10 @@ fun AnalysisDialog(
                                         horizontalArrangement = Arrangement.SpaceBetween,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Row(verticalAlignment = Alignment.CenterVertically) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            modifier = Modifier.weight(1f).padding(end = 8.dp)
+                                        ) {
                                             Text("📊", fontSize = 12.sp)
                                             Spacer(modifier = Modifier.width(6.dp))
                                             Text(
@@ -492,7 +541,9 @@ fun AnalysisDialog(
                                             text = totalSecFormatted,
                                             fontSize = 12.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = AmberWhale
+                                            color = AmberWhale,
+                                            softWrap = false,
+                                            maxLines = 1
                                         )
                                     }
                                 }
@@ -556,7 +607,9 @@ fun AnalysisDialog(
                                                         fontSize = 10.sp,
                                                         fontWeight = FontWeight.ExtraBold,
                                                         color = if (sec.isBuy) GreenBuy else RedSell,
-                                                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                                                        softWrap = false,
+                                                        maxLines = 1,
+                                                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.5.dp)
                                                     )
                                                 }
                                             }

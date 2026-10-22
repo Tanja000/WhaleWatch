@@ -132,6 +132,12 @@ private fun buildEnglishInvestorNote(alert: SecAlert, sharesText: String, benefT
         .replace("Vorstand / Aufsichtsrat", "Executive / Director")
         .ifBlank { "Executive" }
     val holdingSuffix = if (benefText.isNotBlank() && benefText != "-") " Following the transaction, $owner holds $benefText." else ""
+    if (alert.transactions.size > 1) {
+        val n = alert.transactions.size
+        val buys = alert.transactions.count { it.isBuy }
+        val sells = n - buys
+        return "$owner ($role) reported $n transactions in one Form 4 filing ($buys acquisitions, $sells sales/withholdings). Awards or option exercises are often combined with a tax withholding or sale – see every transaction listed above.$holdingSuffix"
+    }
     return when {
         alert.code == "M" -> "Option Exercise (Code M): $owner ($role) exercised vested stock options ($sharesText) and retained the shares directly.$holdingSuffix"
         alert.isBuy -> "Open Market Purchase (Code P): $owner ($role) acquired $sharesText on the open market using personal capital – a strong signal of operational conviction.$holdingSuffix"
@@ -154,7 +160,7 @@ fun SecDetailDialog(
 ) {
     val uriHandler = LocalUriHandler.current
     val tagColor = if (alert.isBuy) GreenBuy else if (alert.code == "S") RedSell else Color(0xFF94A3B8)
-    val txLabel = if (isEn) alert.txTypeEn else alert.txTypeDe
+    val txLabel = if (alert.transactions.size > 1) (if (isEn) "${alert.transactions.size} transactions in this filing" else "${alert.transactions.size} Transaktionen in diesem Formblatt") else if (isEn) alert.txTypeEn else alert.txTypeDe
     val scrollState = rememberScrollState()
 
     val rawSharesText = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "-") {
@@ -260,39 +266,21 @@ fun SecDetailDialog(
                         .weight(1f)
                         .verticalScroll(scrollState)
                 ) {
-                    // Ticker & Company Header
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    // Ticker & full company name first (always horizontal), badge underneath
+                    SecCompanyTitle(ticker = alert.ticker.ifBlank { "" }, issuer = alert.issuer)
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Surface(
+                        shape = RoundedCornerShape(6.dp),
+                        color = tagColor.copy(alpha = 0.15f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, tagColor.copy(alpha = 0.35f))
                     ) {
-                        Column(modifier = Modifier.weight(1f)) {
-                            Text(
-                                text = if (alert.ticker.isNotBlank()) "$${alert.ticker}" else alert.issuer,
-                                fontSize = 22.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = CyanAccentGlow
-                            )
-                            Text(
-                                text = alert.issuer,
-                                fontSize = 13.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-
-                        Surface(
-                            shape = RoundedCornerShape(6.dp),
-                            color = tagColor.copy(alpha = 0.15f),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, tagColor.copy(alpha = 0.35f))
-                        ) {
-                            Text(
-                                text = txLabel,
-                                color = tagColor,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
-                            )
-                        }
+                        Text(
+                            text = txLabel,
+                            color = tagColor,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 4.dp)
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
@@ -327,70 +315,20 @@ fun SecDetailDialog(
 
                             HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
 
-                            // 2x2 Grid of Form 4 XML attributes
-                            Row(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = "TITLE OF SECURITY",
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = secTitleDisplay,
-                                        fontSize = 11.5.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
-                                }
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)",
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = if (priceText != "-") (if (isEn) "$sharesText @ $priceText" else "$sharesText à $priceText") else sharesText,
-                                        fontSize = 11.5.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = CyanAccentGlow
-                                    )
-                                }
-                            }
-
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Row(modifier = Modifier.fillMaxWidth()) {
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = if (isEn) "BENEFICIALLY OWNED" else "BESTAND DANACH (BENEFICIALS)",
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = benefText,
-                                        fontSize = 11.5.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = GreenBuy
-                                    )
-                                }
-                                Column(modifier = Modifier.weight(1f)) {
-                                    Text(
-                                        text = if (isEn) "OWNERSHIP NATURE" else "EIGENTUMSART (NATURE)",
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                                    )
-                                    Text(
-                                        text = natureText,
-                                        fontSize = 11.5.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSurface
-                                    )
-                                }
-                            }
+                            Text(
+                                text = if (isEn) "OWNERSHIP & 10B5-1 PLAN" else "EIGENTUM & 10B5-1 PLAN",
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = if (alert.is10b51Plan) (if (isEn) "10b5-1 plan: Yes" else "10b5-1-Plan: Ja") else (if (isEn) "10b5-1 plan: No" else "10b5-1-Plan: Nein"),
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                            SecTxDetailList(alert = alert, isEn = isEn)
                         }
                     }
 
@@ -407,7 +345,8 @@ fun SecDetailDialog(
                             text = if (isEn) {
                                 "💡 Shareholder Note: ${buildEnglishInvestorNote(alert, sharesText, benefText)}"
                             } else {
-                                if (alert.investorExplanationDe.isNotBlank()) "💡 Vermerk für Aktionäre: ${alert.investorExplanationDe}"
+                                if (alert.transactions.size > 1) "💡 Vermerk für Aktionäre: ${alert.reportingOwner} meldete ${alert.transactions.size} Transaktionen in einem Formblatt 4 (${alert.transactions.count { it.isBuy }} Erwerbe, ${alert.transactions.count { !it.isBuy }} Verkäufe/Einbehalte). Zuteilungen oder Optionsausübungen werden oft mit Steuereinbehalt oder Verkauf kombiniert – siehe alle Transaktionen oben."
+                                else if (alert.investorExplanationDe.isNotBlank()) "💡 Vermerk für Aktionäre: ${alert.investorExplanationDe}"
                                 else if (alert.isBuy) "💡 Vermerk für Aktionäre: Kauf aus persönlichem Barvermögen am offenen Markt. Führungskräfte investieren persönliches Kapital direkt an der Börse – ein direktes Signal für operatives Vertrauen."
                                 else "💡 Vermerk für Aktionäre: Insider-Verkauf am Markt. Position verkleinert (oft Steuer- oder Vermögensdiversifikation)."
                             },
@@ -560,71 +499,55 @@ fun SecClusterDetailDialog(
                         .weight(1f)
                         .verticalScroll(scrollState)
                 ) {
-                    // Ticker & Issuer Header
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                    // Ticker & full company name (always horizontal), badge underneath
+                    val clusterBadge = clusterExplanation(cluster, isEn)
+                    SecCompanyTitle(ticker = cluster.ticker, issuer = cluster.issuer)
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = clusterBadge.color,
+                        border = androidx.compose.foundation.BorderStroke(1.dp, clusterBadge.color)
                     ) {
-                        Column(modifier = Modifier.weight(1f, fill = false)) {
-                            Text(
-                                text = if (cluster.ticker.isNotBlank()) "$${cluster.ticker}" else cluster.issuer,
-                                fontSize = 22.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = CyanAccentGlow
-                            )
-                            Text(
-                                text = cluster.issuer,
-                                fontSize = 13.sp,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-
-                        Spacer(modifier = Modifier.width(8.dp))
-
-                        // High-visibility yellow cluster badge
-                        Surface(
-                            shape = RoundedCornerShape(8.dp),
-                            color = AmberWhale,
-                            border = androidx.compose.foundation.BorderStroke(1.dp, AmberWhale)
-                        ) {
-                            Text(
-                                text = if (isEn) "🔥 ${cluster.clusterCount}x CLUSTER ALERT" else "🔥 ${cluster.clusterCount}x CLUSTER-ALARM",
-                                color = Color.Black,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
-                            )
-                        }
+                        Text(
+                            text = "${clusterBadge.badge} · ${cluster.uniqueInsidersCount} " + (if (isEn) "INSIDERS" else "INSIDER"),
+                            color = Color.Black,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
+                        )
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // Cluster Explanation Banner
+                    // Cluster Explanation Banner (adapts to buys / sales / mixed)
+                    val clusterInfo = clusterExplanation(cluster, isEn)
                     Surface(
                         shape = RoundedCornerShape(10.dp),
-                        color = AmberWhale.copy(alpha = 0.12f),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, AmberWhale.copy(alpha = 0.35f)),
+                        color = clusterInfo.color.copy(alpha = 0.12f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, clusterInfo.color.copy(alpha = 0.35f)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "🔥 CLUSTER PURCHASE ACCUMULATION (${cluster.clusterCount} SYNCHRONIZED FILINGS)"
-                                       else "🔥 CLUSTER-KAUF ERKANNT (${cluster.clusterCount} SYNCHRONE FILINGS)",
+                                text = clusterInfo.title,
                                 fontSize = 11.5.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = AmberWhale
+                                color = clusterInfo.color
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                text = if (isEn) {
-                                    "${cluster.clusterCount} corporate insiders concurrently purchased shares at ${cluster.issuer}. Cluster filings historically exhibit a high win-rate for subsequent stock rallies."
-                                } else {
-                                    "${cluster.clusterCount} Vorstandsmitglieder & Aufsichtsräte haben synchron Anteile bei ${cluster.issuer} erworben. Ein massives Indiz für operative Stärke und Unterbewertung."
-                                },
+                                text = clusterInfo.body,
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 lineHeight = 15.sp
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = if (isEn) "A cluster requires at least 2 different people. Several filings by the same person are not a cluster."
+                                       else "Ein Cluster setzt mindestens 2 verschiedene Personen voraus. Mehrere Meldungen derselben Person sind kein Cluster.",
+                                fontSize = 10.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                lineHeight = 14.sp
                             )
                         }
                     }
@@ -633,8 +556,8 @@ fun SecClusterDetailDialog(
 
                     // Section: ALL Contributors in the Cluster with XML Form 4 Details
                     Text(
-                        text = if (isEn) "👥 ALL ${cluster.clusterCount} CONTRIBUTORS (FORM 4 XML DETAILS)"
-                               else "👥 ALLE ${cluster.clusterCount} BETEILIGTEN IM CLUSTER (FORM 4 XML DETAILS)",
+                        text = if (isEn) "👥 ALL ${cluster.filings.size} FILINGS BY ${cluster.uniqueInsidersCount} DIFFERENT INSIDERS"
+                               else "👥 ALLE ${cluster.filings.size} FILINGS VON ${cluster.uniqueInsidersCount} VERSCHIEDENEN INSIDERN",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = CyanAccentGlow,
@@ -717,7 +640,7 @@ fun SecClusterDetailDialog(
                                         horizontalArrangement = Arrangement.SpaceBetween,
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        Column(modifier = Modifier.weight(1f)) {
+                                        Column(modifier = Modifier.weight(1f).padding(end = 8.dp)) {
                                             Text(
                                                 text = "${index + 1}. ${filing.reportingOwner.ifBlank { "Reporting Person" }}",
                                                 fontSize = 13.sp,
@@ -742,49 +665,22 @@ fun SecClusterDetailDialog(
                                                 color = sigColor,
                                                 fontSize = 9.5.sp,
                                                 fontWeight = FontWeight.ExtraBold,
-                                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)
+                                                softWrap = false,
+                                                maxLines = 1,
+                                                modifier = Modifier.padding(horizontal = 7.dp, vertical = 3.dp)
                                             )
                                         }
                                     }
 
                                     Spacer(modifier = Modifier.height(8.dp))
 
-                                    // 2x2 XML Grid for Contributor
-                                    Surface(
-                                        shape = RoundedCornerShape(6.dp),
-                                        color = MaterialTheme.colorScheme.background.copy(alpha = 0.4f),
-                                        modifier = Modifier.fillMaxWidth()
-                                    ) {
-                                        Column(modifier = Modifier.padding(8.dp)) {
-                                            Row(modifier = Modifier.fillMaxWidth()) {
-                                                Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = "TITLE OF SECURITY", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                                    Text(text = secTitleDisplay, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-                                                }
-                                                Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                                    Text(text = if (priceText != "-") (if (isEn) "$sharesText @ $priceText" else "$sharesText à $priceText") else sharesText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = CyanAccentGlow)
-                                                }
-                                            }
-                                            Spacer(modifier = Modifier.height(4.dp))
-                                            Row(modifier = Modifier.fillMaxWidth()) {
-                                                Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = if (isEn) "BENEFICIALLY OWNED" else "BESTAND DANACH (BENEFICIALS)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                                    Text(text = benefText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = GreenBuy)
-                                                }
-                                                Column(modifier = Modifier.weight(1f)) {
-                                                    Text(text = if (isEn) "OWNERSHIP NATURE" else "EIGENTUMSART (NATURE)", fontSize = 8.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                                    Text(text = natureText, fontSize = 10.5.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.onSurface)
-                                                }
-                                            }
-                                        }
-                                    }
+                                    SecTxDetailList(alert = filing, isEn = isEn)
 
                                     // Explanatory Vermerk for this filing
                                     if (filing.investorExplanationDe.isNotBlank() || isEn) {
                                         Spacer(modifier = Modifier.height(6.dp))
                                         Text(
-                                            text = if (isEn) "💡 Note: ${buildEnglishInvestorNote(filing, sharesText, benefText)}" else "💡 Vermerk: ${filing.investorExplanationDe}",
+                                            text = if (isEn) "💡 Note: ${buildEnglishInvestorNote(filing, sharesText, benefText)}" else if (filing.transactions.size > 1) "💡 Vermerk: ${filing.transactions.size} Transaktionen in einem Formblatt 4 – siehe Liste oben." else "💡 Vermerk: ${filing.investorExplanationDe}",
                                             fontSize = 10.5.sp,
                                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                                             lineHeight = 14.sp

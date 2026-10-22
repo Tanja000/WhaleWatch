@@ -64,14 +64,22 @@ fun CotDetailDialog(
                         market.name
                             .replace("Silber", "Silver")
                             .replace("WTI Rohöl", "WTI Crude Oil")
+                            .replace("Erdgas", "Natural Gas")
+                            .replace("Kupfer", "Copper")
                     } else market.name
                     val localizedAssetClass = if (isEn) {
                         market.assetClass
                             .replace("Edelmetall / Safe Haven", "Precious Metal / Safe Haven")
                             .replace("Edelmetall / Industrie", "Precious Metal / Industrial")
                             .replace("Energie & Rohstoffe", "Energy & Commodities")
+                            .replace("Industriemetall & Konjunktur", "Industrial Metal & Macro")
+                            .replace("US Staatsanleihen (10J)", "US Treasury Notes (10Y)")
+                            .replace("US Staatsanleihen (30J)", "US Treasury Bonds (30Y)")
                             .replace("US Staatsanleihen", "US Treasury Bonds")
+                            .replace("Krypto / Digitales Gold", "Crypto / Digital Gold")
                             .replace("Krypto / Risk-On", "Crypto / Risk-On")
+                            .replace("G10 Leitwährung", "G10 Major Currency")
+                            .replace("G10 Währung / Carry", "G10 Currency / Carry")
                     } else market.assetClass
 
                     Column(modifier = Modifier.weight(1f)) {
@@ -375,7 +383,7 @@ fun CotDetailDialog(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // 3. Ausführliche Positions-Statistik
+                    // 3. Ausführliche Positions-Statistik (1:1 FuturesBench & CFTC Legacy Futures-Only)
                     Surface(
                         shape = RoundedCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f),
@@ -384,7 +392,7 @@ fun CotDetailDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "📊 DETAILED CFTC POSITION BREAKDOWN" else "📊 DETAILLIERTE CFTC POSITIONSAUFSCHLÜSSELUNG",
+                                text = if (isEn) "📊 FUTURESBENCH & CFTC LEGACY FUTURES-ONLY BREAKDOWN" else "📊 FUTURESBENCH & CFTC LEGACY FUTURES-ONLY DATEN",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.primary,
@@ -397,7 +405,7 @@ fun CotDetailDialog(
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = if (isEn) "Open Interest (Total Active Contracts):" else "Gesamtes Open Interest (Offene Kontrakte):",
+                                    text = if (isEn) "Open Interest (Total Contracts):" else "Open Interest (Offene Kontrakte):",
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -411,31 +419,51 @@ fun CotDetailDialog(
 
                             Divider(modifier = Modifier.padding(vertical = 4.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.2f))
 
+                            // Large Speculators (Whales) Net & Weekly Change
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = if (isEn) "Large Speculators (Whales) Net:" else "Wale Netto (Large Speculators Net):",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = "${market.whaleNetFormatted} (${if (market.whaleChangeNet >= 0) "+" else ""}${numFormat.format(market.whaleChangeNet)} w/w)",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = if (market.whaleNet >= 0) GreenBuy else RedSell
+                                )
+                            }
+
                             // Wale Long / Short
                             Row(
                                 modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = if (isEn) "Whales Long vs. Short:" else "Wale Long vs. Short:",
+                                    text = if (isEn) "Whales Long vs. Short:" else "Wale Long vs. Short Kontrakte:",
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "${numFormat.format(market.whaleLong)} (${market.whaleBullishPct.toInt()}%) / ${numFormat.format(market.whaleShort)} (${100 - market.whaleBullishPct.toInt()}%)",
+                                    text = "${numFormat.format(market.whaleLong)} (${market.whaleBullishPct}%) / ${numFormat.format(market.whaleShort)} (${Math.round((100.0 - market.whaleBullishPct) * 10.0) / 10.0}%)",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
 
-                            // Commercials
+                            Divider(modifier = Modifier.padding(vertical = 4.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.2f))
+
+                            // Commercials Net & Long/Short
                             Row(
                                 modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = if (isEn) "Commercials (Hedgers & Producers) Net:" else "Commercials (Hedger & Produzenten) Netto:",
+                                    text = if (isEn) "Commercials (Hedgers) Net:" else "Commercials (Hedger) Netto:",
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -446,22 +474,92 @@ fun CotDetailDialog(
                                     color = if (market.commercialNet >= 0) GreenBuy else RedSell
                                 )
                             }
-
-                            // Retail Long / Short
                             Row(
                                 modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
                                 horizontalArrangement = Arrangement.SpaceBetween
                             ) {
                                 Text(
-                                    text = if (isEn) "Retail Long vs. Short:" else "Retail Long vs. Short:",
+                                    text = if (isEn) "Commercials Long vs. Short:" else "Commercials Long vs. Short:",
                                     fontSize = 11.sp,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "${numFormat.format(market.retailLong)} / ${numFormat.format(market.retailShort)} (${market.retailBullishPct.toInt()}% Bull)",
+                                    text = "${numFormat.format(market.commercialLong)} / ${numFormat.format(market.commercialShort)}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+
+                            Divider(modifier = Modifier.padding(vertical = 4.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.2f))
+
+                            // Small Traders (Retail) Net & Long/Short
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = if (isEn) "Small Speculators (Retail) Net:" else "Kleinanleger (Small Traders) Netto:",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = "${if (market.retailNet >= 0) "+" else ""}${numFormat.format(market.retailNet)}",
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = AmberWhale
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = if (isEn) "Retail Long vs. Short:" else "Kleinanleger Long vs. Short:",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = "${numFormat.format(market.retailLong)} / ${numFormat.format(market.retailShort)} (${market.retailBullishPct}% Bull)",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = AmberWhale
+                                )
+                            }
+
+                            Divider(modifier = Modifier.padding(vertical = 4.dp), color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.2f))
+
+                            // COT Index 26W / 52W / 3Y & Z-Score
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = "COT Index (26W / 52W / 3Y):",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = "${market.cotIndex26w}% / ${market.cotIndex52w}% / ${market.cotIndex3y}%",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.ExtraBold,
+                                    color = CyanAccentGlow
+                                )
+                            }
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(vertical = 3.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = "3Y Z-Score & CFTC Code:",
+                                    fontSize = 11.sp,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                                Text(
+                                    text = "Z = ${market.zScore3y} · #${market.cftcCode}",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
 
@@ -486,13 +584,14 @@ fun CotDetailDialog(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
-                // Bottom Action Link: Official Source
+                // Bottom Action Links: FuturesBench + Official CFTC Source
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Button(
                         onClick = {
-                            val url = if (market.cftcUrl.isNotBlank()) market.cftcUrl else "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
+                            val url = if (market.futuresBenchUrl.isNotBlank()) market.futuresBenchUrl else "https://futuresbench.com/api/"
                             try { uriHandler.openUri(url) } catch (_: Exception) {}
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -502,7 +601,7 @@ fun CotDetailDialog(
                         )
                     ) {
                         Text(
-                            text = if (isEn) "🌐 Official CFTC COT Portal ↗" else "🌐 Offizieller CFTC COT Report (cftc.gov) ↗",
+                            text = if (isEn) "🌐 Verify on FuturesBench.com ↗" else "🌐 Auf FuturesBench.com prüfen ↗",
                             fontWeight = FontWeight.Bold,
                             fontSize = 13.sp,
                             color = Color.Black

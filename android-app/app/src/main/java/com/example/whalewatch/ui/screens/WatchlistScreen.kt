@@ -31,126 +31,128 @@ fun WatchlistScreen(
     getCompanyName: (String) -> String = { it }
 ) {
     var newTickerInput by remember { mutableStateOf("") }
+    val suggestions = listOf("NVDA", "MSFT", "AAPL", "TSLA", "PLTR", "AMZN")
 
-    Column(
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 14.dp)
+            .padding(horizontal = 14.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        contentPadding = PaddingValues(top = 12.dp, bottom = 24.dp)
     ) {
-        Spacer(modifier = Modifier.height(12.dp))
-
-        // Title
-        Text(
-            text = if (isEn) "Personal Watchlist" else "Persönliche Watchlist",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.ExtraBold,
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Text(
-            text = if (isEn) "Monitor your stocks for Congress buys and SEC Form 4 insider filings."
-                   else "Beobachte deine Aktien auf Käufe von Politikern und neue SEC Form 4 Filings.",
-            fontSize = 12.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            lineHeight = 16.sp
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
+        // Title & Unified 5-Sentence Layman-Friendly Intro
+        item {
+            Text(
+                text = if (isEn) "Personal Watchlist" else "Persönliche Watchlist",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.ExtraBold,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = if (isEn) {
+                    "With your personal Watchlist, you can monitor your favorite stocks permanently and centrally in one place. For every saved stock, the app automatically aggregates all available data across the three major institutional sources: the broader market positioning of large speculators (CFTC COT), disclosed stock purchases and sales by US lawmakers (Congress STOCK Act), and transactions by corporate executives and major shareholders (SEC Form 4). This means you no longer have to search across separate tabs individually – instead, you immediately see whether institutional whales, politicians, or corporate insiders are active in your tracked stocks. You can add any US stock at any time via its ticker symbol (e.g., NVDA, AAPL, or MSFT) or save stocks directly from the other tabs. Tapping 'Details' opens the complete breakdown for each stock, including all timeframes, names, volumes, and official source links."
+                } else {
+                    "Mit deiner persönlichen Watchlist behältst du deine wichtigsten Favoriten-Aktien dauerhaft und zentral an einem Ort im Blick. Für jede gespeicherte Aktie führt die App im Hintergrund automatisch alle verfügbaren Informationen aus den drei großen Datenquellen zusammen: das übergeordnete Marktsentiment der Großspekulanten (CFTC COT), die gemeldeten Aktienkäufe und -verkäufe von US-Politikern (Kongress STOCK Act) sowie die Transaktionen von Vorständen und Großaktionären (SEC Form 4). So musst du nicht mehr einzeln in verschiedenen Registern suchen, sondern erkennst sofort, ob bei deinen Wunschaktien gerade institutionelle Wale, Politiker oder Unternehmens-Insider aktiv sind. Du kannst jederzeit beliebige US-Aktien über ihr Börsenkürzel (Ticker, z. B. NVDA, AAPL oder MSFT) hinzufügen oder direkt aus den anderen Tabs heraus auf deine Watchlist setzen. Ein Tipp auf „Details“ öffnet für jede Aktie die vollständige Übersicht mit allen Zeiträumen, Namen, Volumina und Quellenlinks."
+                },
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                lineHeight = 17.sp
+            )
+        }
 
         // Add Ticker Row
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            OutlinedTextField(
-                value = newTickerInput,
-                onValueChange = { newTickerInput = it.uppercase() },
-                modifier = Modifier.weight(1f),
-                placeholder = { Text(if (isEn) "Add ticker (e.g. NVDA, AAPL)..." else "Ticker hinzufügen (z.B. NVDA)...", fontSize = 13.sp) },
-                singleLine = true,
-                shape = RoundedCornerShape(12.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedContainerColor = MaterialTheme.colorScheme.surface,
-                    unfocusedContainerColor = MaterialTheme.colorScheme.surface
-                )
-            )
-
-            Button(
-                onClick = {
-                    if (newTickerInput.isNotBlank()) {
-                        onAddTicker(newTickerInput)
-                        newTickerInput = ""
-                    }
-                },
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = CyanAccent)
+        item {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = if (isEn) "+ Add" else "+ Hinzufügen",
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 12.sp
+                OutlinedTextField(
+                    value = newTickerInput,
+                    onValueChange = { newTickerInput = it.uppercase() },
+                    modifier = Modifier.weight(1f),
+                    placeholder = { Text(if (isEn) "Add ticker (e.g. NVDA, AAPL)..." else "Ticker hinzufügen (z.B. NVDA)...", fontSize = 13.sp) },
+                    singleLine = true,
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = MaterialTheme.colorScheme.surface,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.surface
+                    )
                 )
+
+                Button(
+                    onClick = {
+                        if (newTickerInput.isNotBlank()) {
+                            onAddTicker(newTickerInput)
+                            newTickerInput = ""
+                        }
+                    },
+                    shape = RoundedCornerShape(12.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = CyanAccent)
+                ) {
+                    Text(
+                        text = if (isEn) "+ Add" else "+ Hinzufügen",
+                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        softWrap = false,
+                        maxLines = 1
+                    )
+                }
             }
         }
-
-        Spacer(modifier = Modifier.height(8.dp))
 
         // Quick Suggestion Chips
-        val suggestions = listOf("NVDA", "MSFT", "AAPL", "TSLA", "PLTR", "AMZN")
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(6.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = if (isEn) "Popular:" else "Beliebt:",
-                fontSize = 11.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            suggestions.forEach { ticker ->
-                SuggestionChip(
-                    onClick = { onAddTicker(ticker) },
-                    label = { Text(ticker, fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = if (isEn) "Popular:" else "Beliebt:",
+                    fontSize = 11.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+                suggestions.forEach { ticker ->
+                    SuggestionChip(
+                        onClick = { onAddTicker(ticker) },
+                        label = { Text(ticker, fontSize = 11.sp, fontWeight = FontWeight.Bold) }
+                    )
+                }
             }
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
 
         // Watchlist Items
         if (watchlist.isEmpty()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = if (isEn) "Your watchlist is empty. Add a ticker above!"
-                           else "Deine Watchlist ist leer. Füge oben eine Aktie hinzu!",
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontSize = 13.sp
-                )
-            }
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
-                contentPadding = PaddingValues(bottom = 24.dp)
-            ) {
-                // Alphabetische Sortierung der Watchlist A-Z
-                items(watchlist.toList().sorted(), key = { it }) { ticker ->
-                    WatchlistCard(
-                        ticker = ticker,
-                        companyName = getCompanyName(ticker),
-                        onRemove = { onRemoveTicker(ticker) },
-                        onOpenAnalysis = { onOpenAnalysis(ticker) },
-                        isEn = isEn
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 40.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = if (isEn) "Your watchlist is empty. Add a ticker above!"
+                               else "Deine Watchlist ist leer. Füge oben eine Aktie hinzu!",
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 13.sp
                     )
                 }
+            }
+        } else {
+            // Alphabetische Sortierung der Watchlist A-Z
+            items(watchlist.toList().sorted(), key = { it }) { ticker ->
+                WatchlistCard(
+                    ticker = ticker,
+                    companyName = getCompanyName(ticker),
+                    onRemove = { onRemoveTicker(ticker) },
+                    onOpenAnalysis = { onOpenAnalysis(ticker) },
+                    isEn = isEn
+                )
             }
         }
     }

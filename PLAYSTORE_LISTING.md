@@ -32,8 +32,8 @@ Politiker im US-Kongress und Unternehmens-Insider an der Wall Street verfügen h
 
 KERNFUNKTIONEN:
 
-1. 🎯 SMART MONEY RADAR & KOMBI-SIGNALE
-Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen mehrere unabhängige Smart-Money-Quellen zeitgleich anschlagen. Siehst du ein Kombi-Signal, kaufen sowohl Kongressabgeordnete als auch Vorstände – gestützt vom makroökonomischen COT-Sentiment.
+1. 🎯 3-QUELLEN-RADAR & KOMBI-SIGNALE
+Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen drei unabhängige öffentliche Datenquellen zeitgleich anschlagen. Siehst du ein Kombi-Signal, kaufen sowohl Kongressabgeordnete als auch Vorstände – gestützt vom makroökonomischen COT-Sentiment.
 
 2. 🏛️ KONGRESS-TRADES (STOCK ACT)
 • Alle gemeldeten Käufe und Verkäufe von Senatoren und Abgeordneten des Repräsentantenhauses
@@ -60,7 +60,14 @@ Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen mehre
 DATENSCHUTZ & TRANSPARENZ:
 InsiderWhales sammelt keine persönlichen Daten. Alle Transaktionsdaten basieren auf frei zugänglichen, behördlichen Registern der SEC, des US-Kongresses und der CFTC.
 
-Haftungsausschluss: Keine Anlageberatung. Alle Daten dienen ausschließlich der Information und Recherche.
+WICHTIGE RECHTLICHE HINWEISE & HAFTUNGSAUSSCHLUSS:
+• Keine Anlageberatung: Alle in InsiderWhales dargestellten Inhalte, Signale und Transaktionsdaten dienen ausschließlich zu allgemeinen Informations-, Recherche- und Bildungszwecken. Sie stellen keine Anlageberatung, Finanzanalyse oder Kauf-/Verkaufsempfehlung dar.
+• Keine Behörden-Zugehörigkeit (Non-Affiliation): InsiderWhales ist eine unabhängige, privat betriebene App und steht in keinerlei offizieller Verbindung zur US-Regierung, der CFTC, der SEC oder dem US-Kongress.
+• Offizielle öffentliche Quellen:
+  - CFTC Commitments of Traders: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
+  - U.S. SEC EDGAR Form 4: https://www.sec.gov/edgar/searchedgar/companysearch
+  - U.S. House Disclosures: https://disclosures-clerk.house.gov/
+  - U.S. Senate Disclosures: https://efdsearch.senate.gov/
 ```
 
 ---
@@ -72,14 +79,14 @@ Haftungsausschluss: Keine Anlageberatung. Alle Daten dienen ausschließlich der 
 
 ### Full Description
 ```text
-InsiderWhales is the premier intelligence tool for modern investors and traders who want to track smart money, congressional trading activity, and corporate insider transactions.
+InsiderWhales is the premier intelligence tool for modern investors and traders who want to track institutional positioning, congressional trading activity, and corporate insider transactions.
 
 Track what members of the US Congress and Senate are trading (STOCK Act disclosures), monitor institutional positioning from official CFTC Commitment of Traders (COT) reports, and stay ahead with real-time SEC Form 4 insider filings.
 
 KEY FEATURES:
 
-1. 🎯 SMART RADAR & CONFLUENCE SIGNALS
-Discover stocks where multiple high-conviction sources align. See when politicians and corporate officers are buying the same asset backed by macro whale positioning.
+1. 🎯 3-SOURCE RADAR & CONFLUENCE SIGNALS
+Discover stocks where three independent disclosure sources align. See when politicians and corporate officers are buying the same asset backed by macro whale positioning.
 
 2. 🏛️ CONGRESSIONAL TRADING (STOCK ACT)
 • Full disclosure of House & Senate purchases and sales
@@ -101,9 +108,14 @@ Discover stocks where multiple high-conviction sources align. See when politicia
 • Track your favorite tickers with alphabetical sorting and complete company names
 • Instant comprehensive details covering all three pillars with aggregated range totals
 
-Privacy: No personal data is collected or shared. All information is sourced from official public registries (SEC, US Congress, CFTC).
-
-Disclaimer: For informational and research purposes only. Not financial advice.
+LEGAL DISCLAIMER & NON-AFFILIATION NOTICE:
+• No Financial Advice: For informational, educational, and research purposes only. Nothing in this app constitutes financial or investment advice, or a recommendation to buy or sell securities.
+• Government Non-Affiliation: InsiderWhales is an independent application and is NOT affiliated with, endorsed by, or operated by the U.S. Government, the CFTC, the SEC, or the U.S. Congress.
+• Official Public Data Sources:
+  - CFTC COT Reports: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
+  - U.S. SEC EDGAR: https://www.sec.gov/edgar/searchedgar/companysearch
+  - U.S. House Clerk: https://disclosures-clerk.house.gov/
+  - U.S. Senate Disclosures: https://efdsearch.senate.gov/
 ```
 
 ---

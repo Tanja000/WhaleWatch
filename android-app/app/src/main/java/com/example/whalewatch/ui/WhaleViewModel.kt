@@ -53,6 +53,13 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     private val _selectedAnalysisTicker = MutableStateFlow<String?>(null)
     val selectedAnalysisTicker: StateFlow<String?> = _selectedAnalysisTicker.asStateFlow()
 
+    init {
+        viewModelScope.launch {
+            repository.refreshLiveFromNetwork()
+            _lastUpdatedTime.value = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+        }
+    }
+
     val radarData: StateFlow<RadarData> = repository.radarData
     val watchlist: StateFlow<Set<String>> = repository.watchlist
     val isLoading: StateFlow<Boolean> = repository.isLoading
@@ -64,7 +71,10 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         repository.cotMarkets,
         _cotCategory
     ) { list, cat ->
-        if (cat == "all") list else list.filter { it.category.equals(cat, ignoreCase = true) }
+        if (cat == "all") list else list.filter {
+            it.category.equals(cat, ignoreCase = true) ||
+            (cat == "rates" && it.category.equals("treasuries", ignoreCase = true))
+        }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     // Filtered Congress trades (supports Search, Type, Party, and Committee Conflicts mode)
@@ -197,6 +207,7 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         _lastUpdatedTime.value = now
         viewModelScope.launch {
             repository.loadData()
+            repository.refreshLiveFromNetwork()
         }
     }
 }

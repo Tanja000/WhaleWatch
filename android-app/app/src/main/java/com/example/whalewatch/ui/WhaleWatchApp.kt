@@ -58,6 +58,10 @@ fun WhaleWatchApp(
     var selectedBipartisanStock by remember { mutableStateOf<com.example.whalewatch.data.model.BipartisanStock?>(null) }
     var selectedPartyStock by remember { mutableStateOf<com.example.whalewatch.data.model.TopPartyStock?>(null) }
 
+    val prefs = remember { context.getSharedPreferences("whalewatch_prefs", android.content.Context.MODE_PRIVATE) }
+    var hasAcceptedDisclaimer by remember { mutableStateOf(prefs.getBoolean("legal_disclaimer_accepted_v1", false)) }
+    var showLegalDialog by remember { mutableStateOf(false) }
+
     WhaleWatchTheme(darkTheme = isDarkTheme) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -66,15 +70,17 @@ fun WhaleWatchApp(
                 TopAppBar(
                     title = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text("🐋", fontSize = 20.sp)
-                            Spacer(modifier = Modifier.width(8.dp))
+                            Text("🐋", fontSize = 19.sp)
+                            Spacer(modifier = Modifier.width(6.dp))
                             Column {
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     Text(
                                         text = "INSIDERWHALES",
                                         fontWeight = FontWeight.ExtraBold,
-                                        fontSize = 15.sp,
-                                        color = MaterialTheme.colorScheme.onSurface
+                                        fontSize = 14.5.sp,
+                                        color = MaterialTheme.colorScheme.onSurface,
+                                        maxLines = 1,
+                                        softWrap = false
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Surface(
@@ -83,9 +89,11 @@ fun WhaleWatchApp(
                                     ) {
                                         Text(
                                             text = "PRO",
-                                            fontSize = 9.sp,
+                                            fontSize = 8.5.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = Color.Black,
+                                            maxLines = 1,
+                                            softWrap = false,
                                             modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
                                         )
                                     }
@@ -101,7 +109,9 @@ fun WhaleWatchApp(
                                     Text(
                                         text = if (isEn) "Updated: $lastUpdatedTime" else "Aktualisiert: $lastUpdatedTime",
                                         fontSize = 9.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        maxLines = 1,
+                                        softWrap = false
                                     )
                                 }
                             }
@@ -109,26 +119,43 @@ fun WhaleWatchApp(
                     },
                     actions = {
                         // 🔄 Refresh Button with date & time toast
-                        IconButton(onClick = {
-                            viewModel.refresh()
-                            val timeStr = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
-                            android.widget.Toast.makeText(
-                                context,
-                                if (isEn) "Updated: $timeStr" else "Aktualisiert: $timeStr",
-                                android.widget.Toast.LENGTH_SHORT
-                            ).show()
-                        }) {
-                            Text("🔄", fontSize = 16.sp)
+                        IconButton(
+                            onClick = {
+                                viewModel.refresh()
+                                val timeStr = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+                                android.widget.Toast.makeText(
+                                    context,
+                                    if (isEn) "Updated: $timeStr" else "Aktualisiert: $timeStr",
+                                    android.widget.Toast.LENGTH_SHORT
+                                ).show()
+                            },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Text("🔄", fontSize = 15.sp)
                         }
 
                         // 🌙 / ☀️ Theme Button
-                        IconButton(onClick = { viewModel.toggleTheme() }) {
-                            Text(if (isDarkTheme) "🌙" else "☀️", fontSize = 16.sp)
+                        IconButton(
+                            onClick = { viewModel.toggleTheme() },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Text(if (isDarkTheme) "🌙" else "☀️", fontSize = 15.sp)
                         }
 
                         // 🇬🇧 / 🇩🇪 Language Button
-                        IconButton(onClick = { viewModel.toggleLanguage() }) {
-                            Text(if (isEn) "🇬🇧" else "🇩🇪", fontSize = 16.sp)
+                        IconButton(
+                            onClick = { viewModel.toggleLanguage() },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Text(if (isEn) "🇬🇧" else "🇩🇪", fontSize = 15.sp)
+                        }
+
+                        // ⚖️ Legal Disclaimer / Privacy Policy Button
+                        IconButton(
+                            onClick = { showLegalDialog = true },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Text("⚖️", fontSize = 15.sp)
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(
@@ -148,7 +175,15 @@ fun WhaleWatchApp(
                             selected = isSelected,
                             onClick = { viewModel.selectTab(tab) },
                             icon = { Text(tab.icon, fontSize = 18.sp) },
-                            label = { Text(label, fontSize = 10.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
+                            label = {
+                                Text(
+                                    text = label,
+                                    fontSize = 9.5.sp,
+                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                    maxLines = 1,
+                                    softWrap = false
+                                )
+                            },
                             colors = NavigationBarItemDefaults.colors(
                                 indicatorColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.2f),
                                 selectedTextColor = MaterialTheme.colorScheme.primary
@@ -171,7 +206,8 @@ fun WhaleWatchApp(
                             watchlist = watchlist,
                             onToggleWatchlist = { viewModel.toggleWatchlist(it) },
                             onOpenAnalysis = { viewModel.openAnalysis(it) },
-                            isEn = isEn
+                            isEn = isEn,
+                            onOpenLegalDisclaimer = { showLegalDialog = true }
                         )
                         TabScreen.COT -> CotScreen(
                             markets = cotMarkets,
@@ -317,6 +353,21 @@ fun WhaleWatchApp(
                         onToggleWatchlist = { viewModel.toggleWatchlist(ticker) },
                         onDismiss = { viewModel.closeAnalysis() },
                         isEn = isEn
+                    )
+                }
+
+                // Legal Disclaimer, Sources & Privacy Policy Modal (First Launch + TopBar Button)
+                if (!hasAcceptedDisclaimer || showLegalDialog) {
+                    LegalDisclaimerDialog(
+                        isEn = isEn,
+                        isFirstLaunch = !hasAcceptedDisclaimer,
+                        onAcceptOrDismiss = {
+                            if (!hasAcceptedDisclaimer) {
+                                prefs.edit().putBoolean("legal_disclaimer_accepted_v1", true).apply()
+                                hasAcceptedDisclaimer = true
+                            }
+                            showLegalDialog = false
+                        }
                     )
                 }
             }

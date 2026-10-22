@@ -1,6 +1,7 @@
 package com.example.whalewatch.ui.screens
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +34,8 @@ fun RadarScreen(
     isEn: Boolean,
     modifier: Modifier = Modifier,
     watchlist: Set<String> = emptySet(),
-    onToggleWatchlist: ((String) -> Unit)? = null
+    onToggleWatchlist: ((String) -> Unit)? = null,
+    onOpenLegalDisclaimer: (() -> Unit)? = null
 ) {
     Column(
         modifier = modifier
@@ -477,6 +479,43 @@ fun RadarScreen(
                         }
                     }
                 }
+            }
+        }
+
+        // ================= RECHTLICHER HINWEIS / KEINE ANLAGEBERATUNG FOOTER =================
+        Spacer(modifier = Modifier.height(6.dp))
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onOpenLegalDisclaimer?.invoke() },
+            shape = RoundedCornerShape(12.dp),
+            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f),
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+        ) {
+            Column(
+                modifier = Modifier.padding(12.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = if (isEn) "⚖️ No Financial Advice · Legal Notice, Sources & Privacy"
+                           else "⚖️ Keine Anlageberatung · Rechtliche Hinweise, Quellen & Datenschutz",
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = if (isEn) {
+                        "All data (CFTC, US Congress, SEC) is for informational purposes only and does not constitute investment advice. Independent app – not affiliated with any US government agency. Tap for full details."
+                    } else {
+                        "Alle Angaben (CFTC, US-Kongress, SEC) dienen ausschließlich zu Informationszwecken und stellen keine Anlageberatung oder Kaufempfehlung dar. Unabhängige App ohne Behörden-Zugehörigkeit. Für Details hier tippen."
+                    },
+                    fontSize = 10.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    lineHeight = 14.sp,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

@@ -1,6 +1,5 @@
 package com.example.whalewatch.ui.screens
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -12,9 +11,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,7 +29,6 @@ import com.example.whalewatch.data.model.CotMarket
 import com.example.whalewatch.data.model.RadarData
 import com.example.whalewatch.theme.AmberWhale
 import com.example.whalewatch.theme.CyanAccent
-import com.example.whalewatch.theme.CyanAccentGlow
 import com.example.whalewatch.theme.GreenBuy
 import com.example.whalewatch.theme.RedSell
 
@@ -47,15 +42,13 @@ fun CotScreen(
     modifier: Modifier = Modifier,
     radar: RadarData? = null
 ) {
-    var showGuide by remember { mutableStateOf(false) }
-
     val categories = listOf(
         "all" to (if (isEn) "All Markets" else "Alle Märkte"),
         "indices" to (if (isEn) "Indices" else "Indizes"),
         "commodities" to (if (isEn) "Commodities" else "Rohstoffe"),
-        "currencies" to (if (isEn) "Currencies" else "Währungen"),
-        "crypto" to "Crypto",
-        "treasuries" to (if (isEn) "Bonds" else "Anleihen")
+        "rates" to (if (isEn) "Bonds" else "Anleihen"),
+        "crypto" to (if (isEn) "Crypto" else "Krypto"),
+        "currencies" to (if (isEn) "Currencies" else "Währungen")
     )
 
     LazyColumn(
@@ -73,16 +66,20 @@ fun CotScreen(
                 fontWeight = FontWeight.ExtraBold,
                 color = MaterialTheme.colorScheme.onBackground
             )
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = if (isEn) "CFTC Commitments of Traders (COT). Official positioning of institutional hedge funds vs. retail traders."
-                       else "Commitments of Traders (COT) der US-Aufsichtsbehörde CFTC. Reale Positionen institutioneller Hedge-Fonds vs. Kleinanleger.",
+                text = if (isEn) {
+                    "In financial markets, 'Whales' refer to the world's largest and most powerful institutional players – such as major investment banks, hedge funds, and asset managers. Every Tuesday, these institutional giants are legally required to disclose to the US regulator CFTC in the 'Commitments of Traders' (COT) report how many contracts they hold betting on rising prices (Long) versus falling prices (Short). Because these professionals command billions in capital and massive research teams, their positioning often drives major market trends over several weeks. When Whales heavily position on one side while retail traders bet in the opposite direction, it historically serves as one of the most reliable early indicators of a trend reversal. Here you can see at a glance whether big institutional money is currently betting on rising or falling markets."
+                } else {
+                    "Als „Wale“ bezeichnet man an der Börse die größten und finanzstärksten Marktteilnehmer der Welt – wie große Investmentbanken, Hedge-Fonds und institutionelle Vermögensverwalter. Jeden Dienstag müssen diese Großanleger der US-Börsenaufsicht CFTC im sogenannten „Commitments of Traders“-Bericht (COT) offenlegen, wie viele Verträge sie auf steigende Kurse (Long) oder fallende Kurse (Short) halten. Da diese Profis über riesige Forschungsabteilungen und Milliardenkapital verfügen, bewegen ihre Käufe und Verkäufe oft über Wochen hinweg die gesamten Finanzmärkte. Wenn sich die Wale massiv auf eine Seite stellen, während Kleinanleger (Retail) in die Gegenrichtung wetten, gilt dies als eines der zuverlässigsten Warnsignale für bevorstehende Trendwenden. Hier siehst du auf einen Blick, ob das große Geld aktuell auf steigende oder fallende Kurse setzt."
+                },
                 fontSize = 12.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                lineHeight = 16.sp
+                lineHeight = 17.sp
             )
         }
 
-        // ================= 2. FELD 1: HERO COT WHALE CARD (AUS RADAR TAB HIERHER VERLEGT) =================
+        // ================= 2. FELD 1: HERO COT WHALE CARD (NUR COT-DATEN WIE IN DER LETZTEN VERSION) =================
         if (radar != null) {
             item {
                 Card(
@@ -110,7 +107,8 @@ fun CotScreen(
                                 color = MaterialTheme.colorScheme.primary,
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                letterSpacing = 0.8.sp
+                                letterSpacing = 0.8.sp,
+                                modifier = Modifier.weight(1f).padding(end = 8.dp)
                             )
 
                             val isBullish = radar.whaleLongPct >= 50.0
@@ -125,6 +123,8 @@ fun CotScreen(
                                     color = Color.White,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Bold,
+                                    softWrap = false,
+                                    maxLines = 1,
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
                                 )
                             }
@@ -287,37 +287,6 @@ fun CotScreen(
                                     .background(RedSell)
                             )
                         }
-
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        // Stichtag Pill (Zeitangabe rechtsbündig!)
-                        Surface(
-                            color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 10.dp, vertical = 7.dp),
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text(
-                                    text = if (isEn) "CFTC As of:" else "CFTC Stichtag:",
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    fontSize = 10.5.sp,
-                                    fontWeight = FontWeight.Medium
-                                )
-                                Text(
-                                    text = "${radar.reportDate} · ${radar.reportWeek}",
-                                    color = MaterialTheme.colorScheme.primary,
-                                    fontSize = 10.5.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    textAlign = TextAlign.End
-                                )
-                            }
-                        }
                     }
                 }
             }
@@ -389,28 +358,6 @@ fun CotScreen(
                             textAlign = TextAlign.End
                         )
                     }
-                    Spacer(modifier = Modifier.height(5.dp))
-
-                    // Gültigkeit Row (Rechtsbündig!)
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = if (isEn) "⏳ Validity Period:" else "⏳ Gültigkeitszeitspanne:",
-                            fontSize = 11.5.sp,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Text(
-                            text = if (isEn) "1 Week (until next report)" else "1 Woche (bis zum nächsten Report)",
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = AmberWhale,
-                            textAlign = TextAlign.End
-                        )
-                    }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
                         text = if (isEn) "CFTC data shows institutional positioning with a 3-day reporting lag. Whales position for multi-week macroeconomic trends."
@@ -423,124 +370,7 @@ fun CotScreen(
             }
         }
 
-        // ================= 4. EDUCATIONAL KNOWLEDGE GUIDE CARD (COLLAPSIBLE) =================
-        item {
-            Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { showGuide = !showGuide }
-            ) {
-                Column(modifier = Modifier.padding(12.dp)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(6.dp)
-                        ) {
-                            Text(text = "💡", fontSize = 14.sp)
-                            Text(
-                                text = if (isEn) "COT Guide: Whale Net, Flow & Retail" else "COT-Kompass: Wale Netto, Fluss & Retail",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                        Icon(
-                            imageVector = if (showGuide) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                            contentDescription = "Toggle Guide",
-                            tint = MaterialTheme.colorScheme.primary,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-
-                    AnimatedVisibility(visible = showGuide) {
-                        Column(modifier = Modifier.padding(top = 10.dp)) {
-                            HorizontalDivider(
-                                modifier = Modifier.padding(bottom = 8.dp),
-                                color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f)
-                            )
-
-                            // 1. Wale Netto
-                            Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                                Text("🐋 ", fontSize = 12.sp)
-                                Column {
-                                    Text(
-                                        text = if (isEn) "Whale Net (Wale Netto):" else "Wale Netto:",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = GreenBuy
-                                    )
-                                    Text(
-                                        text = if (isEn) {
-                                            "Difference between Long and Short contracts held by institutional giants. Positive = net bullish; Negative = hedging or net short."
-                                        } else {
-                                            "Die Netto-Differenz zwischen Kauf- (Long) und Verkauf- (Short) Kontrakten der institutionellen Großanleger. Positiv = netto bullisch; Negativ = Absicherung oder Short."
-                                        },
-                                        fontSize = 10.5.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        lineHeight = 14.sp
-                                    )
-                                }
-                            }
-
-                            // 2. Wochen-Fluss
-                            Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                                Text("🌊 ", fontSize = 12.sp)
-                                Column {
-                                    Text(
-                                        text = if (isEn) "Weekly Flow (Wochen-Fluss):" else "Wochen-Fluss:",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = CyanAccentGlow
-                                    )
-                                    Text(
-                                        text = if (isEn) {
-                                            "Weekly change in open contracts. Strong inflows demonstrate active accumulation, while position decreases warn of momentum fatigue."
-                                        } else {
-                                            "Wöchentliche Veränderung der Positionen. Zeigt das dynamische Momentum: Starke Zukäufe belegen frische Kaufkraft, während Kontrakt-Abbau vor Trendermüdung warnt."
-                                        },
-                                        fontSize = 10.5.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        lineHeight = 14.sp
-                                    )
-                                }
-                            }
-
-                            // 3. Retail
-                            Row(modifier = Modifier.padding(bottom = 6.dp)) {
-                                Text("👥 ", fontSize = 12.sp)
-                                Column {
-                                    Text(
-                                        text = if (isEn) "Retail (Kleinanleger):" else "Retail (Kleinanleger):",
-                                        fontSize = 11.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = AmberWhale
-                                    )
-                                    Text(
-                                        text = if (isEn) {
-                                            "Small non-reportable retail traders. Historically serves as a valuable contrarian indicator when positioning reaches extreme sentiment (>75%)."
-                                        } else {
-                                            "Kleinanleger-Kontingent. Dient an Wendepunkten als Kontra-Indikator: Extreme Einseitigkeit (>75% Retail Long) geht häufig Marktkorrekturen voraus."
-                                        },
-                                        fontSize = 10.5.sp,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        lineHeight = 14.sp
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // ================= 5. CATEGORY FILTER TABS =================
+        // ================= 4. CATEGORY FILTER TABS =================
         item {
             Row(
                 modifier = Modifier
@@ -563,7 +393,7 @@ fun CotScreen(
             }
         }
 
-        // ================= 6. MARKETS LIST =================
+        // ================= 5. MARKETS LIST =================
         items(markets, key = { it.id }) { market ->
             CotMarketCard(
                 market = market,
@@ -580,6 +410,7 @@ fun CotMarketCard(
     onClick: () -> Unit,
     isEn: Boolean
 ) {
+    val numFormat = java.text.NumberFormat.getNumberInstance(java.util.Locale.GERMANY)
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -596,21 +427,29 @@ fun CotMarketCard(
                 market.name
                     .replace("Silber", "Silver")
                     .replace("WTI Rohöl", "WTI Crude Oil")
+                    .replace("Erdgas", "Natural Gas")
+                    .replace("Kupfer", "Copper")
             } else market.name
             val localizedAssetClass = if (isEn) {
                 market.assetClass
                     .replace("Edelmetall / Safe Haven", "Precious Metal / Safe Haven")
                     .replace("Edelmetall / Industrie", "Precious Metal / Industrial")
                     .replace("Energie & Rohstoffe", "Energy & Commodities")
+                    .replace("Industriemetall & Konjunktur", "Industrial Metal & Macro")
+                    .replace("US Staatsanleihen (10J)", "US Treasury Notes (10Y)")
+                    .replace("US Staatsanleihen (30J)", "US Treasury Bonds (30Y)")
                     .replace("US Staatsanleihen", "US Treasury Bonds")
+                    .replace("Krypto / Digitales Gold", "Crypto / Digital Gold")
                     .replace("Krypto / Risk-On", "Crypto / Risk-On")
+                    .replace("G10 Leitwährung", "G10 Major Currency")
+                    .replace("G10 Währung / Carry", "G10 Currency / Carry")
             } else market.assetClass
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(modifier = Modifier.weight(1f)) {
+                Column(modifier = Modifier.weight(1f).padding(end = 8.dp)) {
                     Text(
                         text = localizedName,
                         fontSize = 15.sp,
@@ -618,7 +457,7 @@ fun CotMarketCard(
                         color = MaterialTheme.colorScheme.onSurface
                     )
                     Text(
-                        text = localizedAssetClass,
+                        text = if (market.cftcCode.isNotBlank()) "$localizedAssetClass · CFTC #${market.cftcCode}" else localizedAssetClass,
                         fontSize = 11.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -637,26 +476,28 @@ fun CotMarketCard(
                         color = badgeColor,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                        softWrap = false,
+                        maxLines = 1,
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)
                     )
                 }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            // Metrics row: Whale Net & Flow & Retail
+            // Row 1: Primary FuturesBench Metrics: Whale Net (Large Spec Net), Weekly Change (Δ w/w), COT Index (3Y)
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(8.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f))
-                    .padding(8.dp),
+                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f))
+                    .padding(vertical = 8.dp, horizontal = 6.dp),
                 horizontalArrangement = Arrangement.SpaceAround
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = if (isEn) "WHALE NET" else "WALE NETTO",
-                        fontSize = 10.sp,
+                        text = if (isEn) "LARGE SPEC NET" else "WALE NETTO",
+                        fontSize = 9.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Bold
                     )
@@ -664,25 +505,62 @@ fun CotMarketCard(
                         text = market.whaleNetFormatted,
                         fontSize = 14.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = if (market.whaleNetFormatted.startsWith("+")) GreenBuy else RedSell
+                        color = if (market.whaleNet >= 0) GreenBuy else RedSell
                     )
                 }
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    val localizedFlowDesc = if (isEn) {
-                        market.whaleChangeDesc
-                            .replace("Akkumulation", "Accumulation")
-                            .replace("Abbau", "Reduction")
-                    } else market.whaleChangeDesc
+                    val chgFormatted = "${if (market.whaleChangeNet >= 0) "+" else ""}${numFormat.format(market.whaleChangeNet)}"
                     Text(
-                        text = if (isEn) "WEEKLY FLOW" else "WOCHEN-FLUSS",
-                        fontSize = 10.sp,
+                        text = if (isEn) "WEEKLY Δ (W/W)" else "WOCHEN-FLUSS (Δ)",
+                        fontSize = 9.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = localizedFlowDesc,
-                        fontSize = 13.sp,
+                        text = chgFormatted,
+                        fontSize = 13.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (market.whaleChangeNet >= 0) GreenBuy else RedSell
+                    )
+                }
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "COT INDEX (3Y)",
+                        fontSize = 9.5.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${market.cotIndex3y}%",
+                        fontSize = 13.5.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Row 2: Secondary FuturesBench Metrics: Open Interest, Commercials Net, Small Spec (Retail) Net
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.25f))
+                    .padding(vertical = 6.dp, horizontal = 6.dp),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = "OPEN INTEREST",
+                        fontSize = 9.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = numFormat.format(market.openInterest),
+                        fontSize = 11.5.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     )
@@ -690,16 +568,29 @@ fun CotMarketCard(
 
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
-                        text = if (isEn) "RETAIL" else "RETAIL",
-                        fontSize = 10.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontWeight = FontWeight.Bold
+                        text = if (isEn) "COMMERCIAL NET" else "COMMERCIALS NETTO",
+                        fontSize = 9.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Text(
-                        text = "${market.retailBullishPct.toInt()}% Bull",
-                        fontSize = 13.sp,
+                        text = "${if (market.commercialNet >= 0) "+" else ""}${numFormat.format(market.commercialNet)}",
+                        fontSize = 11.5.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                        color = if (market.commercialNet >= 0) GreenBuy else RedSell
+                    )
+                }
+
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        text = if (isEn) "SMALL SPEC NET" else "RETAIL NETTO",
+                        fontSize = 9.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Text(
+                        text = "${if (market.retailNet >= 0) "+" else ""}${numFormat.format(market.retailNet)}",
+                        fontSize = 11.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = AmberWhale
                     )
                 }
             }
@@ -713,7 +604,7 @@ fun CotMarketCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (isEn) "Recorded: ${market.reportDate}" else "Stichtag: ${market.reportDate}",
+                    text = if (isEn) "Report Date: ${market.reportDate} · Legacy Futures-Only" else "Stichtag: ${market.reportDate} · Legacy Futures-Only",
                     fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
