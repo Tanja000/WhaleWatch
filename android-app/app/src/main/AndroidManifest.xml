@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:windowSoftInputMode="adjustResize"
         android:usesCleartextTraffic="false"
-        android:theme="@style/Theme.WhaleWatch">
+        android:theme="@style/Theme.WhaleRadar">
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"

@@ -1,12 +1,12 @@
-# InsiderWhales - Google Play Store Release & Listing Kit
+# WhaleRadar - Google Play Store Release & Listing Kit
 
 Dieses Dokument enthält alle fertigen Texte, Metadaten und Anleitungen für den Upload in die **Google Play Console**.
 
 ---
 
 ## 1. App-Details & Identifikation
-- **App-Name**: InsiderWhales
-- **Paketname (Application ID)**: `com.insiderwhales.app`
+- **App-Name**: WhaleRadar
+- **Paketname (Application ID)**: `com.whaleradar.app`
 - **Kategorie**: Finanzen (Finance)
 - **Standard-Sprache**: Deutsch (Deutschland) / Englisch
 - **Zielgruppe**: Börsen-Interessierte, Trader, Investoren (18+)
@@ -23,12 +23,12 @@ Dieses Dokument enthält alle fertigen Texte, Metadaten und Anleitungen für den
 
 ### Ausführliche Beschreibung (Max. 4000 Zeichen)
 ```text
-InsiderWhales ist das professionelle Analyse-Werkzeug für Privatanleger und Trader, die den "Big Whales" und institutionellen Marktteilnehmern auf die Finger schauen wollen. 
+WhaleRadar ist das professionelle Analyse-Werkzeug für Privatanleger und Trader, die den "Big Whales" und institutionellen Marktteilnehmern auf die Finger schauen wollen. 
 
 Verfolge in Echtzeit, welche Aktien von US-Kongressabgeordneten und Senatoren (STOCK Act) gekauft oder verkauft werden, welche Großinvestoren laut COT-Berichten (Commitment of Traders) ihre Long-/Short-Positionen aufbauen und welche Unternehmens-Insider (Vorstände, Aufsichtsräte, Großaktionäre) über SEC Form 4 Filings eigene Firmenaktien handeln.
 
-WARUM INSIDERWHALES?
-Politiker im US-Kongress und Unternehmens-Insider an der Wall Street verfügen häufig über Informationsvorsprünge. Durch gesetzliche Offenlegungspflichten (STOCK Act und SEC Form 4) müssen diese Transaktionen öffentlich deklariert werden. InsiderWhales bereitet diese Rohdaten sekundenschnell, verständlich und übersichtlich auf.
+WARUM WHALERADAR?
+Politiker im US-Kongress und Unternehmens-Insider an der Wall Street verfügen häufig über Informationsvorsprünge. Durch gesetzliche Offenlegungspflichten (STOCK Act und SEC Form 4) müssen diese Transaktionen öffentlich deklariert werden. WhaleRadar bereitet diese Rohdaten sekundenschnell, verständlich und übersichtlich auf.
 
 KERNFUNKTIONEN:
 
@@ -58,11 +58,11 @@ Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen drei 
 • Detail-Ansicht auf Knopfdruck mit Zusammenfassung aller aktuellen Politiker- und Insider-Aktivitäten inklusive Gesamt-Spanne
 
 DATENSCHUTZ & TRANSPARENZ:
-InsiderWhales sammelt keine persönlichen Daten. Alle Transaktionsdaten basieren auf frei zugänglichen, behördlichen Registern der SEC, des US-Kongresses und der CFTC.
+WhaleRadar sammelt keine persönlichen Daten. Alle Transaktionsdaten basieren auf frei zugänglichen, behördlichen Registern der SEC, des US-Kongresses und der CFTC.
 
 WICHTIGE RECHTLICHE HINWEISE & HAFTUNGSAUSSCHLUSS:
-• Keine Anlageberatung: Alle in InsiderWhales dargestellten Inhalte, Signale und Transaktionsdaten dienen ausschließlich zu allgemeinen Informations-, Recherche- und Bildungszwecken. Sie stellen keine Anlageberatung, Finanzanalyse oder Kauf-/Verkaufsempfehlung dar.
-• Keine Behörden-Zugehörigkeit (Non-Affiliation): InsiderWhales ist eine unabhängige, privat betriebene App und steht in keinerlei offizieller Verbindung zur US-Regierung, der CFTC, der SEC oder dem US-Kongress.
+• Keine Anlageberatung: Alle in WhaleRadar dargestellten Inhalte, Signale und Transaktionsdaten dienen ausschließlich zu allgemeinen Informations-, Recherche- und Bildungszwecken. Sie stellen keine Anlageberatung, Finanzanalyse oder Kauf-/Verkaufsempfehlung dar.
+• Keine Behörden-Zugehörigkeit (Non-Affiliation): WhaleRadar ist eine unabhängige, privat betriebene App und steht in keinerlei offizieller Verbindung zur US-Regierung, der CFTC, der SEC oder dem US-Kongress.
 • Offizielle öffentliche Quellen:
   - CFTC Commitments of Traders: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
   - U.S. SEC EDGAR Form 4: https://www.sec.gov/edgar/searchedgar/companysearch
@@ -79,7 +79,7 @@ WICHTIGE RECHTLICHE HINWEISE & HAFTUNGSAUSSCHLUSS:
 
 ### Full Description
 ```text
-InsiderWhales is the premier intelligence tool for modern investors and traders who want to track institutional positioning, congressional trading activity, and corporate insider transactions.
+WhaleRadar is the premier intelligence tool for modern investors and traders who want to track institutional positioning, congressional trading activity, and corporate insider transactions.
 
 Track what members of the US Congress and Senate are trading (STOCK Act disclosures), monitor institutional positioning from official CFTC Commitment of Traders (COT) reports, and stay ahead with real-time SEC Form 4 insider filings.
 
@@ -110,7 +110,7 @@ Discover stocks where three independent disclosure sources align. See when polit
 
 LEGAL DISCLAIMER & NON-AFFILIATION NOTICE:
 • No Financial Advice: For informational, educational, and research purposes only. Nothing in this app constitutes financial or investment advice, or a recommendation to buy or sell securities.
-• Government Non-Affiliation: InsiderWhales is an independent application and is NOT affiliated with, endorsed by, or operated by the U.S. Government, the CFTC, the SEC, or the U.S. Congress.
+• Government Non-Affiliation: WhaleRadar is an independent application and is NOT affiliated with, endorsed by, or operated by the U.S. Government, the CFTC, the SEC, or the U.S. Congress.
 • Official Public Data Sources:
   - CFTC COT Reports: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
   - U.S. SEC EDGAR: https://www.sec.gov/edgar/searchedgar/companysearch
@@ -123,13 +123,13 @@ LEGAL DISCLAIMER & NON-AFFILIATION NOTICE:
 ## 4. Keystore & Signatur (WICHTIG FÜR GOOGLE PLAY)
 
 Die App ist bereits mit dem folgenden Release-Schlüssel signiert:
-- **Keystore-Datei**: `android-app/app/insiderwhales-release.jks`
-- **Keystore Alias**: `insiderwhales`
-- **Passwort**: `InsiderWhales2026`
+- **Keystore-Datei**: `android-app/app/whaleradar-release.jks`
+- **Keystore Alias**: `whaleradar`
+- **Passwort**: steht nur in `android-app/keystore.properties` (lokal, nicht weitergeben, nicht in Git)
 - **Schlüssel-Algorithmus**: RSA 2048 Bit (Gültigkeit bis ca. 2054)
 
 > [!CAUTION]
-> Bewahre die Datei `insiderwhales-release.jks` und das Passwort sicher auf! Google Play erfordert bei allen zukünftigen Updates dieselbe Signatur.
+> Bewahre die Datei `whaleradar-release.jks` und das Passwort sicher auf! Google Play erfordert bei allen zukünftigen Updates dieselbe Signatur.
 
 ---
 
@@ -137,12 +137,12 @@ Die App ist bereits mit dem folgenden Release-Schlüssel signiert:
 
 1. **Google Play Console öffnen**: [play.google.com/console](https://play.google.com/console)
 2. **App erstellen**:
-   - Name: `InsiderWhales`
+   - Name: `WhaleRadar`
    - Standard-Sprache: Deutsch
    - App-Typ: App (Kostenlos)
 3. **App-Bundle hochladen**:
    - Gehe zu: **Produktion** (oder geschlossener Test / Open Testing) -> **Neues Release erstellen**
-   - Lade die Datei **`InsiderWhales.aab`** hoch.
+   - Lade die Datei **`WhaleRadar.aab`** hoch.
 4. **App-Integrität & Signaturen**:
    - Google Play App Signing (Play Feature Key) kann wie empfohlen von Google verwaltet werden.
 5. **Store-Präsenz ausfüllen**:

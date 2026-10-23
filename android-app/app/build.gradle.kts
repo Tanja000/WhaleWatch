@@ -1,13 +1,15 @@
+import java.util.Properties
+
 plugins {
   alias(libs.plugins.android.application)
   alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "com.example.whalewatch"
+    namespace = "com.whaleradar.app"
     compileSdk = 36
     defaultConfig {
-        applicationId = "com.insiderwhales.app"
+        applicationId = "com.whaleradar.app"
         minSdk = 24
         targetSdk = 36
         versionCode = 2
@@ -16,13 +18,16 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = file("insiderwhales-release.jks")
-            storePassword = "InsiderWhales2026"
-            keyAlias = "insiderwhales"
-            keyPassword = "InsiderWhales2026"
+            // Secrets live in android-app/keystore.properties (not committed to git)
+            val props = Properties()
+            val propsFile = rootProject.file("keystore.properties")
+            if (propsFile.exists()) propsFile.inputStream().use { props.load(it) }
+            storeFile = file(props.getProperty("storeFile", "whaleradar-release.jks"))
+            storePassword = props.getProperty("storePassword")
+            keyAlias = props.getProperty("keyAlias", "whaleradar")
+            keyPassword = props.getProperty("keyPassword")
         }
     }
-
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
@@ -57,6 +62,9 @@ dependencies {
   implementation(composeBom)
   androidTestImplementation(composeBom)
 
+  // PDF text extraction for official U.S. House Clerk Periodic Transaction Reports
+  implementation("com.tom-roush:pdfbox-android:2.0.27.0")
+
   // Core Android dependencies
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -80,6 +88,8 @@ dependencies {
 
   // Local tests: jUnit, coroutines, Android runner
   testImplementation(libs.junit)
+  testImplementation("org.apache.pdfbox:pdfbox:2.0.30")
+  testImplementation("org.json:json:20240303")
   testImplementation(libs.kotlinx.coroutines.test)
 
   // Instrumented tests: jUnit rules and runners
