@@ -29,6 +29,7 @@ import com.whaleradar.app.data.model.CotMarket
 import com.whaleradar.app.data.model.signalEn
 import com.whaleradar.app.data.model.signalLevel
 import com.whaleradar.app.data.model.RadarData
+import com.whaleradar.app.data.model.buildMarketBreadth
 import com.whaleradar.app.theme.AmberWhale
 import com.whaleradar.app.theme.CyanAccent
 import com.whaleradar.app.theme.GreenBuy
@@ -52,6 +53,9 @@ fun CotScreen(
         "crypto" to (if (isEn) "Crypto" else "Krypto"),
         "currencies" to (if (isEn) "Currencies" else "Währungen")
     )
+
+    // Long/short picture is calculated ONLY from the markets of the selected category
+    val heroRadar: RadarData? = if (markets.isNotEmpty()) buildMarketBreadth(markets) else null
 
     LazyColumn(
         modifier = modifier
@@ -110,46 +114,60 @@ fun CotScreen(
             }
         }
 
-        // ================= 2. FELD 1: HERO COT WHALE CARD (NUR COT-DATEN WIE IN DER LETZTEN VERSION) =================
-        if (radar != null) {
+        // ================= 4. CATEGORY FILTER TABS =================
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                categories.forEach { (catId, label) ->
+                    val isSelected = selectedCategory == catId
+                    FilterChip(
+                        selected = isSelected,
+                        onClick = { onSelectCategory(catId) },
+                        label = { Text(label, fontSize = 12.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
+                        colors = FilterChipDefaults.filterChipColors(
+                            selectedContainerColor = MaterialTheme.colorScheme.primary,
+                            selectedLabelColor = Color.White
+                        )
+                    )
+                }
+            }
+        }
+
+        // ================= LONG/SHORT OVERVIEW (only the markets of the selected category) =================
+        if (heroRadar != null) {
             item {
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(18.dp),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.surface
-                    ),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.25f)),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)
+                val catLabel = categories.firstOrNull { it.first == selectedCategory && it.first != "all" }?.second
+                val shortCount = (heroRadar.whaleShortContracts).toInt()
+                val longCount = (heroRadar.whaleLongContracts).toInt()
+                val total = (longCount + shortCount).coerceAtLeast(1)
+                val longPctInt = Math.round(longCount.toDouble() / total * 100.0).toInt()
+                val badgeColor = when { heroRadar.badgeDe == "NEUTRAL" -> Color(0xFF94A3B8); heroRadar.whaleLongPct >= 50.0 -> GreenBuy; else -> RedSell }
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        // Header: Title & Badge
+                    Column(modifier = Modifier.padding(12.dp)) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = if (isEn) "CFTC COT WHALE RADAR" else "CFTC COT WAL-SENTIMENT",
-                                color = MaterialTheme.colorScheme.primary,
-                                fontSize = 11.sp,
+                                text = (if (isEn) "📊 CFTC COT WHALE SENTIMENT" else "📊 CFTC COT WAL-SENTIMENT") + (if (catLabel != null) " · " + catLabel.uppercase() else ""),
+                                fontSize = 11.5.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                letterSpacing = 0.8.sp,
+                                color = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.weight(1f).padding(end = 8.dp)
                             )
-
-                            val badgeColor = when { radar.badgeDe == "NEUTRAL" -> Color(0xFF94A3B8); radar.whaleLongPct >= 50.0 -> GreenBuy; else -> RedSell }
-                            val badgeText = if (isEn) radar.badgeEn else radar.badgeDe
-                            Surface(
-                                color = badgeColor,
-                                shape = RoundedCornerShape(12.dp)
-                            ) {
+                            Surface(color = badgeColor, shape = RoundedCornerShape(12.dp)) {
                                 Text(
-                                    text = badgeText,
+                                    text = if (isEn) heroRadar.badgeEn else heroRadar.badgeDe,
                                     color = Color.White,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.Bold,
@@ -160,167 +178,46 @@ fun CotScreen(
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(14.dp))
-
-                        // Circular Dial Meter: Green for Long, Red for Short
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            Box(
-                                modifier = Modifier.size(92.dp),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Canvas(modifier = Modifier.size(82.dp)) {
-                                    val strokeWidth = 10.dp.toPx()
-                                    val arcSize = size.width - strokeWidth
-                                    val topLeft = Offset(strokeWidth / 2, strokeWidth / 2)
-
-                                    val longSweep = (radar.whaleLongPct / 100.0 * 360.0).toFloat().coerceIn(0f, 360f)
-                                    val shortSweep = (360f - longSweep).coerceIn(0f, 360f)
-
-                                    // Long Arc (GREEN)
-                                    drawArc(
-                                        color = GreenBuy,
-                                        startAngle = -90f,
-                                        sweepAngle = longSweep,
-                                        useCenter = false,
-                                        topLeft = topLeft,
-                                        size = Size(arcSize, arcSize),
-                                        style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
-                                    )
-
-                                    // Short Arc (RED)
-                                    drawArc(
-                                        color = RedSell,
-                                        startAngle = -90f + longSweep,
-                                        sweepAngle = shortSweep,
-                                        useCenter = false,
-                                        topLeft = topLeft,
-                                        size = Size(arcSize, arcSize),
-                                        style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
-                                    )
-                                }
-
-                                val isLongDominant = radar.whaleLongPct >= radar.whaleShortPct
-                                val dominantPct = if (isLongDominant) radar.whaleLongPct else radar.whaleShortPct
-                                val dominantLabel = if (isLongDominant) "LONG" else "SHORT"
-                                val dominantColor = if (isLongDominant) GreenBuy else RedSell
-
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        text = "${dominantPct.toInt()}%",
-                                        color = dominantColor,
-                                        fontSize = 20.sp,
-                                        fontWeight = FontWeight.ExtraBold
-                                    )
-                                    Text(
-                                        text = dominantLabel,
-                                        color = dominantColor,
-                                        fontSize = 9.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                }
-                            }
-
-                            // Mood Info
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = if (isEn) radar.whaleMoodEn else radar.whaleMoodDe,
-                                    color = MaterialTheme.colorScheme.onSurface,
-                                    fontSize = 14.5.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Spacer(modifier = Modifier.height(4.dp))
-                                Text(
-                                    text = if (isEn) radar.whaleSubEn else radar.whaleSubDe,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    fontSize = 11.sp,
-                                    lineHeight = 15.sp
-                                )
-                            }
-                        }
-
-                        Spacer(modifier = Modifier.height(14.dp))
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f))
-                        Spacer(modifier = Modifier.height(10.dp))
-
-                        // Dual Ratio Bar: Long & Short
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(8.dp)
-                                        .clip(CircleShape)
-                                        .background(GreenBuy)
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Text(
-                                    text = "Long: ${radar.whaleLongPct}% ",
-                                    color = GreenBuy,
-                                    fontSize = 11.5.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Text(
-                                    text = "(${radar.whaleLongFormatted})",
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    fontSize = 10.5.sp
-                                )
-                            }
-
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Text(
-                                    text = "(${radar.whaleShortFormatted}) ",
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    fontSize = 10.5.sp
-                                )
-                                Text(
-                                    text = "Short: ${radar.whaleShortPct}%",
-                                    color = RedSell,
-                                    fontSize = 11.5.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Spacer(modifier = Modifier.width(6.dp))
-                                Box(
-                                    modifier = Modifier
-                                        .size(8.dp)
-                                        .clip(CircleShape)
-                                        .background(RedSell)
-                                )
-                            }
-                        }
-
                         Spacer(modifier = Modifier.height(8.dp))
 
-                        // Progress Bar
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(8.dp)
-                                .clip(RoundedCornerShape(4.dp))
-                        ) {
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxHeight()
-                                    .weight(radar.whaleLongPct.toFloat().coerceAtLeast(1f))
-                                    .background(GreenBuy)
+                        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                            Text(
+                                text = if (isEn) "🟢 Net long: $longCount of $total markets" else "🟢 Netto Long: $longCount von $total Märkten",
+                                fontSize = 11.5.sp, fontWeight = FontWeight.Bold, color = GreenBuy
                             )
-                            Box(
-                                modifier = Modifier
-                                    .fillMaxHeight()
-                                    .weight(radar.whaleShortPct.toFloat().coerceAtLeast(1f))
-                                    .background(RedSell)
+                            Text(
+                                text = if (isEn) "🔴 Net short: $shortCount" else "🔴 Netto Short: $shortCount",
+                                fontSize = 11.5.sp, fontWeight = FontWeight.Bold, color = RedSell
                             )
                         }
+
+                        Spacer(modifier = Modifier.height(6.dp))
+
+                        Row(modifier = Modifier.fillMaxWidth().height(10.dp).clip(RoundedCornerShape(5.dp))) {
+                            Box(modifier = Modifier.weight(longCount.toFloat().coerceAtLeast(0.01f)).fillMaxHeight().background(GreenBuy))
+                            Box(modifier = Modifier.weight(shortCount.toFloat().coerceAtLeast(0.01f)).fillMaxHeight().background(RedSell))
+                        }
+
+                        Spacer(modifier = Modifier.height(4.dp))
+
+                        Text(
+                            text = if (isEn) "Share of markets: Long $longPctInt% · Short ${100 - longPctInt}%"
+                                   else "Anteil der Märkte: Long $longPctInt% · Short ${100 - longPctInt}%",
+                            fontSize = 10.5.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = if (isEn) heroRadar.whaleMoodEn else heroRadar.whaleMoodDe,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 }
             }
         }
+
 
         // ================= 3. FELD 2: CFTC COT ZEITSPANNEN & BERICHTSZYKLUS CARD (RECHTSBÜNDIGE ZEITANGABEN) =================
         item {
@@ -395,29 +292,6 @@ fun CotScreen(
                         fontSize = 10.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         lineHeight = 14.sp
-                    )
-                }
-            }
-        }
-
-        // ================= 4. CATEGORY FILTER TABS =================
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                categories.forEach { (catId, label) ->
-                    val isSelected = selectedCategory == catId
-                    FilterChip(
-                        selected = isSelected,
-                        onClick = { onSelectCategory(catId) },
-                        label = { Text(label, fontSize = 12.sp, fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal) },
-                        colors = FilterChipDefaults.filterChipColors(
-                            selectedContainerColor = MaterialTheme.colorScheme.primary,
-                            selectedLabelColor = Color.White
-                        )
                     )
                 }
             }

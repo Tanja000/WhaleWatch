@@ -250,3 +250,44 @@ fun CotMarket.signalEn(): String = when (signalLevel()) {
     -2 -> "STRONGLY BEARISH"
     else -> "NEUTRAL"
 }
+/**
+ * Long/short picture of a group of markets (e.g. one category): in how many of the given markets are the large
+ * speculators net long vs. net short. Only the markets passed in are used.
+ */
+fun buildMarketBreadth(markets: List<CotMarket>): RadarData {
+    if (markets.isEmpty()) return RadarData()
+    val n = markets.size
+    val netLong = markets.count { it.whaleNet > 0 }
+    val netShort = markets.count { it.whaleNet < 0 }
+    val longPct = Math.round(netLong.toDouble() / n * 1000.0) / 10.0
+    val shortPct = Math.round((100.0 - longPct) * 10.0) / 10.0
+    val badgeDe = when { longPct >= 60.0 -> "BULLISCH"; longPct <= 40.0 -> "B\u00C4RISCH"; else -> "NEUTRAL" }
+    val badgeEn = when { longPct >= 60.0 -> "BULLISH"; longPct <= 40.0 -> "BEARISH"; else -> "NEUTRAL" }
+    val moodDe = when {
+        longPct >= 60.0 -> "BULLISCH (Mehrheit der M\u00E4rkte netto Long)"
+        longPct <= 40.0 -> "B\u00C4RISCH (Mehrheit der M\u00E4rkte netto Short)"
+        else -> "NEUTRAL (ausgeglichene Marktbreite)"
+    }
+    val moodEn = when {
+        longPct >= 60.0 -> "BULLISH (majority of markets net long)"
+        longPct <= 40.0 -> "BEARISH (majority of markets net short)"
+        else -> "NEUTRAL (balanced market breadth)"
+    }
+    val first = markets.first()
+    return RadarData(
+        whaleLongPct = longPct,
+        whaleShortPct = shortPct,
+        whaleLongContracts = netLong.toLong(),
+        whaleShortContracts = (n - netLong).toLong(),
+        whaleLongFormatted = "$netLong / $n",
+        whaleShortFormatted = "${n - netLong} / $n",
+        badgeDe = badgeDe,
+        badgeEn = badgeEn,
+        whaleMoodDe = moodDe,
+        whaleMoodEn = moodEn,
+        whaleSubDe = "Bei $netLong von $n M\u00E4rkten sind die Gro\u00DFspekulanten netto Long, bei $netShort netto Short.",
+        whaleSubEn = "Large speculators are net long in $netLong of $n markets and net short in $netShort.",
+        reportDate = first.reportDate,
+        reportWeek = first.reportWeek
+    )
+}
