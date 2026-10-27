@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,13 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.whaleradar.app.data.model.CotMarket
-import com.whaleradar.app.data.model.signalEn
-import com.whaleradar.app.data.model.signalLevel
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccentGlow
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.CotMarket
+import com.whaleradar.data.model.signalEn
+import com.whaleradar.data.model.signalLevel
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccentGlow
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 import java.text.NumberFormat
 import java.util.Locale
 

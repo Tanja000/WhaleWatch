@@ -6,10 +6,10 @@ plugins {
 }
 
 android {
-    namespace = "com.whaleradar.app"
+    namespace = "com.whaleradar"
     compileSdk = 36
     defaultConfig {
-        applicationId = "com.whaleradar.app"
+        applicationId = "com.whaleradar"
         minSdk = 24
         targetSdk = 36
         versionCode = 2

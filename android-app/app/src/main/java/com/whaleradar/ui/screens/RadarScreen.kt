@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -19,13 +19,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.whaleradar.app.data.model.FocusStock
-import com.whaleradar.app.data.model.RadarData
-import com.whaleradar.app.data.model.SuperSignal
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccent
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.DataTimeframe
+import com.whaleradar.data.model.FocusStock
+import com.whaleradar.data.model.RadarData
+import com.whaleradar.data.model.SuperSignal
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccent
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 private fun usd(value: Long, isEn: Boolean): String =
     "$" + "%,d".format(if (isEn) java.util.Locale.US else java.util.Locale.GERMANY, value)
@@ -38,6 +39,7 @@ fun RadarScreen(
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean,
     modifier: Modifier = Modifier,
+    selectedTimeframe: DataTimeframe = DataTimeframe.MONTH_1,
     watchlist: Set<String> = emptySet(),
     onToggleWatchlist: ((String) -> Unit)? = null,
     onOpenLegalDisclaimer: (() -> Unit)? = null
@@ -77,8 +79,8 @@ fun RadarScreen(
                     border = BorderStroke(1.dp, CyanAccent.copy(alpha = 0.35f))
                 ) {
                     Text(
-                        text = if (isEn) "📅 All data shown in this app covers the last 4 weeks only (CFTC, US Congress, SEC)."
-                               else "📅 Alle Daten in dieser App stammen aus den letzten 4 Wochen (CFTC, US-Kongress, SEC).",
+                        text = if (isEn) "📅 Active data period: ${selectedTimeframe.periodEn} (CFTC, US Congress, SEC)."
+                               else "📅 Aktiver Daten-Zeitraum: ${selectedTimeframe.periodDe} (CFTC, US-Kongress, SEC).",
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = CyanAccent,
@@ -209,8 +211,8 @@ fun RadarScreen(
 
         if (focusStocks.isEmpty()) {
             Text(
-                text = if (isEn) "No stock has been bought by politicians or insiders in the last 4 weeks (or data is still loading)."
-                       else "In den letzten 4 Wochen wurde keine Aktie von Politikern oder Insidern gekauft (oder die Daten werden noch geladen).",
+                text = if (isEn) "No stock has been bought by politicians or insiders in the selected period (${selectedTimeframe.labelEn}) – or data is still loading."
+                       else "Im gewählten Zeitraum (${selectedTimeframe.labelDe}) wurde keine Aktie von Politikern oder Insidern gekauft (oder die Daten werden noch geladen).",
                 fontSize = 11.5.sp,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(vertical = 12.dp)

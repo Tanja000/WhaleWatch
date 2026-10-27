@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,17 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.whaleradar.app.data.model.CongressTrade
-import com.whaleradar.app.data.model.PartySentimentData
-import com.whaleradar.app.data.model.TopPartyStock
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccentGlow
-import com.whaleradar.app.theme.GreenBuy
+import com.whaleradar.data.model.BipartisanStock
+import com.whaleradar.data.model.CongressTrade
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccentGlow
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 @Composable
-fun PartySentimentDetailDialog(
-    stock: TopPartyStock,
-    partySentiment: PartySentimentData,
+fun BipartisanDetailDialog(
+    stock: BipartisanStock,
     trades: List<CongressTrade>,
     isOnWatchlist: Boolean,
     onToggleWatchlist: () -> Unit,
@@ -42,13 +41,13 @@ fun PartySentimentDetailDialog(
     isEn: Boolean = false
 ) {
     val uriHandler = LocalUriHandler.current
-    val isDem = stock.party.contains("Demokrat", ignoreCase = true)
-    val partyColor = if (isDem) Color(0xFF3B82F6) else Color(0xFFEF4444)
-    val partyCode = if (isDem) "D" else "R"
+    val total = (stock.demBuys + stock.repBuys).coerceAtLeast(1)
+    val demPct = Math.round(stock.demBuys.toDouble() / total * 100.0).toInt()
+    val repPct = 100 - demPct
 
     // DEDUKTION: Keine Duplikate in den Ergebnissen anzeigen!
     val distinctTrades = trades
-        .filter { it.ticker.equals(stock.ticker, ignoreCase = true) && it.party.uppercase() == partyCode }
+        .filter { it.ticker.equals(stock.ticker, ignoreCase = true) && it.transactionType.lowercase().contains("purchase") }
         .distinctBy { "${it.filerName}_${it.transactionDate}_${it.amountRangeLabel}_${it.transactionType}" }
 
     Dialog(
@@ -76,41 +75,29 @@ fun PartySentimentDetailDialog(
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .size(10.dp)
-                                    .clip(CircleShape)
-                                    .background(partyColor)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            val partyName = if (isEn) {
-                                if (isDem) "Democrat" else "Republican"
-                            } else {
-                                stock.party
-                            }
                             Text(
-                                text = "$${stock.ticker} · $partyName",
-                                fontSize = 17.sp,
+                                text = "🤝 $${stock.ticker}",
+                                fontSize = 18.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = MaterialTheme.colorScheme.onSurface
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                         Text(
-                            text = if (isEn) "${stock.category} · ${stock.count} buys registered" else "${stock.category} · ${stock.count} Käufe registriert",
+                            text = stock.sector,
                             fontSize = 11.5.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
 
                     Surface(
-                        color = partyColor.copy(alpha = 0.15f),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.15f),
                         shape = RoundedCornerShape(8.dp),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, partyColor.copy(alpha = 0.35f)),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)),
                         modifier = Modifier.padding(end = 8.dp)
                     ) {
                         Text(
-                            text = if (isEn) "${stock.count} BUYS" else "${stock.count} KÄUFE",
-                            color = partyColor,
+                            text = if (isEn) "${stock.totalBuys} BUYS" else "${stock.totalBuys} KÄUFE",
+                            color = MaterialTheme.colorScheme.primary,
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -140,19 +127,16 @@ fun PartySentimentDetailDialog(
                         .weight(1f)
                         .verticalScroll(rememberScrollState())
                 ) {
-                    // 1. Summary computed from the real disclosed trades
-                    val buyCountT = distinctTrades.count { it.transactionType.lowercase().contains("purchase") }
-                    val saleCountT = distinctTrades.count { it.transactionType.lowercase().contains("sale") }
-                    val politiciansCount = distinctTrades.map { it.filerName }.distinct().size
+                    // 1. Confluence Signal Banner
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = partyColor.copy(alpha = 0.1f),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, partyColor.copy(alpha = 0.3f)),
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "⚖️ PARTY SENTIMENT FOR $${stock.ticker}" else "⚖️ PARTEI-SENTIMENT FÜR $${stock.ticker}",
+                                text = if (isEn) "⚡ BIPARTISAN ACCUMULATION CONFLUENCE" else "⚡ ÜBERPARTEILICHE KAUF-CONFLUENCE",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = CyanAccentGlow,
@@ -160,9 +144,9 @@ fun PartySentimentDetailDialog(
                             )
                             Text(
                                 text = if (isEn)
-                                    "In the last 4 weeks, $politiciansCount ${if (isDem) "Democratic" else "Republican"} politician(s) reported $buyCountT purchase(s) and $saleCountT sale(s) of $${stock.ticker}. Source: official disclosures of the US House and Senate."
+                                    "When politicians from both rival US political parties buy the same stock at the same time, it is considered one of the most reliable signals in financial markets. It eliminates partisan bias and often points to upcoming bipartisan legislative initiatives, appropriations, or subsidies."
                                 else
-                                    "In den letzten 4 Wochen meldeten $politiciansCount ${if (isDem) "demokratische" else "republikanische"} Politiker $buyCountT Kauf/Käufe und $saleCountT Verkauf/Verkäufe von $${stock.ticker}. Quelle: offizielle Meldungen des US-Repräsentantenhauses und des Senats.",
+                                    "Wenn Politiker beider rivalisierender US-Parteien zeitgleich dieselbe Aktie kaufen, gilt dies als eines der verlässlichsten Signale an den US-Börsen. Es eliminiert parteipolitische Spekulationen und deutet regelmäßig auf bevorstehende überparteiliche Gesetzesinitiativen, Budgetfreigaben oder Förderungen hin.",
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 lineHeight = 15.sp
@@ -172,10 +156,70 @@ fun PartySentimentDetailDialog(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // 3. Einzel-Trades der Partei (MIT ALLEN VERFÜGBAREN DATEN)
-                    val partyTitle = if (isEn) (if (isDem) "Democrat" else "Republican") else stock.party
+                    // 2. Party Ratio Breakdown
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f),
+                        border = androidx.compose.foundation.BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text(
+                                text = if (isEn) "⚖️ PARTY BREAKDOWN OF PURCHASES" else "⚖️ PARTEI-AUFTEILUNG DER KÄUFE",
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.padding(bottom = 8.dp)
+                            )
+
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Text(
+                                    text = if (isEn) "🔵 Democrats: ${stock.demBuys} ($demPct%)" else "🔵 Demokraten: ${stock.demBuys} ($demPct%)",
+                                    color = Color(0xFF3B82F6),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp
+                                )
+                                Text(
+                                    text = if (isEn) "🔴 Republicans: ${stock.repBuys} ($repPct%)" else "🔴 Republikaner: ${stock.repBuys} ($repPct%)",
+                                    color = Color(0xFFEF4444),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            // Dual Color Progress Bar
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(10.dp)
+                                    .clip(RoundedCornerShape(5.dp))
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .weight(stock.demBuys.toFloat().coerceAtLeast(0.01f))
+                                        .fillMaxHeight()
+                                        .background(Color(0xFF3B82F6))
+                                )
+                                Box(
+                                    modifier = Modifier
+                                        .weight(stock.repBuys.toFloat().coerceAtLeast(0.01f))
+                                        .fillMaxHeight()
+                                        .background(Color(0xFFEF4444))
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // 3. Related Trades List (MIT ALLEN VERFÜGBAREN DATEN)
                     Text(
-                        text = if (isEn) "📋 All Recorded $partyTitle Trades for $${stock.ticker} (${distinctTrades.size})" else "📋 Alle erfassten ${stock.party}-Trades für $${stock.ticker} (${distinctTrades.size})",
+                        text = if (isEn) "📋 All recorded purchases for $${stock.ticker} (${distinctTrades.size})" else "📋 Alle erfassten Käufe für $${stock.ticker} (${distinctTrades.size})",
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -191,11 +235,11 @@ fun PartySentimentDetailDialog(
                     } else {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             distinctTrades.forEach { trade ->
-                                val chamberText = if (isEn) {
-                                    if (trade.chamber.lowercase() == "senate") "Senate" else "House"
-                                } else {
-                                    if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
-                                }
+                                val isTradeDem = trade.party.uppercase() == "D"
+                                val tColor = if (isTradeDem) Color(0xFF3B82F6) else Color(0xFFEF4444)
+                                val partyNameText = if (isTradeDem) (if (isEn) "Democrat" else "Demokrat") else (if (isEn) "Republican" else "Republikaner")
+                                val chamberText = if (trade.chamber.lowercase() == "senate") (if (isEn) "Senate" else "Senat") else (if (isEn) "House" else "Repräsentantenhaus")
+
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
                                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
@@ -206,7 +250,7 @@ fun PartySentimentDetailDialog(
                                     modifier = Modifier.fillMaxWidth()
                                 ) {
                                     Column(modifier = Modifier.padding(10.dp)) {
-                                        // Header: Name & Kammer
+                                        // Header Row: Name & Partei / Kammer
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -222,11 +266,11 @@ fun PartySentimentDetailDialog(
                                                     modifier = Modifier
                                                         .size(8.dp)
                                                         .clip(CircleShape)
-                                                        .background(partyColor)
+                                                        .background(tColor)
                                                 )
                                                 Spacer(modifier = Modifier.width(6.dp))
                                                 Text(
-                                                    text = trade.filerName + " · " + (if (trade.transactionType.lowercase().contains("purchase")) (if (isEn) "🟢 BUY" else "🟢 KAUF") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF")),
+                                                    text = trade.filerName,
                                                     fontWeight = FontWeight.Bold,
                                                     fontSize = 13.sp,
                                                     color = MaterialTheme.colorScheme.onSurface,
@@ -236,14 +280,14 @@ fun PartySentimentDetailDialog(
                                             }
 
                                             Surface(
-                                                color = partyColor.copy(alpha = 0.15f),
+                                                color = tColor.copy(alpha = 0.15f),
                                                 shape = RoundedCornerShape(4.dp)
                                             ) {
                                                 Text(
-                                                    text = chamberText,
+                                                    text = "$chamberText · $partyNameText",
                                                     fontSize = 10.sp,
                                                     fontWeight = FontWeight.Bold,
-                                                    color = partyColor,
+                                                    color = tColor,
                                                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                                 )
                                             }
@@ -277,14 +321,9 @@ fun PartySentimentDetailDialog(
                                                     fontSize = 10.sp,
                                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                                 )
-                                                val lateStatus = if (isEn) {
-                                                    if (trade.isLate) "⚠️ Delayed" else "✅ On Time"
-                                                } else {
-                                                    if (trade.isLate) "⚠️ Verspätet" else "✅ Fristgerecht"
-                                                }
-                                                val windowLabel = if (isEn) "${trade.daysToFile}d window" else "${trade.daysToFile} Tage Frist"
                                                 Text(
-                                                    text = "$windowLabel ($lateStatus)",
+                                                    text = if (isEn) "${trade.daysToFile}d filing window (${if (trade.isLate) "⚠️ Late" else "✅ On-time"})"
+                                                           else "${trade.daysToFile} Tage Frist (${if (trade.isLate) "⚠️ Verspätet" else "✅ Fristgerecht"})",
                                                     fontSize = 9.5.sp,
                                                     color = if (trade.isLate) AmberWhale else GreenBuy
                                                 )
@@ -310,7 +349,7 @@ fun PartySentimentDetailDialog(
 
                                         Spacer(modifier = Modifier.height(6.dp))
 
-                                        // Details zu diesem Trade öffnen
+                                        // Klick für Details zu diesem Trade
                                         Row(
                                             modifier = Modifier.fillMaxWidth(),
                                             horizontalArrangement = Arrangement.End
@@ -348,7 +387,7 @@ fun PartySentimentDetailDialog(
                         )
                     ) {
                         Text(
-                            text = if (isEn) "🏛️ Official Congress Disclosures ↗" else "🏛️ Offizielle Offenlegungsdaten (Congress Disclosures) ↗",
+                            text = if (isEn) "🏛️ Official Disclosure Data (House & Senate Disclosures) ↗" else "🏛️ Offizielle Offenlegungsdaten (House & Senate Disclosures) ↗",
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.5.sp,
                             color = Color.Black

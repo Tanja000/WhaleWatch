@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -25,15 +25,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.whaleradar.app.data.model.CotMarket
-import com.whaleradar.app.data.model.signalEn
-import com.whaleradar.app.data.model.signalLevel
-import com.whaleradar.app.data.model.RadarData
-import com.whaleradar.app.data.model.buildMarketBreadth
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccent
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.CotMarket
+import com.whaleradar.data.model.signalEn
+import com.whaleradar.data.model.signalLevel
+import com.whaleradar.data.model.RadarData
+import com.whaleradar.data.model.buildMarketBreadth
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccent
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 @Composable
 fun CotScreen(

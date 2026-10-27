@@ -1,7 +1,8 @@
-package com.whaleradar.app.ui
+package com.whaleradar.ui
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
@@ -15,10 +16,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.whaleradar.app.data.model.TabScreen
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.WhaleRadarTheme
-import com.whaleradar.app.ui.screens.*
+import com.whaleradar.data.model.DataTimeframe
+import com.whaleradar.data.model.TabScreen
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.WhaleRadarTheme
+import com.whaleradar.ui.screens.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,19 +54,24 @@ fun WhaleRadarApp(
     val secClusters by viewModel.filteredSecClusters.collectAsState()
     val secQuery by viewModel.secQuery.collectAsState()
     val lastUpdatedTime by viewModel.lastUpdatedTime.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val isProUnlocked by viewModel.isProUnlocked.collectAsState()
+    val selectedTimeframe by viewModel.selectedTimeframe.collectAsState()
 
     val watchlist by viewModel.watchlist.collectAsState()
     val analysisTicker by viewModel.selectedAnalysisTicker.collectAsState()
-    var selectedSecAlert by remember { mutableStateOf<com.whaleradar.app.data.model.SecAlert?>(null) }
-    var selectedSecCluster by remember { mutableStateOf<com.whaleradar.app.data.model.SecCluster?>(null) }
-    var selectedCotMarket by remember { mutableStateOf<com.whaleradar.app.data.model.CotMarket?>(null) }
-    var selectedCongressTrade by remember { mutableStateOf<com.whaleradar.app.data.model.CongressTrade?>(null) }
-    var selectedBipartisanStock by remember { mutableStateOf<com.whaleradar.app.data.model.BipartisanStock?>(null) }
-    var selectedPartyStock by remember { mutableStateOf<com.whaleradar.app.data.model.TopPartyStock?>(null) }
+    var selectedSecAlert by remember { mutableStateOf<com.whaleradar.data.model.SecAlert?>(null) }
+    var selectedSecCluster by remember { mutableStateOf<com.whaleradar.data.model.SecCluster?>(null) }
+    var selectedCotMarket by remember { mutableStateOf<com.whaleradar.data.model.CotMarket?>(null) }
+    var selectedCongressTrade by remember { mutableStateOf<com.whaleradar.data.model.CongressTrade?>(null) }
+    var selectedBipartisanStock by remember { mutableStateOf<com.whaleradar.data.model.BipartisanStock?>(null) }
+    var selectedPartyStock by remember { mutableStateOf<com.whaleradar.data.model.TopPartyStock?>(null) }
 
     val prefs = remember { context.getSharedPreferences("whaleradar_prefs", android.content.Context.MODE_PRIVATE) }
     var hasAcceptedDisclaimer by remember { mutableStateOf(prefs.getBoolean("legal_disclaimer_accepted_v1", false)) }
     var showLegalDialog by remember { mutableStateOf(false) }
+    var showPaywallDialog by remember { mutableStateOf(false) }
+    var paywallRequestedTimeframe by remember { mutableStateOf<DataTimeframe?>(null) }
 
     WhaleRadarTheme(darkTheme = isDarkTheme) {
         Scaffold(
@@ -87,17 +95,21 @@ fun WhaleRadarApp(
                                     )
                                     Spacer(modifier = Modifier.width(4.dp))
                                     Surface(
-                                        color = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.clickable {
+                                            paywallRequestedTimeframe = null
+                                            showPaywallDialog = true
+                                        },
+                                        color = if (isProUnlocked) AmberWhale else MaterialTheme.colorScheme.primary,
                                         shape = androidx.compose.foundation.shape.RoundedCornerShape(4.dp)
                                     ) {
                                         Text(
-                                            text = "PRO",
+                                            text = if (isProUnlocked) "👑 PRO · ${if (isEn) selectedTimeframe.shortEn else selectedTimeframe.shortDe}" else "🔒 PRO",
                                             fontSize = 8.5.sp,
                                             fontWeight = FontWeight.Bold,
                                             color = Color.Black,
                                             maxLines = 1,
                                             softWrap = false,
-                                            modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                                            modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
                                         )
                                     }
                                 }
@@ -206,62 +218,91 @@ fun WhaleRadarApp(
                     .fillMaxSize()
                     .padding(innerPadding)
             ) {
-                Crossfade(targetState = activeTab, label = "TabSwitch") { tab ->
-                    when (tab) {
-                        TabScreen.RADAR -> RadarScreen(
-                            radar = radarData,
-                            superSignals = superSignals,
-                focusStocks = focusStocks,
-                            watchlist = watchlist,
-                            onToggleWatchlist = { viewModel.toggleWatchlist(it) },
-                            onOpenAnalysis = { viewModel.openAnalysis(it) },
-                            isEn = isEn,
-                            onOpenLegalDisclaimer = { showLegalDialog = true }
-                        )
-                        TabScreen.COT -> CotScreen(
-                            markets = cotMarkets,
-                            selectedCategory = selectedCotCat,
-                            onSelectCategory = { viewModel.setCotCategory(it) },
-                            onMarketClick = { selectedCotMarket = it },
-                            isEn = isEn,
-                            radar = radarData
-                        )
-                        TabScreen.CONGRESS -> CongressScreen(
-                            trades = congressTrades,
-                            searchQuery = congressQuery,
-                            onSearchChange = { viewModel.setCongressQuery(it) },
-                            selectedType = congressType,
-                            onSelectType = { viewModel.setCongressType(it) },
-                            selectedParty = congressParty,
-                            onSelectParty = { viewModel.setCongressParty(it) },
-                            congressMode = congressMode,
-                            onSelectMode = { viewModel.setCongressMode(it) },
-                            partySentiment = partySentiment,
-                            onTradeClick = { selectedCongressTrade = it },
-                            onBipartisanClick = { selectedBipartisanStock = it },
-                            onPartyStockClick = { selectedPartyStock = it },
-                            onOpenAnalysis = { viewModel.openAnalysis(it) },
-                            isEn = isEn
-                        )
-                        TabScreen.SEC -> SecScreen(
-                            alerts = secAlerts,
-                            clusters = secClusters,
-                            searchQuery = secQuery,
-                            onSearchChange = { viewModel.setSecQuery(it) },
-                            onAlertClick = { selectedSecAlert = it },
-                            onClusterClick = { selectedSecCluster = it },
-                            onOpenAnalysis = { viewModel.openAnalysis(it) },
-                            isEn = isEn
-                        )
-                        TabScreen.WATCHLIST -> WatchlistScreen(
-                            watchlist = watchlist,
-                            onAddTicker = { viewModel.addWatchlistTicker(it) },
-                            onRemoveTicker = { viewModel.removeWatchlistTicker(it) },
-                            onOpenAnalysis = { viewModel.openAnalysis(it) },
-                            isEn = isEn,
-                            getCompanyName = { viewModel.getCompanyName(it) },
-                            suggestions = focusStocks.map { it.ticker }.take(6)
-                        )
+                Column(modifier = Modifier.fillMaxSize()) {
+                    TimeframeSelectorBar(
+                        selectedTimeframe = selectedTimeframe,
+                        isProUnlocked = isProUnlocked,
+                        isLoading = isLoading,
+                        onSelectTimeframe = { tf ->
+                            viewModel.selectTimeframe(tf)
+                            val lbl = if (isEn) tf.labelEn else tf.labelDe
+                            android.widget.Toast.makeText(
+                                context,
+                                if (isEn) "Updating data for: $lbl..." else "Lade Daten für Zeitraum: $lbl...",
+                                android.widget.Toast.LENGTH_SHORT
+                            ).show()
+                        },
+                        onOpenPaywall = { tf ->
+                            paywallRequestedTimeframe = tf
+                            showPaywallDialog = true
+                        },
+                        isEn = isEn
+                    )
+
+                    Crossfade(
+                        targetState = activeTab,
+                        label = "TabSwitch",
+                        modifier = Modifier.weight(1f)
+                    ) { tab ->
+                        when (tab) {
+                            TabScreen.RADAR -> RadarScreen(
+                                radar = radarData,
+                                superSignals = superSignals,
+                                focusStocks = focusStocks,
+                                selectedTimeframe = selectedTimeframe,
+                                watchlist = watchlist,
+                                onToggleWatchlist = { viewModel.toggleWatchlist(it) },
+                                onOpenAnalysis = { viewModel.openAnalysis(it) },
+                                isEn = isEn,
+                                onOpenLegalDisclaimer = { showLegalDialog = true }
+                            )
+                            TabScreen.COT -> CotScreen(
+                                markets = cotMarkets,
+                                selectedCategory = selectedCotCat,
+                                onSelectCategory = { viewModel.setCotCategory(it) },
+                                onMarketClick = { selectedCotMarket = it },
+                                isEn = isEn,
+                                radar = radarData
+                            )
+                            TabScreen.CONGRESS -> CongressScreen(
+                                trades = congressTrades,
+                                searchQuery = congressQuery,
+                                onSearchChange = { viewModel.setCongressQuery(it) },
+                                selectedType = congressType,
+                                onSelectType = { viewModel.setCongressType(it) },
+                                selectedParty = congressParty,
+                                onSelectParty = { viewModel.setCongressParty(it) },
+                                congressMode = congressMode,
+                                onSelectMode = { viewModel.setCongressMode(it) },
+                                partySentiment = partySentiment,
+                                onTradeClick = { selectedCongressTrade = it },
+                                onBipartisanClick = { selectedBipartisanStock = it },
+                                onPartyStockClick = { selectedPartyStock = it },
+                                onOpenAnalysis = { viewModel.openAnalysis(it) },
+                                isEn = isEn,
+                                selectedTimeframe = selectedTimeframe
+                            )
+                            TabScreen.SEC -> SecScreen(
+                                alerts = secAlerts,
+                                clusters = secClusters,
+                                searchQuery = secQuery,
+                                onSearchChange = { viewModel.setSecQuery(it) },
+                                onAlertClick = { selectedSecAlert = it },
+                                onClusterClick = { selectedSecCluster = it },
+                                onOpenAnalysis = { viewModel.openAnalysis(it) },
+                                isEn = isEn,
+                                selectedTimeframe = selectedTimeframe
+                            )
+                            TabScreen.WATCHLIST -> WatchlistScreen(
+                                watchlist = watchlist,
+                                onAddTicker = { viewModel.addWatchlistTicker(it) },
+                                onRemoveTicker = { viewModel.removeWatchlistTicker(it) },
+                                onOpenAnalysis = { viewModel.openAnalysis(it) },
+                                isEn = isEn,
+                                getCompanyName = { viewModel.getCompanyName(it) },
+                                suggestions = focusStocks.map { it.ticker }.take(6)
+                            )
+                        }
                     }
                 }
 
@@ -349,6 +390,37 @@ fun WhaleRadarApp(
                             selectedCongressTrade = trade
                         },
                         onDismiss = { selectedPartyStock = null },
+                        selectedTimeframe = selectedTimeframe,
+                        isEn = isEn
+                    )
+                }
+
+                // Paywall / PRO Timeframe Dialog
+                if (showPaywallDialog) {
+                    PaywallDialog(
+                        isProUnlocked = isProUnlocked,
+                        currentTimeframe = selectedTimeframe,
+                        requestedTimeframe = paywallRequestedTimeframe,
+                        onUnlockPro = { planId, targetTf ->
+                            viewModel.unlockPro(planId, targetTf)
+                            showPaywallDialog = false
+                            val lbl = if (isEn) targetTf.labelEn else targetTf.labelDe
+                            android.widget.Toast.makeText(
+                                context,
+                                if (isEn) "WhaleRadar PRO unlocked! Loading $lbl..." else "WhaleRadar PRO freigeschaltet! Lade $lbl...",
+                                android.widget.Toast.LENGTH_SHORT
+                            ).show()
+                        },
+                        onResetProForTesting = {
+                            viewModel.setProStatus(false)
+                            showPaywallDialog = false
+                            android.widget.Toast.makeText(
+                                context,
+                                if (isEn) "PRO locked (Free 1-Month mode active)" else "PRO gesperrt (Basis-Modus: 1 Monat aktiv)",
+                                android.widget.Toast.LENGTH_SHORT
+                            ).show()
+                        },
+                        onDismiss = { showPaywallDialog = false },
                         isEn = isEn
                     )
                 }

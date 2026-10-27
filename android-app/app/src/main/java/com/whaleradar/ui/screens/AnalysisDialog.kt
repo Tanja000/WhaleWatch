@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.whaleradar.app.data.model.CongressTrade
-import com.whaleradar.app.data.model.SecAlert
-import com.whaleradar.app.data.model.StockAnalysis
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccent
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.CongressTrade
+import com.whaleradar.data.model.SecAlert
+import com.whaleradar.data.model.StockAnalysis
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccent
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 @Composable
 fun AnalysisDialog(

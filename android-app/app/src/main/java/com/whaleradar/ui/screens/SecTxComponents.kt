@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -13,13 +13,13 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.whaleradar.app.data.model.SecAlert
-import com.whaleradar.app.data.model.SecCluster
-import com.whaleradar.app.data.model.SecTransactionItem
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccentGlow
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.SecAlert
+import com.whaleradar.data.model.SecCluster
+import com.whaleradar.data.model.SecTransactionItem
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccentGlow
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 /** Returns all transactions of a filing (falls back to one item built from the filing header). */
 fun SecAlert.allTransactions(): List<SecTransactionItem> = transactions.ifEmpty {
@@ -196,9 +196,9 @@ fun clusterExplanation(cluster: SecCluster, isEn: Boolean): ClusterExplanation {
             title = if (isEn) "🟢 BUY CLUSTER: $n DIFFERENT INSIDERS ACQUIRED SHARES"
                     else "🟢 KAUF-CLUSTER: $n VERSCHIEDENE INSIDER ERWARBEN AKTIEN",
             body = if (isEn)
-                "$n different insiders reported acquisitions at $name within the 28-day window ($buys transactions). Several people acting in the same direction is a stronger signal than a single trade. Note: Open-market purchases (Code P) use private money; awards and option exercises (Codes A/M) are part of compensation and are less meaningful."
+                "$n different insiders reported acquisitions at $name in the selected period ($buys transactions). Several people acting in the same direction is a stronger signal than a single trade. Note: Open-market purchases (Code P) use private money; awards and option exercises (Codes A/M) are part of compensation and are less meaningful."
             else
-                "$n verschiedene Insider meldeten innerhalb von 28 Tagen Erwerbe bei $name ($buys Transaktionen). Mehrere Personen in dieselbe Richtung sind ein stärkeres Signal als ein einzelner Handel. Hinweis: Marktkäufe (Code P) erfolgen mit privatem Geld; Zuteilungen und Optionsausübungen (Code A/M) gehören zur Vergütung und sind weniger aussagekräftig.",
+                "$n verschiedene Insider meldeten im gewählten Zeitraum Erwerbe bei $name ($buys Transaktionen). Mehrere Personen in dieselbe Richtung sind ein stärkeres Signal als ein einzelner Handel. Hinweis: Marktkäufe (Code P) erfolgen mit privatem Geld; Zuteilungen und Optionsausübungen (Code A/M) gehören zur Vergütung und sind weniger aussagekräftig.",
             color = GreenBuy
         )
         buys == 0 -> ClusterExplanation(
@@ -206,9 +206,9 @@ fun clusterExplanation(cluster: SecCluster, isEn: Boolean): ClusterExplanation {
             title = if (isEn) "🔴 SELL CLUSTER: $n DIFFERENT INSIDERS SOLD / DISPOSED SHARES"
                     else "🔴 VERKAUFS-CLUSTER: $n VERSCHIEDENE INSIDER VERKAUFTEN AKTIEN",
             body = if (isEn)
-                "$n different insiders reported sales or disposals at $name within the 28-day window ($sells transactions). Sales happen for many reasons (taxes, diversification, pre-planned 10b5-1 plans) and are not automatically negative – but several sellers at once deserve attention."
+                "$n different insiders reported sales or disposals at $name in the selected period ($sells transactions). Sales happen for many reasons (taxes, diversification, pre-planned 10b5-1 plans) and are not automatically negative – but several sellers at once deserve attention."
             else
-                "$n verschiedene Insider meldeten innerhalb von 28 Tagen Verkäufe oder Abgaben bei $name ($sells Transaktionen). Verkäufe haben viele Gründe (Steuern, Streuung, vorab geplante 10b5-1-Pläne) und sind nicht automatisch negativ – mehrere Verkäufer gleichzeitig verdienen aber Aufmerksamkeit.",
+                "$n verschiedene Insider meldeten im gewählten Zeitraum Verkäufe oder Abgaben bei $name ($sells Transaktionen). Verkäufe haben viele Gründe (Steuern, Streuung, vorab geplante 10b5-1-Pläne) und sind nicht automatisch negativ – mehrere Verkäufer gleichzeitig verdienen aber Aufmerksamkeit.",
             color = RedSell
         )
         else -> ClusterExplanation(

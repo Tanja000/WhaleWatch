@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,13 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.whaleradar.app.data.model.BipartisanStock
-import com.whaleradar.app.data.model.CongressTrade
-import com.whaleradar.app.data.model.PartySentimentData
-import com.whaleradar.app.data.model.TopPartyStock
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.BipartisanStock
+import com.whaleradar.data.model.CongressTrade
+import com.whaleradar.data.model.DataTimeframe
+import com.whaleradar.data.model.PartySentimentData
+import com.whaleradar.data.model.TopPartyStock
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 @Composable
 fun CongressScreen(
@@ -45,6 +46,7 @@ fun CongressScreen(
     onPartyStockClick: (TopPartyStock) -> Unit,
     onOpenAnalysis: (String) -> Unit,
     isEn: Boolean,
+    selectedTimeframe: DataTimeframe = DataTimeframe.MONTH_1,
     modifier: Modifier = Modifier
 ) {
     val modes = listOf(
@@ -96,7 +98,7 @@ fun CongressScreen(
             ) {
                 Column(modifier = Modifier.padding(12.dp)) {
                     Text(
-                        text = if (isEn) "📅 Period: last 4 weeks (by transaction date)" else "📅 Zeitraum: letzte 4 Wochen (nach Handelsdatum)",
+                        text = if (isEn) "📅 Period: ${selectedTimeframe.periodEn} (by transaction date)" else "📅 Zeitraum: ${selectedTimeframe.periodDe} (nach Handelsdatum)",
                         fontSize = 11.5.sp,
                         fontWeight = FontWeight.ExtraBold,
                         color = MaterialTheme.colorScheme.primary
@@ -197,8 +199,8 @@ fun CongressScreen(
                 if (partySentiment.bipartisanBuys.isEmpty()) {
                     item {
                         Text(
-                            text = if (isEn) "No stock was bought by both parties in the last 4 weeks."
-                                   else "In den letzten 4 Wochen wurde keine Aktie von beiden Parteien gekauft.",
+                            text = if (isEn) "No stock was bought by both parties in the selected period (${selectedTimeframe.labelEn})."
+                                   else "Im gewählten Zeitraum (${selectedTimeframe.labelDe}) wurde keine Aktie von beiden Parteien gekauft.",
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -324,8 +326,8 @@ fun CongressScreen(
                     item {
                         Text(
                             text = if (congressMode == "conflicts")
-                                (if (isEn) "No committee conflicts detected in the last 4 weeks." else "Keine Ausschuss-Konflikte in den letzten 4 Wochen erkannt.")
-                            else (if (isEn) "No disclosed trades found for the last 4 weeks." else "Keine gemeldeten Trades der letzten 4 Wochen gefunden."),
+                                (if (isEn) "No committee conflicts detected in the selected period (${selectedTimeframe.labelEn})." else "Keine Ausschuss-Konflikte im gewählten Zeitraum (${selectedTimeframe.labelDe}) erkannt.")
+                            else (if (isEn) "No disclosed trades found for the selected period (${selectedTimeframe.labelEn})." else "Keine gemeldeten Trades für den Zeitraum (${selectedTimeframe.labelDe}) gefunden."),
                             fontSize = 12.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = 16.dp)

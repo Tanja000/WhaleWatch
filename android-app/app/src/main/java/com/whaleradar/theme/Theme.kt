@@ -1,4 +1,4 @@
-package com.whaleradar.app.theme
+package com.whaleradar.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme

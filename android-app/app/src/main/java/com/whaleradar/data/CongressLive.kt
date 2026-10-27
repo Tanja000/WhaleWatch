@@ -1,8 +1,8 @@
-package com.whaleradar.app.data
+package com.whaleradar.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.whaleradar.app.data.model.CongressTrade
+import com.whaleradar.data.model.CongressTrade
 import org.json.JSONArray
 import org.json.JSONObject
 import java.net.HttpURLConnection
@@ -30,9 +30,12 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
 
     companion object {
         const val CACHE_KEY = "cached_live_congress_v3"
-        private const val WINDOW_DAYS = 28
+        private const val DEFAULT_WINDOW_DAYS = 30
+        private const val MAX_CACHE_DAYS = 730
         private const val MAX_NEW_HOUSE_DOCS = 160
+        private const val MAX_NEW_HOUSE_DOCS_PRO = 280
         private const val MAX_NEW_SENATE_DOCS = 120
+        private const val MAX_NEW_SENATE_DOCS_PRO = 220
         private const val UA = "Mozilla/5.0 (Linux; Android 13; WhaleRadar) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36"
 
         private val ISO = SimpleDateFormat("yyyy-MM-dd", Locale.US).apply { timeZone = TimeZone.getTimeZone("UTC") }
@@ -330,12 +333,19 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         return docs
     }
 
-    private fun fetchHouse(sinceIso: String, known: Set<String>, leg: List<Legislator>, newDocIds: MutableSet<String>): List<CongressTrade> {
+    private fun fetchHouse(sinceIso: String, known: Set<String>, leg: List<Legislator>, newDocIds: MutableSet<String>, windowDays: Int): List<CongressTrade> {
         com.tom_roush.pdfbox.android.PDFBoxResourceLoader.init(context.applicationContext)
-        val year = Calendar.getInstance().get(Calendar.YEAR)
-        var docs = listHousePtrs(year, sinceIso)
-        if (Calendar.getInstance().get(Calendar.MONTH) <= 1) docs = docs + listHousePtrs(year - 1, sinceIso)
-        val todo = docs.filter { "house_${it.docId}" !in known }.sortedByDescending { it.filingIso }.take(MAX_NEW_HOUSE_DOCS)
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
+        val sinceYear = sinceIso.take(4).toIntOrNull() ?: currentYear
+        val startYear = (if (Calendar.getInstance().get(Calendar.MONTH) <= 1) minOf(sinceYear, currentYear - 1) else sinceYear).coerceAtLeast(currentYear - 3)
+        val docs = mutableListOf<HouseDoc>()
+        for (y in currentYear downTo startYear) {
+            try {
+                docs.addAll(listHousePtrs(y, sinceIso))
+            } catch (_: Exception) {}
+        }
+        val maxDocs = if (windowDays > 30) MAX_NEW_HOUSE_DOCS_PRO else MAX_NEW_HOUSE_DOCS
+        val todo = docs.filter { "house_${it.docId}" !in known }.sortedByDescending { it.filingIso }.take(maxDocs)
         val pool = Executors.newFixedThreadPool(4)
         try {
             val futures = todo.map { d ->
@@ -364,7 +374,7 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
 
     // ------------------------------------------------------------------ Senate
 
-    private fun fetchSenate(sinceIso: String, known: Set<String>, leg: List<Legislator>, newDocIds: MutableSet<String>): List<CongressTrade>? {
+    private fun fetchSenate(sinceIso: String, known: Set<String>, leg: List<Legislator>, newDocIds: MutableSet<String>, windowDays: Int): List<CongressTrade>? {
         val base = "https://efdsearch.senate.gov"
         val cookies = mutableMapOf<String, String>()
         val (c1, home) = http("$base/search/home/", cookies = cookies)
@@ -382,7 +392,7 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         val docs = mutableListOf<List<String>>() // first, last, link, filedUs
         var start = 0
         var searchOk = false
-        while (start < 600) {
+        while (start < 800) {
             val body = "start=$start&length=100&report_types=${enc("[11]")}&filer_types=${enc("[]")}&submitted_start_date=${enc("$sinceUs 00:00:00")}" +
                 "&submitted_end_date=&candidate_state=&senator_state=&office_id=&first_name=&last_name=&csrfmiddlewaretoken=${enc(csrf)}"
             val (c3, resp) = http(
@@ -404,8 +414,9 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         if (!searchOk) return null
         val out = mutableListOf<CongressTrade>()
         var fetched = 0
+        val maxSenateDocs = if (windowDays > 30) MAX_NEW_SENATE_DOCS_PRO else MAX_NEW_SENATE_DOCS
         for (d in docs) {
-            if (fetched >= MAX_NEW_SENATE_DOCS) break
+            if (fetched >= maxSenateDocs) break
             val href = Regex("href=\"(/search/view/ptr/([^/\"]+)/)\"").find(d[2]) ?: continue // paper filings are scans -> skipped
             val uuid = href.groupValues[2]
             if ("senate_$uuid" in known) continue
@@ -426,24 +437,29 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
     // ------------------------------------------------------------------ public API
 
     /**
-     * Loads new official House + Senate PTRs, merges them with the cached ones and returns the full list.
-     * Returns null if neither chamber could be reached (caller keeps showing cached data).
+     * Loads new official House + Senate PTRs for the requested windowDays, merges them with the cached ones,
+     * caches up to MAX_CACHE_DAYS (2 years), and returns the trades within windowDays.
      */
-    fun fetchAll(): List<CongressTrade>? {
+    fun fetchAll(windowDays: Int = DEFAULT_WINDOW_DAYS): List<CongressTrade>? {
         val cache = readCache()
         val cal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        cal.add(Calendar.DAY_OF_YEAR, -WINDOW_DAYS)
+        cal.add(Calendar.DAY_OF_YEAR, -windowDays)
         val sinceIso = ISO.format(cal.time)
+
+        val maxCacheCal = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        maxCacheCal.add(Calendar.DAY_OF_YEAR, -MAX_CACHE_DAYS)
+        val maxCacheIso = ISO.format(maxCacheCal.time)
+
         val leg = loadLegislators()
         val newDocs = mutableSetOf<String>()
         val fresh = mutableListOf<CongressTrade>()
         var anyOk = false
         var senateOk = false
-        try { fresh.addAll(fetchHouse(sinceIso, cache.docIds, leg, newDocs)); anyOk = true } catch (e: Exception) {
+        try { fresh.addAll(fetchHouse(sinceIso, cache.docIds, leg, newDocs, windowDays)); anyOk = true } catch (e: Exception) {
             android.util.Log.w("CongressLive", "House feed failed", e)
         }
         try {
-            val senate = fetchSenate(sinceIso, cache.docIds, leg, newDocs)
+            val senate = fetchSenate(sinceIso, cache.docIds, leg, newDocs, windowDays)
             if (senate != null) { fresh.addAll(senate); senateOk = true; anyOk = true }
         } catch (e: Exception) {
             android.util.Log.w("CongressLive", "Senate feed failed", e)
@@ -451,12 +467,12 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         // Senate data is only used if the Senate feed could actually be retrieved
         val cachedTrades = if (senateOk) cache.trades else cache.trades.filter { it.chamber != "senate" }
         val knownIds = if (senateOk) cache.docIds else cache.docIds.filterNot { it.startsWith("senate_") }.toSet()
-        if (!anyOk) return cachedTrades
-        val merged = (fresh + cachedTrades)
-            .filter { it.transactionDate >= sinceIso }
+        if (!anyOk) return cachedTrades.filter { it.transactionDate >= sinceIso }
+        val allToCache = (fresh + cachedTrades)
+            .filter { it.transactionDate >= maxCacheIso }
             .distinctBy { "${it.chamber}|${it.filerName}|${it.ticker}|${it.transactionDate}|${it.amountRangeLabel}|${it.transactionType}|${it.filingDate}" }
             .sortedWith(compareByDescending<CongressTrade> { it.filingDate }.thenByDescending { it.transactionDate })
-        writeCache(merged, knownIds + newDocs)
-        return merged
+        writeCache(allToCache, knownIds + newDocs)
+        return allToCache.filter { it.transactionDate >= sinceIso }
     }
 }

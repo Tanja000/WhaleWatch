@@ -1,4 +1,4 @@
-package com.whaleradar.app.theme
+package com.whaleradar.theme
 
 import androidx.compose.ui.graphics.Color
 

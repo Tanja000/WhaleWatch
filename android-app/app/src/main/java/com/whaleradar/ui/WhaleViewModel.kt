@@ -1,10 +1,10 @@
-package com.whaleradar.app.ui
+package com.whaleradar.ui
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.whaleradar.app.data.WhaleRepository
-import com.whaleradar.app.data.model.*
+import com.whaleradar.data.WhaleRepository
+import com.whaleradar.data.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -63,6 +63,8 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     val radarData: StateFlow<RadarData> = repository.radarData
     val watchlist: StateFlow<Set<String>> = repository.watchlist
     val isLoading: StateFlow<Boolean> = repository.isLoading
+    val isProUnlocked: StateFlow<Boolean> = repository.isProUnlocked
+    val selectedTimeframe: StateFlow<DataTimeframe> = repository.selectedTimeframe
     val superSignals: StateFlow<List<SuperSignal>> = repository.superSignals
     val focusStocks: StateFlow<List<FocusStock>> = repository.focusStocks
     val partySentiment: StateFlow<PartySentimentData> = repository.partySentiment
@@ -202,6 +204,28 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
 
     fun toggleWatchlist(ticker: String) {
         repository.toggleWatchlist(ticker)
+    }
+
+    fun selectTimeframe(tf: DataTimeframe) {
+        if (tf.isProOnly && !repository.isProUnlocked.value) return
+        repository.selectTimeframe(tf)
+        val now = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+        _lastUpdatedTime.value = now
+        viewModelScope.launch {
+            repository.refreshLiveFromNetwork()
+            _lastUpdatedTime.value = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
+        }
+    }
+
+    fun unlockPro(planId: String = "yearly", targetTimeframe: DataTimeframe? = null) {
+        repository.unlockPro(planId)
+        if (targetTimeframe != null) {
+            selectTimeframe(targetTimeframe)
+        }
+    }
+
+    fun setProStatus(unlocked: Boolean) {
+        repository.setProStatus(unlocked)
     }
 
     fun refresh() {

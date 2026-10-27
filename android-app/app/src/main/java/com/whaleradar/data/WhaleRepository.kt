@@ -1,7 +1,7 @@
-package com.whaleradar.app.data
+package com.whaleradar.data
 
 import android.content.Context
-import com.whaleradar.app.data.model.*
+import com.whaleradar.data.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,6 +45,41 @@ class WhaleRepository(private val context: Context) {
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    private val _isProUnlocked = MutableStateFlow(prefs.getBoolean("is_pro_unlocked", false))
+    val isProUnlocked: StateFlow<Boolean> = _isProUnlocked.asStateFlow()
+
+    private val _selectedTimeframe = MutableStateFlow(loadInitialTimeframe())
+    val selectedTimeframe: StateFlow<DataTimeframe> = _selectedTimeframe.asStateFlow()
+
+    private fun loadInitialTimeframe(): DataTimeframe {
+        val unlocked = prefs.getBoolean("is_pro_unlocked", false)
+        val saved = DataTimeframe.fromId(prefs.getString("selected_timeframe_id", DataTimeframe.MONTH_1.id))
+        return if (!unlocked && saved.isProOnly) DataTimeframe.MONTH_1 else saved
+    }
+
+    fun unlockPro(planId: String = "yearly") {
+        _isProUnlocked.value = true
+        prefs.edit()
+            .putBoolean("is_pro_unlocked", true)
+            .putString("pro_plan_id", planId)
+            .apply()
+    }
+
+    fun setProStatus(unlocked: Boolean) {
+        _isProUnlocked.value = unlocked
+        prefs.edit().putBoolean("is_pro_unlocked", unlocked).apply()
+        if (!unlocked && _selectedTimeframe.value.isProOnly) {
+            selectTimeframe(DataTimeframe.MONTH_1)
+        }
+    }
+
+    fun selectTimeframe(tf: DataTimeframe) {
+        if (tf.isProOnly && !_isProUnlocked.value) return
+        _selectedTimeframe.value = tf
+        prefs.edit().putString("selected_timeframe_id", tf.id).apply()
+        loadData()
+    }
 
     init {
         loadData()
@@ -422,10 +457,17 @@ class WhaleRepository(private val context: Context) {
         return list
     }
 
-    /** Only the last 4 weeks (by transaction date) are kept. */
+    /** Cutoff date based on the currently selected timeframe (default 1 month, or PRO: 3m, 6m, 1y, 2y). */
     private fun congressCutoffIso(): String {
         val cal = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"))
-        cal.add(java.util.Calendar.DAY_OF_YEAR, -28)
+        cal.add(java.util.Calendar.DAY_OF_YEAR, -_selectedTimeframe.value.days)
+        return java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }.format(cal.time)
+    }
+
+    /** Max cache retention window (2 years = 730 days) so switching timeframes keeps cached filings. */
+    private fun maxCacheCutoffIso(): String {
+        val cal = java.util.Calendar.getInstance(java.util.TimeZone.getTimeZone("UTC"))
+        cal.add(java.util.Calendar.DAY_OF_YEAR, -730)
         return java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).apply { timeZone = java.util.TimeZone.getTimeZone("UTC") }.format(cal.time)
     }
 
@@ -529,7 +571,7 @@ class WhaleRepository(private val context: Context) {
 
         try {
             // 3. Official U.S. House (Clerk) + U.S. Senate (eFD) Periodic Transaction Reports
-            val liveCongress = congressLive.fetchAll()
+            val liveCongress = congressLive.fetchAll(_selectedTimeframe.value.days)
             if (liveCongress != null) {
                 applyCongress(liveCongress)
             }
@@ -790,10 +832,13 @@ class WhaleRepository(private val context: Context) {
 
         // 2. Primary Keyless Live API: Official SEC EDGAR EFTS Form 4 JSON Index + Direct Form 4 XML
         try {
+            val days = _selectedTimeframe.value.days
+            val maxFetch = if (days > 30) 75 else 40
+            val maxPerCompany = if (days > 30) 6 else 3
             val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
             val cal = java.util.Calendar.getInstance()
             val endDt = sdf.format(cal.time)
-            cal.add(java.util.Calendar.DAY_OF_MONTH, -28)
+            cal.add(java.util.Calendar.DAY_OF_MONTH, -days)
             val startDt = sdf.format(cal.time)
 
             val eftsUrl = java.net.URL("https://efts.sec.gov/LATEST/search-index?forms=4&startdt=$startDt&enddt=$endDt")
@@ -813,7 +858,7 @@ class WhaleRepository(private val context: Context) {
                 var fetchedCount = 0
 
                 for (i in 0 until hitsArr.length()) {
-                    if (fetchedCount >= 40) break
+                    if (fetchedCount >= maxFetch) break
                     val hit = hitsArr.getJSONObject(i)
                     val hitId = hit.optString("_id", "")
                     val idParts = hitId.split(":")
@@ -828,7 +873,7 @@ class WhaleRepository(private val context: Context) {
                     if (issuerCikInt.isEmpty()) continue
 
                     val curCnt = companyCounts[issuerCikRaw] ?: 0
-                    if (curCnt >= 3) continue
+                    if (curCnt >= maxPerCompany) continue
                     companyCounts[issuerCikRaw] = curCnt + 1
 
                     val adshNoHyphen = adsh.replace("-", "")
@@ -857,15 +902,15 @@ class WhaleRepository(private val context: Context) {
         }
 
         if (alerts.isNotEmpty()) {
-            // Merge with the previously cached live filings (rolling 28-day window) and cache the result
-            val cutoffSec = maxAgeCutoffIso()
+            // Merge with the previously cached live filings (up to 2-year cache retention) and cache the result
+            val cutoffCache = maxCacheCutoffIso()
             val previousAlerts = try {
                 val prev = prefs.getString("cached_live_sec_form4_v2", null)
                 if (!prev.isNullOrBlank()) parseSecJsonString(prev) else emptyList()
             } catch (_: Exception) { emptyList() }
 
             val merged = (alerts + previousAlerts)
-                .filter { isValidStockTicker(it.ticker, it.issuer) && it.filingDate.take(10) >= cutoffSec }
+                .filter { isValidStockTicker(it.ticker, it.issuer) && it.filingDate.take(10) >= cutoffCache }
                 .distinctBy { it.accessionNumber.ifBlank { "${it.ticker}_${it.reportingOwner}_${it.filingDate}_${it.shares}" } }
 
             val byTicker = merged.groupBy { it.ticker.uppercase() }
@@ -1192,8 +1237,8 @@ class WhaleRepository(private val context: Context) {
                 cotWhaleFlow = ref?.whaleChangeDesc ?: "-",
                 cotTimeframe = timeframe,
                 sector = "",
-                descriptionDe = "${names.size} Kongressmitglied(er) kauften $t (${c.amountRangeLabel}) und ${s.reportingOwner} (${s.role}) kaufte am offenen Markt: Kauf von Politikern und Insidern innerhalb von 28 Tagen.",
-                descriptionEn = "${names.size} member(s) of Congress bought $t (${c.amountRangeLabel}) and ${s.reportingOwner} (${s.role}) bought on the open market: purchases by politicians and insiders within 28 days."
+                descriptionDe = "${names.size} Kongressmitglied(er) kauften $t (${c.amountRangeLabel}) und ${s.reportingOwner} (${s.role}) kaufte am offenen Markt: Kauf von Politikern und Insidern im Zeitraum (${_selectedTimeframe.value.labelDe}).",
+                descriptionEn = "${names.size} member(s) of Congress bought $t (${c.amountRangeLabel}) and ${s.reportingOwner} (${s.role}) bought on the open market: purchases by politicians and insiders in the period (${_selectedTimeframe.value.labelEn})."
             )
         }.sortedBy { it.ticker }
     }

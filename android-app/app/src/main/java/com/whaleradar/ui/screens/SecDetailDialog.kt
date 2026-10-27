@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,12 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.whaleradar.app.data.model.SecAlert
-import com.whaleradar.app.data.model.SecCluster
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccentGlow
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.SecAlert
+import com.whaleradar.data.model.SecCluster
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccentGlow
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 /**
  * Explains Form 4 notations and codes so that retail investors understand what they mean
@@ -730,8 +730,8 @@ fun SecClusterDetailDialog(
                             .padding(horizontal = 4.dp)
                     ) {
                         Text(
-                            text = if (isEn) "Observation Window: 28-day rolling cluster detection window"
-                                   else "Cluster-Zeitspanne: 28-Tage-Clusterfenster (rollierend)",
+                            text = if (isEn) "Observation Window: Rolling cluster detection window"
+                                   else "Cluster-Zeitspanne: Rollierendes Clusterfenster des gewählten Zeitraums",
                             fontSize = 10.sp,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )

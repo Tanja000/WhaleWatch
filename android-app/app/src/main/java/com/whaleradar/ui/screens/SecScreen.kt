@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,12 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.whaleradar.app.data.model.SecAlert
-import com.whaleradar.app.data.model.SecCluster
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccentGlow
-import com.whaleradar.app.theme.GreenBuy
-import com.whaleradar.app.theme.RedSell
+import com.whaleradar.data.model.DataTimeframe
+import com.whaleradar.data.model.SecAlert
+import com.whaleradar.data.model.SecCluster
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccentGlow
+import com.whaleradar.theme.GreenBuy
+import com.whaleradar.theme.RedSell
 
 @Composable
 fun SecScreen(
@@ -34,6 +35,7 @@ fun SecScreen(
     onClusterClick: (SecCluster) -> Unit,
     onOpenAnalysis: (String) -> Unit = {},
     isEn: Boolean,
+    selectedTimeframe: DataTimeframe = DataTimeframe.MONTH_1,
     modifier: Modifier = Modifier
 ) {
     var secFilterMode by remember { mutableStateOf("all") } // "all" | "cluster"
@@ -192,8 +194,8 @@ fun SecScreen(
                     Text("⏱️", fontSize = 11.sp)
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = if (isEn) "Observation Window: Rolling last 28 days (Filings & Clusters)"
-                               else "Erfassungszeitraum: Letzte 28 Tage rollierend (Filings & Cluster)",
+                        text = if (isEn) "Observation Window: ${selectedTimeframe.periodEn} (Filings & Clusters)"
+                               else "Erfassungszeitraum: ${selectedTimeframe.periodDe} (Filings & Cluster)",
                         fontSize = 10.5.sp,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontWeight = FontWeight.Medium
@@ -224,7 +226,8 @@ fun SecScreen(
                     SecClusterCard(
                         cluster = cluster,
                         onClusterClick = { onClusterClick(cluster) },
-                        isEn = isEn
+                        isEn = isEn,
+                        selectedTimeframe = selectedTimeframe
                     )
                 }
             }
@@ -261,7 +264,8 @@ fun SecScreen(
 fun SecClusterCard(
     cluster: SecCluster,
     onClusterClick: () -> Unit,
-    isEn: Boolean
+    isEn: Boolean,
+    selectedTimeframe: DataTimeframe = DataTimeframe.MONTH_1
 ) {
     Card(
         modifier = Modifier
@@ -301,8 +305,8 @@ fun SecClusterCard(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = if (isEn) "⏱️ Period: 28-day cluster window (until ${cluster.filingDate.ifBlank { "-" }})"
-                           else "⏱️ Zeitraum: 28-Tage-Clusterfenster (bis ${cluster.filingDate.ifBlank { "-" }})",
+                    text = if (isEn) "⏱️ Period: ${selectedTimeframe.labelEn} cluster window (until ${cluster.filingDate.ifBlank { "-" }})"
+                           else "⏱️ Zeitraum: ${selectedTimeframe.labelDe}-Clusterfenster (bis ${cluster.filingDate.ifBlank { "-" }})",
                     fontSize = 10.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 3.dp)

@@ -1,4 +1,4 @@
-package com.whaleradar.app.ui.screens
+package com.whaleradar.ui.screens
 
 import android.content.Intent
 import android.net.Uri
@@ -22,9 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.whaleradar.app.theme.AmberWhale
-import com.whaleradar.app.theme.CyanAccent
-import com.whaleradar.app.theme.GreenBuy
+import com.whaleradar.theme.AmberWhale
+import com.whaleradar.theme.CyanAccent
+import com.whaleradar.theme.GreenBuy
 
 @Composable
 fun LegalDisclaimerDialog(

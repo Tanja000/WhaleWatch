@@ -1,4 +1,4 @@
-package com.whaleradar.app.data.model
+package com.whaleradar.data.model
 
 enum class TabScreen(val icon: String, val labelDe: String, val labelEn: String) {
     RADAR("📡", "Radar", "Radar"),
@@ -6,6 +6,79 @@ enum class TabScreen(val icon: String, val labelDe: String, val labelEn: String)
     CONGRESS("🏛️", "Kongress", "Congress"),
     SEC("🏢", "SEC Insider", "SEC Insiders"),
     WATCHLIST("⭐", "Watchlist", "Watchlist")
+}
+
+enum class DataTimeframe(
+    val id: String,
+    val days: Int,
+    val isProOnly: Boolean,
+    val labelDe: String,
+    val labelEn: String,
+    val periodDe: String,
+    val periodEn: String,
+    val shortDe: String,
+    val shortEn: String
+) {
+    MONTH_1(
+        id = "1m",
+        days = 30,
+        isProOnly = false,
+        labelDe = "1 Monat",
+        labelEn = "1 Month",
+        periodDe = "letzter 1 Monat (4 Wochen)",
+        periodEn = "last 1 month (4 weeks)",
+        shortDe = "1M",
+        shortEn = "1M"
+    ),
+    MONTHS_3(
+        id = "3m",
+        days = 90,
+        isProOnly = true,
+        labelDe = "3 Monate",
+        labelEn = "3 Months",
+        periodDe = "letzte 3 Monate",
+        periodEn = "last 3 months",
+        shortDe = "3M",
+        shortEn = "3M"
+    ),
+    MONTHS_6(
+        id = "6m",
+        days = 180,
+        isProOnly = true,
+        labelDe = "6 Monate",
+        labelEn = "6 Months",
+        periodDe = "letzte 6 Monate",
+        periodEn = "last 6 months",
+        shortDe = "6M",
+        shortEn = "6M"
+    ),
+    YEAR_1(
+        id = "1y",
+        days = 365,
+        isProOnly = true,
+        labelDe = "1 Jahr",
+        labelEn = "1 Year",
+        periodDe = "letztes 1 Jahr (12 Monate)",
+        periodEn = "last 1 year (12 months)",
+        shortDe = "1J",
+        shortEn = "1Y"
+    ),
+    YEARS_2(
+        id = "2y",
+        days = 730,
+        isProOnly = true,
+        labelDe = "2 Jahre",
+        labelEn = "2 Years",
+        periodDe = "letzte 2 Jahre (24 Monate)",
+        periodEn = "last 2 years (24 months)",
+        shortDe = "2J",
+        shortEn = "2Y"
+    );
+
+    companion object {
+        fun fromId(id: String?): DataTimeframe =
+            values().firstOrNull { it.id.equals(id, ignoreCase = true) } ?: MONTH_1
+    }
 }
 
 data class RadarData(
