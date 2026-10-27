@@ -443,6 +443,7 @@ fun WhaleRadarApp(
                     LegalDisclaimerDialog(
                         isEn = isEn,
                         isFirstLaunch = !hasAcceptedDisclaimer,
+                        onLanguageChange = { newLang -> viewModel.setLanguage(newLang) },
                         onAcceptOrDismiss = {
                             if (!hasAcceptedDisclaimer) {
                                 prefs.edit().putBoolean("legal_disclaimer_accepted_v1", true).apply()

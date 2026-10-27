@@ -11,7 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,9 +30,11 @@ import com.whaleradar.theme.GreenBuy
 fun LegalDisclaimerDialog(
     isEn: Boolean,
     isFirstLaunch: Boolean = false,
+    onLanguageChange: ((String) -> Unit)? = null,
     onAcceptOrDismiss: () -> Unit
 ) {
     val context = LocalContext.current
+    var currentIsEn by remember(isEn) { mutableStateOf(isEn) }
 
     fun openUrl(url: String) {
         try {
@@ -75,13 +77,13 @@ fun LegalDisclaimerDialog(
                         Spacer(modifier = Modifier.width(8.dp))
                         Column {
                             Text(
-                                text = if (isEn) "Legal Notice, Disclaimer & Privacy" else "Rechtliche Hinweise & Haftungsausschluss",
+                                text = if (currentIsEn) "Legal Notice & Disclaimer" else "Rechtliche Hinweise & Haftungsausschluss",
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                             Text(
-                                text = if (isEn) "No Financial Advice · Data Sources · Privacy Policy" else "Keine Anlageberatung · Quellen · Datenschutz",
+                                text = if (currentIsEn) "No Financial Advice · Sources · Privacy" else "Keine Anlageberatung · Quellen · Datenschutz",
                                 fontSize = 11.sp,
                                 color = AmberWhale,
                                 fontWeight = FontWeight.Bold
@@ -95,6 +97,77 @@ fun LegalDisclaimerDialog(
                                 contentDescription = "Close",
                                 tint = MaterialTheme.colorScheme.onSurfaceVariant
                             )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Prominent Language Selector Segment (🇩🇪 Deutsch | 🇬🇧 English)
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Surface(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable {
+                                    currentIsEn = false
+                                    onLanguageChange?.invoke("de")
+                                },
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (!currentIsEn) MaterialTheme.colorScheme.primary else Color.Transparent
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(vertical = 7.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("🇩🇪", fontSize = 14.sp)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "Deutsch",
+                                    fontSize = 12.sp,
+                                    fontWeight = if (!currentIsEn) FontWeight.ExtraBold else FontWeight.Medium,
+                                    color = if (!currentIsEn) Color.Black else MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Surface(
+                            modifier = Modifier
+                                .weight(1f)
+                                .clickable {
+                                    currentIsEn = true
+                                    onLanguageChange?.invoke("en")
+                                },
+                            shape = RoundedCornerShape(8.dp),
+                            color = if (currentIsEn) MaterialTheme.colorScheme.primary else Color.Transparent
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(vertical = 7.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text("🇬🇧", fontSize = 14.sp)
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = "English",
+                                    fontSize = 12.sp,
+                                    fontWeight = if (currentIsEn) FontWeight.ExtraBold else FontWeight.Medium,
+                                    color = if (currentIsEn) Color.Black else MaterialTheme.colorScheme.onSurface
+                                )
+                            }
                         }
                     }
                 }
@@ -114,9 +187,9 @@ fun LegalDisclaimerDialog(
                     // 1. Keine Anlageberatung / No Investment Advice
                     LegalSectionCard(
                         icon = "⚠️",
-                        title = if (isEn) "1. No Financial or Investment Advice" else "1. Keine Anlageberatung & Keine Kaufempfehlung",
+                        title = if (currentIsEn) "1. No Financial or Investment Advice" else "1. Keine Anlageberatung & Keine Kaufempfehlung",
                         borderColor = AmberWhale.copy(alpha = 0.45f),
-                        body = if (isEn) {
+                        body = if (currentIsEn) {
                             "All contents, signals, confluence indicators, CFTC COT market data, congressional disclosures, and SEC Form 4 insider filings provided in the 'WhaleRadar' app are strictly for general informational, educational, and journalistic research purposes only. Nothing in this app constitutes financial, investment, legal, or tax advice, nor does it represent a solicitation, recommendation, or endorsement to buy, hold, or sell any securities, futures, or financial instruments."
                         } else {
                             "Alle in der App „WhaleRadar“ bereitgestellten Inhalte, Auswertungen, Kombi-Signale, CFTC-COT-Marktdaten, Kongress-Transaktionen und SEC-Form-4-Meldungen dienen ausschließlich allgemeinen Informations-, Bildungs- und Recherchezwecken. Sie stellen ausdrücklich keine Anlageberatung, keine Finanzanalyse, keine Rechts- oder Steuerberatung und keine Aufforderung oder Empfehlung zum Kauf, Halten oder Verkauf von Aktien, Futures oder sonstigen Finanzinstrumenten (z. B. im Sinne des WpHG oder § 34f GewO) dar."
@@ -126,9 +199,9 @@ fun LegalDisclaimerDialog(
                     // 2. Risikohinweis / Risk Disclosure
                     LegalSectionCard(
                         icon = "📉",
-                        title = if (isEn) "2. Investment Risk Warning" else "2. Risikohinweis zum Wertpapierhandel",
+                        title = if (currentIsEn) "2. Investment Risk Warning" else "2. Risikohinweis zum Wertpapierhandel",
                         borderColor = MaterialTheme.colorScheme.outlineVariant,
-                        body = if (isEn) {
+                        body = if (currentIsEn) {
                             "Trading stocks, ETFs, futures, and other financial instruments involves substantial risk of loss and is not suitable for every investor. Past performance and historical transactions by institutional traders, politicians, or corporate insiders are not reliable indicators of future results. You are solely responsible for your own investment decisions."
                         } else {
                             "Der Handel mit Aktien, ETFs, Terminkontrakten (Futures) und anderen Finanzinstrumenten ist mit erheblichen finanziellen Risiken bis hin zum Totalverlust des eingesetzten Kapitals verbunden. Vergangene Kursentwicklungen sowie vergangene Käufe oder Verkäufe von Großspekulanten, Politikern oder Unternehmens-Insidern sind kein verlässlicher Indikator für zukünftige Wertentwicklungen. Jede Investitionsentscheidung erfolgt ausschließlich auf eigenes Risiko und in eigener Verantwortung des Nutzers."
@@ -144,7 +217,7 @@ fun LegalDisclaimerDialog(
                     ) {
                         Column(modifier = Modifier.padding(12.dp)) {
                             Text(
-                                text = if (isEn) "🏛️ 3. Government Non-Affiliation & Official Public Sources"
+                                text = if (currentIsEn) "🏛️ 3. Government Non-Affiliation & Official Public Sources"
                                        else "🏛️ 3. Keine Behörden-Zugehörigkeit & Offizielle Quellen",
                                 fontSize = 12.5.sp,
                                 fontWeight = FontWeight.ExtraBold,
@@ -152,7 +225,7 @@ fun LegalDisclaimerDialog(
                             )
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(
-                                text = if (isEn) {
+                                text = if (currentIsEn) {
                                     "WhaleRadar is an independent private financial information application. It is NOT affiliated with, endorsed by, sponsored by, or operated by the United States Government, the Commodity Futures Trading Commission (CFTC), the U.S. Securities and Exchange Commission (SEC), the U.S. Congress, or any other government agency. All regulatory data displayed in this app is retrieved from publicly accessible official US government disclosure portals:"
                                 } else {
                                     "WhaleRadar ist eine unabhängige, privat betriebene Informations-App. Sie steht in keinerlei offizieller Verbindung zur US-Regierung, der Commodity Futures Trading Commission (CFTC), der US-Börsenaufsicht SEC, dem US-Kongress oder sonstigen staatlichen Behörden und wird von diesen weder unterstützt noch betrieben. Alle dargestellten Melderegister-Daten stammen aus öffentlich zugänglichen Originalquellen der US-Behörden:"
@@ -187,9 +260,9 @@ fun LegalDisclaimerDialog(
                     // 4. Haftungsausschluss & Meldeverzug / Accuracy & Reporting Delays
                     LegalSectionCard(
                         icon = "⏱️",
-                        title = if (isEn) "4. Data Accuracy & Statutory Reporting Delays" else "4. Haftungsausschluss für Daten & Meldefristen",
+                        title = if (currentIsEn) "4. Data Accuracy & Statutory Reporting Delays" else "4. Haftungsausschluss für Daten & Meldefristen",
                         borderColor = MaterialTheme.colorScheme.outlineVariant,
-                        body = if (isEn) {
+                        body = if (currentIsEn) {
                             "While every effort is made to process public filings accurately, no warranty or liability is assumed for the completeness, accuracy, or timeliness of the information provided. Public disclosures are subject to statutory reporting lags: CFTC COT data is recorded on Tuesday and published on Friday; SEC Form 4 filings have a 2-business-day deadline; US Congress STOCK Act disclosures allow up to 45 days after a transaction."
                         } else {
                             "Trotz sorgfältiger Aufbereitung der öffentlichen Registerdaten wird keine Gewähr oder Haftung für die Richtigkeit, Vollständigkeit, Genauigkeit oder jederzeitige Aktualität der Daten übernommen. Gesetzliche Pflicht-Offenlegungen unterliegen behördlichen Meldefristen: CFTC-COT-Daten werden dienstags erhoben und freitags veröffentlicht; SEC-Form-4-Meldungen haben eine Frist von 2 Werktagen; Kongress-Meldungen nach dem STOCK Act dürfen bis zu 45 Tage nach einer Transaktion eingereicht werden."
@@ -199,9 +272,9 @@ fun LegalDisclaimerDialog(
                     // 5. Datenschutz / Privacy Policy (DSGVO / GDPR)
                     LegalSectionCard(
                         icon = "🔒",
-                        title = if (isEn) "5. Privacy Policy & Local Data Storage (GDPR)" else "5. Datenschutzerklärung & Lokale Speicherung (DSGVO)",
+                        title = if (currentIsEn) "5. Privacy Policy & Local Data Storage (GDPR)" else "5. Datenschutzerklärung & Lokale Speicherung (DSGVO)",
                         borderColor = GreenBuy.copy(alpha = 0.4f),
-                        body = if (isEn) {
+                        body = if (currentIsEn) {
                             "WhaleRadar respects your privacy: The app requires no user registration, collects no personal data, uses no advertising SDKs or analytics trackers, and does not share any user data with third parties. Your personal watchlist, theme preference, and language setting are stored exclusively locally on your device. When refreshing market data, your device connects directly via encrypted HTTPS to the public APIs of the respective data providers."
                         } else {
                             "WhaleRadar schützt deine Privatsphäre: Die App erfordert keine Registrierung, erhebt oder speichert keinerlei personenbezogene Daten, nutzt keine Werbe- oder Tracking-Dienste und gibt keine Nutzerdaten an Dritte weiter. Deine persönliche Watchlist sowie Design- und Spracheinstellungen werden ausschließlich lokal auf deinem eigenen Smartphone gespeichert. Beim Aktualisieren von Marktdaten stellt dein Gerät eine direkte, verschlüsselte HTTPS-Verbindung zu den öffentlichen Datenquellen her."
@@ -223,9 +296,9 @@ fun LegalDisclaimerDialog(
                 ) {
                     Text(
                         text = if (isFirstLaunch) {
-                            if (isEn) "I Understand & Accept (No Financial Advice)" else "Verstanden & Akzeptieren (Keine Anlageberatung)"
+                            if (currentIsEn) "I Understand & Accept (No Financial Advice)" else "Verstanden & Akzeptieren (Keine Anlageberatung)"
                         } else {
-                            if (isEn) "Close" else "Schließen"
+                            if (currentIsEn) "Close" else "Schließen"
                         },
                         fontSize = 12.5.sp,
                         fontWeight = FontWeight.ExtraBold

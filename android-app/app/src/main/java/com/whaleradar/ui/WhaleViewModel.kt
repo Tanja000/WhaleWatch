@@ -15,6 +15,8 @@ import kotlinx.coroutines.launch
 
 class WhaleViewModel(application: Application) : AndroidViewModel(application) {
 
+    private val prefs = application.getSharedPreferences("whaleradar_prefs", android.content.Context.MODE_PRIVATE)
+
     val repository = WhaleRepository(application)
 
     private val _activeTab = MutableStateFlow(TabScreen.RADAR)
@@ -23,7 +25,10 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     private val _isDarkTheme = MutableStateFlow(true)
     val isDarkTheme: StateFlow<Boolean> = _isDarkTheme.asStateFlow()
 
-    private val _language = MutableStateFlow("de")
+    private val _language = MutableStateFlow(
+        prefs.getString("app_language", null)
+            ?: if (java.util.Locale.getDefault().language.equals("en", ignoreCase = true)) "en" else "de"
+    )
     val language: StateFlow<String> = _language.asStateFlow()
 
     private val _cotCategory = MutableStateFlow("all")
@@ -150,8 +155,15 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         _isDarkTheme.value = !_isDarkTheme.value
     }
 
+    fun setLanguage(lang: String) {
+        val clean = if (lang.equals("en", ignoreCase = true)) "en" else "de"
+        _language.value = clean
+        prefs.edit().putString("app_language", clean).apply()
+    }
+
     fun toggleLanguage() {
-        _language.value = if (_language.value == "de") "en" else "de"
+        val next = if (_language.value == "de") "en" else "de"
+        setLanguage(next)
     }
 
     fun setCotCategory(cat: String) {
