@@ -100,8 +100,9 @@ class BillingManager(
             .setProductList(subProductList)
             .build()
 
-        billingClient.queryProductDetailsAsync(subParams) { result, detailsList ->
+        billingClient.queryProductDetailsAsync(subParams) { result, detailsResult ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                val detailsList = detailsResult.productDetailsList
                 val current = _productDetailsMap.value.toMutableMap()
                 detailsList.forEach { details ->
                     current[details.productId] = details
@@ -122,8 +123,9 @@ class BillingManager(
             .setProductList(inAppProductList)
             .build()
 
-        billingClient.queryProductDetailsAsync(inAppParams) { result, detailsList ->
+        billingClient.queryProductDetailsAsync(inAppParams) { result, detailsResult ->
             if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                val detailsList = detailsResult.productDetailsList
                 val current = _productDetailsMap.value.toMutableMap()
                 detailsList.forEach { details ->
                     current[details.productId] = details

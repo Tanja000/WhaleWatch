@@ -12,8 +12,8 @@ android {
         applicationId = "com.whaleradar"
         minSdk = 24
         targetSdk = 36
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = 3
+        versionName = "1.2.0"
     }
 
     signingConfigs {
@@ -31,8 +31,11 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("release")
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
     }
     compileOptions {
@@ -63,7 +66,7 @@ dependencies {
   androidTestImplementation(composeBom)
 
   // Official Google Play Billing for in-app purchases & subscriptions
-  implementation("com.android.billingclient:billing-ktx:7.1.1")
+  implementation("com.android.billingclient:billing-ktx:8.0.0")
 
   // PDF text extraction for official U.S. House Clerk Periodic Transaction Reports
   implementation("com.tom-roush:pdfbox-android:2.0.27.0")
