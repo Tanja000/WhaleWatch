@@ -77,6 +77,7 @@ fun WhaleRadarApp(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             containerColor = MaterialTheme.colorScheme.background,
+            contentWindowInsets = WindowInsets.safeDrawing,
             topBar = {
                 TopAppBar(
                     title = {
@@ -217,6 +218,7 @@ fun WhaleRadarApp(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
+                    .consumeWindowInsets(innerPadding)
             ) {
                 Column(modifier = Modifier.fillMaxSize()) {
                     TimeframeSelectorBar(
