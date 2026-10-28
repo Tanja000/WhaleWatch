@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung / Privacy Policy – WhaleRadar</title>
+    <meta name="description" content="Offizielle Datenschutzerklärung für die Android-App WhaleRadar (com.whaleradar) gemäß DSGVO / GDPR und Google Play Richtlinien.">
+    <meta name="robots" content="index, follow">
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --surface-color: #161b22;
+            --border-color: #30363d;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --accent-color: #38bdf8;
+            --accent-gold: #f59e0b;
+            --accent-green: #10b981;
+            --tag-bg: rgba(56, 189, 248, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.65;
+            padding: 0;
+            margin: 0;
+        }
+
+        header {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #0ea5e9, #38bdf8);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+            background: var(--bg-color);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--accent-color);
+            color: #04101c;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto 80px auto;
+            padding: 0 24px;
+        }
+
+        .badge-box {
+            display: inline-flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            background: var(--tag-bg);
+            color: var(--accent-color);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .title-section {
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+        }
+
+        .title-section h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+
+        .meta-info {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: var(--accent-color);
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h4 {
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin: 16px 0 8px 0;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: #c9d1d9;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 16px;
+            color: #c9d1d9;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text-primary);
+        }
+
+        .highlight-box {
+            background: rgba(245, 158, 11, 0.08);
+            border-left: 4px solid var(--accent-gold);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        .success-box {
+            background: rgba(16, 185, 129, 0.08);
+            border-left: 4px solid var(--accent-green);
+            padding: 14px 18px;
+            border-radius: 0 8px 8px 0;
+            margin: 16px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--surface-color);
+            padding: 30px 24px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="#" class="brand">
+            <div class="brand-icon">🐋</div>
+            <div class="brand-text">
+                <h1>WhaleRadar</h1>
+                <span>com.whaleradar</span>
+            </div>
+        </a>
+        <div class="lang-switch">
+            <button class="lang-btn active" id="btn-de" onclick="switchLang('de')">🇩🇪 Deutsch</button>
+            <button class="lang-btn" id="btn-en" onclick="switchLang('en')">🇬🇧 English</button>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- ==================== DEUTSCH ==================== -->
+    <div id="content-de" class="lang-content active">
+        <div class="title-section">
+            <div class="badge-box">
+                <span class="badge">Google Play Richtlinien</span>
+                <span class="badge">DSGVO / GDPR</span>
+                <span class="badge">App-ID: com.whaleradar</span>
+            </div>
+            <h2>Datenschutzerklärung</h2>
+            <p class="meta-info">Stand: 28. Oktober 2026 • Gilt für die Android-App <strong>WhaleRadar</strong></p>
+        </div>
+
+        <div class="success-box">
+            <strong>Datenschutz auf einen Blick:</strong> WhaleRadar ist nach dem Prinzip der Datensparsamkeit konzipiert. Die App erfordert <strong>keine Registrierung</strong>, speichert <strong>keine personenbezogenen Daten</strong> auf eigenen Servern, bindet <strong>keine Werbenetzwerke</strong> ein und verkauft oder teilt zu keinem Zeitpunkt Nutzerdaten mit Dritten.
+        </div>
+
+        <!-- 1. Verantwortlicher -->
+        <div class="card">
+            <h3>1. Verantwortlicher und Kontakt</h3>
+            <p>Verantwortlicher für die Datenverarbeitung im Sinne der Datenschutz-Grundverordnung (DSGVO) und anderer nationaler Datenschutzgesetze ist der Entwickler und Betreiber der mobilen Anwendung <strong>WhaleRadar</strong>:</p>
+            <ul>
+                <li><strong>App-Name:</strong> WhaleRadar</li>
+                <li><strong>Paket-Name (Application ID):</strong> <code>com.whaleradar</code></li>
+                <li><strong>E-Mail-Kontakt für Datenschutzfragen:</strong> <a href="mailto:support@whaleradar.app">support@whaleradar.app</a></li>
+            </ul>
+        </div>
+
+        <!-- 2. Erhebung & Speicherung -->
+        <div class="card">
+            <h3>2. Welche Daten werden erhoben und wie werden sie verwendet?</h3>
+            
+            <h4>a) Keine Erhebung personenbezogener Profildaten</h4>
+            <p>Zur Nutzung von WhaleRadar ist kein Benutzerkonto erforderlich. Wir erheben, verarbeiten und speichern keine Identitätsdaten wie Name, Postanschrift, Telefonnummer, Kontakte, Fotos oder genaue Standortdaten.</p>
+
+            <h4>b) Lokale Einstellungen auf Ihrem Endgerät (SharedPreferences)</h4>
+            <p>Die folgenden Daten werden ausschließlich lokal im geschützten Speicherbereich (Android Sandbox) Ihres Smartphones oder Tablets gespeichert:</p>
+            <ul>
+                <li>Ihre persönliche <strong>Watchlist</strong> (gespeicherte Aktiensymbole wie z. B. AAPL, NVDA).</li>
+                <li>Der gewählte <strong>Zeitraum</strong> für Marktanalysen (z. B. 1 Monat, 3 Monate, 6 Monate, 1 Jahr, 2 Jahre).</li>
+                <li>Die gewählte <strong>App-Sprache</strong> (Deutsch oder Englisch) und das Anzeige-Design (Dark/Light).</li>
+                <li>Der Status der <strong>PRO-Freischaltung</strong> (z. B. aktives Abonnement oder Lifetime-Lizenz).</li>
+                <li>Die Bestätigung des <strong>Rechtlichen Hinweises / Disclaimers</strong>.</li>
+            </ul>
+            <p>Diese Einstellungen verbleiben jederzeit ausschließlich auf Ihrem Gerät und werden zu keinem Zeitpunkt an Entwickler-Server übertragen.</p>
+
+            <h4>c) Notwendige Berechtigungen</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Berechtigung</th>
+                        <th>Zweck</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>android.permission.INTERNET</code></td>
+                        <td>Erforderlich, um aktuelle regulatorische Marktdaten von offiziellen Behördenseiten abzurufen und Google Play In-App-Abrechnungen durchzuführen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>android.permission.ACCESS_NETWORK_STATE</code></td>
+                        <td>Prüft, ob eine aktive Internetverbindung besteht, um Fehler bei Netzwerkabfragen benutzerfreundlich anzuzeigen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>com.android.vending.BILLING</code></td>
+                        <td>Ermöglicht die sichere Durchführung und Verwaltung von In-App-Käufen und PRO-Abonnements über das offizielle Google Play Bezahlsystem.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. Drittanbieter & externe Schnittstellen -->
+        <div class="card">
+            <h3>3. Einbindung von Drittanbietern und Datenweitergabe</h3>
+            <p>WhaleRadar bindet ausschließlich notwendige Drittanbieter-Schnittstellen ein:</p>
+
+            <h4>a) Google Play In-App Billing (Google LLC)</h4>
+            <p>Wenn Sie ein WhaleRadar PRO-Abonnement oder einen Einmalkauf (Lifetime) tätigen, wird der Bezahlvorgang über die <strong>Google Play Billing Library (v8)</strong> abgewickelt. Der Vertragspartner für Zahlungen ist die <strong>Google LLC</strong> (1600 Amphitheatre Parkway, Mountain View, CA 94043, USA).</p>
+            <ul>
+                <li>Google verarbeitet Ihre Zahlungsdaten (z. B. Kreditkarte, PayPal, Bankkonto) gemäß den <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzbestimmungen</a>.</li>
+                <li>Wir als Entwickler von WhaleRadar haben <strong>zu keinem Zeitpunkt Zugriff auf Ihre Zahlungs- oder Bankdaten</strong>. Die App erhält von Google lediglich ein anonymes Bestätigungstoken (Purchase Token) zur lokalen Freischaltung der PRO-Funktionen.</li>
+            </ul>
+
+            <h4>b) Direkte Abfrage öffentlicher Behörden-Schnittstellen</h4>
+            <p>WhaleRadar aggregiert öffentlich zugängliche Finanz- und Insider-Meldungen direkt von den offiziellen Quellen. Beim Aktualisieren der Daten baut die App eine verschlüsselte HTTPS-Verbindung zu den folgenden Servern auf:</p>
+            <ul>
+                <li><strong>U.S. Securities and Exchange Commission (SEC EDGAR):</strong> Offizielle Form 4 Insider-Transaktionen (sec.gov / efts.sec.gov).</li>
+                <li><strong>U.S. House of Representatives (Clerk of the House) & U.S. Senate (eFD):</strong> Veröffentlichte STOCK Act Periodic Transaction Reports (disclosures-clerk.house.gov / efdsearch.senate.gov).</li>
+                <li><strong>Commodity Futures Trading Commission (CFTC):</strong> Wöchentliche Commitments of Traders (COT) Berichte (cftc.gov / futuresbench.com).</li>
+            </ul>
+            <p>Bei diesen HTTP-Anfragen übermittelt Ihr Gerät technisch bedingt die IP-Adresse und einen Standard-User-Agent-Header an die jeweiligen Server der Behörden. Es werden keine Nutzerprofile oder personenbezogene Identifikatoren übermittelt.</p>
+
+            <h4>c) Keine Werbung und kein Tracking</h4>
+            <div class="highlight-box">
+                WhaleRadar verwendet <strong>keine Werbenetzwerke</strong> (wie Google AdMob, Unity Ads etc.), <strong>keine Tracking-SDKs</strong> (wie Facebook SDK, AppsFlyer) und <strong>keine Drittanbieter-Analysewerkzeuge</strong>. Wir verkaufen, vermieten oder handeln niemals mit Ihren Daten.
+            </div>
+        </div>
+
+        <!-- 4. Rechte der Nutzer -->
+        <div class="card">
+            <h3>4. Ihre Rechte nach der DSGVO / GDPR</h3>
+            <p>Ihnen stehen gemäß der europäischen Datenschutz-Grundverordnung die folgenden Rechte zu:</p>
+            <ul>
+                <li><strong>Recht auf Auskunft (Art. 15 DSGVO):</strong> Sie können Auskunft über eventuell verarbeitete Daten verlangen. Da wir keine Daten auf externen Servern speichern, liegen alle verarbeiteten Daten direkt auf Ihrem Gerät vor.</li>
+                <li><strong>Recht auf Löschung (Art. 17 DSGVO):</strong> Sie können sämtliche in der App gespeicherten Daten (Watchlist, Einstellungen, Cache) jederzeit sofort und vollständig löschen, indem Sie in den Android-Einstellungen der App auf <em>„Speicherinhalt löschen“</em> tippen oder die App deinstallieren.</li>
+                <li><strong>Recht auf Widerruf und Beschwerde:</strong> Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde über die Verarbeitung personenbezogener Daten zu beschweren.</li>
+            </ul>
+        </div>
+
+        <!-- 5. Datensicherheit & Speicherdauer -->
+        <div class="card">
+            <h3>5. Datensicherheit und Speicherdauer</h3>
+            <p>Da keine personenbezogenen Daten auf externen Servern von WhaleRadar verarbeitet werden, besteht kein Risiko von zentralen Server-Datenlecks. Alle lokalen Daten auf Ihrem Endgerät sind durch die Sicherheitsarchitektur des Android-Betriebssystems geschützt. Mit der Deinstallation der App werden alle lokal gespeicherten App-Daten unwiderruflich von Ihrem Gerät gelöscht.</p>
+        </div>
+
+        <!-- 6. Minderjährigenschutz -->
+        <div class="card">
+            <h3>6. Schutz von Minderjährigen</h3>
+            <p>WhaleRadar richtet sich an mündige Anleger und Marktbeobachter und richtet sich nicht an Kinder unter 16 Jahren. Wir erheben wissentlich keine Daten von Kindern.</p>
+        </div>
+
+        <!-- 7. Finanzrechtlicher Hinweis -->
+        <div class="card">
+            <h3>7. Finanz- und Haftungsausschluss</h3>
+            <p>WhaleRadar stellt ausschließlich öffentlich zugängliche Primärdaten (SEC, CFTC, Kongress) zu Informations- und Recherche-Zwecken dar. Alle Inhalte stellen zu keinem Zeitpunkt eine Anlageberatung, Kaufempfehlung oder Aufforderung zum Handeln mit Wertpapieren dar.</p>
+        </div>
+    </div>
+
+    <!-- ==================== ENGLISH ==================== -->
+    <div id="content-en" class="lang-content">
+        <div class="title-section">
+            <div class="badge-box">
+                <span class="badge">Google Play Policy</span>
+                <span class="badge">GDPR / CCPA Compliant</span>
+                <span class="badge">App ID: com.whaleradar</span>
+            </div>
+            <h2>Privacy Policy</h2>
+            <p class="meta-info">Last Updated: October 28, 2026 • Applies to the Android Application <strong>WhaleRadar</strong></p>
+        </div>
+
+        <div class="success-box">
+            <strong>Privacy Summary:</strong> WhaleRadar is designed with strict data minimization principles. The application requires <strong>no user registration</strong>, stores <strong>no personal data on remote servers</strong>, contains <strong>no advertising SDKs</strong>, and never sells, rents, or shares user data with third parties.
+        </div>
+
+        <!-- 1. Controller -->
+        <div class="card">
+            <h3>1. Data Controller and Contact Information</h3>
+            <p>The entity responsible for data processing within the scope of global privacy regulations (including GDPR and CCPA) is the developer and operator of the mobile application <strong>WhaleRadar</strong>:</p>
+            <ul>
+                <li><strong>Application Name:</strong> WhaleRadar</li>
+                <li><strong>Application Package ID:</strong> <code>com.whaleradar</code></li>
+                <li><strong>Privacy Contact Email:</strong> <a href="mailto:support@whaleradar.app">support@whaleradar.app</a></li>
+            </ul>
+        </div>
+
+        <!-- 2. Data Collection -->
+        <div class="card">
+            <h3>2. What Data Is Collected and How It Is Used</h3>
+            
+            <h4>a) No Personally Identifiable Information (PII)</h4>
+            <p>No user account is required to use WhaleRadar. We do not collect, process, or store personal identifiers such as your name, residential address, telephone number, contacts, media files, or precise GPS location.</p>
+
+            <h4>b) Local Device Storage (Android SharedPreferences)</h4>
+            <p>The following configuration data is stored strictly locally inside the protected sandbox storage of your Android device:</p>
+            <ul>
+                <li>Your personal <strong>watchlist</strong> (tracked stock tickers such as AAPL, NVDA).</li>
+                <li>Selected <strong>analysis timeframe</strong> (e.g., 1 Month, 3 Months, 6 Months, 1 Year, 2 Years).</li>
+                <li>User interface preferences (Language: German or English; Dark / Light theme).</li>
+                <li>Local <strong>PRO status</strong> (indicating whether a subscription or lifetime purchase is active).</li>
+                <li>Acknowledgement timestamp of the legal disclaimer.</li>
+            </ul>
+            <p>These settings never leave your device and are never uploaded to developer servers.</p>
+
+            <h4>c) Required Android Permissions</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Operational Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>android.permission.INTERNET</code></td>
+                        <td>Required to download public statutory regulatory market reports and securely interact with the Google Play Billing API.</td>
+                    </tr>
+                    <tr>
+                        <td><code>android.permission.ACCESS_NETWORK_STATE</code></td>
+                        <td>Allows the app to verify whether active network connectivity exists, enabling clear offline indicators.</td>
+                    </tr>
+                    <tr>
+                        <td><code>com.android.vending.BILLING</code></td>
+                        <td>Enables safe, official Google Play In-App Purchase and Subscription processing.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 3. Third-Party Services -->
+        <div class="card">
+            <h3>3. Third-Party Services and Data Sharing</h3>
+            <p>WhaleRadar interacts exclusively with the following necessary service providers:</p>
+
+            <h4>a) Google Play Billing (Google LLC)</h4>
+            <p>When you purchase a WhaleRadar PRO subscription or one-time lifetime license, the financial transaction is handled entirely by <strong>Google LLC</strong> (1600 Amphitheatre Parkway, Mountain View, CA 94043, USA) via the official Google Play Billing Library (v8).</p>
+            <ul>
+                <li>Payment details (credit card, bank account, PayPal) are processed exclusively by Google under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
+                <li>The developer of WhaleRadar <strong>never sees, handles, or stores your financial or payment details</strong>. The application receives only an encrypted, anonymous purchase token to unlock PRO features locally.</li>
+            </ul>
+
+            <h4>b) Direct Public Regulatory Data Feeds</h4>
+            <p>WhaleRadar aggregates publicly disclosed financial transparency filings directly from public institutions via encrypted HTTPS connections:</p>
+            <ul>
+                <li><strong>U.S. Securities and Exchange Commission (SEC EDGAR):</strong> Official Form 4 insider transaction reports (sec.gov / efts.sec.gov).</li>
+                <li><strong>U.S. Congress (Clerk of the House & Senate Office of Public Records):</strong> Public STOCK Act periodic transaction reports (disclosures-clerk.house.gov / efdsearch.senate.gov).</li>
+                <li><strong>Commodity Futures Trading Commission (CFTC):</strong> Public weekly Commitments of Traders (COT) reports (cftc.gov / futuresbench.com).</li>
+            </ul>
+            <p>During these direct network calls, standard network headers (such as device IP address and app User-Agent) are transmitted to the regulatory web servers solely to fulfill the HTTP transmission, as is standard across all internet traffic.</p>
+
+            <h4>c) No Advertising, No Third-Party Tracking</h4>
+            <div class="highlight-box">
+                WhaleRadar contains <strong>NO third-party advertising networks</strong> (such as Google AdMob or Unity Ads), <strong>NO behavioral tracking SDKs</strong> (such as Facebook SDK or AppsFlyer), and <strong>NO data brokers</strong>. We never sell, lease, or monetize user data.
+            </div>
+        </div>
+
+        <!-- 4. User Rights -->
+        <div class="card">
+            <h3>4. Your Rights Under GDPR & CCPA</h3>
+            <p>Under international privacy regulations (such as EU GDPR and California CCPA), you hold the following rights:</p>
+            <ul>
+                <li><strong>Right of Access & Portability:</strong> All processed data resides solely on your device and can be viewed directly within the app.</li>
+                <li><strong>Right to Erasure (Right to be Forgotten):</strong> You can completely erase all local watchlist data and preferences at any time by clearing the application storage via Android Settings or by uninstalling the application.</li>
+                <li><strong>Right to Lodge a Complaint:</strong> You have the right to lodge a complaint with your local data protection supervisory authority.</li>
+            </ul>
+        </div>
+
+        <!-- 5. Security & Retention -->
+        <div class="card">
+            <h3>5. Data Security and Retention</h3>
+            <p>Because WhaleRadar does not store personal information on remote servers, your data is immune to remote server breaches. Local preferences are protected within Android's sandboxed file storage and are permanently deleted whenever the app is uninstalled.</p>
+        </div>
+
+        <!-- 6. Children's Privacy -->
+        <div class="card">
+            <h3>6. Children's Privacy</h3>
+            <p>WhaleRadar provides financial research tools intended for adult investors and is not directed at children under the age of 13 (or under 16 in the European Union). We do not knowingly collect information from children.</p>
+        </div>
+
+        <!-- 7. Disclaimer -->
+        <div class="card">
+            <h3>7. Financial and Legal Disclaimer</h3>
+            <p>WhaleRadar visualizes public regulatory disclosures for informational and analytical purposes only. None of the information presented constitutes investment advice, financial consultation, or a solicitation to buy or sell securities.</p>
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 WhaleRadar (com.whaleradar) • All rights reserved.</p>
+    <p style="margin-top: 6px;">Questions regarding privacy? Contact us at <a href="mailto:support@whaleradar.app">support@whaleradar.app</a></p>
+</footer>
+
+<script>
+    function switchLang(lang) {
+        document.getElementById('content-de').classList.remove('active');
+        document.getElementById('content-en').classList.remove('active');
+        document.getElementById('btn-de').classList.remove('active');
+        document.getElementById('btn-en').classList.remove('active');
+
+        if (lang === 'en') {
+            document.getElementById('content-en').classList.add('active');
+            document.getElementById('btn-en').classList.add('active');
+            document.documentElement.lang = 'en';
+        } else {
+            document.getElementById('content-de').classList.add('active');
+            document.getElementById('btn-de').classList.add('active');
+            document.documentElement.lang = 'de';
+        }
+    }
+
+    // Auto-detect browser language on initial load
+    (function() {
+        const userLang = navigator.language || navigator.userLanguage;
+        if (userLang && userLang.toLowerCase().startsWith('en')) {
+            switchLang('en');
+        } else {
+            switchLang('de');
+        }
+    })();
+</script>
+
+</body>
+</html>
