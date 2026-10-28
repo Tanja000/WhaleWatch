@@ -1,9 +1,11 @@
 package com.whaleradar.ui
 
+import android.app.Activity
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.whaleradar.data.WhaleRepository
+import com.whaleradar.data.billing.BillingManager
 import com.whaleradar.data.model.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -18,6 +20,14 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences("whaleradar_prefs", android.content.Context.MODE_PRIVATE)
 
     val repository = WhaleRepository(application)
+
+    val billingManager = BillingManager(application, viewModelScope) { isPro, planId ->
+        if (isPro) {
+            repository.unlockPro(planId ?: "yearly")
+        } else {
+            repository.setProStatus(false)
+        }
+    }
 
     private val _activeTab = MutableStateFlow(TabScreen.RADAR)
     val activeTab: StateFlow<TabScreen> = _activeTab.asStateFlow()
@@ -59,6 +69,7 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
     val selectedAnalysisTicker: StateFlow<String?> = _selectedAnalysisTicker.asStateFlow()
 
     init {
+        billingManager.startConnection()
         viewModelScope.launch {
             repository.refreshLiveFromNetwork()
             _lastUpdatedTime.value = java.text.SimpleDateFormat("dd.MM.yyyy, HH:mm 'Uhr'", java.util.Locale.GERMANY).format(java.util.Date())
@@ -236,6 +247,23 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun launchPurchaseFlow(
+        activity: Activity,
+        planId: String,
+        targetTimeframe: DataTimeframe? = null,
+        onFailure: ((String) -> Unit)? = null
+    ) {
+        billingManager.launchPurchaseFlow(activity, planId) { errorMsg ->
+            onFailure?.invoke(errorMsg)
+        }
+    }
+
+    fun restorePurchases(onComplete: ((Boolean) -> Unit)? = null) {
+        billingManager.queryPurchases { hasActive ->
+            onComplete?.invoke(hasActive)
+        }
+    }
+
     fun setProStatus(unlocked: Boolean) {
         repository.setProStatus(unlocked)
     }
@@ -247,5 +275,10 @@ class WhaleViewModel(application: Application) : AndroidViewModel(application) {
             repository.loadData()
             repository.refreshLiveFromNetwork()
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        billingManager.endConnection()
     }
 }

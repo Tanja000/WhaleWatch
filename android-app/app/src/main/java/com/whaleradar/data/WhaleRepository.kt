@@ -2,6 +2,9 @@ package com.whaleradar.data
 
 import android.content.Context
 import com.whaleradar.data.model.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -545,39 +548,60 @@ class WhaleRepository(private val context: Context) {
             sentimentDriftEn = driftEn
         )
     }
-    suspend fun refreshLiveFromNetwork() = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+    suspend fun refreshLiveFromNetwork() = withContext(Dispatchers.IO) {
         _isLoading.value = true
-        try {
-            // 1. Live FuturesBench COT API (https://futuresbench.com/api/v1/latest.json) + CFTC Legacy Futures-Only (6dca-aqww)
-            fetchLiveCftcCot()?.let { liveMarkets ->
-                if (liveMarkets.isNotEmpty()) applyCot(liveMarkets)
+
+        val cotDeferred = async<List<CotMarket>?> {
+            try {
+                // 1. Live FuturesBench COT API + CFTC Legacy Futures-Only
+                fetchLiveCftcCot()
+            } catch (e: Exception) {
+                android.util.Log.w("WhaleRepo", "Live FuturesBench COT fetch failed, keeping cached data", e)
+                null
             }
-            // always prune data that became older than 28 days
-            applyCot(_cotMarkets.value)
-        } catch (e: Exception) {
-            android.util.Log.w("WhaleRepo", "Live FuturesBench COT fetch failed, keeping cached data", e)
         }
 
-        try {
-            // 2. Live SEC Form 4 API (Massive Form 4 OpenAPI + SEC EDGAR EFTS Form 4 JSON API + XML)
-            val liveSec = fetchLiveSecForm4Alerts()
+        val secDeferred = async<List<SecAlert>> {
+            try {
+                // 2. Live SEC Form 4 API
+                fetchLiveSecForm4Alerts()
+            } catch (e: Exception) {
+                android.util.Log.w("WhaleRepo", "Live SEC fetch failed, keeping cached data", e)
+                emptyList<SecAlert>()
+            }
+        }
+
+        val congressDeferred = async<List<CongressTrade>?> {
+            try {
+                // 3. Official U.S. House (Clerk) + U.S. Senate (eFD) Periodic Transaction Reports
+                congressLive.fetchAll(_selectedTimeframe.value.days)
+            } catch (e: Exception) {
+                android.util.Log.w("WhaleRepo", "Live Congress fetch fallback to cached data", e)
+                null
+            }
+        }
+
+        // Wait for all 3 data sources in parallel
+        val liveMarkets = cotDeferred.await()
+        val liveSec = secDeferred.await()
+        val liveCongress = congressDeferred.await()
+
+        liveMarkets?.let {
+            if (it.isNotEmpty()) applyCot(it)
+        }
+        applyCot(_cotMarkets.value)
+
+        if (liveSec.isNotEmpty()) {
             val existingClusters = _secClusters.value.flatMap { it.filings }
             val mergedAll = (liveSec + _secAlerts.value + existingClusters)
                 .filter { isValidStockTicker(it.ticker, it.issuer) }
             applySecAlertsAndClusters(mergedAll)
-        } catch (e: Exception) {
-            android.util.Log.w("WhaleRepo", "Live SEC fetch failed, keeping cached data", e)
         }
 
-        try {
-            // 3. Official U.S. House (Clerk) + U.S. Senate (eFD) Periodic Transaction Reports
-            val liveCongress = congressLive.fetchAll(_selectedTimeframe.value.days)
-            if (liveCongress != null) {
-                applyCongress(liveCongress)
-            }
-        } catch (e: Exception) {
-            android.util.Log.w("WhaleRepo", "Live Congress fetch fallback to cached data", e)
+        if (liveCongress != null) {
+            applyCongress(liveCongress)
         }
+
         // Recalculate 3-Source Confluence Signals with latest live data
         _superSignals.value = calculateSuperSignals()
         _focusStocks.value = calculateFocusStocks()
@@ -855,10 +879,11 @@ class WhaleRepository(private val context: Context) {
                 val hitsArr = eftsJson.optJSONObject("hits")?.optJSONArray("hits") ?: JSONArray()
 
                 val companyCounts = mutableMapOf<String, Int>()
-                var fetchedCount = 0
+                data class SecDownloadCandidate(val adsh: String, val xmlUrl: String, val indexUrl: String, val fDate: String)
+                val candidates = mutableListOf<SecDownloadCandidate>()
 
                 for (i in 0 until hitsArr.length()) {
-                    if (fetchedCount >= maxFetch) break
+                    if (candidates.size >= maxFetch) break
                     val hit = hitsArr.getJSONObject(i)
                     val hitId = hit.optString("_id", "")
                     val idParts = hitId.split(":")
@@ -881,20 +906,35 @@ class WhaleRepository(private val context: Context) {
                     val indexUrl = "https://www.sec.gov/Archives/edgar/data/$issuerCikInt/$adshNoHyphen/$adsh-index.htm"
                     val fDate = src.optString("file_date", endDt).take(10)
 
-                    try {
-                        val xmlConn = (java.net.URL(rawXmlUrl).openConnection() as java.net.HttpURLConnection).apply {
-                            requestMethod = "GET"
-                            connectTimeout = 4000
-                            readTimeout = 4000
-                            setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
-                        }
-                        if (xmlConn.responseCode != 200) continue
-                        val form4Xml = xmlConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                    candidates.add(SecDownloadCandidate(adsh, rawXmlUrl, indexUrl, fDate))
+                }
 
-                        val parsedAlert = parseForm4XmlToSecAlert(form4Xml, adsh, fDate, indexUrl) ?: continue
-                        alerts.add(parsedAlert)
-                        fetchedCount++
-                    } catch (_: Exception) {}
+                // Concurrently download and parse Form 4 XML filings (up to 6 parallel workers)
+                if (candidates.isNotEmpty()) {
+                    val pool = java.util.concurrent.Executors.newFixedThreadPool(6)
+                    try {
+                        val futures = candidates.map { c ->
+                            pool.submit(java.util.concurrent.Callable {
+                                try {
+                                    val xmlConn = (java.net.URL(c.xmlUrl).openConnection() as java.net.HttpURLConnection).apply {
+                                        requestMethod = "GET"
+                                        connectTimeout = 4000
+                                        readTimeout = 4000
+                                        setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
+                                    }
+                                    if (xmlConn.responseCode != 200) return@Callable null
+                                    val form4Xml = xmlConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                                    parseForm4XmlToSecAlert(form4Xml, c.adsh, c.fDate, c.indexUrl)
+                                } catch (_: Exception) { null }
+                            })
+                        }
+                        for (f in futures) {
+                            val parsed = f.get() ?: continue
+                            alerts.add(parsed)
+                        }
+                    } finally {
+                        pool.shutdown()
+                    }
                 }
             }
         } catch (e: Exception) {

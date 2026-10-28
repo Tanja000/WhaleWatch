@@ -270,12 +270,42 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
             .replace(Regex("\\p{M}+"), "").lowercase().replace(Regex("[^a-z ]"), "").trim()
 
+    @Volatile
+    private var cachedLegislators: List<Legislator>? = null
+
     private fun loadLegislators(): List<Legislator> {
+        cachedLegislators?.let { if (it.isNotEmpty()) return it }
+        val cacheFile = java.io.File(context.cacheDir, "legislators-current.json")
+        val maxAgeMs = 14L * 24 * 60 * 60 * 1000 // 14 days TTL
+
+        var jsonBytes: ByteArray? = null
+        val cacheValid = cacheFile.exists() && (System.currentTimeMillis() - cacheFile.lastModified() < maxAgeMs)
+
+        if (cacheValid) {
+            try {
+                jsonBytes = cacheFile.readBytes()
+            } catch (_: Exception) {}
+        }
+
+        if (jsonBytes == null || jsonBytes.isEmpty()) {
+            try {
+                val (code, bytes) = http("https://unitedstates.github.io/congress-legislators/legislators-current.json")
+                if (code == 200 && bytes.isNotEmpty()) {
+                    jsonBytes = bytes
+                    try { cacheFile.writeBytes(bytes) } catch (_: Exception) {}
+                }
+            } catch (_: Exception) {}
+        }
+
+        if ((jsonBytes == null || jsonBytes.isEmpty()) && cacheFile.exists()) {
+            try { jsonBytes = cacheFile.readBytes() } catch (_: Exception) {}
+        }
+
+        if (jsonBytes == null || jsonBytes.isEmpty()) return emptyList()
+
         return try {
-            val (code, bytes) = http("https://unitedstates.github.io/congress-legislators/legislators-current.json")
-            if (code != 200) return emptyList()
-            val arr = JSONArray(String(bytes, Charsets.UTF_8))
-            val out = mutableListOf<Legislator>()
+            val arr = JSONArray(String(jsonBytes, Charsets.UTF_8))
+            val out = ArrayList<Legislator>(arr.length())
             for (i in 0 until arr.length()) {
                 val o = arr.getJSONObject(i)
                 val n = o.getJSONObject("name")
@@ -289,6 +319,7 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
                     )
                 )
             }
+            cachedLegislators = out
             out
         } catch (_: Exception) { emptyList() }
     }

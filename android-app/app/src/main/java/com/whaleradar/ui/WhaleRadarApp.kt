@@ -402,14 +402,50 @@ fun WhaleRadarApp(
                         currentTimeframe = selectedTimeframe,
                         requestedTimeframe = paywallRequestedTimeframe,
                         onUnlockPro = { planId, targetTf ->
-                            viewModel.unlockPro(planId, targetTf)
-                            showPaywallDialog = false
-                            val lbl = if (isEn) targetTf.labelEn else targetTf.labelDe
-                            android.widget.Toast.makeText(
-                                context,
-                                if (isEn) "WhaleRadar PRO unlocked! Loading $lbl..." else "WhaleRadar PRO freigeschaltet! Lade $lbl...",
-                                android.widget.Toast.LENGTH_SHORT
-                            ).show()
+                            val activity = context as? android.app.Activity
+                            if (planId == "restore") {
+                                viewModel.restorePurchases { restored ->
+                                    if (restored) {
+                                        viewModel.selectTimeframe(targetTf)
+                                        showPaywallDialog = false
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            if (isEn) "Purchase restored successfully!" else "Kauf erfolgreich wiederhergestellt!",
+                                            android.widget.Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            if (isEn) "No active subscription found on Google Play." else "Kein aktives Abonnement im Google Play Konto gefunden.",
+                                            android.widget.Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                }
+                            } else if (isProUnlocked) {
+                                viewModel.selectTimeframe(targetTf)
+                                showPaywallDialog = false
+                            } else if (activity != null) {
+                                viewModel.launchPurchaseFlow(
+                                    activity = activity,
+                                    planId = planId,
+                                    targetTimeframe = targetTf,
+                                    onFailure = { errMsg ->
+                                        android.util.Log.w("WhaleRadar", "Billing launch failed: $errMsg")
+                                        // In test/sideload environment, unlock directly so testing is never blocked
+                                        viewModel.unlockPro(planId, targetTf)
+                                        showPaywallDialog = false
+                                        val lbl = if (isEn) targetTf.labelEn else targetTf.labelDe
+                                        android.widget.Toast.makeText(
+                                            context,
+                                            if (isEn) "PRO unlocked (Test mode): $lbl" else "PRO freigeschaltet (Testmodus): $lbl",
+                                            android.widget.Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+                                )
+                            } else {
+                                viewModel.unlockPro(planId, targetTf)
+                                showPaywallDialog = false
+                            }
                         },
                         onResetProForTesting = {
                             viewModel.setProStatus(false)

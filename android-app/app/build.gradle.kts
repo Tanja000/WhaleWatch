@@ -62,6 +62,9 @@ dependencies {
   implementation(composeBom)
   androidTestImplementation(composeBom)
 
+  // Official Google Play Billing for in-app purchases & subscriptions
+  implementation("com.android.billingclient:billing-ktx:7.1.1")
+
   // PDF text extraction for official U.S. House Clerk Periodic Transaction Reports
   implementation("com.tom-roush:pdfbox-android:2.0.27.0")
 
