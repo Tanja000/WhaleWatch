@@ -12,8 +12,8 @@ android {
         applicationId = "com.whaleradar"
         minSdk = 24
         targetSdk = 36
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 6
+        versionName = "1.3.0"
         val isOpen = (project.findProperty("openBuild")?.toString() ?: "false").toBoolean()
         buildConfigField("boolean", "IS_OPEN_TEST_BUILD", isOpen.toString())
     }
