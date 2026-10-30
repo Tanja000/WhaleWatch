@@ -2,6 +2,7 @@
 """
 WhaleRadar SEC Form 4 Data Sync Script
 Uses the official SEC EDGAR Form 4 Feed to fetch, parse, and aggregate insider transactions.
+change
 """
 
 import os
