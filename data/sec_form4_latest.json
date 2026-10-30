@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-30T19:00:36.729881Z",
-  "count": 16,
+  "updated_at": "2026-10-30T22:55:55.491007Z",
+  "count": 29,
   "source": "U.S. Securities and Exchange Commission (EDGAR)",
   "source_url": "https://www.sec.gov/edgar/search/",
   "alerts": [
@@ -557,6 +557,503 @@
           "shares": 2000,
           "price_per_share": 24.71,
           "value": 49420.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001740393-26-000008",
+      "ticker": "SCCO",
+      "issuer": "SOUTHERN COPPER CORP/",
+      "reporting_owner": "ARIZTEGUI ANDREVE VICENTE",
+      "role": "Director",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 400,
+      "shares_formatted": "400",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1740393/000174039326000008/0001740393-26-000008-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 400,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0002088549-26-000017",
+      "ticker": "BLLN",
+      "issuer": "BillionToOne, Inc.",
+      "reporting_owner": "Atay Oguzhan",
+      "role": "Director, Chairman and CEO",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 19333,
+      "shares_formatted": "19,333",
+      "price": 68.35,
+      "total_value": 1321332.4,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2088549/000208854926000017/0002088549-26-000017-index.htm",
+      "security_title": "Class A Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 8333,
+          "price_per_share": 2.8,
+          "value": 23332.4,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 8333,
+          "price_per_share": 118.0,
+          "value": 983294.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 2667,
+          "price_per_share": 118.0,
+          "value": 314706.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000904454-26-000576",
+      "ticker": "MTSI",
+      "issuer": "MACOM Technology Solutions Holdings, Inc.",
+      "reporting_owner": "Dennehy Robert",
+      "role": "Senior VP and COO",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 241,
+      "shares_formatted": "241",
+      "price": 260.92,
+      "total_value": 62881.72,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1588004/000090445426000576/0000904454-26-000576-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 241,
+          "price_per_share": 260.92,
+          "value": 62881.72,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000887343-26-000185",
+      "ticker": "COLB",
+      "issuer": "COLUMBIA BANKING SYSTEM, INC.",
+      "reporting_owner": "GARDNER STEVEN R",
+      "role": "Director",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 10522,
+      "shares_formatted": "10,522",
+      "price": 31.23,
+      "total_value": 328616.51,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1267342/000088734326000185/0000887343-26-000185-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 484,
+          "price_per_share": 31.21,
+          "value": 15108.06,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 100,
+          "price_per_share": 31.22,
+          "value": 3122.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 5012,
+          "price_per_share": 31.23,
+          "value": 156499.7,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 200,
+          "price_per_share": 31.23,
+          "value": 6246.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 2151,
+          "price_per_share": 31.23,
+          "value": 67186.49,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 322,
+          "price_per_share": 31.24,
+          "value": 10059.28,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 2253,
+          "price_per_share": 31.25,
+          "value": 70394.99,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000904454-26-000574",
+      "ticker": "MTSI",
+      "issuer": "MACOM Technology Solutions Holdings, Inc.",
+      "reporting_owner": "Hwang Donghyun Thomas",
+      "role": "SVP, Global Sales",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 229,
+      "shares_formatted": "229",
+      "price": 260.92,
+      "total_value": 59750.68,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1493594/000090445426000574/0000904454-26-000574-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 229,
+          "price_per_share": 260.92,
+          "value": 59750.68,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000904454-26-000572",
+      "ticker": "MTSI",
+      "issuer": "MACOM Technology Solutions Holdings, Inc.",
+      "reporting_owner": "Roth Ambra R.",
+      "role": "SVP, GC and Secretary",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 279,
+      "shares_formatted": "279",
+      "price": 260.92,
+      "total_value": 72796.68,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1792846/000090445426000572/0000904454-26-000572-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 279,
+          "price_per_share": 260.92,
+          "value": 72796.68,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-442091",
+      "ticker": "GLXZ",
+      "issuer": "Galaxy Gaming, Inc.",
+      "reporting_owner": "Reback Matthew David",
+      "role": "CEO and President",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 100000,
+      "shares_formatted": "100,000",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2004246/000119312526442091/0001193125-26-442091-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 100000,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001866581-26-000173",
+      "ticker": "BROS",
+      "issuer": "Dutch Bros Inc.",
+      "reporting_owner": "DM Individual Aggregator, LLC",
+      "role": "10% Owner",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 20008,
+      "shares_formatted": "20,008",
+      "price": 44.09,
+      "total_value": 882120.71,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1883096/000186658126000173/0001866581-26-000173-index.htm",
+      "security_title": "Class A Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 20008,
+          "price_per_share": 44.09,
+          "value": 882120.71,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001866581-26-000172",
+      "ticker": "BROS",
+      "issuer": "Dutch Bros Inc.",
+      "reporting_owner": "DM Trust Aggregator, LLC",
+      "role": "10% Owner",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 37470,
+      "shares_formatted": "37,470",
+      "price": 44.09,
+      "total_value": 1651992.35,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1883105/000186658126000172/0001866581-26-000172-index.htm",
+      "security_title": "Class A Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 37470,
+          "price_per_share": 44.09,
+          "value": 1651992.35,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0002025289-26-000007",
+      "ticker": "SCCO",
+      "issuer": "SOUTHERN COPPER CORP/",
+      "reporting_owner": "Arrigunaga Gomez del Campo Javier",
+      "role": "Director",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 400,
+      "shares_formatted": "400",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2025289/000202528926000007/0002025289-26-000007-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 400,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001866581-26-000171",
+      "ticker": "BROS",
+      "issuer": "Dutch Bros Inc.",
+      "reporting_owner": "Boersma Travis",
+      "role": "Director, Executive Chairman of Board",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 57478,
+      "shares_formatted": "57,478",
+      "price": 44.09,
+      "total_value": 2534113.06,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1883154/000186658126000171/0001866581-26-000171-index.htm",
+      "security_title": "Class A Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 37470,
+          "price_per_share": 44.09,
+          "value": 1651992.35,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 20008,
+          "price_per_share": 44.09,
+          "value": 882120.71,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0002006416-26-000021",
+      "ticker": "PYPL",
+      "issuer": "PayPal Holdings, Inc.",
+      "reporting_owner": "Keller Frank",
+      "role": "Pres., Checkout Sol. & PayPal",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 732,
+      "shares_formatted": "732",
+      "price": 55.37,
+      "total_value": 40530.84,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2006416/000200641626000021/0002006416-26-000021-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 732,
+          "price_per_share": 55.37,
+          "value": 40530.84,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-442076",
+      "ticker": "NUAI",
+      "issuer": "New ERA Energy & Digital, Inc.",
+      "reporting_owner": "Rodriguez Jose Reynaldo",
+      "role": "Chief Operating Officer",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 550000,
+      "shares_formatted": "550,000",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2145456/000119312526442076/0001193125-26-442076-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 550000,
+          "price_per_share": 0.0,
+          "value": 0.0,
           "shares_after": 0
         }
       ]
