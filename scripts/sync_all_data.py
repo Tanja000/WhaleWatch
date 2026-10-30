@@ -234,7 +234,8 @@ def sync_sec_form4():
 
     final_alerts = list(combined.values())
     final_alerts.sort(key=lambda x: x.get("filing_date", ""), reverse=True)
-    final_alerts = final_alerts[:250]
+    # Retain up to 2,000 historical SEC Form 4 filings so 1M, 3M, 6M, 1Y, and 2Y filters have rich data
+    final_alerts = final_alerts[:2000]
 
     with open(sec_file, "w", encoding="utf-8") as f:
         json.dump({
