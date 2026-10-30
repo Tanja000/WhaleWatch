@@ -49,14 +49,16 @@ class WhaleRepository(private val context: Context) {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private val _isProUnlocked = MutableStateFlow(prefs.getBoolean("is_pro_unlocked", false))
+    private val isAlwaysOpen = try { com.whaleradar.BuildConfig.IS_OPEN_TEST_BUILD } catch (_: Throwable) { false }
+
+    private val _isProUnlocked = MutableStateFlow(isAlwaysOpen || prefs.getBoolean("is_pro_unlocked", false))
     val isProUnlocked: StateFlow<Boolean> = _isProUnlocked.asStateFlow()
 
     private val _selectedTimeframe = MutableStateFlow(loadInitialTimeframe())
     val selectedTimeframe: StateFlow<DataTimeframe> = _selectedTimeframe.asStateFlow()
 
     private fun loadInitialTimeframe(): DataTimeframe {
-        val unlocked = prefs.getBoolean("is_pro_unlocked", false)
+        val unlocked = isAlwaysOpen || prefs.getBoolean("is_pro_unlocked", false)
         val saved = DataTimeframe.fromId(prefs.getString("selected_timeframe_id", DataTimeframe.MONTH_1.id))
         return if (!unlocked && saved.isProOnly) DataTimeframe.MONTH_1 else saved
     }
@@ -70,9 +72,10 @@ class WhaleRepository(private val context: Context) {
     }
 
     fun setProStatus(unlocked: Boolean) {
-        _isProUnlocked.value = unlocked
-        prefs.edit().putBoolean("is_pro_unlocked", unlocked).apply()
-        if (!unlocked && _selectedTimeframe.value.isProOnly) {
+        val effectiveUnlocked = if (isAlwaysOpen) true else unlocked
+        _isProUnlocked.value = effectiveUnlocked
+        prefs.edit().putBoolean("is_pro_unlocked", effectiveUnlocked).apply()
+        if (!effectiveUnlocked && _selectedTimeframe.value.isProOnly) {
             selectTimeframe(DataTimeframe.MONTH_1)
         }
     }
@@ -160,7 +163,7 @@ class WhaleRepository(private val context: Context) {
             android.util.Log.w("WhaleRepo", "Cached COT data unreadable", e)
         }
 
-        // 2. Congress (cache of the last official House / Senate response)
+        // 2. Congress (cache of the last official House response)
         try {
             val cachedCongress = congressLive.loadCached()
             if (cachedCongress.isNotEmpty()) applyCongress(cachedCongress)
@@ -263,7 +266,7 @@ class WhaleRepository(private val context: Context) {
                     totalValue = computedTotal,
                     clusterCount = a.optInt("cluster_count", if (a.optBoolean("is_cluster", false)) 2 else 1),
                     accessionNumber = a.optString("accession_number", "sec_$i"),
-                    filingUrl = a.optString("filing_url", "https://www.sec.gov"),
+                    filingUrl = a.optString("filing_url", "https://www.sec.gov/edgar/search/"),
                     securityTitle = a.optString("security_title", "Common Stock"),
                     filingTime = fTime,
                     securityBeneficials = postSharesVal,
@@ -477,7 +480,7 @@ class WhaleRepository(private val context: Context) {
     private fun applyCongress(list: List<CongressTrade>) {
         val cutoff = congressCutoffIso()
         val result = list
-            .filter { isValidStockTicker(it.ticker) && it.transactionDate >= cutoff }
+            .filter { isValidStockTicker(it.ticker) && it.transactionDate >= cutoff && !it.chamber.equals("senate", ignoreCase = true) }
             .distinctBy { "${it.chamber}|${it.filerName}|${it.ticker}|${it.transactionDate}|${it.amountRangeLabel}|${it.transactionType}|${it.filingDate}" }
             .sortedWith(compareByDescending<CongressTrade> { it.transactionDate }.thenByDescending { it.filingDate })
         _congressTrades.value = result
@@ -573,7 +576,7 @@ class WhaleRepository(private val context: Context) {
 
         val congressDeferred = async<List<CongressTrade>?> {
             try {
-                // 3. Official U.S. House (Clerk) + U.S. Senate (eFD) Periodic Transaction Reports
+                // 3. Official U.S. House of Representatives (Clerk of the House) Periodic Transaction Reports
                 congressLive.fetchAll(_selectedTimeframe.value.days)
             } catch (e: Exception) {
                 android.util.Log.w("WhaleRepo", "Live Congress fetch fallback to cached data", e)

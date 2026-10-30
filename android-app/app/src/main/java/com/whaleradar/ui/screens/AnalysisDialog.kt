@@ -352,8 +352,7 @@ fun AnalysisDialog(
                             } else {
                                 analysis.recentTrades.forEach { trade ->
                                     val isBuy = trade.transactionType.lowercase().contains("purchase") || trade.transactionType.lowercase().contains("kauf")
-                                    val isSen = trade.chamber.lowercase().contains("senat")
-                                    val chamberClean = if (isEn) (if (isSen) "Senate" else "House") else (if (isSen) "Senat" else "Repräsentantenhaus")
+                                    val chamberClean = if (isEn) "House" else "Repräsentantenhaus"
                                     val isDem = trade.party == "D" || trade.party.contains("Dem", ignoreCase = true)
                                     val isRep = trade.party == "R" || trade.party.contains("Rep", ignoreCase = true)
                                     val partyLabel = when {

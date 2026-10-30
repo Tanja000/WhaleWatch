@@ -187,12 +187,12 @@ fun LegalDisclaimerDialog(
                     // 1. Keine Anlageberatung / No Investment Advice
                     LegalSectionCard(
                         icon = "⚠️",
-                        title = if (currentIsEn) "1. No Financial or Investment Advice" else "1. Keine Anlageberatung & Keine Kaufempfehlung",
-                        borderColor = AmberWhale.copy(alpha = 0.45f),
+                        title = if (currentIsEn) "1. Legal Disclaimer & No Investment Advice" else "1. Rechtlicher Hinweis & Keine Anlageberatung",
+                        borderColor = AmberWhale.copy(alpha = 0.55f),
                         body = if (currentIsEn) {
-                            "All contents, signals, confluence indicators, CFTC COT market data, congressional disclosures, and SEC Form 4 insider filings provided in the 'WhaleRadar' app are strictly for general informational, educational, and journalistic research purposes only. Nothing in this app constitutes financial, investment, legal, or tax advice, nor does it represent a solicitation, recommendation, or endorsement to buy, hold, or sell any securities, futures, or financial instruments."
+                            "LEGAL DISCLAIMER: WhaleRadar aggregates publicly available primary data solely for informational and market research purposes. WhaleRadar does not provide investment advice, financial analysis within the meaning of the German Securities Trading Act (WpHG), or any solicitation to buy or sell securities. All investment decisions are made at your own responsibility.\n\nAll contents, signals, confluence indicators, CFTC COT market data, congressional disclosures, and SEC Form 4 insider filings provided in the 'WhaleRadar' app are strictly for general informational, educational, and journalistic research purposes only. Nothing in this app constitutes financial, investment, legal, or tax advice, nor does it represent a solicitation, recommendation, or endorsement to buy, hold, or sell any securities, futures, or financial instruments."
                         } else {
-                            "Alle in der App „WhaleRadar“ bereitgestellten Inhalte, Auswertungen, Kombi-Signale, CFTC-COT-Marktdaten, Kongress-Transaktionen und SEC-Form-4-Meldungen dienen ausschließlich allgemeinen Informations-, Bildungs- und Recherchezwecken. Sie stellen ausdrücklich keine Anlageberatung, keine Finanzanalyse, keine Rechts- oder Steuerberatung und keine Aufforderung oder Empfehlung zum Kauf, Halten oder Verkauf von Aktien, Futures oder sonstigen Finanzinstrumenten (z. B. im Sinne des WpHG oder § 34f GewO) dar."
+                            "RECHTLICHER HINWEIS: WhaleRadar aggregiert öffentlich zugängliche Primärdaten ausschließlich zu Informations- und Marktforschungszwecken. WhaleRadar ist keine Anlageberatung, Finanzanalyse im Sinne des WpHG oder Aufforderung zum Kauf oder Verkauf von Wertpapieren. Alle Anlageentscheidungen treffen Sie eigenverantwortlich.\n\nAlle in der App „WhaleRadar“ bereitgestellten Inhalte, Auswertungen, Kombi-Signale, CFTC-COT-Marktdaten, Kongress-Transaktionen und SEC-Form-4-Meldungen dienen ausschließlich allgemeinen Informations-, Bildungs- und Recherchezwecken. Sie stellen ausdrücklich keine Anlageberatung, keine Finanzanalyse, keine Rechts- oder Steuerberatung und keine Aufforderung oder Empfehlung zum Kauf, Halten oder Verkauf von Aktien, Futures oder sonstigen Finanzinstrumenten (z. B. im Sinne des WpHG oder § 34f GewO) dar."
                         }
                     )
 
@@ -226,9 +226,9 @@ fun LegalDisclaimerDialog(
                             Spacer(modifier = Modifier.height(6.dp))
                             Text(
                                 text = if (currentIsEn) {
-                                    "WhaleRadar is an independent private financial information application. It is NOT affiliated with, endorsed by, sponsored by, or operated by the United States Government, the Commodity Futures Trading Commission (CFTC), the U.S. Securities and Exchange Commission (SEC), the U.S. Congress, or any other government agency. All regulatory data displayed in this app is retrieved from publicly accessible official US government disclosure portals:"
+                                    "WhaleRadar is an independent private financial information application. It is NOT affiliated with, endorsed by, sponsored by, or operated by the United States Government, the Commodity Futures Trading Commission (CFTC), the U.S. Securities and Exchange Commission (SEC), the U.S. House of Representatives, or any other government agency. All regulatory data displayed in this app is retrieved from publicly accessible official US government disclosure portals:"
                                 } else {
-                                    "WhaleRadar ist eine unabhängige, privat betriebene Informations-App. Sie steht in keinerlei offizieller Verbindung zur US-Regierung, der Commodity Futures Trading Commission (CFTC), der US-Börsenaufsicht SEC, dem US-Kongress oder sonstigen staatlichen Behörden und wird von diesen weder unterstützt noch betrieben. Alle dargestellten Melderegister-Daten stammen aus öffentlich zugänglichen Originalquellen der US-Behörden:"
+                                    "WhaleRadar ist eine unabhängige, privat betriebene Informations-App. Sie steht in keinerlei offizieller Verbindung zur US-Regierung, der Commodity Futures Trading Commission (CFTC), der US-Börsenaufsicht SEC, dem US-Repräsentantenhaus oder sonstigen staatlichen Behörden und wird von diesen weder unterstützt noch betrieben. Alle dargestellten Melderegister-Daten stammen aus öffentlich zugänglichen Originalquellen der US-Behörden:"
                                 },
                                 fontSize = 11.5.sp,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -237,10 +237,9 @@ fun LegalDisclaimerDialog(
                             Spacer(modifier = Modifier.height(8.dp))
 
                             val sources = listOf(
-                                "CFTC Commitments of Traders (cftc.gov)" to "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm",
-                                "U.S. SEC EDGAR Form 4 Filings (sec.gov)" to "https://www.sec.gov/edgar/searchedgar/companysearch",
-                                "U.S. House Clerk Disclosures (house.gov)" to "https://disclosures-clerk.house.gov/",
-                                "U.S. Senate Financial Disclosures (senate.gov)" to "https://efdsearch.senate.gov/"
+                                "Insider Transactions (SEC Form 4): U.S. Securities and Exchange Commission (EDGAR)" to "https://www.sec.gov/edgar/search/",
+                                "U.S. House of Representatives (STOCK Act PTR): Office of the Clerk, U.S. House of Representatives" to "https://disclosures-clerk.house.gov",
+                                "Futures Market Positioning (COT Report): U.S. Commodity Futures Trading Commission (CFTC)" to "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
                             )
                             sources.forEach { (label, url) ->
                                 Text(

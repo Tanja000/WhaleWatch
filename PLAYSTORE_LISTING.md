@@ -6,7 +6,7 @@ Dieses Dokument enthält alle fertigen Texte, Metadaten und Anleitungen für den
 
 ## 1. App-Details & Identifikation
 - **App-Name**: WhaleRadar
-- **Paketname (Application ID)**: `com.whaleradar.app`
+- **Paketname (Application ID)**: `com.whaleradar`
 - **Kategorie**: Finanzen (Finance)
 - **Standard-Sprache**: Deutsch (Deutschland) / Englisch
 - **Zielgruppe**: Börsen-Interessierte, Trader, Investoren (18+)
@@ -18,25 +18,25 @@ Dieses Dokument enthält alle fertigen Texte, Metadaten und Anleitungen für den
 ## 2. Store-Texte (Deutsch)
 
 ### Kurzbeschreibung (Max. 80 Zeichen)
-> Verfolge die Trades von US-Politikern, Big Whales & SEC Form 4 Insider-Filings.
-*(79 Zeichen)*
+> Insider-Käufe der SEC, US-Kongress-Trades & CFTC COT Marktdaten in Echtzeit
+*(75 Zeichen)*
 
 ### Ausführliche Beschreibung (Max. 4000 Zeichen)
 ```text
 WhaleRadar ist das professionelle Analyse-Werkzeug für Privatanleger und Trader, die den "Big Whales" und institutionellen Marktteilnehmern auf die Finger schauen wollen. 
 
-Verfolge in Echtzeit, welche Aktien von US-Kongressabgeordneten und Senatoren (STOCK Act) gekauft oder verkauft werden, welche Großinvestoren laut COT-Berichten (Commitment of Traders) ihre Long-/Short-Positionen aufbauen und welche Unternehmens-Insider (Vorstände, Aufsichtsräte, Großaktionäre) über SEC Form 4 Filings eigene Firmenaktien handeln.
+Verfolge in Echtzeit, welche Aktien von Abgeordneten des US-Repräsentantenhauses (STOCK Act) gekauft oder verkauft werden, welche Großinvestoren laut COT-Berichten (Commitment of Traders) ihre Long-/Short-Positionen aufbauen und welche Unternehmens-Insider (Vorstände, Aufsichtsräte, Großaktionäre) über SEC Form 4 Filings eigene Firmenaktien handeln.
 
 WARUM WHALERADAR?
-Politiker im US-Kongress und Unternehmens-Insider an der Wall Street verfügen häufig über Informationsvorsprünge. Durch gesetzliche Offenlegungspflichten (STOCK Act und SEC Form 4) müssen diese Transaktionen öffentlich deklariert werden. WhaleRadar bereitet diese Rohdaten sekundenschnell, verständlich und übersichtlich auf.
+Abgeordnete im US-Repräsentantenhaus und Unternehmens-Insider an der Wall Street verfügen häufig über Informationsvorsprünge. Durch gesetzliche Offenlegungspflichten (STOCK Act und SEC Form 4) müssen diese Transaktionen öffentlich deklariert werden. WhaleRadar bereitet diese Rohdaten sekundenschnell, verständlich und übersichtlich auf.
 
 KERNFUNKTIONEN:
 
 1. 🎯 3-QUELLEN-RADAR & KOMBI-SIGNALE
 Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen drei unabhängige öffentliche Datenquellen zeitgleich anschlagen. Siehst du ein Kombi-Signal, kaufen sowohl Kongressabgeordnete als auch Vorstände – gestützt vom makroökonomischen COT-Sentiment.
 
-2. 🏛️ KONGRESS-TRADES (STOCK ACT)
-• Alle gemeldeten Käufe und Verkäufe von Senatoren und Abgeordneten des Repräsentantenhauses
+2. 🏛️ KONGRESS-TRADES (STOCK ACT – U.S. HOUSE OF REPRESENTATIVES)
+• Alle gemeldeten Käufe und Verkäufe von Abgeordneten des US-Repräsentantenhauses
 • Automatische Erkennung von überparteilichen Käufen (Demokraten & Republikaner kaufen zeitgleich dieselbe Aktie)
 • Ausschuss-Konflikt-Erkennung (z.B. Käufe im Verteidigungsausschuss für Rüstungsaktien)
 • Partei-Sentiment und detaillierte Wertspannen
@@ -58,16 +58,15 @@ Das Herzstück der App: Unser Algorithmus filtert Aktien heraus, bei denen drei 
 • Detail-Ansicht auf Knopfdruck mit Zusammenfassung aller aktuellen Politiker- und Insider-Aktivitäten inklusive Gesamt-Spanne
 
 DATENSCHUTZ & TRANSPARENZ:
-WhaleRadar sammelt keine persönlichen Daten. Alle Transaktionsdaten basieren auf frei zugänglichen, behördlichen Registern der SEC, des US-Kongresses und der CFTC.
+WhaleRadar sammelt keine persönlichen Daten. Alle Transaktionsdaten basieren auf frei zugänglichen, behördlichen Registern der SEC, des US-Repräsentantenhauses und der CFTC.
 
-WICHTIGE RECHTLICHE HINWEISE & HAFTUNGSAUSSCHLUSS:
-• Keine Anlageberatung: Alle in WhaleRadar dargestellten Inhalte, Signale und Transaktionsdaten dienen ausschließlich zu allgemeinen Informations-, Recherche- und Bildungszwecken. Sie stellen keine Anlageberatung, Finanzanalyse oder Kauf-/Verkaufsempfehlung dar.
-• Keine Behörden-Zugehörigkeit (Non-Affiliation): WhaleRadar ist eine unabhängige, privat betriebene App und steht in keinerlei offizieller Verbindung zur US-Regierung, der CFTC, der SEC oder dem US-Kongress.
-• Offizielle öffentliche Quellen:
-  - CFTC Commitments of Traders: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
-  - U.S. SEC EDGAR Form 4: https://www.sec.gov/edgar/searchedgar/companysearch
-  - U.S. House Disclosures: https://disclosures-clerk.house.gov/
-  - U.S. Senate Disclosures: https://efdsearch.senate.gov/
+RECHTLICHER HINWEIS:
+WhaleRadar aggregiert öffentlich zugängliche Primärdaten ausschließlich zu Informations- und Marktforschungszwecken. WhaleRadar ist keine Anlageberatung, Finanzanalyse im Sinne des WpHG oder Aufforderung zum Kauf oder Verkauf von Wertpapieren. Alle Anlageentscheidungen treffen Sie eigenverantwortlich.
+
+OFFIZIELLE ÖFFENTLICHE QUELLEN:
+• Insider Transactions (SEC Form 4): U.S. Securities and Exchange Commission (EDGAR)   https://www.sec.gov/edgar/search/
+• U.S. House of Representatives (STOCK Act PTR): Office of the Clerk, U.S. House of Representatives   https://disclosures-clerk.house.gov
+• Futures Market Positioning (COT Report): U.S. Commodity Futures Trading Commission (CFTC)   https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
 ```
 
 ---
@@ -75,21 +74,21 @@ WICHTIGE RECHTLICHE HINWEISE & HAFTUNGSAUSSCHLUSS:
 ## 3. Store Listing (English Translation)
 
 ### Short Description (Max 80 chars)
-> Track US Congress trades, institutional whale flows and SEC Form 4 filings.
+> Track SEC insider trades, US House filings & CFTC COT smart money live.
 
 ### Full Description
 ```text
 WhaleRadar is the premier intelligence tool for modern investors and traders who want to track institutional positioning, congressional trading activity, and corporate insider transactions.
 
-Track what members of the US Congress and Senate are trading (STOCK Act disclosures), monitor institutional positioning from official CFTC Commitment of Traders (COT) reports, and stay ahead with real-time SEC Form 4 insider filings.
+Track what members of the US House of Representatives are trading (STOCK Act disclosures), monitor institutional positioning from official CFTC Commitment of Traders (COT) reports, and stay ahead with real-time SEC Form 4 insider filings.
 
 KEY FEATURES:
 
 1. 🎯 3-SOURCE RADAR & CONFLUENCE SIGNALS
 Discover stocks where three independent disclosure sources align. See when politicians and corporate officers are buying the same asset backed by macro whale positioning.
 
-2. 🏛️ CONGRESSIONAL TRADING (STOCK ACT)
-• Full disclosure of House & Senate purchases and sales
+2. 🏛️ CONGRESSIONAL TRADING (STOCK ACT – U.S. HOUSE OF REPRESENTATIVES)
+• Full disclosure of House of Representatives purchases and sales
 • Bipartisan purchase tracking (Democrat & Republican consensus)
 • Committee conflict detection (e.g., Armed Services members buying defense contractors)
 • Official disclosure ranges and filing delays
@@ -108,14 +107,13 @@ Discover stocks where three independent disclosure sources align. See when polit
 • Track your favorite tickers with alphabetical sorting and complete company names
 • Instant comprehensive details covering all three pillars with aggregated range totals
 
-LEGAL DISCLAIMER & NON-AFFILIATION NOTICE:
-• No Financial Advice: For informational, educational, and research purposes only. Nothing in this app constitutes financial or investment advice, or a recommendation to buy or sell securities.
-• Government Non-Affiliation: WhaleRadar is an independent application and is NOT affiliated with, endorsed by, or operated by the U.S. Government, the CFTC, the SEC, or the U.S. Congress.
-• Official Public Data Sources:
-  - CFTC COT Reports: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
-  - U.S. SEC EDGAR: https://www.sec.gov/edgar/searchedgar/companysearch
-  - U.S. House Clerk: https://disclosures-clerk.house.gov/
-  - U.S. Senate Disclosures: https://efdsearch.senate.gov/
+LEGAL DISCLAIMER:
+WhaleRadar aggregates publicly available primary data solely for informational and market research purposes. WhaleRadar does not provide investment advice, financial analysis within the meaning of the German Securities Trading Act (WpHG), or any solicitation to buy or sell securities. All investment decisions are made at your own responsibility.
+
+OFFICIAL PUBLIC DATA SOURCES:
+• Insider Transactions (SEC Form 4): U.S. Securities and Exchange Commission (EDGAR)   https://www.sec.gov/edgar/search/
+• U.S. House of Representatives (STOCK Act PTR): Office of the Clerk, U.S. House of Representatives   https://disclosures-clerk.house.gov
+• Futures Market Positioning (COT Report): U.S. Commodity Futures Trading Commission (CFTC)   https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
 ```
 
 ---

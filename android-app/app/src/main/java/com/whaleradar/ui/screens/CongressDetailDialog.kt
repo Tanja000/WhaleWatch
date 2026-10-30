@@ -46,22 +46,10 @@ fun CongressDetailDialog(
         if (isDem) "Demokratische Partei (Demokrat)" else if (isRep) "Republikanische Partei (Republikaner)" else "Unabhängig"
     }
 
-    val isSenate = trade.chamber.lowercase().contains("senate") || trade.chamber.lowercase().contains("senat")
-    val chamberName = if (isEn) {
-        if (isSenate) "US Senate" else "US House of Representatives"
-    } else {
-        if (isSenate) "US-Senat" else "US-Repräsentantenhaus (House of Representatives)"
-    }
+    val chamberName = if (isEn) "US House of Representatives" else "US-Repräsentantenhaus (House of Representatives)"
     val isPurchase = trade.transactionType.lowercase().let { it.contains("purchase") || it.contains("kauf") }
     val typeColor = if (isPurchase) GreenBuy else RedSell
     val typeLabel = if (isPurchase) (if (isEn) "🟢 BUY (Purchase)" else "🟢 KAUF (Purchase)") else (if (isEn) "🔴 SALE" else "🔴 VERKAUF (Sale)")
-
-    // Official verified disclosure URL
-    val officialDisclosureUrl = if (isSenate) {
-        "https://efdsearch.senate.gov/search/home/"
-    } else {
-        "https://disclosures-clerk.house.gov/FinancialDisclosure"
-    }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -456,7 +444,7 @@ fun CongressDetailDialog(
                     Spacer(modifier = Modifier.height(12.dp))
                     }
 
-                    // 4. Erklärung zu Kammer & Partei (Erklärung von Repräsentantenhaus & Senat)
+                    // 4. Erklärung zu Kammer & Partei (U.S. Repräsentantenhaus)
                     Surface(
                         shape = RoundedCornerShape(12.dp),
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f),
@@ -473,11 +461,9 @@ fun CongressDetailDialog(
                             )
                             Text(
                                 text = if (isEn) {
-                                    if (isSenate) "The US Senate consists of 100 Senators (2 per state) serving 6-year terms. Senators ratify treaties, confirm key appointments, and oversee federal legislation."
-                                    else "The US House of Representatives consists of 435 members. They originate all federal appropriations, revenue bills, and tax incentive programs."
+                                    "The US House of Representatives consists of 435 members. Lawmakers originate all federal appropriations, revenue bills, and tax incentive programs."
                                 } else {
-                                    if (isSenate) "Der US-Senat besteht aus 100 Senatoren (2 je Bundesstaat) mit 6-jähriger Amtszeit. Senatoren ratifizieren internationale Verträge, bestätigen Regierungsposten und beaufsichtigen nationale Gesetzesinitiativen."
-                                    else "Das US-Repräsentantenhaus (House of Representatives) besteht aus 435 Abgeordneten. Sie initiieren alle Bundes-Finanzgesetze, Haushaltsbudgets und steuerlichen Förderprogramme über spezialisierte Fachausschüsse."
+                                    "Das US-Repräsentantenhaus (House of Representatives) besteht aus 435 Abgeordneten. Sie initiieren alle Bundes-Finanzgesetze, Haushaltsbudgets und steuerlichen Förderprogramme über spezialisierte Fachausschüsse."
                                 },
                                 fontSize = 10.5.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
@@ -494,40 +480,20 @@ fun CongressDetailDialog(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Direkter Link zum offiziellen Offenlegungsprotokoll
-                    Button(
-                        onClick = {
-                            try { uriHandler.openUri(officialDisclosureUrl) } catch (_: Exception) {}
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text(
-                            text = if (isEn) "🏛️ Official Disclosure Protocol (Congress.gov / Clerk) ↗" else "🏛️ Offizielles Offenlegungsprotokoll (Congress.gov / Clerk) ↗",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.5.sp,
-                            color = Color.Black
-                        )
-                    }
-
                     // Watchlist Button
                     if (trade.ticker.isNotBlank()) {
-                        OutlinedButton(
+                        Button(
                             onClick = onToggleWatchlist,
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(12.dp),
-                            colors = ButtonDefaults.outlinedButtonColors(
-                                contentColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface
-                            ),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.outlineVariant)
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.primaryContainer,
+                                contentColor = if (isOnWatchlist) Color.Black else MaterialTheme.colorScheme.onPrimaryContainer
+                            )
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = "Watchlist",
-                                tint = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -541,6 +507,18 @@ fun CongressDetailDialog(
                                 fontSize = 12.sp
                             )
                         }
+                    }
+
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = if (isEn) "Close" else "Schließen",
+                            fontWeight = FontWeight.SemiBold,
+                            fontSize = 12.sp
+                        )
                     }
                 }
             }

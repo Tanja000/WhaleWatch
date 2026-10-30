@@ -238,7 +238,7 @@ fun BipartisanDetailDialog(
                                 val isTradeDem = trade.party.uppercase() == "D"
                                 val tColor = if (isTradeDem) Color(0xFF3B82F6) else Color(0xFFEF4444)
                                 val partyNameText = if (isTradeDem) (if (isEn) "Democrat" else "Demokrat") else (if (isEn) "Republican" else "Republikaner")
-                                val chamberText = if (trade.chamber.lowercase() == "senate") (if (isEn) "Senate" else "Senat") else (if (isEn) "House" else "Repräsentantenhaus")
+                                val chamberText = if (isEn) "House" else "Repräsentantenhaus"
 
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
@@ -375,39 +375,19 @@ fun BipartisanDetailDialog(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Offizielle Quelle
-                    Button(
-                        onClick = {
-                            try { uriHandler.openUri("https://disclosures-clerk.house.gov/FinancialDisclosure") } catch (_: Exception) {}
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text(
-                            text = if (isEn) "🏛️ Official Disclosure Data (House & Senate Disclosures) ↗" else "🏛️ Offizielle Offenlegungsdaten (House & Senate Disclosures) ↗",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.5.sp,
-                            color = Color.Black
-                        )
-                    }
-
                     // Watchlist Button
-                    OutlinedButton(
+                    Button(
                         onClick = onToggleWatchlist,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface
-                        ),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.outlineVariant)
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = if (isOnWatchlist) Color.Black else MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     ) {
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = "Watchlist",
-                            tint = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -418,6 +398,18 @@ fun BipartisanDetailDialog(
                                 if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${stock.ticker} zur Watchlist hinzufügen"
                             },
                             fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = if (isEn) "Close" else "Schließen",
+                            fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp
                         )
                     }

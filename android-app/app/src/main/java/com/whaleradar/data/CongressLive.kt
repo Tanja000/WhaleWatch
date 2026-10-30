@@ -16,26 +16,21 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 
 /**
- * Live loader for the OFFICIAL U.S. Congress stock-trade disclosures (STOCK Act, Periodic Transaction Reports):
+ * Live loader for the OFFICIAL U.S. House of Representatives stock-trade disclosures (STOCK Act, Periodic Transaction Reports):
  *  - U.S. House of Representatives: Clerk of the House  (https://disclosures-clerk.house.gov)
  *      index  : /public_disc/financial-pdfs/{year}FD.zip  (XML list of all filings)
  *      reports: /public_disc/ptr-pdfs/{year}/{DocID}.pdf   (PTR PDF -> text -> transactions)
- *  - U.S. Senate: Electronic Financial Disclosure system (https://efdsearch.senate.gov)
- *      search : POST /search/report/data/  (report type 11 = Periodic Transaction Report)
- *      reports: /search/view/ptr/{uuid}/   (HTML table of transactions)
  * Party affiliation comes from the public congress-legislators dataset (unitedstates.github.io).
  * Nothing is invented: only transactions that were really parsed from the official reports are returned.
  */
 class CongressLive(private val context: Context, private val prefs: SharedPreferences) {
 
     companion object {
-        const val CACHE_KEY = "cached_live_congress_v3"
+        const val CACHE_KEY = "cached_live_congress_v4"
         private const val DEFAULT_WINDOW_DAYS = 30
         private const val MAX_CACHE_DAYS = 730
         private const val MAX_NEW_HOUSE_DOCS = 160
         private const val MAX_NEW_HOUSE_DOCS_PRO = 280
-        private const val MAX_NEW_SENATE_DOCS = 120
-        private const val MAX_NEW_SENATE_DOCS_PRO = 220
         private const val UA = "Mozilla/5.0 (Linux; Android 13; WhaleRadar) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Mobile Safari/537.36"
 
         private val ISO = SimpleDateFormat("yyyy-MM-dd", Locale.US).apply { timeZone = TimeZone.getTimeZone("UTC") }
@@ -136,46 +131,6 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
             s.replace(Regex("<[^>]*>"), " ")
                 .replace("&amp;", "&").replace("&nbsp;", " ").replace("&#39;", "'").replace("&quot;", "\"")
                 .replace(Regex("\\s+"), " ").trim()
-
-        /** Parses a Senate eFD "ptr" HTML report page (transaction table). */
-        fun parseSenatePtrHtml(
-            html: String, filerName: String, party: String, filingDateIso: String, docId: String
-        ): List<CongressTrade> {
-            val out = mutableListOf<CongressTrade>()
-            val rows = Regex("<tr[^>]*>([\\s\\S]*?)</tr>", RegexOption.IGNORE_CASE).findAll(html)
-            for (row in rows) {
-                val cells = Regex("<td[^>]*>([\\s\\S]*?)</td>", RegexOption.IGNORE_CASE).findAll(row.groupValues[1])
-                    .map { it.groupValues[1] }.toList()
-                if (cells.size < 8) continue
-                val txIso = usToIso(stripTags(cells[1]))
-                if (txIso.isEmpty()) continue
-                val ticker = stripTags(cells[3]).uppercase().trim()
-                if (ticker.isEmpty() || ticker == "--" || !ticker.matches(Regex("^[A-Z]{1,5}(?:[.\\-][A-Z])?$"))) continue
-                val assetType = stripTags(cells[5])
-                if (!assetType.contains("Stock", ignoreCase = true) && !assetType.contains("Option", ignoreCase = true)) continue
-                val type = stripTags(cells[6])
-                val days = if (filingDateIso.isNotEmpty()) daysBetween(txIso, filingDateIso) else 0
-                val assetName = stripTags(cells[4]).ifBlank { ticker } +
-                    if (assetType.contains("Option", ignoreCase = true)) " (Options)" else ""
-                out.add(
-                    CongressTrade(
-                        id = "senate_${docId}_${out.size}",
-                        filerName = filerName,
-                        party = party,
-                        chamber = "senate",
-                        ticker = ticker,
-                        assetName = assetName,
-                        transactionType = typeLabel(type),
-                        amountRangeLabel = cleanAmount(stripTags(cells[7])),
-                        transactionDate = txIso,
-                        filingDate = filingDateIso,
-                        daysToFile = days,
-                        isLate = days > 45
-                    )
-                )
-            }
-            return out
-        }
     }
 
     // ------------------------------------------------------------------ cache
@@ -190,10 +145,12 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
             val list = mutableListOf<CongressTrade>()
             for (i in 0 until arr.length()) {
                 val t = arr.getJSONObject(i)
+                val ch = t.optString("chamber")
+                if (ch.equals("senate", ignoreCase = true)) continue
                 list.add(
                     CongressTrade(
                         id = t.optString("id"), filerName = t.optString("filer_name"), party = t.optString("party"),
-                        chamber = t.optString("chamber"), ticker = t.optString("ticker"), assetName = t.optString("asset_name"),
+                        chamber = ch.ifBlank { "house" }, ticker = t.optString("ticker"), assetName = t.optString("asset_name"),
                         transactionType = t.optString("transaction_type"), amountRangeLabel = t.optString("amount"),
                         transactionDate = t.optString("transaction_date"), filingDate = t.optString("filing_date"),
                         daysToFile = t.optInt("days_to_file"), isLate = t.optBoolean("is_late")
@@ -202,7 +159,10 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
             }
             val ids = mutableSetOf<String>()
             val idArr = root.optJSONArray("doc_ids") ?: JSONArray()
-            for (i in 0 until idArr.length()) ids.add(idArr.getString(i))
+            for (i in 0 until idArr.length()) {
+                val id = idArr.getString(i)
+                if (!id.startsWith("senate_")) ids.add(id)
+            }
             Cache(list, ids)
         } catch (_: Exception) { Cache(emptyList(), emptySet()) }
     }
@@ -223,7 +183,7 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         prefs.edit().putString(CACHE_KEY, root.toString()).apply()
     }
 
-    /** Last successfully loaded official data (House + Senate). */
+    /** Last successfully loaded official data (House of Representatives). */
     fun loadCached(): List<CongressTrade> = readCache().trades
 
     // ------------------------------------------------------------------ http
@@ -403,72 +363,10 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         } finally { pool.shutdown() }
     }
 
-    // ------------------------------------------------------------------ Senate
-
-    private fun fetchSenate(sinceIso: String, known: Set<String>, leg: List<Legislator>, newDocIds: MutableSet<String>, windowDays: Int): List<CongressTrade>? {
-        val base = "https://efdsearch.senate.gov"
-        val cookies = mutableMapOf<String, String>()
-        val (c1, home) = http("$base/search/home/", cookies = cookies)
-        if (c1 != 200) return null
-        val token = Regex("name=\"csrfmiddlewaretoken\" value=\"([^\"]+)\"").find(String(home))?.groupValues?.get(1) ?: return null
-        // Accept the terms of use (required by the Senate site before any search)
-        val (c2, _) = http(
-            "$base/search/home/", "POST",
-            "prohibition_agreement=1&csrfmiddlewaretoken=${enc(token)}",
-            mapOf("Referer" to "$base/search/home/"), cookies, follow = false
-        )
-        if (c2 != 302 && c2 != 200) return null
-        val csrf = cookies["csrftoken"] ?: token
-        val sinceUs = SimpleDateFormat("MM/dd/yyyy", Locale.US).format(ISO.parse(sinceIso)!!)
-        val docs = mutableListOf<List<String>>() // first, last, link, filedUs
-        var start = 0
-        var searchOk = false
-        while (start < 800) {
-            val body = "start=$start&length=100&report_types=${enc("[11]")}&filer_types=${enc("[]")}&submitted_start_date=${enc("$sinceUs 00:00:00")}" +
-                "&submitted_end_date=&candidate_state=&senator_state=&office_id=&first_name=&last_name=&csrfmiddlewaretoken=${enc(csrf)}"
-            val (c3, resp) = http(
-                "$base/search/report/data/", "POST", body,
-                mapOf("Referer" to "$base/search/", "X-CSRFToken" to csrf, "X-Requested-With" to "XMLHttpRequest"), cookies
-            )
-            if (c3 != 200) break
-            searchOk = true
-            val json = JSONObject(String(resp, Charsets.UTF_8))
-            val data = json.optJSONArray("data") ?: break
-            if (data.length() == 0) break
-            for (i in 0 until data.length()) {
-                val r = data.getJSONArray(i)
-                docs.add(listOf(r.optString(0), r.optString(1), r.optString(3), r.optString(4)))
-            }
-            start += 100
-            if (start >= json.optInt("recordsFiltered", 0)) break
-        }
-        if (!searchOk) return null
-        val out = mutableListOf<CongressTrade>()
-        var fetched = 0
-        val maxSenateDocs = if (windowDays > 30) MAX_NEW_SENATE_DOCS_PRO else MAX_NEW_SENATE_DOCS
-        for (d in docs) {
-            if (fetched >= maxSenateDocs) break
-            val href = Regex("href=\"(/search/view/ptr/([^/\"]+)/)\"").find(d[2]) ?: continue // paper filings are scans -> skipped
-            val uuid = href.groupValues[2]
-            if ("senate_$uuid" in known) continue
-            try {
-                val (c4, page) = http(base + href.groupValues[1], cookies = cookies, headers = mapOf("Referer" to "$base/search/"))
-                if (c4 != 200) continue
-                val filingIso = usToIso(d[3])
-                val name = "${d[0]} ${d[1]}".replace(Regex("\\s+"), " ").trim()
-                val party = partyFor(leg, d[0], d[1], "sen", null, null)
-                out.addAll(parseSenatePtrHtml(String(page, Charsets.UTF_8), name, party, filingIso, uuid))
-                newDocIds.add("senate_$uuid")
-                fetched++
-            } catch (_: Exception) {}
-        }
-        return out
-    }
-
     // ------------------------------------------------------------------ public API
 
     /**
-     * Loads new official House + Senate PTRs for the requested windowDays, merges them with the cached ones,
+     * Loads new official U.S. House PTRs for the requested windowDays, merges them with the cached ones,
      * caches up to MAX_CACHE_DAYS (2 years), and returns the trades within windowDays.
      */
     fun fetchAll(windowDays: Int = DEFAULT_WINDOW_DAYS): List<CongressTrade>? {
@@ -484,23 +382,19 @@ class CongressLive(private val context: Context, private val prefs: SharedPrefer
         val leg = loadLegislators()
         val newDocs = mutableSetOf<String>()
         val fresh = mutableListOf<CongressTrade>()
-        var anyOk = false
-        var senateOk = false
-        try { fresh.addAll(fetchHouse(sinceIso, cache.docIds, leg, newDocs, windowDays)); anyOk = true } catch (e: Exception) {
+        var houseOk = false
+        try {
+            fresh.addAll(fetchHouse(sinceIso, cache.docIds, leg, newDocs, windowDays))
+            houseOk = true
+        } catch (e: Exception) {
             android.util.Log.w("CongressLive", "House feed failed", e)
         }
-        try {
-            val senate = fetchSenate(sinceIso, cache.docIds, leg, newDocs, windowDays)
-            if (senate != null) { fresh.addAll(senate); senateOk = true; anyOk = true }
-        } catch (e: Exception) {
-            android.util.Log.w("CongressLive", "Senate feed failed", e)
-        }
-        // Senate data is only used if the Senate feed could actually be retrieved
-        val cachedTrades = if (senateOk) cache.trades else cache.trades.filter { it.chamber != "senate" }
-        val knownIds = if (senateOk) cache.docIds else cache.docIds.filterNot { it.startsWith("senate_") }.toSet()
-        if (!anyOk) return cachedTrades.filter { it.transactionDate >= sinceIso }
+
+        val cachedTrades = cache.trades.filter { !it.chamber.equals("senate", ignoreCase = true) }
+        val knownIds = cache.docIds.filterNot { it.startsWith("senate_") }.toSet()
+        if (!houseOk) return cachedTrades.filter { it.transactionDate >= sinceIso }
         val allToCache = (fresh + cachedTrades)
-            .filter { it.transactionDate >= maxCacheIso }
+            .filter { it.transactionDate >= maxCacheIso && !it.chamber.equals("senate", ignoreCase = true) }
             .distinctBy { "${it.chamber}|${it.filerName}|${it.ticker}|${it.transactionDate}|${it.amountRangeLabel}|${it.transactionType}|${it.filingDate}" }
             .sortedWith(compareByDescending<CongressTrade> { it.filingDate }.thenByDescending { it.transactionDate })
         writeCache(allToCache, knownIds + newDocs)

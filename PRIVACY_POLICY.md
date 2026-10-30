@@ -12,9 +12,9 @@ WhaleRadar is designed with privacy at its core:
 
 ## 2. Public Data Sources & Network Access
 The app requires Internet access (`android.permission.INTERNET`) solely to retrieve public financial and statutory disclosure data from official and reputable public authorities:
-- **U.S. Securities and Exchange Commission (SEC EDGAR):** Official public Form 4 insider transaction filings.
-- **U.S. House of Representatives and Senate:** Public STOCK Act financial disclosure reports.
-- **Commodity Futures Trading Commission (CFTC):** Weekly public Commitment of Traders (COT) market reports.
+- **Insider Transactions (SEC Form 4):** U.S. Securities and Exchange Commission (EDGAR) - https://www.sec.gov/edgar/search/
+- **U.S. House of Representatives (STOCK Act PTR):** Office of the Clerk, U.S. House of Representatives - https://disclosures-clerk.house.gov
+- **Futures Market Positioning (COT Report):** U.S. Commodity Futures Trading Commission (CFTC) - https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm
 
 No personal user data is sent during these data retrieval requests. Standard HTTP user-agent headers identifying the application are utilized in compliance with regulatory server guidelines.
 
@@ -28,7 +28,12 @@ Our service is aimed at adult investors and financial researchers (18+). We do n
 ## 5. Security
 Because we do not collect or store personal data on remote servers, your personal data is not exposed to server-side breaches. Local app data on your device is protected by the Android sandbox architecture.
 
-## 6. Contact Us
+## 6. Legal Disclaimer / Rechtlicher Hinweis
+**RECHTLICHER HINWEIS:** WhaleRadar aggregiert öffentlich zugängliche Primärdaten ausschließlich zu Informations- und Marktforschungszwecken. WhaleRadar ist keine Anlageberatung, Finanzanalyse im Sinne des WpHG oder Aufforderung zum Kauf oder Verkauf von Wertpapieren. Alle Anlageentscheidungen treffen Sie eigenverantwortlich.
+
+**LEGAL DISCLAIMER:** WhaleRadar aggregates publicly available primary data solely for informational and market research purposes. WhaleRadar does not provide investment advice, financial analysis within the meaning of the German Securities Trading Act (WpHG), or any solicitation to buy or sell securities. All investment decisions are made at your own responsibility.
+
+## 7. Contact Us
 If you have any questions or suggestions regarding our Privacy Policy, please contact us at:
 - **Email:** support@whaleradar.app
 - **Website:** https://whaleradar.app

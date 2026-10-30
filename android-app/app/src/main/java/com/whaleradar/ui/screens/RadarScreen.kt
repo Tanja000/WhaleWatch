@@ -104,14 +104,14 @@ fun RadarScreen(
                 Spacer(modifier = Modifier.height(8.dp))
 
                 val criteria = if (isEn) listOf(
-                    "🏛️ Several different politicians (House & Senate) bought the stock; the higher the estimated purchase volume, the stronger.",
+                    "🏛️ Several different lawmakers (U.S. House) bought the stock; the higher the estimated purchase volume, the stronger.",
                     "🤝 Bipartisan: Democrats AND Republicans bought the same stock.",
                     "🏢 Company insiders (executives, directors, major shareholders) bought with their own money on the open market (SEC Form 4, code P).",
                     "🔥 Insider cluster: at least 2 different insiders of the same company bought; large purchase volumes count extra.",
                     "⭐ Combination signal: politicians AND insiders bought the same stock.",
                     "⚠️ Counter-signal: sales by politicians or insiders reduce the ranking."
                 ) else listOf(
-                    "🏛️ Mehrere verschiedene Politiker (Repräsentantenhaus & Senat) kauften die Aktie; je höher das geschätzte Kaufvolumen, desto stärker.",
+                    "🏛️ Mehrere verschiedene Abgeordnete (US-Repräsentantenhaus) kauften die Aktie; je höher das geschätzte Kaufvolumen, desto stärker.",
                     "🤝 Überparteilich: Demokraten UND Republikaner kauften dieselbe Aktie.",
                     "🏢 Firmen-Insider (Vorstände, Aufsichtsräte, Großaktionäre) kauften mit eigenem Geld am offenen Markt (SEC Form 4, Code P).",
                     "🔥 Insider-Cluster: mindestens 2 verschiedene Insider derselben Firma kauften; hohe Kaufvolumen zählen zusätzlich.",

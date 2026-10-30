@@ -162,9 +162,9 @@ fun PartySentimentDetailDialog(
                             )
                             Text(
                                 text = if (isEn)
-                                    "In the selected period (${selectedTimeframe.labelEn}), $politiciansCount ${if (isDem) "Democratic" else "Republican"} politician(s) reported $buyCountT purchase(s) and $saleCountT sale(s) of $${stock.ticker}. Source: official disclosures of the US House and Senate."
+                                    "In the selected period (${selectedTimeframe.labelEn}), $politiciansCount ${if (isDem) "Democratic" else "Republican"} politician(s) reported $buyCountT purchase(s) and $saleCountT sale(s) of $${stock.ticker}. Source: official disclosures of the US House of Representatives."
                                 else
-                                    "Im gewählten Zeitraum (${selectedTimeframe.labelDe}) meldeten $politiciansCount ${if (isDem) "demokratische" else "republikanische"} Politiker $buyCountT Kauf/Käufe und $saleCountT Verkauf/Verkäufe von $${stock.ticker}. Quelle: offizielle Meldungen des US-Repräsentantenhauses und des Senats.",
+                                    "Im gewählten Zeitraum (${selectedTimeframe.labelDe}) meldeten $politiciansCount ${if (isDem) "demokratische" else "republikanische"} Politiker $buyCountT Kauf/Käufe und $saleCountT Verkauf/Verkäufe von $${stock.ticker}. Quelle: offizielle Meldungen des US-Repräsentantenhauses.",
                                 fontSize = 11.sp,
                                 color = MaterialTheme.colorScheme.onSurface,
                                 lineHeight = 15.sp
@@ -193,11 +193,7 @@ fun PartySentimentDetailDialog(
                     } else {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             distinctTrades.forEach { trade ->
-                                val chamberText = if (isEn) {
-                                    if (trade.chamber.lowercase() == "senate") "Senate" else "House"
-                                } else {
-                                    if (trade.chamber.lowercase() == "senate") "Senat" else "Repräsentantenhaus"
-                                }
+                                val chamberText = if (isEn) "House" else "Repräsentantenhaus"
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
                                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f),
@@ -338,39 +334,19 @@ fun PartySentimentDetailDialog(
                     modifier = Modifier.fillMaxWidth(),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    // Offizielle Quelle
-                    Button(
-                        onClick = {
-                            try { uriHandler.openUri("https://disclosures-clerk.house.gov/FinancialDisclosure") } catch (_: Exception) {}
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text(
-                            text = if (isEn) "🏛️ Official Congress Disclosures ↗" else "🏛️ Offizielle Offenlegungsdaten (Congress Disclosures) ↗",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 12.5.sp,
-                            color = Color.Black
-                        )
-                    }
-
                     // Watchlist Button
-                    OutlinedButton(
+                    Button(
                         onClick = onToggleWatchlist,
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            contentColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface
-                        ),
-                        border = androidx.compose.foundation.BorderStroke(1.dp, if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.outlineVariant)
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = if (isOnWatchlist) Color.Black else MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     ) {
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = "Watchlist",
-                            tint = if (isOnWatchlist) AmberWhale else MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(8.dp))
@@ -381,6 +357,18 @@ fun PartySentimentDetailDialog(
                                 if (isOnWatchlist) "⭐ Auf Watchlist (Tippen zum Entfernen)" else "⭐ $${stock.ticker} zur Watchlist hinzufügen"
                             },
                             fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+
+                    OutlinedButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text(
+                            text = if (isEn) "Close" else "Schließen",
+                            fontWeight = FontWeight.SemiBold,
                             fontSize = 12.sp
                         )
                     }

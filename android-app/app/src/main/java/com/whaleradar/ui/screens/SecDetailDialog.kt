@@ -395,7 +395,7 @@ fun SecDetailDialog(
                 ) {
                     Button(
                         onClick = {
-                            val url = if (alert.filingUrl.isNotBlank()) alert.filingUrl else "https://www.sec.gov"
+                            val url = if (alert.filingUrl.isNotBlank() && alert.filingUrl != "https://www.sec.gov") alert.filingUrl else "https://www.sec.gov/edgar/search/"
                             try { uriHandler.openUri(url) } catch (_: Exception) {}
                         },
                         modifier = Modifier.fillMaxWidth(),
@@ -405,7 +405,7 @@ fun SecDetailDialog(
                         )
                     ) {
                         Text(
-                            text = if (isEn) "📄 Open Original Form 4 on sec.gov ↗" else "📄 Original Formblatt 4 auf sec.gov ansehen ↗",
+                            text = if (isEn) "📄 U.S. Securities and Exchange Commission (EDGAR) ↗" else "📄 U.S. Securities and Exchange Commission (EDGAR) ↗",
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp
                         )
@@ -696,7 +696,7 @@ fun SecClusterDetailDialog(
                                     ) {
                                         FilledTonalButton(
                                             onClick = {
-                                                val url = if (filing.filingUrl.isNotBlank()) filing.filingUrl else "https://www.sec.gov"
+                                                val url = if (filing.filingUrl.isNotBlank() && filing.filingUrl != "https://www.sec.gov") filing.filingUrl else "https://www.sec.gov/edgar/search/"
                                                 try { uriHandler.openUri(url) } catch (_: Exception) {}
                                             },
                                             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp),
@@ -704,7 +704,7 @@ fun SecClusterDetailDialog(
                                             modifier = Modifier.height(26.dp)
                                         ) {
                                             Text(
-                                                text = if (isEn) "📄 Open Form 4 (sec.gov) ↗" else "📄 Zum Formblatt 4 (sec.gov) ↗",
+                                                text = if (isEn) "📄 SEC EDGAR ↗" else "📄 SEC EDGAR ↗",
                                                 fontSize = 10.sp,
                                                 fontWeight = FontWeight.Bold,
                                                 color = CyanAccentGlow

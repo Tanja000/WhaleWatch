@@ -1,5 +1,8 @@
 # ProGuard / R8 configuration for WhaleRadar
 
+# Keep BuildConfig
+-keep class com.whaleradar.BuildConfig { *; }
+
 # Keep data models used with JSON / serialization / reflection
 -keep class com.whaleradar.data.model.** { *; }
 

@@ -588,8 +588,7 @@ fun CotDetailDialog(
                 ) {
                     Button(
                         onClick = {
-                            val url = if (market.futuresBenchUrl.isNotBlank()) market.futuresBenchUrl else "https://futuresbench.com/api/"
-                            try { uriHandler.openUri(url) } catch (_: Exception) {}
+                            try { uriHandler.openUri("https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm") } catch (_: Exception) {}
                         },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(12.dp),
@@ -598,9 +597,9 @@ fun CotDetailDialog(
                         )
                     ) {
                         Text(
-                            text = if (isEn) "🌐 Verify on FuturesBench.com ↗" else "🌐 Auf FuturesBench.com prüfen ↗",
+                            text = if (isEn) "📊 U.S. Commodity Futures Trading Commission (CFTC COT) ↗" else "📊 U.S. Commodity Futures Trading Commission (CFTC COT) ↗",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
+                            fontSize = 12.5.sp,
                             color = Color.Black
                         )
                     }

@@ -14,6 +14,8 @@ android {
         targetSdk = 36
         versionCode = 3
         versionName = "1.2.0"
+        val isOpen = (project.findProperty("openBuild")?.toString() ?: "false").toBoolean()
+        buildConfigField("boolean", "IS_OPEN_TEST_BUILD", isOpen.toString())
     }
 
     signingConfigs {
@@ -45,7 +47,7 @@ android {
     buildFeatures {
       compose = true
       aidl = false
-      buildConfig = false
+      buildConfig = true
       shaders = false
     }
 

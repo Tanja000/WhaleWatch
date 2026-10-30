@@ -1,1 +1,0 @@
-Nutzer kann selbst Zeitraum der Erfassung eingeben. Default 4 Wochen

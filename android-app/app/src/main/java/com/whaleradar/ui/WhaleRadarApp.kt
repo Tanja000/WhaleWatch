@@ -68,7 +68,7 @@ fun WhaleRadarApp(
     var selectedPartyStock by remember { mutableStateOf<com.whaleradar.data.model.TopPartyStock?>(null) }
 
     val prefs = remember { context.getSharedPreferences("whaleradar_prefs", android.content.Context.MODE_PRIVATE) }
-    var hasAcceptedDisclaimer by remember { mutableStateOf(prefs.getBoolean("legal_disclaimer_accepted_v1", false)) }
+    var hasAcceptedDisclaimer by remember { mutableStateOf(prefs.getBoolean("legal_disclaimer_accepted_v2", false)) }
     var showLegalDialog by remember { mutableStateOf(false) }
     var showPaywallDialog by remember { mutableStateOf(false) }
     var paywallRequestedTimeframe by remember { mutableStateOf<DataTimeframe?>(null) }
@@ -484,7 +484,7 @@ fun WhaleRadarApp(
                         onLanguageChange = { newLang -> viewModel.setLanguage(newLang) },
                         onAcceptOrDismiss = {
                             if (!hasAcceptedDisclaimer) {
-                                prefs.edit().putBoolean("legal_disclaimer_accepted_v1", true).apply()
+                                prefs.edit().putBoolean("legal_disclaimer_accepted_v2", true).apply()
                                 hasAcceptedDisclaimer = true
                             }
                             showLegalDialog = false
