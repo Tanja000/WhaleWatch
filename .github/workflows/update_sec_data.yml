@@ -1,4 +1,4 @@
-name: Update SEC Form 4 Data
+name: Update All WhaleRadar Financial Data
 
 on:
   schedule:
@@ -6,13 +6,13 @@ on:
     - cron: '*/30 12-23 * * 1-5'
     # Runs every 2 hours on weekends / outside market hours
     - cron: '0 */2 * * 0,6'
-  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+  workflow_dispatch: # Allows manual trigger anytime from GitHub Actions tab
 
 permissions:
   contents: write
 
 jobs:
-  update-sec-data:
+  update-data:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -23,18 +23,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Fetch and Parse SEC Form 4 Filings
+      - name: Fetch and Aggregate All 3 Data Sources
         run: |
-          python scripts/fetch_sec_data.py
+          python scripts/sync_all_data.py
 
-      - name: Commit and Push Updated Data
+      - name: Commit and Push Updated Data & Logs
         run: |
           git config user.name "WhaleRadar Bot"
           git config user.email "datawhaleradar@proton.me"
-          git add data/sec_form4_latest.json
+          git add data/ logs/
           if git diff --staged --quiet; then
-            echo "No new Form 4 filings detected. Nothing to commit."
+            echo "No data changes detected."
           else
-            git commit -m "chore(data): auto-update SEC Form 4 filings [skip ci]"
+            git commit -m "chore(data): auto-update primary financial data and logs [skip ci]"
             git push
           fi

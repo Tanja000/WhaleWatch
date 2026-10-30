@@ -1,0 +1,32 @@
+{
+  "updated_at": "2026-10-30T12:00:00Z",
+  "count": 5,
+  "source": "Office of the Clerk, U.S. House of Representatives",
+  "source_url": "https://disclosures-clerk.house.gov",
+  "trades": [
+    {
+      "doc_id": "20025110",
+      "filer_name": "Nancy Pelosi",
+      "chamber": "House",
+      "state_dst": "CA11",
+      "filing_date": "2026-10-25",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20025108",
+      "filer_name": "Michael McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "2026-10-24",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20025104",
+      "filer_name": "Ro Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "2026-10-22",
+      "official_url": "https://disclosures-clerk.house.gov"
+    }
+  ]
+}

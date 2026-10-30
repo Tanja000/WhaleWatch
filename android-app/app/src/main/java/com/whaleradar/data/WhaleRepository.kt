@@ -612,6 +612,29 @@ class WhaleRepository(private val context: Context) {
     }
 
     private fun fetchLiveCftcCot(): List<CotMarket>? {
+        // 0. Primary High-Speed GitHub Cache
+        try {
+            val ghUrl = java.net.URL("https://raw.githubusercontent.com/Tanja000/WhaleWatch/main/data/cot_latest.json")
+            val ghConn = (ghUrl.openConnection() as java.net.HttpURLConnection).apply {
+                requestMethod = "GET"
+                connectTimeout = 4000
+                readTimeout = 4000
+                setRequestProperty("Accept", "application/json")
+                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (datawhaleradar@proton.me)")
+            }
+            if (ghConn.responseCode == 200) {
+                val ghStr = ghConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                val parsed = parseCotJsonString(ghStr)
+                if (parsed.isNotEmpty()) {
+                    android.util.Log.i("WhaleRepo", "Loaded ${parsed.size} COT markets from GitHub Cache")
+                    prefs.edit().putString("cached_futuresbench_cot_v1", ghStr).apply()
+                    return parsed
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("WhaleRepo", "GitHub COT cache fallback: ${e.message}")
+        }
+
         // 1. Primary API: FuturesBench COT Data API (https://futuresbench.com/api/v1/latest.json)
         val fbUrl = java.net.URL("https://futuresbench.com/api/v1/latest.json")
         val fbConn = (fbUrl.openConnection() as java.net.HttpURLConnection).apply {
