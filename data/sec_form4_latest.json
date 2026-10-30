@@ -1,9 +1,534 @@
 {
-  "updated_at": "2026-10-30T12:00:00Z",
-  "count": 10,
+  "updated_at": "2026-10-30T14:55:16.582731Z",
+  "count": 22,
   "source": "U.S. Securities and Exchange Commission (EDGAR)",
   "source_url": "https://www.sec.gov/edgar/search/",
   "alerts": [
+    {
+      "accession_number": "0001437749-26-034097",
+      "ticker": "USCB",
+      "issuer": "USCB FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "GOMEZ OSCAR",
+      "role": "EVP, Global Banking",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 1218,
+      "shares_formatted": "1,218",
+      "price": 19.92,
+      "total_value": 24262.56,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1916971/000143774926034097/0001437749-26-034097-index.htm",
+      "security_title": "Class A Voting Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Voting Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 1218,
+          "price_per_share": 19.92,
+          "value": 24262.56,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001437749-26-034095",
+      "ticker": "USCB",
+      "issuer": "USCB FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "GUERRA-KATTOU MARTHA",
+      "role": "EVP, Sales and Marketing",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 1623,
+      "shares_formatted": "1,623",
+      "price": 19.92,
+      "total_value": 32330.16,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1916962/000143774926034095/0001437749-26-034095-index.htm",
+      "security_title": "Class A Voting Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Voting Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 1623,
+          "price_per_share": 19.92,
+          "value": 32330.16,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001437749-26-034093",
+      "ticker": "USCB",
+      "issuer": "USCB FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "BUSTLE NICHOLAS",
+      "role": "EVP and Chief Lending Officer",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 1623,
+      "shares_formatted": "1,623",
+      "price": 19.92,
+      "total_value": 32330.16,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1916674/000143774926034093/0001437749-26-034093-index.htm",
+      "security_title": "Class A Voting Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Voting Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 1623,
+          "price_per_share": 19.92,
+          "value": 32330.16,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001437749-26-034091",
+      "ticker": "USCB",
+      "issuer": "USCB FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "COLLAZO ANDRES",
+      "role": "EVP, Operations & IT",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 1218,
+      "shares_formatted": "1,218",
+      "price": 19.92,
+      "total_value": 24262.56,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1916662/000143774926034091/0001437749-26-034091-index.htm",
+      "security_title": "Class A Voting Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Voting Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 1218,
+          "price_per_share": 19.92,
+          "value": 24262.56,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001437749-26-034087",
+      "ticker": "USCB",
+      "issuer": "USCB FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "Rodriguez Ramon M.",
+      "role": "Director",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 1000,
+      "shares_formatted": "1,000",
+      "price": 20.0,
+      "total_value": 20000.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2137870/000143774926034087/0001437749-26-034087-index.htm",
+      "security_title": "Class A Voting Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Voting Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 1000,
+          "price_per_share": 20.0,
+          "value": 20000.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-440015",
+      "ticker": "IMSR",
+      "issuer": "Terrestrial Energy Inc. /DE/",
+      "reporting_owner": "Irish Simon",
+      "role": "Director, Chief Executive Officer",
+      "code": "M",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 55432,
+      "shares_formatted": "55,432",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2091865/000119312526440015/0001193125-26-440015-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 55432,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001493152-26-049370",
+      "ticker": "OTLC",
+      "issuer": "Oncotelic Therapeutics, Inc.",
+      "reporting_owner": "Trieu Vuong",
+      "role": "Director, CHAIRMAN AND CEO",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 1356990,
+      "shares_formatted": "1,356,990",
+      "price": 0.02,
+      "total_value": 23536.83,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1587074/000149315226049370/0001493152-26-049370-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 1044990,
+          "price_per_share": 0.02,
+          "value": 17764.83,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 312000,
+          "price_per_share": 0.02,
+          "value": 5772.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000902664-26-004313",
+      "ticker": "MRCY",
+      "issuer": "MERCURY SYSTEMS INC",
+      "reporting_owner": "Ostfeld Scott",
+      "role": "Director",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 2348,
+      "shares_formatted": "2,348",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1670312/000090266426004313/0000902664-26-004313-index.htm",
+      "security_title": "Common Stock, par value $0.01 per share",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock, par value $0.01 per share",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 2348,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001493152-26-049356",
+      "ticker": "UXIN",
+      "issuer": "Uxin Ltd",
+      "reporting_owner": "Dai Kun",
+      "role": "Director, Chief Executive Officer",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 7732,
+      "shares_formatted": "7,732",
+      "price": 0.97,
+      "total_value": 7496.95,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1764279/000149315226049356/0001493152-26-049356-index.htm",
+      "security_title": "American depositary shares",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "American depositary shares",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 7732,
+          "price_per_share": 0.97,
+          "value": 7496.95,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001168534-26-000011",
+      "ticker": "ANNA",
+      "issuer": "AleAnna, Inc.",
+      "reporting_owner": "HEBERT CURTIS L JR",
+      "role": "Director",
+      "code": "M",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 54076,
+      "shares_formatted": "54,076",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1845123/000116853426000011/0001168534-26-000011-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 20178,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 33898,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001829340-26-000014",
+      "ticker": "ANNA",
+      "issuer": "AleAnna, Inc.",
+      "reporting_owner": "vant Hoff Graham",
+      "role": "Director",
+      "code": "M",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 61340,
+      "shares_formatted": "61,340",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1845123/000182934026000014/0001829340-26-000014-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 20178,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 41162,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001411587-26-000002",
+      "ticker": "ANNA",
+      "issuer": "AleAnna, Inc.",
+      "reporting_owner": "Palmer Duncan",
+      "role": "Director",
+      "code": "M",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 54076,
+      "shares_formatted": "54,076",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1845123/000141158726000002/0001411587-26-000002-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 33898,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 20178,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0002084269-26-000003",
+      "ticker": "ANNA",
+      "issuer": "AleAnna, Inc.",
+      "reporting_owner": "Ronald Ivan Edward",
+      "role": "Chief Financial Officer",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 19576,
+      "shares_formatted": "19,576",
+      "price": 0.78,
+      "total_value": 15271.96,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2084269/000208426926000003/0002084269-26-000003-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 13317,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 6259,
+          "price_per_share": 2.44,
+          "value": 15271.96,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001628280-26-068424",
+      "ticker": "IDCC",
+      "issuer": "InterDigital, Inc.",
+      "reporting_owner": "ABERLE DEREK K",
+      "role": "Director",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 2,
+      "shares_formatted": "2",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1445355/000162828026068424/0001628280-26-068424-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 2,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001628280-26-068420",
+      "ticker": "IDCC",
+      "issuer": "InterDigital, Inc.",
+      "reporting_owner": "RANKIN JEAN F",
+      "role": "Director",
+      "code": "A",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 2,
+      "shares_formatted": "2",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1405495/000162828026068420/0001628280-26-068420-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "A",
+          "acquired_disposed": "A",
+          "shares": 2,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
     {
       "accession_number": "0001045810-26-000042",
       "ticker": "NVDA",
@@ -17,7 +542,7 @@
       "tx_type_en": "Rule 10b5-1 Planned Sale",
       "shares": 120000,
       "shares_formatted": "120,000",
-      "price": 142.50,
+      "price": 142.5,
       "total_value": 17100000.0,
       "filing_date": "2026-10-28",
       "filing_time": "2026-10-28 18:32:10",
@@ -30,7 +555,7 @@
           "transaction_code": "S",
           "acquired_disposed": "D",
           "shares": 120000,
-          "price_per_share": 142.50,
+          "price_per_share": 142.5,
           "value": 17100000.0,
           "shares_after": 75000000
         }
@@ -49,7 +574,7 @@
       "tx_type_en": "Open Market Purchase",
       "shares": 25000,
       "shares_formatted": "25,000",
-      "price": 232.80,
+      "price": 232.8,
       "total_value": 5820000.0,
       "filing_date": "2026-10-27",
       "filing_time": "2026-10-27 16:45:00",
@@ -62,7 +587,7 @@
           "transaction_code": "P",
           "acquired_disposed": "A",
           "shares": 25000,
-          "price_per_share": 232.80,
+          "price_per_share": 232.8,
           "value": 5820000.0,
           "shares_after": 4530000
         }
@@ -81,7 +606,7 @@
       "tx_type_en": "Open Market Purchase",
       "shares": 30000,
       "shares_formatted": "30,000",
-      "price": 188.40,
+      "price": 188.4,
       "total_value": 5652000.0,
       "filing_date": "2026-10-26",
       "filing_time": "2026-10-26 19:15:22",
@@ -94,7 +619,7 @@
           "transaction_code": "P",
           "acquired_disposed": "A",
           "shares": 30000,
-          "price_per_share": 188.40,
+          "price_per_share": 188.4,
           "value": 5652000.0,
           "shares_after": 2150000
         }
@@ -113,7 +638,7 @@
       "tx_type_en": "Rule 10b5-1 Planned Sale",
       "shares": 45000,
       "shares_formatted": "45,000",
-      "price": 435.10,
+      "price": 435.1,
       "total_value": 19579500.0,
       "filing_date": "2026-10-25",
       "filing_time": "2026-10-25 17:50:11",
@@ -126,7 +651,7 @@
           "transaction_code": "S",
           "acquired_disposed": "D",
           "shares": 45000,
-          "price_per_share": 435.10,
+          "price_per_share": 435.1,
           "value": 19579500.0,
           "shares_after": 820000
         }
@@ -145,7 +670,7 @@
       "tx_type_en": "Open Market Purchase",
       "shares": 15000,
       "shares_formatted": "15,000",
-      "price": 254.30,
+      "price": 254.3,
       "total_value": 3814500.0,
       "filing_date": "2026-10-24",
       "filing_time": "2026-10-24 18:02:44",
@@ -158,7 +683,7 @@
           "transaction_code": "P",
           "acquired_disposed": "A",
           "shares": 15000,
-          "price_per_share": 254.30,
+          "price_per_share": 254.3,
           "value": 3814500.0,
           "shares_after": 1250000
         }
@@ -177,7 +702,7 @@
       "tx_type_en": "Rule 10b5-1 Planned Sale",
       "shares": 65000,
       "shares_formatted": "65,000",
-      "price": 585.00,
+      "price": 585.0,
       "total_value": 38025000.0,
       "filing_date": "2026-10-23",
       "filing_time": "2026-10-23 20:10:05",
@@ -190,7 +715,7 @@
           "transaction_code": "S",
           "acquired_disposed": "D",
           "shares": 65000,
-          "price_per_share": 585.00,
+          "price_per_share": 585.0,
           "value": 38025000.0,
           "shares_after": 340000000
         }
@@ -209,7 +734,7 @@
       "tx_type_en": "Open Market Purchase",
       "shares": 20000,
       "shares_formatted": "20,000",
-      "price": 224.50,
+      "price": 224.5,
       "total_value": 4490000.0,
       "filing_date": "2026-10-22",
       "filing_time": "2026-10-22 17:15:30",
@@ -222,7 +747,7 @@
           "transaction_code": "P",
           "acquired_disposed": "A",
           "shares": 20000,
-          "price_per_share": 224.50,
+          "price_per_share": 224.5,
           "value": 4490000.0,
           "shares_after": 8600000
         }

@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-30T12:00:00Z",
-  "count": 5,
+  "updated_at": "2026-10-30T14:55:16.998984Z",
+  "count": 300,
   "source": "Office of the Clerk, U.S. House of Representatives",
   "source_url": "https://disclosures-clerk.house.gov",
   "trades": [
@@ -26,6 +26,2382 @@
       "chamber": "House",
       "state_dst": "CA17",
       "filing_date": "2026-10-22",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034201",
+      "filer_name": "Mark Alford",
+      "chamber": "House",
+      "state_dst": "MO04",
+      "filing_date": "3/31/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033751",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "1/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033945",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "2/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034133",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "3/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034315",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "5/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034473",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "6/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034740",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "6/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034945",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "7/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035260",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "8/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035492",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "9/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035648",
+      "filer_name": "Richard W. Allen",
+      "chamber": "House",
+      "state_dst": "GA12",
+      "filing_date": "10/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035714",
+      "filer_name": "Jodey Arrington",
+      "chamber": "House",
+      "state_dst": "TX19",
+      "filing_date": "10/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034024",
+      "filer_name": "Jake Auchincloss",
+      "chamber": "House",
+      "state_dst": "MA04",
+      "filing_date": "2/19/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034622",
+      "filer_name": "Jake Auchincloss",
+      "chamber": "House",
+      "state_dst": "MA04",
+      "filing_date": "5/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034522",
+      "filer_name": "Brian Babin",
+      "chamber": "House",
+      "state_dst": "TX36",
+      "filing_date": "5/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20020055",
+      "filer_name": "Nicholas Begich",
+      "chamber": "House",
+      "state_dst": "AK00",
+      "filing_date": "6/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034920",
+      "filer_name": "Nicholas Begich",
+      "chamber": "House",
+      "state_dst": "AK00",
+      "filing_date": "7/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034524",
+      "filer_name": "Cliff Bentz",
+      "chamber": "House",
+      "state_dst": "OR02",
+      "filing_date": "5/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033714",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "1/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033903",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "1/31/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034085",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "3/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034891",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "7/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035106",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "8/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035349",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "9/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035555",
+      "filer_name": "Donald Sternoff Beyer",
+      "chamber": "House",
+      "state_dst": "VA08",
+      "filing_date": "10/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033800",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "1/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033927",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "2/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034013",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "2/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034195",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "3/21/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034346",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "4/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034496",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "6/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035007",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "7/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035489",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "9/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035525",
+      "filer_name": "Sheri Biggs",
+      "chamber": "House",
+      "state_dst": "SC03",
+      "filing_date": "10/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034044",
+      "filer_name": "Rob Bresnahan",
+      "chamber": "House",
+      "state_dst": "PA08",
+      "filing_date": "2/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034202",
+      "filer_name": "Rob Bresnahan",
+      "chamber": "House",
+      "state_dst": "PA08",
+      "filing_date": "3/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035216",
+      "filer_name": "Rob Bresnahan",
+      "chamber": "House",
+      "state_dst": "PA08",
+      "filing_date": "8/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034502",
+      "filer_name": "Earl Leroy Carter",
+      "chamber": "House",
+      "state_dst": "GA01",
+      "filing_date": "5/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034176",
+      "filer_name": "Ed Case",
+      "chamber": "House",
+      "state_dst": "HI01",
+      "filing_date": "3/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034221",
+      "filer_name": "Ed Case",
+      "chamber": "House",
+      "state_dst": "HI01",
+      "filing_date": "4/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034668",
+      "filer_name": "Ed Case",
+      "chamber": "House",
+      "state_dst": "HI01",
+      "filing_date": "5/31/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035275",
+      "filer_name": "Ed Case",
+      "chamber": "House",
+      "state_dst": "HI01",
+      "filing_date": "8/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033762",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "1/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033983",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "2/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034144",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "3/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034285",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "4/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034500",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "5/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034713",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "6/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034906",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "7/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035190",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "9/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035390",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "9/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035622",
+      "filer_name": "Gilbert Cisneros",
+      "chamber": "House",
+      "state_dst": "CA31",
+      "filing_date": "10/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034892",
+      "filer_name": "Katherine M. Clark",
+      "chamber": "House",
+      "state_dst": "MA05",
+      "filing_date": "7/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033754",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "1/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033813",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "1/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033889",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "2/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034119",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "3/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034167",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "3/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034368",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "4/28/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034452",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "5/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034589",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "5/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034796",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "6/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035235",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "8/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035350",
+      "filer_name": "Steve Cohen",
+      "chamber": "House",
+      "state_dst": "TN09",
+      "filing_date": "9/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116249",
+      "filer_name": "Tom Cole",
+      "chamber": "House",
+      "state_dst": "OK04",
+      "filing_date": "7/21/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033840",
+      "filer_name": "Michael A. Collins",
+      "chamber": "House",
+      "state_dst": "GA10",
+      "filing_date": "1/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035024",
+      "filer_name": "Daniel Crenshaw",
+      "chamber": "House",
+      "state_dst": "TX02",
+      "filing_date": "7/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034223",
+      "filer_name": "Warren Davidson",
+      "chamber": "House",
+      "state_dst": "OH08",
+      "filing_date": "3/25/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033737",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "1/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033921",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "2/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034159",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "3/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034299",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "4/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034487",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034718",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "6/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034932",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "7/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035118",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "8/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035408",
+      "filer_name": "April McClain Delaney",
+      "chamber": "House",
+      "state_dst": "MD06",
+      "filing_date": "9/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033766",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "1/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033835",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "1/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034155",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "3/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034400",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "4/28/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034466",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "5/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034615",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "5/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034727",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "6/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035175",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "8/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035274",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "8/21/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035400",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "9/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035498",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "9/30/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035627",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "10/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035689",
+      "filer_name": "Suzan K. DelBene",
+      "chamber": "House",
+      "state_dst": "WA01",
+      "filing_date": "10/28/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033744",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "1/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034035",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "2/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034416",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "4/28/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034702",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "6/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034960",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "7/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035048",
+      "filer_name": "Debbie Dingell",
+      "chamber": "House",
+      "state_dst": "MI06",
+      "filing_date": "7/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033713",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "1/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034132",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "3/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034292",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "4/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034486",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034712",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "6/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034923",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "7/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035136",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "8/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035401",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "9/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035580",
+      "filer_name": "Lloyd Doggett",
+      "chamber": "House",
+      "state_dst": "TX37",
+      "filing_date": "10/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033747",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "1/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033780",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "1/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033981",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "2/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034134",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "3/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034297",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "4/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034478",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "5/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034968",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "7/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035420",
+      "filer_name": "Byron Donalds",
+      "chamber": "House",
+      "state_dst": "FL19",
+      "filing_date": "9/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034114",
+      "filer_name": "Neal Patrick MD, Facs Dunn",
+      "chamber": "House",
+      "state_dst": "FL02",
+      "filing_date": "3/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034815",
+      "filer_name": "Neal Patrick MD, Facs Dunn",
+      "chamber": "House",
+      "state_dst": "FL02",
+      "filing_date": "6/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034379",
+      "filer_name": "Dwight Evans",
+      "chamber": "House",
+      "state_dst": "PA03",
+      "filing_date": "4/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034556",
+      "filer_name": "Dwight Evans",
+      "chamber": "House",
+      "state_dst": "PA03",
+      "filing_date": "5/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034851",
+      "filer_name": "Dwight Evans",
+      "chamber": "House",
+      "state_dst": "PA03",
+      "filing_date": "6/24/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033732",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "1/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033858",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "2/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034018",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "2/24/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034179",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "3/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034295",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "4/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034357",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "4/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034591",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "6/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034800",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "6/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034894",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "7/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035023",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "7/30/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035345",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "9/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035464",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "10/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035669",
+      "filer_name": "Cleo Fields",
+      "chamber": "House",
+      "state_dst": "LA06",
+      "filing_date": "10/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "8221321",
+      "filer_name": "Charles J. \"Chuck\" Fleischmann",
+      "chamber": "House",
+      "state_dst": "TN03",
+      "filing_date": "2/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115704",
+      "filer_name": "Charles J. \"Chuck\" Fleischmann",
+      "chamber": "House",
+      "state_dst": "TN03",
+      "filing_date": "3/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115821",
+      "filer_name": "Charles J. \"Chuck\" Fleischmann",
+      "chamber": "House",
+      "state_dst": "TN03",
+      "filing_date": "5/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116212",
+      "filer_name": "Charles J. \"Chuck\" Fleischmann",
+      "chamber": "House",
+      "state_dst": "TN03",
+      "filing_date": "7/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116290",
+      "filer_name": "Charles J. \"Chuck\" Fleischmann",
+      "chamber": "House",
+      "state_dst": "TN03",
+      "filing_date": "8/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034413",
+      "filer_name": "Elizabeth Fletcher",
+      "chamber": "House",
+      "state_dst": "TX07",
+      "filing_date": "5/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035539",
+      "filer_name": "Vince Fong",
+      "chamber": "House",
+      "state_dst": "CA20",
+      "filing_date": "10/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033734",
+      "filer_name": "Virginia Foxx",
+      "chamber": "House",
+      "state_dst": "NC05",
+      "filing_date": "1/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033947",
+      "filer_name": "Virginia Foxx",
+      "chamber": "House",
+      "state_dst": "NC05",
+      "filing_date": "2/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034095",
+      "filer_name": "Virginia Foxx",
+      "chamber": "House",
+      "state_dst": "NC05",
+      "filing_date": "3/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034670",
+      "filer_name": "Virginia Foxx",
+      "chamber": "House",
+      "state_dst": "NC05",
+      "filing_date": "6/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034895",
+      "filer_name": "Virginia Foxx",
+      "chamber": "House",
+      "state_dst": "NC05",
+      "filing_date": "7/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034050",
+      "filer_name": "Scott Scott Franklin",
+      "chamber": "House",
+      "state_dst": "FL18",
+      "filing_date": "2/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035450",
+      "filer_name": "Scott Scott Franklin",
+      "chamber": "House",
+      "state_dst": "FL18",
+      "filing_date": "9/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034355",
+      "filer_name": "Laura Friedman",
+      "chamber": "House",
+      "state_dst": "CA30",
+      "filing_date": "4/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034563",
+      "filer_name": "Laura Friedman",
+      "chamber": "House",
+      "state_dst": "CA30",
+      "filing_date": "5/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035410",
+      "filer_name": "Brandon Gill",
+      "chamber": "House",
+      "state_dst": "TX26",
+      "filing_date": "9/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033756",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "1/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033930",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "2/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034130",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "3/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034305",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "4/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034585",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "5/19/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034693",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "6/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034938",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "7/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035186",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "8/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035455",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "9/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035590",
+      "filer_name": "Josh Gottheimer",
+      "chamber": "House",
+      "state_dst": "NJ05",
+      "filing_date": "10/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033944",
+      "filer_name": "Michael Patrick Guest",
+      "chamber": "House",
+      "state_dst": "MS03",
+      "filing_date": "2/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035130",
+      "filer_name": "Michael Patrick Guest",
+      "chamber": "House",
+      "state_dst": "MS03",
+      "filing_date": "8/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115809",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115811",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115812",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115813",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115814",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115815",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "5/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115901",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "6/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116256",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "8/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116257",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "8/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116258",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "8/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116331",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "9/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116355",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116356",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116357",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116389",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116390",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116391",
+      "filer_name": "Diana Harshbarger",
+      "chamber": "House",
+      "state_dst": "TN01",
+      "filing_date": "10/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033829",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "1/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034012",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "2/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034128",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "3/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034262",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "4/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034461",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "5/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034695",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "6/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035013",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "7/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035134",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "8/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035196",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "8/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035326",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "9/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035491",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "9/25/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035588",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "10/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035710",
+      "filer_name": "Kevin Hern",
+      "chamber": "House",
+      "state_dst": "OK01",
+      "filing_date": "10/28/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033661",
+      "filer_name": "James French Hill",
+      "chamber": "House",
+      "state_dst": "AR02",
+      "filing_date": "1/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035047",
+      "filer_name": "James A. Himes",
+      "chamber": "House",
+      "state_dst": "CT04",
+      "filing_date": "7/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035687",
+      "filer_name": "James A. Himes",
+      "chamber": "House",
+      "state_dst": "CT04",
+      "filing_date": "10/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034581",
+      "filer_name": "Valerie Hoyle",
+      "chamber": "House",
+      "state_dst": "OR04",
+      "filing_date": "5/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035700",
+      "filer_name": "Darrell E. Issa",
+      "chamber": "House",
+      "state_dst": "CA48",
+      "filing_date": "10/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033739",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "1/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033929",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "2/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034113",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "3/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034301",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "4/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034519",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "5/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034688",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "6/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034908",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "7/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035370",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "9/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035551",
+      "filer_name": "Jonathan Jackson",
+      "chamber": "House",
+      "state_dst": "IL01",
+      "filing_date": "10/19/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034498",
+      "filer_name": "Sara Jacobs",
+      "chamber": "House",
+      "state_dst": "CA51",
+      "filing_date": "5/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034949",
+      "filer_name": "John James",
+      "chamber": "House",
+      "state_dst": "MI10",
+      "filing_date": "7/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034160",
+      "filer_name": "Pramila Jayapal",
+      "chamber": "House",
+      "state_dst": "WA07",
+      "filing_date": "3/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033789",
+      "filer_name": "Julie Johnson",
+      "chamber": "House",
+      "state_dst": "TX32",
+      "filing_date": "1/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034706",
+      "filer_name": "Julie Johnson",
+      "chamber": "House",
+      "state_dst": "TX32",
+      "filing_date": "6/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035035",
+      "filer_name": "Julie Johnson",
+      "chamber": "House",
+      "state_dst": "TX32",
+      "filing_date": "8/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033803",
+      "filer_name": "James D Jordan",
+      "chamber": "House",
+      "state_dst": "OH04",
+      "filing_date": "1/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033821",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "1/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034025",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "2/19/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034190",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "3/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034327",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "4/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034616",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "5/22/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034783",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "6/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035003",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "7/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035273",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "8/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035431",
+      "filer_name": "Thomas H. Kean",
+      "chamber": "House",
+      "state_dst": "NJ07",
+      "filing_date": "9/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033946",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "2/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034068",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "2/26/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034177",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "3/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034307",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "4/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034417",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "5/18/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034898",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "8/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035293",
+      "filer_name": "William R. Keating",
+      "chamber": "House",
+      "state_dst": "MA09",
+      "filing_date": "8/25/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033763",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "1/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033991",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "2/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034168",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "3/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034302",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "4/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034607",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "5/20/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034767",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "6/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034947",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "7/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035203",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "8/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035209",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "8/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035403",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "9/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035652",
+      "filer_name": "Mike Kelly",
+      "chamber": "House",
+      "state_dst": "PA16",
+      "filing_date": "10/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "8221322",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "2/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "8221358",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "3/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115726",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "4/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115822",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "5/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116142",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "6/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116206",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "7/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116267",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "8/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116328",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "9/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116376",
+      "filer_name": "Rohit Khanna",
+      "chamber": "House",
+      "state_dst": "CA17",
+      "filing_date": "10/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033814",
+      "filer_name": "Rick Larsen",
+      "chamber": "House",
+      "state_dst": "WA02",
+      "filing_date": "1/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034351",
+      "filer_name": "Rick Larsen",
+      "chamber": "House",
+      "state_dst": "WA02",
+      "filing_date": "4/15/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034977",
+      "filer_name": "Rick Larsen",
+      "chamber": "House",
+      "state_dst": "WA02",
+      "filing_date": "7/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035635",
+      "filer_name": "Rick Larsen",
+      "chamber": "House",
+      "state_dst": "WA02",
+      "filing_date": "10/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033857",
+      "filer_name": "Robert E. Latta",
+      "chamber": "House",
+      "state_dst": "OH05",
+      "filing_date": "1/23/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034401",
+      "filer_name": "Robert E. Latta",
+      "chamber": "House",
+      "state_dst": "OH05",
+      "filing_date": "4/24/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034726",
+      "filer_name": "Robert E. Latta",
+      "chamber": "House",
+      "state_dst": "OH05",
+      "filing_date": "6/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035065",
+      "filer_name": "Robert E. Latta",
+      "chamber": "House",
+      "state_dst": "OH05",
+      "filing_date": "7/24/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034694",
+      "filer_name": "Laurel Lee",
+      "chamber": "House",
+      "state_dst": "FL15",
+      "filing_date": "7/19/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035490",
+      "filer_name": "Laurel Lee",
+      "chamber": "House",
+      "state_dst": "FL15",
+      "filing_date": "10/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034552",
+      "filer_name": "Susie Lee",
+      "chamber": "House",
+      "state_dst": "NV03",
+      "filing_date": "6/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034790",
+      "filer_name": "Susie Lee",
+      "chamber": "House",
+      "state_dst": "NV03",
+      "filing_date": "7/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20030977",
+      "filer_name": "Julia Letlow",
+      "chamber": "House",
+      "state_dst": "LA05",
+      "filing_date": "1/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034106",
+      "filer_name": "Julia Letlow",
+      "chamber": "House",
+      "state_dst": "LA05",
+      "filing_date": "3/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034736",
+      "filer_name": "Sam T. Liccardo",
+      "chamber": "House",
+      "state_dst": "CA16",
+      "filing_date": "7/27/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033738",
+      "filer_name": "Zoe Lofgren",
+      "chamber": "House",
+      "state_dst": "CA18",
+      "filing_date": "1/6/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116217",
+      "filer_name": "Nicole Malliotakis",
+      "chamber": "House",
+      "state_dst": "NY11",
+      "filing_date": "7/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116292",
+      "filer_name": "Tracey Robert Mann",
+      "chamber": "House",
+      "state_dst": "KS01",
+      "filing_date": "8/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033695",
+      "filer_name": "Doris O. Matsui",
+      "chamber": "House",
+      "state_dst": "CA07",
+      "filing_date": "1/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "8221326",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "2/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "8221359",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "3/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115728",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "4/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9115820",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "5/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116141",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "6/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116211",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "7/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "9116378",
+      "filer_name": "Michael T. McCaul",
+      "chamber": "House",
+      "state_dst": "TX10",
+      "filing_date": "10/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033736",
+      "filer_name": "Lisa McClain",
+      "chamber": "House",
+      "state_dst": "MI09",
+      "filing_date": "1/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033964",
+      "filer_name": "Lisa McClain",
+      "chamber": "House",
+      "state_dst": "MI09",
+      "filing_date": "2/11/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034105",
+      "filer_name": "Lisa McClain",
+      "chamber": "House",
+      "state_dst": "MI09",
+      "filing_date": "3/4/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035131",
+      "filer_name": "Lisa McClain",
+      "chamber": "House",
+      "state_dst": "MI09",
+      "filing_date": "8/5/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035585",
+      "filer_name": "Lisa McClain",
+      "chamber": "House",
+      "state_dst": "MI09",
+      "filing_date": "10/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034311",
+      "filer_name": "Jennifer McClellan",
+      "chamber": "House",
+      "state_dst": "VA04",
+      "filing_date": "4/16/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033648",
+      "filer_name": "Richard Dean Dr McCormick",
+      "chamber": "House",
+      "state_dst": "GA06",
+      "filing_date": "4/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034542",
+      "filer_name": "Richard Dean Dr McCormick",
+      "chamber": "House",
+      "state_dst": "GA06",
+      "filing_date": "5/12/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034954",
+      "filer_name": "Richard Dean Dr McCormick",
+      "chamber": "House",
+      "state_dst": "GA06",
+      "filing_date": "7/9/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035204",
+      "filer_name": "Richard Dean Dr McCormick",
+      "chamber": "House",
+      "state_dst": "GA06",
+      "filing_date": "8/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035651",
+      "filer_name": "Richard Dean Dr McCormick",
+      "chamber": "House",
+      "state_dst": "GA06",
+      "filing_date": "10/14/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20033956",
+      "filer_name": "John McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "2/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034521",
+      "filer_name": "John McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "5/13/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034748",
+      "filer_name": "John McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "6/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034942",
+      "filer_name": "John McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "7/8/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035180",
+      "filer_name": "John J Mr McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "8/10/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035367",
+      "filer_name": "John J Mr McGuire",
+      "chamber": "House",
+      "state_dst": "VA05",
+      "filing_date": "9/2/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034099",
+      "filer_name": "Christian D. Menefee",
+      "chamber": "House",
+      "state_dst": "TX18",
+      "filing_date": "6/1/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20035157",
+      "filer_name": "Christian D. Menefee",
+      "chamber": "House",
+      "state_dst": "TX18",
+      "filing_date": "8/7/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034016",
+      "filer_name": "Daniel Meuser",
+      "chamber": "House",
+      "state_dst": "PA09",
+      "filing_date": "2/17/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034158",
+      "filer_name": "Daniel Meuser",
+      "chamber": "House",
+      "state_dst": "PA09",
+      "filing_date": "4/3/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034359",
+      "filer_name": "Daniel Meuser",
+      "chamber": "House",
+      "state_dst": "PA09",
+      "filing_date": "4/21/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034547",
+      "filer_name": "Daniel Meuser",
+      "chamber": "House",
+      "state_dst": "PA09",
+      "filing_date": "5/21/2026",
+      "official_url": "https://disclosures-clerk.house.gov"
+    },
+    {
+      "doc_id": "20034774",
+      "filer_name": "Daniel Meuser",
+      "chamber": "House",
+      "state_dst": "PA09",
+      "filing_date": "7/2/2026",
       "official_url": "https://disclosures-clerk.house.gov"
     }
   ]
