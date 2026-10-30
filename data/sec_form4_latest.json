@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-30T15:54:57.229044Z",
-  "count": 12,
+  "updated_at": "2026-10-30T19:00:36.729881Z",
+  "count": 16,
   "source": "U.S. Securities and Exchange Commission (EDGAR)",
   "source_url": "https://www.sec.gov/edgar/search/",
   "alerts": [
@@ -411,6 +411,152 @@
           "shares": 1623,
           "price_per_share": 19.92,
           "value": 32330.16,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0000073309-26-000133",
+      "ticker": "NUE",
+      "issuer": "NUCOR CORP",
+      "reporting_owner": "Hanners Noah C",
+      "role": "Executive Vice President",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 5190,
+      "shares_formatted": "5,190",
+      "price": 275.03,
+      "total_value": 1427406.22,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1960914/000007330926000133/0000073309-26-000133-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 5190,
+          "price_per_share": 275.03,
+          "value": 1427406.22,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001184041-26-000006",
+      "ticker": "CINF",
+      "issuer": "CINCINNATI FINANCIAL CORP",
+      "reporting_owner": "JOHNSTON STEVEN J",
+      "role": "Director, Chairman",
+      "code": "F",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 126028,
+      "shares_formatted": "126,028",
+      "price": 113.87,
+      "total_value": 14351101.68,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1184041/000118404126000006/0001184041-26-000006-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "M",
+          "acquired_disposed": "A",
+          "shares": 76484,
+          "price_per_share": 70.7,
+          "value": 5407418.8,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "F",
+          "acquired_disposed": "D",
+          "shares": 49544,
+          "price_per_share": 180.52,
+          "value": 8943682.88,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001771309-26-000005",
+      "ticker": "PEO",
+      "issuer": "ADAMS NATURAL RESOURCES FUND, INC.",
+      "reporting_owner": "Nelson Jane Musser",
+      "role": "Director",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 1010,
+      "shares_formatted": "1,010",
+      "price": 29.93,
+      "total_value": 30229.3,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1771309/000177130926000005/0001771309-26-000005-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 1010,
+          "price_per_share": 29.93,
+          "value": 30229.3,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001614143-26-000006",
+      "ticker": "BFH",
+      "issuer": "BREAD FINANCIAL HOLDINGS, INC.",
+      "reporting_owner": "Fawcett John J.",
+      "role": "Director",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 5000,
+      "shares_formatted": "5,000",
+      "price": 24.7,
+      "total_value": 123490.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1614143/000161414326000006/0001614143-26-000006-index.htm",
+      "security_title": "Preferred Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Preferred Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 3000,
+          "price_per_share": 24.69,
+          "value": 74070.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Preferred Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 2000,
+          "price_per_share": 24.71,
+          "value": 49420.0,
           "shares_after": 0
         }
       ]
