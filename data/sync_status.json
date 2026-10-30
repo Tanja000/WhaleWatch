@@ -1,8 +1,8 @@
-﻿{
-    "sync_time":  "2026-10-30T15:52:44.225694Z",
-    "sec_count":  58,
-    "cot_count":  107,
-    "congress_count":  300,
-    "status":  "success",
-    "log_path":  "logs/sync.log"
+{
+  "sync_time": "2026-10-30T15:54:46.736644Z",
+  "sec_count": 12,
+  "cot_count": 107,
+  "congress_count": 300,
+  "status": "success",
+  "log_path": "logs/sync.log"
 }
