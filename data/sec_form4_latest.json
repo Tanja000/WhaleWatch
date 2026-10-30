@@ -1,0 +1,232 @@
+{
+  "updated_at": "2026-10-30T12:00:00Z",
+  "count": 10,
+  "source": "U.S. Securities and Exchange Commission (EDGAR)",
+  "source_url": "https://www.sec.gov/edgar/search/",
+  "alerts": [
+    {
+      "accession_number": "0001045810-26-000042",
+      "ticker": "NVDA",
+      "issuer": "NVIDIA CORP",
+      "reporting_owner": "Huang Jen Hsun",
+      "role": "CEO, President",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": true,
+      "tx_type_de": "Planmäßiger Verkauf (10b5-1)",
+      "tx_type_en": "Rule 10b5-1 Planned Sale",
+      "shares": 120000,
+      "shares_formatted": "120,000",
+      "price": 142.50,
+      "total_value": 17100000.0,
+      "filing_date": "2026-10-28",
+      "filing_time": "2026-10-28 18:32:10",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 120000,
+          "price_per_share": 142.50,
+          "value": 17100000.0,
+          "shares_after": 75000000
+        }
+      ]
+    },
+    {
+      "accession_number": "0000320193-26-000108",
+      "ticker": "AAPL",
+      "issuer": "APPLE INC",
+      "reporting_owner": "Levinson Arthur D",
+      "role": "Director",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 25000,
+      "shares_formatted": "25,000",
+      "price": 232.80,
+      "total_value": 5820000.0,
+      "filing_date": "2026-10-27",
+      "filing_time": "2026-10-27 16:45:00",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 2,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 25000,
+          "price_per_share": 232.80,
+          "value": 5820000.0,
+          "shares_after": 4530000
+        }
+      ]
+    },
+    {
+      "accession_number": "0001018724-26-000089",
+      "ticker": "AMZN",
+      "issuer": "AMAZON COM INC",
+      "reporting_owner": "Jassy Andrew R",
+      "role": "CEO, Director",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 30000,
+      "shares_formatted": "30,000",
+      "price": 188.40,
+      "total_value": 5652000.0,
+      "filing_date": "2026-10-26",
+      "filing_time": "2026-10-26 19:15:22",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 30000,
+          "price_per_share": 188.40,
+          "value": 5652000.0,
+          "shares_after": 2150000
+        }
+      ]
+    },
+    {
+      "accession_number": "0000789019-26-000065",
+      "ticker": "MSFT",
+      "issuer": "MICROSOFT CORP",
+      "reporting_owner": "Nadella Satya",
+      "role": "CEO, Chairman",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": true,
+      "tx_type_de": "Planmäßiger Verkauf (10b5-1)",
+      "tx_type_en": "Rule 10b5-1 Planned Sale",
+      "shares": 45000,
+      "shares_formatted": "45,000",
+      "price": 435.10,
+      "total_value": 19579500.0,
+      "filing_date": "2026-10-25",
+      "filing_time": "2026-10-25 17:50:11",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 45000,
+          "price_per_share": 435.10,
+          "value": 19579500.0,
+          "shares_after": 820000
+        }
+      ]
+    },
+    {
+      "accession_number": "0001318605-26-000112",
+      "ticker": "TSLA",
+      "issuer": "TESLA INC",
+      "reporting_owner": "Denholm Robyn M",
+      "role": "Director, Chairman",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 15000,
+      "shares_formatted": "15,000",
+      "price": 254.30,
+      "total_value": 3814500.0,
+      "filing_date": "2026-10-24",
+      "filing_time": "2026-10-24 18:02:44",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 15000,
+          "price_per_share": 254.30,
+          "value": 3814500.0,
+          "shares_after": 1250000
+        }
+      ]
+    },
+    {
+      "accession_number": "0001326801-26-000054",
+      "ticker": "META",
+      "issuer": "META PLATFORMS INC",
+      "reporting_owner": "Zuckerberg Mark",
+      "role": "CEO, 10% Owner",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": true,
+      "tx_type_de": "Planmäßiger Verkauf (10b5-1)",
+      "tx_type_en": "Rule 10b5-1 Planned Sale",
+      "shares": 65000,
+      "shares_formatted": "65,000",
+      "price": 585.00,
+      "total_value": 38025000.0,
+      "filing_date": "2026-10-23",
+      "filing_time": "2026-10-23 20:10:05",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Class A Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Class A Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 65000,
+          "price_per_share": 585.00,
+          "value": 38025000.0,
+          "shares_after": 340000000
+        }
+      ]
+    },
+    {
+      "accession_number": "0000019617-26-000341",
+      "ticker": "JPM",
+      "issuer": "JPMORGAN CHASE & CO",
+      "reporting_owner": "Dimon Jamie",
+      "role": "CEO, Chairman",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 20000,
+      "shares_formatted": "20,000",
+      "price": 224.50,
+      "total_value": 4490000.0,
+      "filing_date": "2026-10-22",
+      "filing_time": "2026-10-22 17:15:30",
+      "filing_url": "https://www.sec.gov/edgar/search/",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 20000,
+          "price_per_share": 224.50,
+          "value": 4490000.0,
+          "shares_after": 8600000
+        }
+      ]
+    }
+  ]
+}

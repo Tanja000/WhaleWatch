@@ -1,0 +1,40 @@
+name: Update SEC Form 4 Data
+
+on:
+  schedule:
+    # Runs every 30 minutes Monday through Friday during US market activity (12:00 UTC to 23:00 UTC)
+    - cron: '*/30 12-23 * * 1-5'
+    # Runs every 2 hours on weekends / outside market hours
+    - cron: '0 */2 * * 0,6'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  update-sec-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Fetch and Parse SEC Form 4 Filings
+        run: |
+          python scripts/fetch_sec_data.py
+
+      - name: Commit and Push Updated Data
+        run: |
+          git config user.name "WhaleRadar Bot"
+          git config user.email "bot@whaleradar.app"
+          git add data/sec_form4_latest.json
+          if git diff --staged --quiet; then
+            echo "No new Form 4 filings detected. Nothing to commit."
+          else
+            git commit -m "chore(data): auto-update SEC Form 4 filings [skip ci]"
+            git push
+          fi

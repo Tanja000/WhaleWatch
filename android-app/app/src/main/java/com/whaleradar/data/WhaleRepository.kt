@@ -836,6 +836,80 @@ class WhaleRepository(private val context: Context) {
         val alerts = mutableListOf<SecAlert>()
         val outJsonArr = JSONArray()
 
+        // 0. Primary High-Speed Cloud Cache (GitHub Actions SEC Sync)
+        // Eliminates SEC rate limits and protects users from direct SEC blocking
+        try {
+            val ghUrl = java.net.URL("https://raw.githubusercontent.com/Tanja000/WhaleWatch/main/data/sec_form4_latest.json")
+            val ghConn = (ghUrl.openConnection() as java.net.HttpURLConnection).apply {
+                requestMethod = "GET"
+                connectTimeout = 4000
+                readTimeout = 4000
+                setRequestProperty("Accept", "application/json")
+                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
+            }
+            if (ghConn.responseCode == 200) {
+                val ghStr = ghConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                val parsedGh = parseSecJsonString(ghStr)
+                if (parsedGh.isNotEmpty()) {
+                    alerts.addAll(parsedGh)
+                    android.util.Log.i("WhaleRepo", "Loaded ${parsedGh.size} Form 4 alerts from GitHub Cache")
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("WhaleRepo", "GitHub cache fetch fallback: ${e.message}")
+        }
+
+        // If GitHub cache provided sufficient alerts, skip direct SEC queries entirely
+        if (alerts.size >= 8) {
+            // Merge with local device cache and return immediately
+            val cutoffCache = maxCacheCutoffIso()
+            val previousAlerts = try {
+                val prev = prefs.getString("cached_live_sec_form4_v2", null)
+                if (!prev.isNullOrBlank()) parseSecJsonString(prev) else emptyList()
+            } catch (_: Exception) { emptyList() }
+
+            val merged = (alerts + previousAlerts)
+                .filter { isValidStockTicker(it.ticker, it.issuer) && it.filingDate.take(10) >= cutoffCache }
+                .distinctBy { it.accessionNumber.ifBlank { "${it.ticker}_${it.reportingOwner}_${it.filingDate}_${it.shares}" } }
+
+            val byTicker = merged.groupBy { it.ticker.uppercase() }
+            for (item in merged) {
+                val grp = byTicker[item.ticker.uppercase()] ?: listOf(item)
+                val isClust = grp.map { ownerKey(it) }.filter { it.isNotEmpty() }.distinct().size >= 2
+                outJsonArr.put(JSONObject().apply {
+                    put("transactions", txArrayToJson(effectiveTx(item)))
+                    put("accession_number", item.accessionNumber)
+                    put("ticker", item.ticker)
+                    put("issuer", item.issuer)
+                    put("reporting_owner", item.reportingOwner)
+                    put("role", item.role)
+                    put("code", item.code)
+                    put("is_buy", item.isBuy)
+                    put("is_10b5_1", item.is10b51Plan)
+                    put("tx_type_de", item.txTypeDe)
+                    put("tx_type_en", item.txTypeEn)
+                    put("shares", item.shares)
+                    put("shares_formatted", item.sharesFormatted)
+                    put("price", item.price)
+                    put("total_value", item.totalValue)
+                    put("filing_date", item.filingDate)
+                    put("filing_time", item.filingTime)
+                    put("filing_url", item.filingUrl)
+                    put("security_title", item.securityTitle)
+                    put("cluster_count", if (isClust) grp.size else 1)
+                })
+            }
+            if (outJsonArr.length() > 0) {
+                val rootObj = JSONObject().apply {
+                    put("source", "GitHub Cache + SEC EDGAR")
+                    put("updated_at", java.text.SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", java.util.Locale.US).format(java.util.Date()))
+                    put("alerts", outJsonArr)
+                }
+                prefs.edit().putString("cached_live_sec_form4_v2", rootObj.toString()).apply()
+            }
+            return merged
+        }
+
         // 1. Optional Massive Form 4 OpenAPI Endpoint (https://api.massive.com/v1/filings/form-4)
         try {
             val massiveUrl = java.net.URL("https://api.massive.com/v1/filings/form-4?limit=30")
@@ -857,11 +931,11 @@ class WhaleRepository(private val context: Context) {
             // Proceed to public keyless SEC EDGAR EFTS Form 4 JSON Search API
         }
 
-        // 2. Primary Keyless Live API: Official SEC EDGAR EFTS Form 4 JSON Index + Direct Form 4 XML
+        // 2. Direct SEC Fallback with Polite Rate Limiting (< 5 req/s)
         try {
             val days = _selectedTimeframe.value.days
-            val maxFetch = if (days > 30) 75 else 40
-            val maxPerCompany = if (days > 30) 6 else 3
+            val maxFetch = if (days > 30) 40 else 25
+            val maxPerCompany = if (days > 30) 4 else 2
             val sdf = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US)
             val cal = java.util.Calendar.getInstance()
             val endDt = sdf.format(cal.time)
@@ -912,32 +986,23 @@ class WhaleRepository(private val context: Context) {
                     candidates.add(SecDownloadCandidate(adsh, rawXmlUrl, indexUrl, fDate))
                 }
 
-                // Concurrently download and parse Form 4 XML filings (up to 6 parallel workers)
-                if (candidates.isNotEmpty()) {
-                    val pool = java.util.concurrent.Executors.newFixedThreadPool(6)
+                // Strictly throttled sequential fetching to stay comfortably below SEC 10 req/s limit
+                for (c in candidates) {
                     try {
-                        val futures = candidates.map { c ->
-                            pool.submit(java.util.concurrent.Callable {
-                                try {
-                                    val xmlConn = (java.net.URL(c.xmlUrl).openConnection() as java.net.HttpURLConnection).apply {
-                                        requestMethod = "GET"
-                                        connectTimeout = 4000
-                                        readTimeout = 4000
-                                        setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
-                                    }
-                                    if (xmlConn.responseCode != 200) return@Callable null
-                                    val form4Xml = xmlConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-                                    parseForm4XmlToSecAlert(form4Xml, c.adsh, c.fDate, c.indexUrl)
-                                } catch (_: Exception) { null }
-                            })
+                        val xmlConn = (java.net.URL(c.xmlUrl).openConnection() as java.net.HttpURLConnection).apply {
+                            requestMethod = "GET"
+                            connectTimeout = 4000
+                            readTimeout = 4000
+                            setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
                         }
-                        for (f in futures) {
-                            val parsed = f.get() ?: continue
-                            alerts.add(parsed)
+                        if (xmlConn.responseCode == 200) {
+                            val form4Xml = xmlConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                            val parsed = parseForm4XmlToSecAlert(form4Xml, c.adsh, c.fDate, c.indexUrl)
+                            if (parsed != null) alerts.add(parsed)
                         }
-                    } finally {
-                        pool.shutdown()
-                    }
+                    } catch (_: Exception) {}
+                    // Polite 150ms pause between SEC requests = ~6 requests/sec max
+                    try { Thread.sleep(150) } catch (_: Exception) {}
                 }
             }
         } catch (e: Exception) {
