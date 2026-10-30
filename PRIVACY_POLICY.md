@@ -35,5 +35,5 @@ Because we do not collect or store personal data on remote servers, your persona
 
 ## 7. Contact Us
 If you have any questions or suggestions regarding our Privacy Policy, please contact us at:
-- **Email:** support@whaleradar.app
+- **Email:** datawhaleradar@proton.me
 - **Website:** https://whaleradar.app

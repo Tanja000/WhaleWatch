@@ -1,0 +1,9 @@
+.gradle/
+build/
+android-app/.gradle/
+android-app/.kotlin/
+android-app/app/build/
+*.iml
+.idea/
+local.properties
+.DS_Store

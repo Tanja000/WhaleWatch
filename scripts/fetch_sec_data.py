@@ -1,28 +1,28 @@
 #!/usr/bin/env python3
 """
 WhaleRadar SEC Form 4 Data Sync Script
-Runs as a GitHub Action on schedule to fetch recent Form 4 filings from SEC EDGAR,
-parse the XML filings, and write a consolidated sec_form4_latest.json file.
+Uses the official SEC EDGAR Form 4 Feed to fetch, parse, and aggregate insider transactions.
 """
 
 import os
 import sys
 import json
 import time
+import re
 import urllib.request
 import urllib.error
 import xml.etree.ElementTree as ET
-from datetime import datetime, timedelta
+from datetime import datetime
 
-USER_AGENT = "WhaleRadarBot/1.0 (https://github.com/Tanja000/WhaleWatch; contact@whaleradar.app)"
+USER_AGENT = "WhaleRadar datawhaleradar@proton.me"
 OUTPUT_FILE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "sec_form4_latest.json")
 
-def http_get(url, timeout=10):
+def http_get(url, timeout=12):
     req = urllib.request.Request(
         url,
         headers={
             "User-Agent": USER_AGENT,
-            "Accept": "application/json, application/xml, text/xml, */*"
+            "Accept": "application/atom+xml, application/xml, text/xml, text/html, */*"
         }
     )
     with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -46,7 +46,7 @@ def parse_form4_xml(xml_bytes, adsh, f_date, index_url):
     if not ticker or ticker == "NONE" or len(ticker) > 6 or "." in ticker:
         return None
 
-    # Reporting Owner
+    # Reporting Owner & Role
     owner_el = root.find(".//reportingOwner")
     owner_name = ""
     role = "Insider"
@@ -136,8 +136,8 @@ def parse_form4_xml(xml_bytes, adsh, f_date, index_url):
         "code": tx_code,
         "is_buy": is_buy,
         "is_10b5_1": is_10b5_1,
-        "tx_type_de": "Offenmarkt-Kauf" if is_buy else "Verkauf",
-        "tx_type_en": "Open Market Purchase" if is_buy else "Sale",
+        "tx_type_de": "Offenmarkt-Kauf" if is_buy else ("Planmäßiger Verkauf (10b5-1)" if is_10b5_1 else "Verkauf"),
+        "tx_type_en": "Open Market Purchase" if is_buy else ("Rule 10b5-1 Planned Sale" if is_10b5_1 else "Sale"),
         "shares": total_shares,
         "shares_formatted": f"{total_shares:,}",
         "price": round(avg_price, 2),
@@ -156,78 +156,62 @@ def main():
     print(f"Timestamp: {datetime.utcnow().isoformat()}Z")
     print("=" * 60)
 
-    # We fetch Form 4 filings for the last 14 days
-    today = datetime.utcnow().date()
-    start_date = today - timedelta(days=14)
-    start_dt_str = start_date.strftime("%Y-%m-%d")
-    end_dt_str = today.strftime("%Y-%m-%d")
+    # Query official SEC EDGAR Current Form 4 Atom Feed
+    atom_url = "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=4&company=&dateb=&owner=only&start=0&count=50&output=atom"
+    print(f"Fetching official SEC Form 4 Feed: {atom_url}")
 
-    search_url = f"https://efts.sec.gov/LATEST/search-index?forms=4&startdt={start_dt_str}&enddt={end_dt_str}"
-    print(f"Querying SEC search index: {start_dt_str} to {end_dt_str}")
-
+    entries = []
     try:
-        raw_index = http_get(search_url, timeout=12)
-        index_json = json.loads(raw_index.decode("utf-8"))
+        atom_bytes = http_get(atom_url, timeout=15)
+        feed_root = ET.fromstring(atom_bytes)
+        ns = {"atom": "http://www.w3.org/2005/Atom"}
+        for entry in feed_root.findall("atom:entry", ns):
+            link_el = entry.find("atom:link", ns)
+            updated_el = entry.find("atom:updated", ns)
+            if link_el is not None and "href" in link_el.attrib:
+                href = link_el.attrib["href"]
+                f_date = (updated_el.text or "")[:10] if updated_el is not None else datetime.utcnow().strftime("%Y-%m-%d")
+                entries.append((href, f_date))
     except Exception as e:
-        print(f"Error querying SEC EDGAR search index: {e}")
-        sys.exit(1)
+        print(f"Warning: Could not fetch Atom feed: {e}")
 
-    hits = index_json.get("hits", {}).get("hits", [])
-    print(f"Found {len(hits)} matching Form 4 hits in SEC index.")
-
-    candidates = []
-    company_counts = {}
-    max_filings = 80
-    max_per_company = 4
-
-    for hit in hits:
-        if len(candidates) >= max_filings:
-            break
-        hit_id = hit.get("_id", "")
-        parts = hit_id.split(":")
-        if len(parts) < 2:
-            continue
-        adsh = parts[0].strip()
-        xml_file = parts[1].strip()
-
-        src = hit.get("_source", {})
-        ciks = src.get("ciks", [])
-        if not ciks:
-            continue
-        cik_raw = ciks[1] if len(ciks) > 1 else ciks[0]
-        cik_int = cik_raw.lstrip("0")
-        if not cik_int:
-            continue
-
-        if company_counts.get(cik_raw, 0) >= max_per_company:
-            continue
-        company_counts[cik_raw] = company_counts.get(cik_raw, 0) + 1
-
-        adsh_clean = adsh.replace("-", "")
-        xml_url = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{adsh_clean}/{xml_file}"
-        index_url = f"https://www.sec.gov/Archives/edgar/data/{cik_int}/{adsh_clean}/{adsh}-index.htm"
-        f_date = src.get("file_date", end_dt_str)[:10]
-
-        candidates.append((adsh, xml_url, index_url, f_date))
-
-    print(f"Selected {len(candidates)} filings to download and parse.")
+    print(f"Found {len(entries)} recent Form 4 filings in feed.")
 
     parsed_alerts = []
-    # Strict polite rate limiting: 0.15s pause = ~6 requests per second (well below SEC limit of 10/s)
-    for idx, (adsh, xml_url, index_url, f_date) in enumerate(candidates, 1):
+    seen_accessions = set()
+
+    for idx, (index_url, f_date) in enumerate(entries[:35], 1):
         try:
-            xml_bytes = http_get(xml_url, timeout=8)
+            m = re.search(r"data/([0-9]+)/([0-9]+)/", index_url)
+            if not m:
+                continue
+            cik, acc_raw = m.group(1), m.group(2)
+            base_folder = f"https://www.sec.gov/Archives/edgar/data/{cik}/{acc_raw}/"
+            
+            index_html = http_get(index_url, timeout=10).decode("utf-8", errors="ignore")
+            xml_match = re.search(r'href="([^"]+?\.xml)"', index_html)
+            if not xml_match:
+                continue
+            xml_path = xml_match.group(1).lstrip("/")
+            xml_url = base_folder + xml_path.split("/")[-1]
+
+            adsh = f"{acc_raw[:10]}-{acc_raw[10:12]}-{acc_raw[12:]}" if len(acc_raw) == 18 else acc_raw
+            if adsh in seen_accessions:
+                continue
+            seen_accessions.add(adsh)
+
+            time.sleep(0.12)  # SEC polite rate limit
+            xml_bytes = http_get(xml_url, timeout=10)
             alert = parse_form4_xml(xml_bytes, adsh, f_date, index_url)
             if alert:
                 parsed_alerts.append(alert)
-                print(f"[{idx}/{len(candidates)}] Parsed: {alert['ticker']} ({alert['reporting_owner']}) - {alert['shares_formatted']} shares")
+                print(f"[{idx}] {alert['ticker']}: {alert['reporting_owner']} ({alert['role']}) - {alert['shares_formatted']} shs @ ${alert['price']}")
         except Exception as err:
-            print(f"[{idx}/{len(candidates)}] Skip {adsh}: {err}")
-        time.sleep(0.15)
+            pass
 
-    print(f"Successfully parsed {len(parsed_alerts)} Form 4 alerts.")
+    print(f"Parsed {len(parsed_alerts)} Form 4 alerts from live feed.")
 
-    # Load existing alerts to merge and preserve history
+    # Load existing alerts to preserve history
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     existing_alerts = []
     if os.path.exists(OUTPUT_FILE):
@@ -250,11 +234,8 @@ def main():
         acc = a.get("accession_number") or f"{a.get('ticker')}_{a.get('filing_date')}_{a.get('shares')}"
         combined_map[acc] = a
 
-    # Sort descending by filing_date
     final_alerts = list(combined_map.values())
     final_alerts.sort(key=lambda x: x.get("filing_date", ""), reverse=True)
-
-    # Keep latest 250 entries
     final_alerts = final_alerts[:250]
 
     output_payload = {

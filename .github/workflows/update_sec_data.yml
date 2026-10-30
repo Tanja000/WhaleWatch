@@ -30,7 +30,7 @@ jobs:
       - name: Commit and Push Updated Data
         run: |
           git config user.name "WhaleRadar Bot"
-          git config user.email "bot@whaleradar.app"
+          git config user.email "datawhaleradar@proton.me"
           git add data/sec_form4_latest.json
           if git diff --staged --quiet; then
             echo "No new Form 4 filings detected. Nothing to commit."

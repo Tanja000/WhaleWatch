@@ -845,7 +845,7 @@ class WhaleRepository(private val context: Context) {
                 connectTimeout = 4000
                 readTimeout = 4000
                 setRequestProperty("Accept", "application/json")
-                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
+                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (datawhaleradar@proton.me)")
             }
             if (ghConn.responseCode == 200) {
                 val ghStr = ghConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
@@ -947,7 +947,7 @@ class WhaleRepository(private val context: Context) {
                 requestMethod = "GET"
                 connectTimeout = 6000
                 readTimeout = 6000
-                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
+                setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (datawhaleradar@proton.me)")
                 setRequestProperty("Accept", "application/json")
             }
             if (eftsConn.responseCode == 200) {
@@ -993,7 +993,7 @@ class WhaleRepository(private val context: Context) {
                             requestMethod = "GET"
                             connectTimeout = 4000
                             readTimeout = 4000
-                            setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (contact@whaleradar.app)")
+                            setRequestProperty("User-Agent", "WhaleRadarApp/2.0 (datawhaleradar@proton.me)")
                         }
                         if (xmlConn.responseCode == 200) {
                             val form4Xml = xmlConn.inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
