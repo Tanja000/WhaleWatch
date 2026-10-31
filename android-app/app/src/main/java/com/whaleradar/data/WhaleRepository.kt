@@ -206,36 +206,43 @@ class WhaleRepository(private val context: Context) {
             val rawIssuer = a.optString("issuer", "").trim()
             if (!isValidStockTicker(rawTicker, rawIssuer)) continue
             val fTime = a.optString("filing_time", "")
-            val fDate = a.optString("filing_date", if (fTime.isNotEmpty()) fTime.take(10) else "")
+            val rawFDate = a.optString("filing_date", if (fTime.isNotEmpty()) fTime.take(10) else "")
+            val fDate = if (rawFDate.isNotBlank() && rawFDate != "-") rawFDate else "No Data"
             val codeVal = a.optString("code", "P").trim().uppercase()
             val isBuyVal = if (a.has("is_buy")) a.optBoolean("is_buy", true) else (codeVal != "S" && codeVal != "F" && codeVal != "D")
             val is10b51Val = a.optBoolean("is_10b5_1", false)
 
             val sharesVal = a.optLong("shares", 0)
-            val rawShares = a.optString("shares_formatted", "-")
+            val rawShares = a.optString("shares_formatted", "No Data")
             val cleanShares = if (sharesVal > 0) {
                 "%,d".format(java.util.Locale.GERMANY, sharesVal) + " Aktien"
-            } else if (rawShares != "0" && rawShares != "0 Aktien" && rawShares.isNotBlank()) {
+            } else if (rawShares.isNotBlank() && rawShares != "-" && rawShares != "0" && rawShares != "0 Aktien") {
                 rawShares
-            } else "-"
+            } else "No Data"
 
-            val priceVal = a.optDouble("price", 0.0)
-            val rawPrice = a.optString("price_formatted", "-")
+            val priceVal = if (a.has("price")) a.optDouble("price", 0.0) else a.optDouble("price_per_share", 0.0)
+            val rawPrice = a.optString("price_formatted", "No Data")
             val cleanPrice = if (priceVal > 0.0) {
                 "$" + "%,.2f".format(java.util.Locale.GERMANY, priceVal)
-            } else if (rawPrice != "$0" && rawPrice != "$0,00" && rawPrice.startsWith("$")) {
+            } else if (rawPrice.isNotBlank() && rawPrice != "-" && rawPrice != "$0" && rawPrice != "$0,00" && rawPrice != "$0.00") {
                 rawPrice
-            } else "-"
+            } else "No Data"
 
-            val computedTotal = if (sharesVal > 0 && priceVal > 0.0) Math.round(sharesVal * priceVal) else a.optLong("total_value", 0)
+            val computedTotal = if (sharesVal > 0 && priceVal > 0.0) Math.round(sharesVal * priceVal) else if (a.has("total_value")) a.optLong("total_value", 0) else a.optLong("value", 0)
+            val rawTotal = a.optString("total_value_formatted", "No Data")
             val cleanTotal = if (computedTotal > 0) {
                 "$" + "%,d".format(java.util.Locale.GERMANY, computedTotal)
-            } else "-"
+            } else if (rawTotal.isNotBlank() && rawTotal != "-") {
+                rawTotal
+            } else "No Data"
 
-            val postSharesVal = a.optLong("security_beneficials", 0L)
+            val postSharesVal = if (a.has("security_beneficials")) a.optLong("security_beneficials", 0L) else a.optLong("shares_after", 0L)
+            val rawBenef = a.optString("security_beneficials_formatted", "No Data")
             val cleanBeneficials = if (postSharesVal > 0L) {
                 "%,d".format(java.util.Locale.GERMANY, postSharesVal) + " Aktien"
-            } else a.optString("security_beneficials_formatted", "-")
+            } else if (rawBenef.isNotBlank() && rawBenef != "-" && rawBenef != "0" && rawBenef != "0 Aktien") {
+                rawBenef
+            } else "No Data"
 
             var ownerName = a.optString("reporting_owner", "").trim()
             if (ownerName == "Vorstand / Aufsichtsrat" || ownerName == "Vorstand" || ownerName == "Vorstand und Aufsichtsrat") {
@@ -276,36 +283,75 @@ class WhaleRepository(private val context: Context) {
                     price = priceVal,
                     shares = sharesVal,
                     is10b51Plan = is10b51Val,
-                    transactions = parseTxArray(a.optJSONArray("transactions"))
+                    transactions = parseTxArray(a.optJSONArray("transactions"), fDate, cleanBeneficials)
                 )
             )
         }
         return list
     }
 
-    private fun parseTxArray(arr: JSONArray?): List<SecTransactionItem> {
+    private fun parseTxArray(arr: JSONArray?, parentFDate: String = "No Data", parentBeneficials: String = "No Data"): List<SecTransactionItem> {
         if (arr == null) return emptyList()
         val out = mutableListOf<SecTransactionItem>()
         for (i in 0 until arr.length()) {
             val t = arr.optJSONObject(i) ?: continue
-            val code = t.optString("code", "P")
+            val code = (if (t.has("code")) t.optString("code") else t.optString("transaction_code", "P")).trim().uppercase()
             val isBuy = if (t.has("is_buy")) t.optBoolean("is_buy", true) else (code != "S" && code != "F" && code != "D")
+
+            val txDateRaw = if (t.has("transaction_date")) t.optString("transaction_date") else t.optString("date", "")
+            val txDate = if (txDateRaw.isNotBlank() && txDateRaw != "-") txDateRaw else if (parentFDate.isNotBlank() && parentFDate != "No Data") parentFDate else "No Data"
+
+            val tShares = t.optLong("shares", 0)
+            val tRawShares = t.optString("shares_formatted", "")
+            val tSharesFmt = if (tShares > 0) {
+                "%,d".format(java.util.Locale.GERMANY, tShares) + " Aktien"
+            } else if (tRawShares.isNotBlank() && tRawShares != "-" && tRawShares != "0") {
+                tRawShares
+            } else "No Data"
+
+            val tPrice = if (t.has("price")) t.optDouble("price", 0.0) else t.optDouble("price_per_share", 0.0)
+            val tRawPrice = t.optString("price_formatted", "")
+            val tPriceFmt = if (tPrice > 0.0) {
+                "$" + "%,.2f".format(java.util.Locale.GERMANY, tPrice)
+            } else if (tRawPrice.isNotBlank() && tRawPrice != "-" && !tRawPrice.startsWith("$0")) {
+                tRawPrice
+            } else "No Data"
+
+            val tVal = if (t.has("total_value")) t.optLong("total_value", 0) else t.optLong("value", 0)
+            val tRawVal = t.optString("total_value_formatted", "")
+            val computedVal = if (tVal > 0) tVal else if (tShares > 0 && tPrice > 0.0) Math.round(tShares * tPrice) else 0L
+            val tValFmt = if (computedVal > 0) {
+                "$" + "%,d".format(java.util.Locale.GERMANY, computedVal)
+            } else if (tRawVal.isNotBlank() && tRawVal != "-") {
+                tRawVal
+            } else "No Data"
+
+            val tBenef = if (t.has("security_beneficials")) t.optLong("security_beneficials", 0) else t.optLong("shares_after", 0)
+            val tRawBenef = t.optString("security_beneficials_formatted", "")
+            val tBenefFmt = if (tBenef > 0) {
+                "%,d".format(java.util.Locale.GERMANY, tBenef) + " Aktien"
+            } else if (tRawBenef.isNotBlank() && tRawBenef != "-" && tRawBenef != "0") {
+                tRawBenef
+            } else if (parentBeneficials != "No Data" && parentBeneficials.isNotBlank() && parentBeneficials != "-") {
+                parentBeneficials
+            } else "No Data"
+
             out.add(
                 SecTransactionItem(
                     code = code,
                     isBuy = isBuy,
-                    txTypeDe = t.optString("tx_type_de", ""),
-                    txTypeEn = t.optString("tx_type_en", ""),
+                    txTypeDe = t.optString("tx_type_de", if (isBuy) "Kauf" else "Verkauf"),
+                    txTypeEn = t.optString("tx_type_en", if (isBuy) "Purchase" else "Sale"),
                     securityTitle = t.optString("security_title", "Common Stock"),
-                    transactionDate = t.optString("transaction_date", ""),
-                    shares = t.optLong("shares", 0),
-                    sharesFormatted = t.optString("shares_formatted", "-"),
-                    price = t.optDouble("price", 0.0),
-                    priceFormatted = t.optString("price_formatted", "-"),
-                    totalValue = t.optLong("total_value", 0),
-                    totalValueFormatted = t.optString("total_value_formatted", "-"),
-                    securityBeneficials = t.optLong("security_beneficials", 0),
-                    securityBeneficialsFormatted = t.optString("security_beneficials_formatted", "-"),
+                    transactionDate = txDate,
+                    shares = tShares,
+                    sharesFormatted = tSharesFmt,
+                    price = tPrice,
+                    priceFormatted = tPriceFmt,
+                    totalValue = computedVal,
+                    totalValueFormatted = tValFmt,
+                    securityBeneficials = tBenef,
+                    securityBeneficialsFormatted = tBenefFmt,
                     ownershipNature = t.optString("ownership_nature", "D")
                 )
             )

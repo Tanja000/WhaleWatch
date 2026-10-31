@@ -163,29 +163,29 @@ fun SecDetailDialog(
     val txLabel = if (alert.transactions.size > 1) (if (isEn) "${alert.transactions.size} transactions in this filing" else "${alert.transactions.size} Transaktionen in diesem Formblatt") else if (isEn) alert.txTypeEn else alert.txTypeDe
     val scrollState = rememberScrollState()
 
-    val rawSharesText = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "-") {
+    val rawSharesText = if (alert.sharesFormatted.isNotBlank() && alert.sharesFormatted != "-" && alert.sharesFormatted != "No Data") {
         alert.sharesFormatted
     } else if (alert.shares > 0) {
         "${alert.shares} Aktien"
     } else {
-        "-"
+        "No Data"
     }
     val sharesText = if (isEn) rawSharesText.replace("Aktien", "Shares") else rawSharesText
 
     val priceText = if (alert.price > 0.0) {
         String.format(if (isEn) java.util.Locale.US else java.util.Locale.GERMANY, "$%.2f", alert.price)
-    } else if (alert.priceFormatted.isNotBlank() && alert.priceFormatted != "-") {
+    } else if (alert.priceFormatted.isNotBlank() && alert.priceFormatted != "-" && alert.priceFormatted != "No Data" && !alert.priceFormatted.startsWith("$0")) {
         alert.priceFormatted
     } else {
-        "-"
+        "No Data"
     }
 
-    val rawBenefText = if (alert.securityBeneficialsFormatted.isNotBlank()) {
+    val rawBenefText = if (alert.securityBeneficialsFormatted.isNotBlank() && alert.securityBeneficialsFormatted != "-" && alert.securityBeneficialsFormatted != "No Data") {
         alert.securityBeneficialsFormatted
     } else if (alert.securityBeneficials > 0) {
         String.format(java.util.Locale.GERMANY, "%,d Aktien", alert.securityBeneficials)
     } else {
-        "-"
+        "No Data"
     }
     val benefText = if (isEn) rawBenefText.replace("Aktien", "Shares") else rawBenefText
 
@@ -577,37 +577,39 @@ fun SecClusterDetailDialog(
                                            else if (filing.code == "S" || !filing.isBuy) (if (isEn) "🔴 SALE (Code ${filing.code})" else "🔴 Verkauf (Code ${filing.code})")
                                            else "⚪ Award (Code ${filing.code})"
 
-                            val rawSharesText = if (filing.sharesFormatted.isNotBlank() && filing.sharesFormatted != "-") {
+                            val rawSharesText = if (filing.sharesFormatted.isNotBlank() && filing.sharesFormatted != "-" && filing.sharesFormatted != "No Data") {
                                 filing.sharesFormatted
                             } else if (filing.shares > 0) {
                                 "${filing.shares} Aktien"
                             } else {
-                                "-"
+                                "No Data"
                             }
                             val sharesText = if (isEn) rawSharesText.replace("Aktien", "Shares") else rawSharesText
 
                             val priceText = if (filing.price > 0.0) {
                                 String.format(if (isEn) java.util.Locale.US else java.util.Locale.GERMANY, "$%.2f", filing.price)
-                            } else if (filing.priceFormatted.isNotBlank() && filing.priceFormatted != "-") {
+                            } else if (filing.priceFormatted.isNotBlank() && filing.priceFormatted != "-" && filing.priceFormatted != "No Data" && !filing.priceFormatted.startsWith("$0")) {
                                 filing.priceFormatted
                             } else {
-                                "-"
+                                "No Data"
                             }
 
-                            val rawBenefText = if (filing.securityBeneficialsFormatted.isNotBlank()) {
+                            val rawBenefText = if (filing.securityBeneficialsFormatted.isNotBlank() && filing.securityBeneficialsFormatted != "-" && filing.securityBeneficialsFormatted != "No Data") {
                                 filing.securityBeneficialsFormatted
                             } else if (filing.securityBeneficials > 0) {
                                 String.format(java.util.Locale.GERMANY, "%,d Aktien", filing.securityBeneficials)
                             } else {
-                                "-"
+                                "No Data"
                             }
                             val benefText = if (isEn) rawBenefText.replace("Aktien", "Shares") else rawBenefText
 
                             val natureText = if (filing.ownershipNature == "I") (if (isEn) "Indirect (I)" else "Indirekt (I)") else (if (isEn) "Direct (D)" else "Direkt (D)")
-                            val dateText = if (filing.filingTime.isNotBlank()) {
+                            val dateText = if (filing.filingTime.isNotBlank() && filing.filingTime != "No Data") {
                                 filing.filingTime.take(16).replace("T", ", ") + (if (isEn) " EST" else " Uhr")
+                            } else if (filing.filingDate.isNotBlank() && filing.filingDate != "-" && filing.filingDate != "No Data") {
+                                filing.filingDate
                             } else {
-                                filing.filingDate.ifBlank { "-" }
+                                "No Data"
                             }
                             val roleText = if (isEn) {
                                 filing.role

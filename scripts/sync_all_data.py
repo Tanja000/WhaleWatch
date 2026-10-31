@@ -149,11 +149,21 @@ def sync_sec_form4():
                 st_el = tx.find(".//securityTitle/value")
                 if st_el is not None and st_el.text:
                     sec_title = st_el.text.strip()
+                
                 coding = tx.find(".//transactionCoding")
                 if coding is not None:
                     tx_code = (coding.findtext("transactionCode") or "P").strip().upper()
                     if (coding.findtext("equitySwapInvolved") or "0").strip() == "1":
                         is_10b5_1 = True
+
+                # Transaction Date
+                tx_date = ""
+                dt_el = tx.find(".//transactionDate/value")
+                if dt_el is not None and dt_el.text:
+                    tx_date = dt_el.text.strip()
+                if not tx_date:
+                    tx_date = f_date if f_date else "No Data"
+
                 amounts = tx.find(".//transactionAmounts")
                 shs = 0
                 prc = 0.0
@@ -169,24 +179,57 @@ def sync_sec_form4():
                         prc = 0.0
                     ad = (amounts.findtext(".//transactionAcquiredDisposedCode/value") or "A").strip().upper()
 
+                # Post-transaction beneficial ownership (Bestand danach)
+                shares_after = 0
+                post_el = tx.find(".//postTransactionAmounts/sharesOwnedFollowingTransaction/value")
+                if post_el is not None and post_el.text:
+                    try:
+                        shares_after = int(float(post_el.text.strip()))
+                    except ValueError:
+                        shares_after = 0
+                if shares_after == 0:
+                    root_post = root.find(".//postTransactionAmounts/sharesOwnedFollowingTransaction/value")
+                    if root_post is not None and root_post.text:
+                        try:
+                            shares_after = int(float(root_post.text.strip()))
+                        except ValueError:
+                            shares_after = 0
+
                 val = shs * prc
                 total_shares += shs
                 total_value += val
                 is_buy = (tx_code == "P" or ad == "A") and (tx_code != "S" and tx_code != "F" and tx_code != "D")
+
+                shs_fmt = f"{shs:,} Aktien" if shs > 0 else "No Data"
+                prc_fmt = f"${prc:,.2f}" if prc > 0.0 else "No Data"
+                val_fmt = f"${round(val):,}" if val > 0.0 else "No Data"
+                benef_fmt = f"{shares_after:,} Aktien" if shares_after > 0 else "No Data"
+
                 transactions.append({
-                    "security_title": sec_title,
+                    "code": tx_code,
                     "transaction_code": tx_code,
+                    "is_buy": is_buy,
                     "acquired_disposed": ad,
+                    "security_title": sec_title,
+                    "transaction_date": tx_date,
                     "shares": shs,
-                    "price_per_share": round(prc, 2),
-                    "value": round(val, 2),
-                    "shares_after": 0
+                    "shares_formatted": shs_fmt,
+                    "price": round(prc, 2) if prc > 0.0 else 0.0,
+                    "price_formatted": prc_fmt,
+                    "total_value": round(val, 2) if val > 0.0 else 0.0,
+                    "total_value_formatted": val_fmt,
+                    "security_beneficials": shares_after,
+                    "security_beneficials_formatted": benef_fmt,
+                    "shares_after": shares_after
                 })
 
             if not transactions and total_shares == 0:
                 continue
 
             avg_price = (total_value / total_shares) if total_shares > 0 else 0.0
+            total_benef = max([t.get("security_beneficials", 0) for t in transactions] or [0])
+            primary_tx_date = transactions[0].get("transaction_date", f_date) if transactions else f_date
+
             alert = {
                 "accession_number": adsh,
                 "ticker": ticker,
@@ -199,11 +242,16 @@ def sync_sec_form4():
                 "tx_type_de": "Offenmarkt-Kauf" if is_buy else ("Planmäßiger Verkauf (10b5-1)" if is_10b5_1 else "Verkauf"),
                 "tx_type_en": "Open Market Purchase" if is_buy else ("Rule 10b5-1 Planned Sale" if is_10b5_1 else "Sale"),
                 "shares": total_shares,
-                "shares_formatted": f"{total_shares:,}",
-                "price": round(avg_price, 2),
-                "total_value": round(total_value, 2),
-                "filing_date": f_date,
-                "filing_time": f_date,
+                "shares_formatted": f"{total_shares:,} Aktien" if total_shares > 0 else "No Data",
+                "price": round(avg_price, 2) if avg_price > 0.0 else 0.0,
+                "price_formatted": f"${avg_price:,.2f}" if avg_price > 0.0 else "No Data",
+                "total_value": round(total_value, 2) if total_value > 0.0 else 0.0,
+                "total_value_formatted": f"${round(total_value):,}" if total_value > 0.0 else "No Data",
+                "security_beneficials": total_benef,
+                "security_beneficials_formatted": f"{total_benef:,} Aktien" if total_benef > 0 else "No Data",
+                "filing_date": f_date if f_date else "No Data",
+                "filing_time": f_date if f_date else "No Data",
+                "transaction_date": primary_tx_date if primary_tx_date else "No Data",
                 "filing_url": index_url,
                 "security_title": sec_title,
                 "cluster_count": 1,

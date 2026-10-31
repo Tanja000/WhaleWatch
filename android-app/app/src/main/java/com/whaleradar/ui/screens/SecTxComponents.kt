@@ -95,12 +95,14 @@ fun SecTxCompactList(alert: SecAlert, isEn: Boolean) {
                         fontWeight = FontWeight.ExtraBold,
                         color = c
                     )
-                    val price = if (tx.priceFormatted.isNotBlank() && tx.priceFormatted != "-")
-                        (if (isEn) " @ ${tx.priceFormatted}" else " à ${tx.priceFormatted}") else ""
-                    val total = if (tx.totalValueFormatted.isNotBlank() && tx.totalValueFormatted != "-")
+                    val sharesText = if (tx.sharesFormatted.isNotBlank() && tx.sharesFormatted != "-") tr(tx.sharesFormatted, isEn) else "No Data"
+                    val price = if (tx.priceFormatted.isNotBlank() && tx.priceFormatted != "-" && tx.priceFormatted != "No Data")
+                        (if (isEn) " @ ${tx.priceFormatted}" else " à ${tx.priceFormatted}")
+                        else if (tx.priceFormatted == "No Data" && sharesText != "No Data") (if (isEn) " @ No Data" else " à No Data") else ""
+                    val total = if (tx.totalValueFormatted.isNotBlank() && tx.totalValueFormatted != "-" && tx.totalValueFormatted != "No Data")
                         " (${tx.totalValueFormatted})" else ""
                     Text(
-                        text = "📊 " + tr(tx.sharesFormatted, isEn) + price + total,
+                        text = "📊 " + sharesText + price + total,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -156,18 +158,23 @@ fun SecTxDetailList(alert: SecAlert, isEn: Boolean, labelPadding: Dp = 0.dp) {
                         .replace("Stammaktien (Common Stock)", "Common Stock")
                         .ifBlank { "Common Stock" } else tx.securityTitle.ifBlank { "Common Stock" }
                     TxField("TITLE OF SECURITY", secTitle, MaterialTheme.colorScheme.onSurface)
-                    if (tx.transactionDate.isNotBlank()) {
-                        TxField(if (isEn) "TRANSACTION DATE" else "TRANSAKTIONSDATUM", tx.transactionDate, MaterialTheme.colorScheme.onSurface)
-                    }
-                    val price = if (tx.priceFormatted.isNotBlank() && tx.priceFormatted != "-")
-                        (if (isEn) " @ ${tx.priceFormatted}" else " à ${tx.priceFormatted}") else ""
-                    TxField(if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)", tr(tx.sharesFormatted, isEn) + price, CyanAccentGlow)
-                    if (tx.totalValueFormatted.isNotBlank() && tx.totalValueFormatted != "-") {
-                        TxField(if (isEn) "TOTAL VALUE" else "GESAMTWERT", tx.totalValueFormatted, MaterialTheme.colorScheme.onSurface)
-                    }
+                    
+                    val txDate = if (tx.transactionDate.isNotBlank() && tx.transactionDate != "-") tx.transactionDate else "No Data"
+                    TxField(if (isEn) "TRANSACTION DATE" else "TRANSAKTIONSDATUM", txDate, MaterialTheme.colorScheme.onSurface)
+
+                    val tShares = if (tx.sharesFormatted.isNotBlank() && tx.sharesFormatted != "-") tr(tx.sharesFormatted, isEn) else "No Data"
+                    val tPrice = if (tx.priceFormatted.isNotBlank() && tx.priceFormatted != "-" && tx.priceFormatted != "No Data")
+                        (if (isEn) " @ ${tx.priceFormatted}" else " à ${tx.priceFormatted}")
+                        else if (tx.priceFormatted == "No Data" && tShares != "No Data") (if (isEn) " @ No Data" else " à No Data") else ""
+                    TxField(if (isEn) "AMOUNT OF SECURITIES" else "STÜCKZAHL (AMOUNT)", tShares + tPrice, CyanAccentGlow)
+
+                    val tVal = if (tx.totalValueFormatted.isNotBlank() && tx.totalValueFormatted != "-" && tx.totalValueFormatted != "No Data") tx.totalValueFormatted else "No Data"
+                    TxField(if (isEn) "TOTAL VALUE" else "GESAMTWERT", tVal, MaterialTheme.colorScheme.onSurface)
+
+                    val benefVal = if (tx.securityBeneficialsFormatted.isNotBlank() && tx.securityBeneficialsFormatted != "-") tr(tx.securityBeneficialsFormatted, isEn) else "No Data"
                     TxField(
                         if (isEn) "BENEFICIALLY OWNED AFTER" else "BESTAND DANACH (BENEFICIALS)",
-                        tr(tx.securityBeneficialsFormatted.ifBlank { "-" }, isEn),
+                        benefVal,
                         GreenBuy
                     )
                     TxField(
