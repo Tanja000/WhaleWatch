@@ -1,6 +1,6 @@
 {
-  "updated_at": "2026-10-30T22:55:55.491007Z",
-  "count": 29,
+  "updated_at": "2026-10-31T02:06:08.498928Z",
+  "count": 35,
   "source": "U.S. Securities and Exchange Commission (EDGAR)",
   "source_url": "https://www.sec.gov/edgar/search/",
   "alerts": [
@@ -1054,6 +1054,243 @@
           "shares": 550000,
           "price_per_share": 0.0,
           "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001214659-26-013568",
+      "ticker": "JEF",
+      "issuer": "Jefferies Financial Group Inc.",
+      "reporting_owner": "HANDLER RICHARD B",
+      "role": "Director, CEO",
+      "code": "G",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 834538,
+      "shares_formatted": "834,538",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1211677/000121465926013568/0001214659-26-013568-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "G",
+          "acquired_disposed": "D",
+          "shares": 331685,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "G",
+          "acquired_disposed": "D",
+          "shares": 85584,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "G",
+          "acquired_disposed": "A",
+          "shares": 417269,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001697362-26-000021",
+      "ticker": "NTRA",
+      "issuer": "Natera, Inc.",
+      "reporting_owner": "Brophy Michael Burkes",
+      "role": "CHIEF FINANCIAL OFFICER",
+      "code": "S",
+      "is_buy": false,
+      "is_10b5_1": false,
+      "tx_type_de": "Verkauf",
+      "tx_type_en": "Sale",
+      "shares": 3084,
+      "shares_formatted": "3,084",
+      "price": 425.9,
+      "total_value": 1313469.88,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1697362/000169736226000021/0001697362-26-000021-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 313,
+          "price_per_share": 425.32,
+          "value": 133126.35,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 865,
+          "price_per_share": 426.87,
+          "value": 369245.23,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "S",
+          "acquired_disposed": "D",
+          "shares": 1906,
+          "price_per_share": 425.55,
+          "value": 811098.3,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001731122-26-001386",
+      "ticker": "SNES",
+      "issuer": "SenesTech, Inc.",
+      "reporting_owner": "GLENBROOK CAPITAL MANAGEMENT",
+      "role": "10% Owner",
+      "code": "P",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 30000,
+      "shares_formatted": "30,000",
+      "price": 0.97,
+      "total_value": 29056.2,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1680378/000173112226001386/0001731122-26-001386-index.htm",
+      "security_title": "Common Stock",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Common Stock, par value $0.001 per share",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 28000,
+          "price_per_share": 0.97,
+          "value": 27022.8,
+          "shares_after": 0
+        },
+        {
+          "security_title": "Common Stock",
+          "transaction_code": "P",
+          "acquired_disposed": "A",
+          "shares": 2000,
+          "price_per_share": 1.02,
+          "value": 2033.4,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-442230",
+      "ticker": "BLTE",
+      "issuer": "BELITE BIO, INC",
+      "reporting_owner": "Chuang Hao-Yuan",
+      "role": "Director, Chief Financial Officer",
+      "code": "J",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 5000,
+      "shares_formatted": "5,000",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1992008/000119312526442230/0001193125-26-442230-index.htm",
+      "security_title": "Ordinary Share",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Ordinary Share",
+          "transaction_code": "J",
+          "acquired_disposed": "A",
+          "shares": 5000,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-442229",
+      "ticker": "BLTE",
+      "issuer": "BELITE BIO, INC",
+      "reporting_owner": "Lin Yu-Hsin",
+      "role": "Director, Chief Executive Officer",
+      "code": "J",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 5000,
+      "shares_formatted": "5,000",
+      "price": 0.0,
+      "total_value": 0.0,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/1965964/000119312526442229/0001193125-26-442229-index.htm",
+      "security_title": "Ordinary Share",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Ordinary Share",
+          "transaction_code": "J",
+          "acquired_disposed": "A",
+          "shares": 5000,
+          "price_per_share": 0.0,
+          "value": 0.0,
+          "shares_after": 0
+        }
+      ]
+    },
+    {
+      "accession_number": "0001193125-26-442228",
+      "ticker": "BLTE",
+      "issuer": "BELITE BIO, INC",
+      "reporting_owner": "Chen Wan-Shan",
+      "role": "Director",
+      "code": "X",
+      "is_buy": true,
+      "is_10b5_1": false,
+      "tx_type_de": "Offenmarkt-Kauf",
+      "tx_type_en": "Open Market Purchase",
+      "shares": 13796,
+      "shares_formatted": "13,796",
+      "price": 0.44,
+      "total_value": 6050.93,
+      "filing_date": "2026-10-30",
+      "filing_time": "2026-10-30",
+      "filing_url": "https://www.sec.gov/Archives/edgar/data/2001438/000119312526442228/0001193125-26-442228-index.htm",
+      "security_title": "Ordinary Share",
+      "cluster_count": 1,
+      "transactions": [
+        {
+          "security_title": "Ordinary Share",
+          "transaction_code": "X",
+          "acquired_disposed": "A",
+          "shares": 13796,
+          "price_per_share": 0.44,
+          "value": 6050.93,
           "shares_after": 0
         }
       ]
